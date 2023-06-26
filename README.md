@@ -1,2 +1,3 @@
-# MerMer
+# MerMer-official
+
 MerMer official website
