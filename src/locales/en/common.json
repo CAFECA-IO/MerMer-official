@@ -3,7 +3,14 @@
     "CONTACT_US": "Contact Us",
     "BACK_BUTTON": "Back"
   },
-  "HOME_PAGE": {},
+  "HOME_PAGE": {
+    "MAIN_TITLE_1": "Renovate your business with our ",
+    "MAIN_TITLE_HIGHLIGHT": "Web 3.0 ",
+    "MAIN_TITLE_2": "solutions",
+    "MAIN_DESCRIPTION": "MerMer: A dynamic startup pioneering blockchain advancements for everyday integration.",
+    "NOTICE_TITLE": "IMPORTANT NOTICE",
+    "NOTICE_DESCRIPTION": "Beware of fraudulent activities! We are aware of unauthorized entities using our company name to deceive individuals into fraudulent investments. Please note that we never solicit investments directly. Protect your funds and exercise caution. Contact our verified channels for trusted information or any queries. \nStay safe from scams."
+  },
   "FOOTER": {
     "ADDRESS": "9F., No. 156, Sec. 3, Minsheng E. Rd., Songshan Dist., Taipei City 105402 , Taiwan"
   }

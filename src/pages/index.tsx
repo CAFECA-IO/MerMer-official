@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import NavBar from '../components/nav_bar/nav_bar';
+import BlueWaves from '../components/blue_waves/blue_waves';
 import Footer from '../components/footer/footer';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {ILocale} from '../interfaces/locale';
@@ -15,12 +15,8 @@ const Home = () => {
 
       <NavBar />
 
-      <main className="flex w-screen min-h-screen flex-1 flex-col bg-mermerTheme2">
-        <div className="flex flex-1 w-full py-20 bg-desktopWave bg-no-repeat bg-right bg-contain">
-          <div className="flex flex-col">
-            <h1>Renovate your business with our Web 3.0 solutions</h1>
-          </div>
-        </div>
+      <main className="flex w-screen flex-1 flex-col bg-mermerTheme2">
+        <BlueWaves />
       </main>
 
       <Footer />

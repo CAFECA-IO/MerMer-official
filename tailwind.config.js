@@ -8,7 +8,13 @@ module.exports = {
         mermerTheme2:
           'radial-gradient(127.46% 96.33% at -5.67% -30.07%, rgba(0, 118, 255, 0.20) 0%, #0F103E 100%)',
 
-        desktopWave: 'url("/elements/bluewaves_1.png")',
+        desktopWaves: 'url("/elements/bluewaves_1.png")',
+        mobileWaves: 'url("/elements/bluewaves_2.png")',
+
+        glass:
+          'linear-gradient(225deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.20) 47.40%, rgba(255, 255, 255, 0.00) 100%)',
+
+        buttonHover: 'radial-gradient(53.51% 53.51% at 50.00% 100.00%, #CCF9FF 0%, #00CEDA 100%)',
       },
       colors: {
         darkBlue1: '#30528F',
@@ -287,6 +293,17 @@ module.exports = {
       },
       boxShadow: {
         drop: '0px 4px 24px 0px #0B0B2F',
+        buttonHover:
+          '0px 1px 0px 0px rgba(255, 255, 255, 0.40) inset, 0px -4px 0px 0px rgba(0, 0, 0, 0.20) inset, 0px 0px 0px 4px rgba(255, 255, 255, 0.07), 0px 0px 180px 0px #62DDE4',
+      },
+      borderRadius: {
+        large: '20px',
+      },
+      maxWidth: {
+        '900px': '900px',
+      },
+      backgroundPosition: {
+        'top-12': 'center top 48px',
       },
     },
   },
