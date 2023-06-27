@@ -13,7 +13,7 @@ export default class MyDocument extends Document {
           />
         </Head>
 
-        <body className="bg-mermerTheme text-lightWhite1 dark:bg-mermerTheme dark:text-lightWhite1">
+        <body className="bg-mermerTheme2 text-lightWhite1 dark:bg-mermerTheme2 dark:text-lightWhite1">
           <Main />
           <NextScript />
         </body>

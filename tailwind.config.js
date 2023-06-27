@@ -5,6 +5,10 @@ module.exports = {
     extend: {
       backgroundImage: {
         mermerTheme: 'linear-gradient(180deg, #2E579C 0%, #252468 100%)',
+        mermerTheme2:
+          'radial-gradient(127.46% 96.33% at -5.67% -30.07%, rgba(0, 118, 255, 0.20) 0%, #0F103E 100%)',
+
+        desktopWave: 'url("/elements/bluewaves_1.png")',
       },
       colors: {
         darkBlue1: '#30528F',
