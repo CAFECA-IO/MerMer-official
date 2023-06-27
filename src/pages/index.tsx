@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import NavBar from '../components/nav_bar/nav_bar';
+import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
+import {ILocale} from '../interfaces/locale';
 
 const Home = () => {
   return (
@@ -80,5 +82,13 @@ const Home = () => {
     </div>
   );
 };
+
+const getStaticPropsFunction = async ({locale}: ILocale) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ['common'])),
+  },
+});
+
+export const getStaticProps = getStaticPropsFunction;
 
 export default Home;

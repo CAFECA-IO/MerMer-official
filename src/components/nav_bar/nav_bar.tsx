@@ -1,8 +1,11 @@
 import {useState} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import {useTranslation} from 'next-i18next';
+import {TranslateFunction} from '../../interfaces/locale';
 
 const NavBar = () => {
+  const {t}: {t: TranslateFunction} = useTranslation('common');
   const burgerStyle = 'block h-1 w-6 rounded-3xl bg-white transition-all duration-300 ease-in';
 
   const [showMenu, setShowMenu] = useState(false);
@@ -12,7 +15,7 @@ const NavBar = () => {
     <ul className="lg:flex hidden items-center space-x-12 font-Dosis font-medium text-base">
       <li className="px-2 py-3 hover:text-lightBlue1">
         <Link href="/#contact_us" scroll={false}>
-          Contact Us
+          {t('NAV_BAR.CONTACT_US')}
         </Link>
       </li>
       <li className="px-2 py-3 hover:text-lightBlue1">Language</li>
@@ -28,7 +31,7 @@ const NavBar = () => {
       <li className="px-2 py-3 m-2 hover:text-lightBlue1">Language</li>
       <li className="px-2 py-3 m-2 hover:text-lightBlue1">
         <Link href="/#contact_us" scroll={false}>
-          Contact Us
+          {t('NAV_BAR.CONTACT_US')}
         </Link>
       </li>
     </ul>

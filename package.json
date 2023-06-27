@@ -13,10 +13,13 @@
     "validate": "npm run test && npm run check-format && npm run lint"
   },
   "dependencies": {
+    "i18next": "^23.2.3",
     "next": "13.4.7",
+    "next-i18next": "^14.0.0",
     "prettier": "^2.8.8",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-i18next": "^13.0.1"
   },
   "devDependencies": {
     "@types/jest": "^29.5.2",
