@@ -8,7 +8,7 @@ const BlueWaves = () => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
   const mobileDisplay = (
-    <div className="flex flex-col w-full bg-mobileWaves bg-no-repeat bg-contain bg-top-12 lg:hidden">
+    <div className="flex flex-col w-full bg-mobileWaves bg-no-repeat bg-contain bg-top-12 md:hidden">
       <div className="flex flex-col items-center py-60 space-y-12 px-4">
         <h1 className="text-2xl font-bold">
           {t('HOME_PAGE.MAIN_TITLE_1')}
@@ -34,7 +34,7 @@ const BlueWaves = () => {
   );
 
   const desktopDisplay = (
-    <div className="hidden flex-col w-full bg-desktopWaves bg-no-repeat bg-right bg-auto lg:flex">
+    <div className="hidden flex-col w-full bg-desktopWaves bg-no-repeat bg-right bg-auto md:flex">
       <div className="my-40 flex flex-1 flex-col items-start justify-center w-3/5 px-20 space-y-16">
         <h1 className="text-54px font-bold">
           {t('HOME_PAGE.MAIN_TITLE_1')}
