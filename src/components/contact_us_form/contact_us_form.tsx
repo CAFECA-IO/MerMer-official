@@ -1,3 +1,5 @@
+import {useState} from 'react';
+import useInputNumber from '../../lib/hooks/use_input_number';
 import Image from 'next/image';
 import MerMerButton from '../mermer_button/mermer_button';
 import {useTranslation} from 'next-i18next';
@@ -5,6 +7,29 @@ import {TranslateFunction} from '../../interfaces/locale';
 
 const ContactUsForm = () => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
+
+  const [inputName, setInputName] = useState('');
+  const [inputPhone, setInputPhone] = useInputNumber('');
+  const [inputEmail, setInputEmail] = useState('');
+  const [inputMessage, setInputMessage] = useState('');
+
+  // Info: (20230628 - Julian) input change handler
+  const nameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputName(event.target.value);
+  };
+  const phoneChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputPhone(event.target.value);
+  };
+  const emailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputEmail(event.target.value);
+  };
+  const messageChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInputMessage(event.target.value);
+  };
+
+  // Info: (20230628 - Julian) email verify
+  const emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+  const emailIsValid = emailRule.test(inputEmail);
 
   const displayContactUsForm = (
     <div className="flex h-auto flex-col items-center space-y-12 rounded-3xl bg-mermerTheme px-5 py-12 text-center shadow-drop lg:w-540px lg:p-12">
@@ -26,6 +51,8 @@ const ContactUsForm = () => {
             className="mt-2 h-50px w-full bg-darkBlue3 px-4 py-2 text-base text-lightGray1"
             id="name"
             type="text"
+            onChange={nameChangeHandler}
+            value={inputName || ''}
           />
         </div>
 
@@ -37,6 +64,8 @@ const ContactUsForm = () => {
             className="mt-2 h-50px w-full bg-darkBlue3 px-4 py-2 text-base text-lightGray1"
             id="phone"
             type="text"
+            onChange={phoneChangeHandler}
+            value={inputPhone || ''}
           />
         </div>
 
@@ -48,6 +77,8 @@ const ContactUsForm = () => {
             className="mt-2 h-50px w-full bg-darkBlue3 px-4 py-2 text-base text-lightGray1"
             id="email"
             type="text"
+            onChange={emailChangeHandler}
+            value={inputEmail || ''}
             required
           />
         </div>
@@ -62,12 +93,22 @@ const ContactUsForm = () => {
             rows={7}
             wrap="soft"
             placeholder={t('HOME_PAGE.CONTACT_US_MESSAGE_PLACEHOLDER')}
+            onChange={messageChangeHandler}
+            value={inputMessage || ''}
             required
           />
         </div>
 
-        <div className="pt-9">
-          <MerMerButton className=" space-x-2 px-10 py-10px" id="submit" type="submit">
+        <div className="flex flex-col items-center space-y-4 pt-5">
+          <p className={emailIsValid ? 'opacity-0' : 'opacity-50'}>
+            {t('HOME_PAGE.CONTACT_US_EMAIL_VERIFY')}
+          </p>
+          <MerMerButton
+            className=" space-x-2 px-10 py-10px"
+            id="submit"
+            type="submit"
+            disabled={emailIsValid ? false : true}
+          >
             <Image src="/icons/sent.svg" alt="" width={24} height={24} />
             <p className="text-lg font-bold">{t('HOME_PAGE.CONTACT_US_SUBMIT')}</p>
           </MerMerButton>
