@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import NavBar from '../components/nav_bar/nav_bar';
 import BlueWaves from '../components/blue_waves/blue_waves';
+import CatchUp from '../components/catch_up/catch_up';
 import Footer from '../components/footer/footer';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {ILocale} from '../interfaces/locale';
@@ -10,13 +11,15 @@ const Home = () => {
     <div className="flex min-h-screen flex-col items-center justify-center">
       <Head>
         <title>MerMer</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon/favicon.ico" />
       </Head>
 
       <NavBar />
 
       <main className="flex w-screen flex-1 flex-col bg-mermerTheme2">
         <BlueWaves />
+
+        <CatchUp />
       </main>
 
       <Footer />
