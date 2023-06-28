@@ -19,7 +19,7 @@ const NavBar = () => {
           {t('NAV_BAR.CONTACT_US')}
         </Link>
       </li>
-      <li className="px-2 py-3 hover:text-lightBlue1">
+      <li className="px-2 py-3">
         <I18n />
       </li>
     </ul>
@@ -31,7 +31,7 @@ const NavBar = () => {
         showMenu ? 'visible h-140px opacity-100' : 'h-0 opacity-0 invisible'
       } font-Barlow bg-mermerTheme font-medium text-base transition-all duration-300 ease-in shadow-drop`}
     >
-      <li className="px-2 py-3 m-2 hover:text-lightBlue1">
+      <li className="px-2 py-3 m-2">
         <I18n />
       </li>
       <li className="px-2 py-3 m-2 hover:text-lightBlue1">
