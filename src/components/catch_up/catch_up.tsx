@@ -8,7 +8,10 @@ const CatchUp = () => {
 
   const displayWeb3Content = web3Content.map(({title, description}) => {
     return (
-      <div className="flex flex-col items-start rounded-large bg-glass px-10 py-5 shadow-drop">
+      <div
+        key={title}
+        className="flex flex-col items-start rounded-large bg-glass px-10 py-5 shadow-drop"
+      >
         <h1 className="text-3xl">{t(title)}</h1>
         <p className="mt-4 text-lg">{t(description)}</p>
       </div>

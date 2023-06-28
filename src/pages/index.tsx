@@ -2,6 +2,7 @@ import Head from 'next/head';
 import NavBar from '../components/nav_bar/nav_bar';
 import BlueWaves from '../components/blue_waves/blue_waves';
 import CatchUp from '../components/catch_up/catch_up';
+import ContactUsForm from '../components/contact_us_form/contact_us_form';
 import Footer from '../components/footer/footer';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {ILocale} from '../interfaces/locale';
@@ -20,6 +21,8 @@ const Home = () => {
         <BlueWaves />
 
         <CatchUp />
+
+        <ContactUsForm />
       </main>
 
       <Footer />

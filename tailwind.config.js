@@ -20,10 +20,13 @@ module.exports = {
       colors: {
         darkBlue1: '#30528F',
         darkBlue2: '#10164A',
+        darkBlue3: '#0F103E',
 
         lightBlue1: '#62DDE4',
 
         lightWhite1: '#F2F2F2',
+
+        lightGray1: '#8B8F92',
       },
       fontFamily: {
         Dosis: 'Dosis, sans-serif',
