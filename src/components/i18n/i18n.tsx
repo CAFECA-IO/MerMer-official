@@ -33,14 +33,14 @@ const I18n = () => {
 
   const desktopMenu = (
     <ul
-      className={`absolute hidden mt-3 flex-col items-center bg-mermerTheme px-2 ${
-        showMenu ? 'opacity-100 visible' : 'opacity-0 invisible'
+      className={`absolute mt-3 hidden flex-col items-center bg-mermerTheme px-2 ${
+        showMenu ? 'visible opacity-100' : 'invisible opacity-0'
       } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in lg:flex`}
     >
       {internationalizationList.map(({label, value}) => (
         <li
           key={value}
-          className="py-3 w-full text-center hover:cursor-pointer hover:bg-dropDownHover hover:text-lightWhite1"
+          className="w-full py-3 text-center hover:cursor-pointer hover:bg-dropDownHover hover:text-lightWhite1"
         >
           <Link
             href={asPath}
@@ -57,9 +57,9 @@ const I18n = () => {
 
   const mobileMenu = (
     <ul
-      className={`flex left-0 top-0 z-10 lg:hidden absolute flex-col items-center w-screen ${
-        showMenu ? 'visible h-240px' : 'h-140px invisible' // Info: (20230628 - Julian) 隱藏時的高度要跟 Navbar 的 mobileMenu 高度一樣，才會有延伸的效果
-      } font-Barlow bg-mermerTheme font-medium text-base space-y-2 py-3 transition-all duration-300 ease-in shadow-drop`}
+      className={`absolute left-0 top-0 z-10 flex w-screen flex-col items-center lg:hidden ${
+        showMenu ? 'visible h-240px' : 'invisible h-140px' // Info: (20230628 - Julian) 隱藏時的高度要跟 Navbar 的 mobileMenu 高度一樣，才會有延伸的效果
+      } space-y-2 bg-mermerTheme py-3 font-Barlow text-base font-medium shadow-drop transition-all duration-300 ease-in`}
     >
       {internationalizationList.map(({label, value}) => (
         <li key={value} className="flex w-full justify-center py-3 hover:cursor-pointer">
@@ -70,7 +70,7 @@ const I18n = () => {
       ))}
       <li
         onClick={showMenuHandler}
-        className="flex w-full items-center justify-center space-x-2 py-3 text-darkBlue hover:cursor-pointer hover:text-brandOrange"
+        className="flex w-full items-center justify-center space-x-2 py-3 hover:cursor-pointer"
       >
         <ImArrowLeft2 />
         <p>{t('NAV_BAR.BACK_BUTTON')}</p>
@@ -81,7 +81,7 @@ const I18n = () => {
   return (
     <>
       <button
-        className="relative w-130px flex items-center space-x-2 hover:text-lightBlue1 hover:cursor-pointer"
+        className="relative flex w-130px items-center space-x-2 hover:cursor-pointer hover:text-lightBlue1"
         onClick={showMenuHandler}
       >
         <PiGlobe className="text-2xl" />
