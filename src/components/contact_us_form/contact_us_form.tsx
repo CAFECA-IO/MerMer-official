@@ -140,16 +140,16 @@ const ContactUsForm = () => {
 
   const formPart = (
     <div
-      className={`flex w-full flex-col items-center space-y-12 ${
+      className={`flex w-full flex-col items-center space-y-4 ${
         showAnim ? 'opacity-0' : 'opacity-100'
-      } px-5 py-12 transition-opacity duration-300 ease-in-out lg:p-12`}
+      } px-5 py-12 transition-opacity duration-300 ease-in-out lg:px-12 lg:py-8`}
     >
       <div className="flex flex-col items-center space-y-2">
         <h1 className="text-2xl font-bold sm:text-42px">{t('HOME_PAGE.CONTACT_US_TITLE')}</h1>
         <p className="text-sm sm:text-lg">{t('HOME_PAGE.CONTACT_US_DESCRIPTION')}</p>
       </div>
 
-      <form onSubmit={submitHandler} className="flex w-full flex-col items-center space-y-4">
+      <form onSubmit={submitHandler} className="flex w-full flex-col items-center space-y-2">
         <div className="flex w-full flex-col items-start">
           <label htmlFor="name" className="text-sm sm:text-base">
             {t('HOME_PAGE.CONTACT_US_NAME')}
@@ -197,7 +197,7 @@ const ContactUsForm = () => {
           <textarea
             className="mt-2 w-full bg-darkBlue3 px-4 py-2 text-sm text-lightGray1 sm:text-base"
             id="message"
-            rows={7}
+            rows={5}
             wrap="soft"
             placeholder={t('HOME_PAGE.CONTACT_US_MESSAGE_PLACEHOLDER')}
             onChange={messageChangeHandler}
@@ -253,7 +253,7 @@ const ContactUsForm = () => {
         />
       </div>
 
-      <div className="z-20 mx-auto flex w-full px-4 py-24 lg:mx-0 lg:ml-auto lg:w-auto lg:px-160px lg:py-10">
+      <div className="z-20 mx-auto flex w-full px-4 py-24 lg:mx-0 lg:ml-auto lg:w-auto lg:scale-80 lg:px-160px lg:py-10 2xl:scale-100">
         {displayContactUsForm}
       </div>
     </div>

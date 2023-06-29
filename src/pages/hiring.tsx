@@ -20,7 +20,7 @@ const HiringPage = () => {
       <NavBar />
 
       <main className="flex w-screen flex-1 flex-col bg-darkBlue3 py-20">
-        <div className="flex min-h-screen w-full flex-col items-center justify-center bg-hiringBanner bg-contain bg-no-repeat font-Dosis">
+        <div className="flex min-h-screen w-full flex-col items-center justify-center bg-hiringBanner bg-contain bg-center bg-no-repeat font-Dosis">
           <h1 className="text-54px font-bold drop-shadow-heightLight">{t('HIRING_PAGE.BANNER')}</h1>
         </div>
       </main>
