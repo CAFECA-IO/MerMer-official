@@ -253,6 +253,7 @@ const ContactUsForm = () => {
         />
       </div>
 
+      {/* Info: (20230629 - Julian) 1024px < screen < 1536px 時，縮小 80% 讓表單可以整個呈現在畫面上 */}
       <div className="z-20 mx-auto flex w-full px-4 py-24 lg:mx-0 lg:ml-auto lg:w-auto lg:scale-80 lg:px-160px lg:py-10 2xl:scale-100">
         {displayContactUsForm}
       </div>
