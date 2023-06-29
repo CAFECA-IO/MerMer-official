@@ -11,6 +11,8 @@ module.exports = {
         desktopWaves: 'url("/elements/bluewaves_1.png")',
         mobileWaves: 'url("/elements/bluewaves_2.png")',
 
+        hiringBanner: 'url("/elements/hiring_banner.png")',
+
         glass:
           'linear-gradient(225deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.20) 47.40%, rgba(255, 255, 255, 0.00) 100%)',
 
