@@ -49,7 +49,7 @@ const NavBar = () => {
           <div className="relative flex w-full flex-1 items-center justify-between p-4">
             <Link href="/#">
               <Image
-                src="/logos/MerMer.svg"
+                src="/logos/mermer_logo.svg"
                 alt="MerMer_logo"
                 width={0}
                 height={0}

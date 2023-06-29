@@ -14,7 +14,7 @@ const WhatWeOffer = () => {
         </div>
         <div className="mt-6 flex w-full flex-1 flex-col items-center text-center">
           <h1 className="text-xl font-bold">{t(title)}</h1>
-          <p className="py-4 text-base font-bold font-normal">{t(description)}</p>
+          <p className="py-4 text-base font-normal">{t(description)}</p>
         </div>
       </div>
     );

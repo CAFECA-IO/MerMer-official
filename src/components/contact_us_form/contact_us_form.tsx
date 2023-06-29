@@ -142,7 +142,7 @@ const ContactUsForm = () => {
     <div
       className={`flex w-full flex-col items-center space-y-12 ${
         showAnim ? 'opacity-0' : 'opacity-100'
-      } px-5 py-12 transition-all duration-300 ease-in-out lg:p-12`}
+      } px-5 py-12 transition-opacity duration-300 ease-in-out lg:p-12`}
     >
       <div className="flex flex-col items-center space-y-2">
         <h1 className="text-2xl font-bold sm:text-42px">{t('HOME_PAGE.CONTACT_US_TITLE')}</h1>

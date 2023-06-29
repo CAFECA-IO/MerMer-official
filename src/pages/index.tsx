@@ -3,6 +3,7 @@ import NavBar from '../components/nav_bar/nav_bar';
 import BlueWaves from '../components/blue_waves/blue_waves';
 import CatchUp from '../components/catch_up/catch_up';
 import WhatWeOffer from '../components/what_we_offer/what_we_offer';
+import WhyMermer from '../components/why_mermer/why_mermer';
 import ContactUsForm from '../components/contact_us_form/contact_us_form';
 import Footer from '../components/footer/footer';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
@@ -24,6 +25,8 @@ const Home = () => {
         <CatchUp />
 
         <WhatWeOffer />
+
+        <WhyMermer />
 
         <ContactUsForm />
       </main>
