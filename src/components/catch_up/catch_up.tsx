@@ -30,28 +30,21 @@ const CatchUp = () => {
 
       <div className="relative flex flex-col items-center lg:flex-row">
         {/* Info: (20230628 - Julian) Picture for desktop */}
-        <div className="hidden h-full w-full pr-10 lg:block">
-          <Image
-            src="/elements/web3.0_laptop_1.png"
-            alt="web3.0"
-            height={500}
-            width={800}
-            //className="drop-shadow-heightLight2"
-          />
+        <div className="absolute -left-52 hidden h-full w-full pr-10 lg:block">
+          <Image src="/elements/web3.0_laptop_desktop.png" alt="web3.0" height={500} width={800} />
         </div>
 
         {/* Info: (20230628 - Julian) Picture for mobile */}
-        <div className="relative my-20 block h-200px w-full lg:hidden">
+        <div className="absolute block h-400px w-full lg:hidden">
           <Image
-            src="/elements/web3.0_laptop_2.png"
+            src="/elements/web3.0_laptop_mobile.png"
             alt="web3.0"
             fill
             style={{objectFit: 'contain'}}
-            //className="drop-shadow-heightLight2"
           />
         </div>
 
-        <div className="grid grid-cols-1 gap-y-6 px-4 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-10 lg:px-0 lg:py-40 lg:pr-10">
+        <div className="z-10 mt-300px grid grid-cols-1 gap-y-6 px-4 lg:ml-auto lg:mt-0 lg:w-3/5 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-10 lg:px-10 lg:py-40">
           {displayWeb3Content}
         </div>
       </div>
