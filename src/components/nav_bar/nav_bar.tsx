@@ -13,13 +13,16 @@ const NavBar = () => {
   const showMenuHandler = () => setShowMenu(!showMenu);
 
   const desktopMenu = (
-    <ul className="hidden items-center space-x-12 font-Dosis text-base font-medium lg:flex">
-      <li className="px-2 py-3 hover:text-lightBlue1">
+    <ul className="hidden items-center space-x-4 font-Dosis text-base font-medium lg:flex">
+      <li className="px-2 py-3 hover:cursor-pointer hover:text-lightBlue1">
+        <Link href="/hiring">{t('NAV_BAR.HIRING')}</Link>
+      </li>
+      <li className="px-2 py-3 hover:cursor-pointer hover:text-lightBlue1">
         <Link href="/#contact_us" scroll={false}>
           {t('NAV_BAR.CONTACT_US')}
         </Link>
       </li>
-      <li className="px-2 py-3">
+      <li className="px-2 py-3 hover:cursor-pointer">
         <I18n />
       </li>
     </ul>
@@ -28,13 +31,16 @@ const NavBar = () => {
   const mobileMenu = (
     <ul
       className={`absolute left-0 top-80px -z-10 flex w-screen flex-col items-center lg:hidden ${
-        showMenu ? 'visible h-140px opacity-100' : 'invisible h-0 opacity-0'
+        showMenu ? 'visible h-200px opacity-100' : 'invisible h-0 opacity-0'
       } bg-mermerTheme font-Barlow text-base font-medium shadow-drop transition-all duration-300 ease-in`}
     >
       <li className="m-2 px-2 py-3">
         <I18n />
       </li>
-      <li className="m-2 px-2 py-3 hover:text-lightBlue1">
+      <li className="m-2 px-2 py-3 hover:cursor-pointer hover:text-lightBlue1">
+        <Link href="/hiring">{t('NAV_BAR.HIRING')}</Link>
+      </li>
+      <li className="m-2 px-2 py-3 hover:cursor-pointer hover:text-lightBlue1">
         <Link href="/#contact_us" scroll={false}>
           {t('NAV_BAR.CONTACT_US')}
         </Link>
@@ -49,7 +55,7 @@ const NavBar = () => {
           <div className="relative flex w-full flex-1 items-center justify-between p-4">
             <Link href="/#">
               <Image
-                src="/logos/MerMer.svg"
+                src="/logos/mermer_logo.svg"
                 alt="MerMer_logo"
                 width={0}
                 height={0}

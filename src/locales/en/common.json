@@ -1,6 +1,7 @@
 {
   "NAV_BAR": {
     "CONTACT_US": "Contact Us",
+    "HIRING": "Hiring",
     "LANGUAGE": "Language",
     "BACK_BUTTON": "Back"
   },
@@ -43,9 +44,33 @@
     "CONTACT_US_MESSAGE": "Message",
     "CONTACT_US_MESSAGE_PLACEHOLDER": "What do you want to say...",
     "CONTACT_US_SUBMIT": "Send",
-    "CONTACT_US_SUCCESS": "Sent!",
+    "CONTACT_US_SUCCESS": "Sent !",
     "CONTACT_US_ERROR": "Something went wrong ! Please try again.",
     "CONTACT_US_TRY_AGAIN": "Try again"
+  },
+  "HIRING_PAGE": {
+    "BANNER": "We Want You !",
+    "JOB_DESCRIPTION": "Job Descriptions",
+    "JOB_REQUIREMENT": "Requirements",
+    "JOB_1_NAME": "Front-End Engineer",
+    "JOB_1_DETAIL_1": "Full Time",
+    "JOB_1_DETAIL_2": "Salary : 50k - 70k TWD",
+    "JOB_1_DETAIL_3": "Taipei, Taiwan",
+    "JOB_1_DESCRIPTION_1": "Develop and maintain the official websites for various company products.",
+    "JOB_1_DESCRIPTION_2": "Handle Cafeca/ TideBit/ Boltchain/ iSunTV service series.",
+    "JOB_1_DESCRIPTION_3": "Ensure the quality of company products.",
+    "JOB_1_DESCRIPTION_4": "Establish and maintain automated testing processes.",
+    "JOB_1_DESCRIPTION_5": "Continuously improve unit test coverage.",
+    "JOB_1_DESCRIPTION_6": "Collaborate on industry partnership projects.",
+    "JOB_1_DESCRIPTION_7": "Conduct technical research in collaboration with academic institutions.",
+    "JOB_1_DESCRIPTION_8": "Write work logs, technical reports, technical specifications, project documents, and patents. Attend meetings and give presentations.",
+    "JOB_1_REQUIREMENT_1": "Familiarity with front-end development frameworks such as React, RxJS, Next.js.",
+    "JOB_1_REQUIREMENT_2": "Proficiency in Flutter app development technology.",
+    "JOB_1_REQUIREMENT_3": "Familiarity with common front-end development tools like Babel, webpack, NPM.",
+    "JOB_1_REQUIREMENT_4": "Ability to communicate and confirm development specifications using UML.",
+    "JOB_1_REQUIREMENT_5": "Good English reading and writing skills.",
+    "JOB_1_REQUIREMENT_6": "Familiarity with Git flow workflow.",
+    "JOB_1_REQUIREMENT_7": "Ability to identify potential software issues."
   },
   "FOOTER": {
     "ADDRESS": "9F., No. 156, Sec. 3, Minsheng E. Rd., Songshan Dist., Taipei City 105402 , Taiwan"

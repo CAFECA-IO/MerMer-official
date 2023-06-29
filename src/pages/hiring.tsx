@@ -1,34 +1,28 @@
 import Head from 'next/head';
 import NavBar from '../components/nav_bar/nav_bar';
-import BlueWaves from '../components/blue_waves/blue_waves';
-import CatchUp from '../components/catch_up/catch_up';
-import WhatWeOffer from '../components/what_we_offer/what_we_offer';
-import WhyMermer from '../components/why_mermer/why_mermer';
-import ContactUsForm from '../components/contact_us_form/contact_us_form';
 import Footer from '../components/footer/footer';
+import Image from 'next/image';
+import {useTranslation} from 'next-i18next';
+import {TranslateFunction} from '../interfaces/locale';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {ILocale} from '../interfaces/locale';
 
-const Home = () => {
+const HiringPage = () => {
+  const {t}: {t: TranslateFunction} = useTranslation('common');
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
       <Head>
-        <title>MerMer</title>
+        <title>MerMer - Hiring</title>
         <link rel="icon" href="/favicon/favicon.ico" />
       </Head>
 
       <NavBar />
 
-      <main className="flex w-screen flex-1 flex-col bg-mermerTheme2">
-        <BlueWaves />
-
-        <CatchUp />
-
-        <WhatWeOffer />
-
-        <WhyMermer />
-
-        <ContactUsForm />
+      <main className="flex w-screen flex-1 flex-col bg-darkBlue3 py-20">
+        <div className="flex min-h-screen w-full flex-col items-center justify-center bg-hiringBanner bg-contain bg-center bg-no-repeat font-Dosis">
+          <h1 className="text-54px font-bold drop-shadow-heightLight">{t('HIRING_PAGE.BANNER')}</h1>
+        </div>
       </main>
 
       <Footer />
@@ -44,4 +38,4 @@ const getStaticPropsFunction = async ({locale}: ILocale) => ({
 
 export const getStaticProps = getStaticPropsFunction;
 
-export default Home;
+export default HiringPage;

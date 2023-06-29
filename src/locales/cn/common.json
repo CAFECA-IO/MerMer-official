@@ -1,14 +1,15 @@
 {
   "NAV_BAR": {
     "CONTACT_US": "联络我们",
+    "HIRING": "人才招募",
     "LANGUAGE": "语言",
     "BACK_BUTTON": "返回"
   },
   "HOME_PAGE": {
-    "MAIN_TITLE_1": "透过我们的 ",
+    "MAIN_TITLE_1": "透过 ",
     "MAIN_TITLE_HIGHLIGHT": "Web 3.0 ",
-    "MAIN_TITLE_2": "方案，为您的业务带来翻新",
-    "MAIN_DESCRIPTION": "墨沫有限公司是一家充满活力的初创公司，引领区块链在日常整合方面的创新",
+    "MAIN_TITLE_2": "方案，为您的企业带来更多可能",
+    "MAIN_DESCRIPTION": "墨沫有限公司是一家充满活力的初创公司，我们的目标是引领区块链在日常生活各方面的创新",
     "NOTICE_TITLE": "重要通知",
     "NOTICE_DESCRIPTION": "近来诈骗手段层出不穷，请注意：墨沫有限公司绝不会提供任何形式的“理财建议”、“基金投资”或“代客操盘”等服务，更不会向用户拟定任何契约。若您收到任何通讯、简讯、电话或社群软体邀请您加入投资群组，并保证“高获利、低风险”等投资回报，请您立即拨打 165 反诈骗专线进行查证。切勿向对方透露任何金融资料或个人资讯，以确保您的权益不受损害。",
     "CATCH_UP_TITLE": "跟上时代！",
@@ -23,11 +24,11 @@
     "CATCH_UP_BLOCK_4_TITLE": "科技创新",
     "CATCH_UP_BLOCK_4_DESCRIPTION": "去中心化、流程优化、个人化互动、新的收入模式、全球扩展以及卓越的数位隐私保障",
     "WHAT_WE_OFFER_TITLE": "我们的服务",
-    "WHAT_WE_OFFER_BLOCK_1_TITLE": "顾问",
+    "WHAT_WE_OFFER_BLOCK_1_TITLE": "专业顾问",
     "WHAT_WE_OFFER_BLOCK_1_DESCRIPTION": "区块链系统整合和实施技术顾问",
-    "WHAT_WE_OFFER_BLOCK_2_TITLE": "技术",
+    "WHAT_WE_OFFER_BLOCK_2_TITLE": "技术开发",
     "WHAT_WE_OFFER_BLOCK_2_DESCRIPTION": "去中心化身份验证技术",
-    "WHAT_WE_OFFER_BLOCK_3_TITLE": "安全",
+    "WHAT_WE_OFFER_BLOCK_3_TITLE": "数据安全",
     "WHAT_WE_OFFER_BLOCK_3_DESCRIPTION": "智能合约审计",
     "WHY_US_TITLE": "为何选择 MerMer ？",
     "WHY_US_BLOCK_1_TITLE": "顾客满意度",

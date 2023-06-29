@@ -26,7 +26,7 @@ class SendMail {
       /* Info: (20230324 - Julian) 收信人 */
       to: config.googleClientID,
       /* Info: (20230324 - Julian) 主旨 */
-      subject: 'iSunCloud 表單回覆',
+      subject: 'MerMer 表單回覆',
       /* Info: (20230324 - Julian) plaintext body */
       text: comment,
       /* Info: (20230324 - Julian) html body */
