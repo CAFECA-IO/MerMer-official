@@ -36,7 +36,7 @@ const CatchUp = () => {
             alt="web3.0"
             height={500}
             width={800}
-            className="drop-shadow-heightLight2"
+            //className="drop-shadow-heightLight2"
           />
         </div>
 
@@ -47,7 +47,7 @@ const CatchUp = () => {
             alt="web3.0"
             fill
             style={{objectFit: 'contain'}}
-            className="drop-shadow-heightLight2"
+            //className="drop-shadow-heightLight2"
           />
         </div>
 
