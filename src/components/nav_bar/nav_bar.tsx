@@ -13,13 +13,13 @@ const NavBar = () => {
   const showMenuHandler = () => setShowMenu(!showMenu);
 
   const desktopMenu = (
-    <ul className="lg:flex hidden items-center space-x-12 font-Dosis font-medium text-base">
+    <ul className="hidden items-center space-x-12 font-Dosis text-base font-medium lg:flex">
       <li className="px-2 py-3 hover:text-lightBlue1">
         <Link href="/#contact_us" scroll={false}>
           {t('NAV_BAR.CONTACT_US')}
         </Link>
       </li>
-      <li className="px-2 py-3 hover:text-lightBlue1">
+      <li className="px-2 py-3">
         <I18n />
       </li>
     </ul>
@@ -27,14 +27,14 @@ const NavBar = () => {
 
   const mobileMenu = (
     <ul
-      className={`flex left-0 lg:hidden absolute top-80px flex-col items-center w-screen -z-10 ${
-        showMenu ? 'visible h-140px opacity-100' : 'h-0 opacity-0 invisible'
-      } font-Barlow bg-mermerTheme font-medium text-base transition-all duration-300 ease-in shadow-drop`}
+      className={`absolute left-0 top-80px -z-10 flex w-screen flex-col items-center lg:hidden ${
+        showMenu ? 'visible h-140px opacity-100' : 'invisible h-0 opacity-0'
+      } bg-mermerTheme font-Barlow text-base font-medium shadow-drop transition-all duration-300 ease-in`}
     >
-      <li className="px-2 py-3 m-2 hover:text-lightBlue1">
+      <li className="m-2 px-2 py-3">
         <I18n />
       </li>
-      <li className="px-2 py-3 m-2 hover:text-lightBlue1">
+      <li className="m-2 px-2 py-3 hover:text-lightBlue1">
         <Link href="/#contact_us" scroll={false}>
           {t('NAV_BAR.CONTACT_US')}
         </Link>
@@ -44,9 +44,9 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="fixed inset-0 z-50 flex h-80px w-screen bg-mermerTheme px-4 lg:px-20 shadow-drop lg:shadow-none">
-        <div className="flex w-full flex-col lg:flex-row text-lightWhite1">
-          <div className="relative flex w-full items-center flex-1 justify-between p-4">
+      <div className="fixed inset-0 z-50 flex h-80px w-screen bg-mermerTheme px-4 shadow-drop lg:px-20 lg:shadow-none">
+        <div className="flex w-full flex-col text-lightWhite1 lg:flex-row">
+          <div className="relative flex w-full flex-1 items-center justify-between p-4">
             <Link href="/#">
               <Image
                 src="/logos/MerMer.svg"
@@ -57,7 +57,7 @@ const NavBar = () => {
               />
             </Link>
 
-            <button className="flex lg:hidden space-y-1 flex-col" onClick={showMenuHandler}>
+            <button className="flex flex-col space-y-1 lg:hidden" onClick={showMenuHandler}>
               <span
                 className={`${burgerStyle} ${
                   showMenu ? 'translate-y-8px rotate-45' : 'translate-y-0 rotate-0'

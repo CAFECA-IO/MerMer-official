@@ -15,14 +15,18 @@ module.exports = {
           'linear-gradient(225deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.20) 47.40%, rgba(255, 255, 255, 0.00) 100%)',
 
         buttonHover: 'radial-gradient(53.51% 53.51% at 50.00% 100.00%, #CCF9FF 0%, #00CEDA 100%)',
+        dropDownHover: 'linear-gradient(180deg, #30528F 0%, #10164A 100%)',
       },
       colors: {
         darkBlue1: '#30528F',
         darkBlue2: '#10164A',
+        darkBlue3: '#0F103E',
 
         lightBlue1: '#62DDE4',
 
         lightWhite1: '#F2F2F2',
+
+        lightGray1: '#8B8F92',
       },
       fontFamily: {
         Dosis: 'Dosis, sans-serif',
@@ -37,7 +41,7 @@ module.exports = {
         lg: ['18px', '28px'],
         xl: ['20px', '28px'],
         '2xl': ['24px', '32px'],
-        '3xl': ['30px', '36px'],
+        '3xl': ['32px', '36px'],
         '4xl': ['36px', '40px'],
         '42px': ['42px', '48px'],
         '5xl': ['48px', 1],
@@ -201,6 +205,7 @@ module.exports = {
         '700px': '700px',
         '720px': '720px',
         '726px': '726px',
+        '800px': '800px',
         '810px': '810px',
         '1000px': '1000px',
         '1200px': '1200px',
@@ -292,6 +297,13 @@ module.exports = {
         drop: '0px 4px 24px 0px #0B0B2F',
         buttonHover:
           '0px 1px 0px 0px rgba(255, 255, 255, 0.40) inset, 0px -4px 0px 0px rgba(0, 0, 0, 0.20) inset, 0px 0px 0px 4px rgba(255, 255, 255, 0.07), 0px 0px 180px 0px #62DDE4',
+      },
+      dropShadow: {
+        heightLight: [
+          '0px 0px 24px rgba(98, 221, 228, 0.50)',
+          '0px 0px 10px rgba(98, 221, 228, 0.80)',
+        ],
+        heightLight2: ['0px 0px 32px rgba(0, 118, 255, 0.70)'],
       },
       borderRadius: {
         large: '20px',
