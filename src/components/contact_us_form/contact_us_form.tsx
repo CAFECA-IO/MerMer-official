@@ -11,8 +11,6 @@ const ContactUsForm = () => {
   // Info: (20230629 - Julian) 信件送出的時間
   const now = new Date().toLocaleString('zh-TW', {timeZone: 'Asia/Taipei'});
 
-  // Info: (20230629 - Julian) 信件是否成功寄出
-  const [sendSuccess, setSendSuccess] = useState(false);
   // Info: (20230629 - Julian) 是否顯示動畫 & 顯示哪個動畫
   const [showAnim, setShowAnim] = useState(false);
   const [animation, setAnimation] = useState<string>('');
@@ -42,7 +40,6 @@ const ContactUsForm = () => {
 
   // Info: (20230629 - Julian) 信件送出失敗的處理
   const failedProcess = async () => {
-    setSendSuccess(false);
     setAnimation('failed');
     setShowAnim(true);
 
@@ -54,7 +51,6 @@ const ContactUsForm = () => {
 
   // Info: (20230629 - Julian) 信件送出成功的處理
   const successProcess = async () => {
-    setSendSuccess(true);
     setAnimation('success');
     setShowAnim(true);
 
@@ -65,7 +61,6 @@ const ContactUsForm = () => {
     setInputPhone('');
     setInputEmail('');
     setInputMessage('');
-    setSendSuccess(false);
     setShowAnim(false);
   };
 
@@ -150,17 +145,17 @@ const ContactUsForm = () => {
       } px-5 py-12 transition-all duration-300 ease-in-out lg:p-12`}
     >
       <div className="flex flex-col items-center space-y-2">
-        <h1 className="text-42px font-bold">{t('HOME_PAGE.CONTACT_US_TITLE')}</h1>
-        <p className="text-lg">{t('HOME_PAGE.CONTACT_US_DESCRIPTION')}</p>
+        <h1 className="text-2xl font-bold sm:text-42px">{t('HOME_PAGE.CONTACT_US_TITLE')}</h1>
+        <p className="text-sm sm:text-lg">{t('HOME_PAGE.CONTACT_US_DESCRIPTION')}</p>
       </div>
 
       <form onSubmit={submitHandler} className="flex w-full flex-col items-center space-y-4">
         <div className="flex w-full flex-col items-start">
-          <label htmlFor="name" className="text-base">
+          <label htmlFor="name" className="text-sm sm:text-base">
             {t('HOME_PAGE.CONTACT_US_NAME')}
           </label>
           <input
-            className="mt-2 h-50px w-full bg-darkBlue3 px-4 py-2 text-base text-lightGray1"
+            className="mt-2 h-50px w-full bg-darkBlue3 px-4 py-2 text-sm text-lightGray1 sm:text-base"
             id="name"
             type="text"
             onChange={nameChangeHandler}
@@ -169,11 +164,11 @@ const ContactUsForm = () => {
         </div>
 
         <div className="flex w-full flex-col items-start">
-          <label htmlFor="phone" className="text-base">
+          <label htmlFor="phone" className="text-sm sm:text-base">
             {t('HOME_PAGE.CONTACT_US_PHONE')}
           </label>
           <input
-            className="mt-2 h-50px w-full bg-darkBlue3 px-4 py-2 text-base text-lightGray1"
+            className="mt-2 h-50px w-full bg-darkBlue3 px-4 py-2 text-sm text-lightGray1 sm:text-base"
             id="phone"
             type="text"
             onChange={phoneChangeHandler}
@@ -182,11 +177,11 @@ const ContactUsForm = () => {
         </div>
 
         <div className="flex w-full flex-col items-start">
-          <label htmlFor="email" className="text-base">
+          <label htmlFor="email" className="text-sm sm:text-base">
             *{t('HOME_PAGE.CONTACT_US_EMAIL')}
           </label>
           <input
-            className="mt-2 h-50px w-full bg-darkBlue3 px-4 py-2 text-base text-lightGray1"
+            className="mt-2 h-50px w-full bg-darkBlue3 px-4 py-2 text-sm text-lightGray1 sm:text-base"
             id="email"
             type="text"
             onChange={emailChangeHandler}
@@ -196,11 +191,11 @@ const ContactUsForm = () => {
         </div>
 
         <div className="flex w-full flex-col items-start">
-          <label htmlFor="message" className="text-base">
+          <label htmlFor="message" className="text-sm sm:text-base">
             {t('HOME_PAGE.CONTACT_US_MESSAGE')}
           </label>
           <textarea
-            className="mt-2 w-full bg-darkBlue3 px-4 py-2 text-base text-lightGray1"
+            className="mt-2 w-full bg-darkBlue3 px-4 py-2 text-sm text-lightGray1 sm:text-base"
             id="message"
             rows={7}
             wrap="soft"
@@ -230,7 +225,7 @@ const ContactUsForm = () => {
   );
 
   const displayContactUsForm = (
-    <div className="relative flex h-auto flex-col items-center overflow-hidden rounded-3xl bg-mermerTheme text-center shadow-drop lg:w-540px">
+    <div className="relative flex h-auto w-full flex-col items-center overflow-hidden rounded-3xl bg-mermerTheme text-center shadow-drop lg:w-540px">
       {formPart}
       {animPart}
     </div>
@@ -258,7 +253,7 @@ const ContactUsForm = () => {
         />
       </div>
 
-      <div className="z-20 mx-auto flex px-4 py-24 lg:mx-0 lg:ml-auto lg:px-160px lg:py-10">
+      <div className="z-20 mx-auto flex w-full px-4 py-24 lg:mx-0 lg:ml-auto lg:w-auto lg:px-160px lg:py-10">
         {displayContactUsForm}
       </div>
     </div>

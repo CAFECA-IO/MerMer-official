@@ -44,7 +44,7 @@ const CatchUp = () => {
           />
         </div>
 
-        <div className="z-10 mt-300px grid grid-cols-1 gap-y-6 px-4 lg:ml-auto lg:mt-0 lg:w-3/5 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-10 lg:px-10 lg:py-40">
+        <div className="z-10 mt-300px grid grid-cols-1 gap-y-6 px-4 lg:ml-auto lg:mt-0 lg:w-3/5 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-10 lg:px-10 lg:pb-10 lg:pt-40">
           {displayWeb3Content}
         </div>
       </div>
