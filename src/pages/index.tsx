@@ -15,6 +15,15 @@ const Home = () => {
       <Head>
         <title>MerMer</title>
         <link rel="icon" href="/favicon/favicon.ico" />
+        <meta property="og:title" content="MerMer 墨沫有限公司" />
+        <meta
+          property="og:description"
+          content="墨沫有限公司是一家充滿活力的初創公司，我們的目標是引領區塊鏈在日常生活各方面的創新"
+        />
+        <meta
+          name="keywords"
+          content="墨沫, MerMer, 區塊鏈, Blockchain, DeFi, Web3, FinTech, 金融科技"
+        />
       </Head>
 
       <NavBar />

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import {whyMermerContent, partnersContent} from '../../constants/config';
 import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
@@ -28,9 +29,11 @@ const WhyMermer = () => {
     );
   });
 
-  const displayPartners = partnersContent.map(({name, image, hover}) => {
+  const displayPartners = partnersContent.map(({name, image, hover, link}) => {
     return (
-      <div
+      <Link
+        href={link}
+        target="_blank"
         key={name}
         className="group relative mt-10 block h-200px w-200px p-10 lg:mt-0 lg:h-200px"
       >
@@ -52,7 +55,7 @@ const WhyMermer = () => {
             alt={name}
           />
         </div>
-      </div>
+      </Link>
     );
   });
 
