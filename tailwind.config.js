@@ -301,7 +301,6 @@ module.exports = {
         80: '0.8',
       },
       gridTemplateRows: {
-        // Simple 0 row grid
         0: 'repeat(1, minmax(0px, 0fr))',
       },
       transitionProperty: {

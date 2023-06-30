@@ -5,6 +5,7 @@ import {FiChevronDown} from 'react-icons/fi';
 import {FaMapMarkerAlt} from 'react-icons/fa';
 import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
+import {mermerEmail} from '../../constants/config';
 
 interface IHiringItemProps {
   jobTitle: string;
@@ -98,7 +99,7 @@ const HiringItem = ({
 
           {/* Info: (20230630 - Julian) Apply Button */}
           <div className="mx-auto py-5 lg:py-10">
-            <a href={`mailto:julian.hsu@mermer.cc?subject=${emailSubject}`}>
+            <a href={`mailto:${mermerEmail}?subject=${emailSubject}`}>
               <MerMerButton className="space-x-2 px-10 py-10px">
                 <Image src="/icons/star.svg" alt="" width={24} height={24} />
                 <p className="text-lg font-bold">{t('HIRING_PAGE.APPLY_BUTTON')}</p>

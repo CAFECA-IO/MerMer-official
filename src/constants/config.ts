@@ -154,4 +154,6 @@ export const mermerAddressInMap =
 
 export const mermerPhone = '+886-2-25466225';
 
+export const mermerEmail = 'contact@mermer.cc';
+
 export const mermerCopyright = 'MerMer Inc. © 2023. All rights reserved.';
