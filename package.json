@@ -1,5 +1,5 @@
 {
-  "name": "src",
+  "name": "mermer-official",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,8 @@
     "test": "jest --coverage",
     "check-format": "prettier --ignore-path .gitignore --list-different \"**/*.+(js|ts|json)\"",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
-    "validate": "npm run test && npm run check-format && npm run lint"
+    "validate": "npm run test && npm run check-format && npm run lint",
+    "production": "next start -p 80"
   },
   "dependencies": {
     "i18next": "^23.2.3",
@@ -45,6 +46,16 @@
     "ts-jest": "^29.1.0",
     "typescript": "5.1.3"
   },
+  "keywords": [
+    "MerMer",
+    "MerMer Official",
+    "blockchain",
+    "DeFi",
+    "Web3",
+    "FinTech"
+  ],
+  "author": "CAFECA",
+  "license": "GPL-3.0",
   "husky": {
     "hooks": {
       "pre-commit": "npm run test && lint-staged"
