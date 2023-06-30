@@ -53,10 +53,11 @@
     "JOB_DESCRIPTION": "工作內容",
     "JOB_REQUIREMENT": "條件要求",
     "APPLY_BUTTON": "立即應徵",
+    "JOB_DETAIL_FULL_TIME": "全職",
+    "JOB_DETAIL_PART_TIME": "兼職",
+    "JOB_DETAIL_SALARY_1": "薪資：5萬 - 7萬",
+    "JOB_DETAIL_LOCATION_1": "工作地點：台北市",
     "JOB_1_NAME": "前端工程師",
-    "JOB_1_DETAIL_1": "全職",
-    "JOB_1_DETAIL_2": "薪資：5萬 - 7萬",
-    "JOB_1_DETAIL_3": "工作地點：台北市",
     "JOB_1_DESCRIPTION_1": "開發並維護公司各項產品官方網站",
     "JOB_1_DESCRIPTION_2": "Cafeca/ TideBit/ Boltchain / iSunTV 系列服務",
     "JOB_1_DESCRIPTION_3": "確保公司各項產品品質",
@@ -71,7 +72,13 @@
     "JOB_1_REQUIREMENT_4": "熟悉以 UML 溝通與確認開發規格",
     "JOB_1_REQUIREMENT_5": "良好英語閱讀及寫作能力",
     "JOB_1_REQUIREMENT_6": "熟悉 Git flow 工作流程",
-    "JOB_1_REQUIREMENT_7": "能洞察軟體潛在問題"
+    "JOB_1_REQUIREMENT_7": "能洞察軟體潛在問題",
+    "JOB_2_NAME": "後端工程師",
+    "JOB_2_REQUIREMENT_1": "熟悉 React、RxJS、Next.js 等前端開發框架",
+    "JOB_2_REQUIREMENT_2": "熟悉 Postgresql、MongoDB、SQLite、LevelDB 等資料庫",
+    "JOB_2_REQUIREMENT_3": "熟悉 ORM 和設計模式",
+    "JOB_2_REQUIREMENT_4": "熟悉 RESTful API 和 WebSocket 通訊模式",
+    "EMAIL_SUJECT": "MerMer 應徵職缺"
   },
   "FOOTER": {
     "ADDRESS": "台北市松山區民生東路三段 156 號 9 樓"

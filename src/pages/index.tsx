@@ -22,7 +22,7 @@ const Home = () => {
         />
         <meta
           name="keywords"
-          content="墨沫, MerMer, 區塊鏈, Blockchain,去中心化, DeFi, 創新, Innovation"
+          content="墨沫, MerMer, 區塊鏈, Blockchain, DeFi, Web3, FinTech, 金融科技"
         />
       </Head>
 
