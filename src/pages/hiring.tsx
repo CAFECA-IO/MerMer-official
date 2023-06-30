@@ -43,7 +43,7 @@ const HiringPage = () => {
             {t('HIRING_PAGE.BANNER')}
           </h1>
 
-          <div className="flex w-full flex-col space-y-10 px-4 py-6 lg:p-20">
+          <div className="flex w-full flex-col space-y-5 px-4 py-6 lg:space-y-10 lg:p-20">
             {displayHiringItems}
           </div>
         </div>
