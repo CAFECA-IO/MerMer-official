@@ -19,7 +19,7 @@ const Home = () => {
         <title>MerMer 墨沫有限公司</title>
         <meta
           name="description"
-          content="墨沫有限公司是一支富有經驗的區塊鏈團隊，提供 WEB 3.0 解決方案的導入、顧問與研發，曾開發知名區塊鏈冷錢包、虛擬通貨交易所以及國家高速網路中心 AI 大數據主機計劃 "
+          content="墨沫有限公司是一支富有經驗的區塊鏈團隊，提供 WEB 3.0 解決方案的導入、顧問與研發，曾開發知名區塊鏈冷錢包、虛擬通貨交易所以及國家高速網路中心 AI 大數據主機計劃"
         />
         <meta name="keywords" content="區塊鏈, AI, WEB 3.0, 金融科技" />
         <meta name="author" content="CAFECA" />
@@ -28,7 +28,7 @@ const Home = () => {
         <meta property="og:title" content="MerMer 墨沫有限公司" />
         <meta
           property="og:description"
-          content="墨沫有限公司是一支富有經驗的區塊鏈團隊，提供 WEB 3.0 解決方案的導入、顧問與研發，曾開發知名區塊鏈冷錢包、虛擬通貨交易所以及國家高速網路中心 AI 大數據主機計劃 "
+          content="墨沫有限公司是一支富有經驗的區塊鏈團隊，提供 WEB 3.0 解決方案的導入、顧問與研發，曾開發知名區塊鏈冷錢包、虛擬通貨交易所以及國家高速網路中心 AI 大數據主機計劃"
         />
       </Head>
 
