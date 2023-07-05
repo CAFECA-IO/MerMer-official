@@ -14,11 +14,17 @@ const ContactUsForm = () => {
   // Info: (20230629 - Julian) 是否顯示動畫 & 顯示哪個動畫
   const [showAnim, setShowAnim] = useState(false);
   const [animation, setAnimation] = useState<string>('');
+  // Info: (20230705 - Julian) 是否顯示 Email 格式錯誤的提示
+  const [showEmailError, setShowEmailError] = useState(false);
 
   const [inputName, setInputName] = useState('');
   const [inputPhone, setInputPhone] = useInputNumber('');
   const [inputEmail, setInputEmail] = useState('');
   const [inputMessage, setInputMessage] = useState('');
+
+  // Info: (20230628 - Julian) 驗證信箱格式
+  const emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+  const emailIsValid = emailRule.test(inputEmail);
 
   // Info: (20230628 - Julian) input change handler
   const nameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,14 +35,12 @@ const ContactUsForm = () => {
   };
   const emailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputEmail(event.target.value);
+    if (emailIsValid) setShowEmailError(false);
+    else setShowEmailError(true);
   };
   const messageChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputMessage(event.target.value);
   };
-
-  // Info: (20230628 - Julian) 驗證信箱格式
-  const emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-  const emailIsValid = emailRule.test(inputEmail);
 
   // Info: (20230629 - Julian) 信件送出失敗的處理
   const failedProcess = async () => {
@@ -207,7 +211,7 @@ const ContactUsForm = () => {
         </div>
 
         <div className="flex flex-col items-center space-y-4 pt-5">
-          <p className={emailIsValid ? 'opacity-0' : 'opacity-50'}>
+          <p className={showEmailError ? 'opacity-50' : 'opacity-0'}>
             {t('HOME_PAGE.CONTACT_US_EMAIL_VERIFY')}
           </p>
           <MerMerButton
