@@ -43,12 +43,12 @@ export const whyMermerContent = [
   },
   {
     title: 'HOME_PAGE.WHY_US_BLOCK_2_TITLE',
-    description: '600+',
+    description: '14+',
     image: '/icons/files.svg',
   },
   {
     title: 'HOME_PAGE.WHY_US_BLOCK_3_TITLE',
-    description: '70+',
+    description: '6+',
     image: '/icons/medal.svg',
   },
   {
@@ -172,6 +172,28 @@ export const jobList = [
       'HIRING_PAGE.JOB_REQUIREMENT_7',
       'HIRING_PAGE.JOB_REQUIREMENT_16',
       'HIRING_PAGE.JOB_REQUIREMENT_17',
+    ],
+  },
+  {
+    jobTitle: 'HIRING_PAGE.JOB_NAME_4',
+    details: [
+      'HIRING_PAGE.JOB_DETAIL_PART_TIME',
+      'HIRING_PAGE.JOB_DETAIL_SALARY_3',
+      'HIRING_PAGE.JOB_DETAIL_LOCATION_1',
+    ],
+    descriptions: [
+      'HIRING_PAGE.JOB_DESCRIPTION_14',
+      'HIRING_PAGE.JOB_DESCRIPTION_15',
+      'HIRING_PAGE.JOB_DESCRIPTION_16',
+      'HIRING_PAGE.JOB_DESCRIPTION_17',
+      'HIRING_PAGE.JOB_DESCRIPTION_18',
+      'HIRING_PAGE.JOB_DESCRIPTION_19',
+    ],
+    requirements: [
+      'HIRING_PAGE.JOB_REQUIREMENT_18',
+      'HIRING_PAGE.JOB_REQUIREMENT_19',
+      'HIRING_PAGE.JOB_REQUIREMENT_20',
+      'HIRING_PAGE.JOB_REQUIREMENT_21',
     ],
   },
 ];
