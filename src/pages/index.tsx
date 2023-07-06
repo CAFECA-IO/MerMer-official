@@ -13,16 +13,22 @@ const Home = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
       <Head>
-        <title>MerMer</title>
+        <meta charSet="UTF-8" />
         <link rel="icon" href="/favicon/favicon.ico" />
+
+        <title>MerMer 墨沫有限公司</title>
+        <meta
+          name="description"
+          content="墨沫有限公司是一支富有經驗的區塊鏈團隊，提供 WEB 3.0 解決方案的導入、顧問與研發，曾開發知名區塊鏈冷錢包、虛擬通貨交易所以及國家高速網路中心 AI 大數據主機計劃"
+        />
+        <meta name="keywords" content="區塊鏈, AI, WEB 3.0, 金融科技" />
+        <meta name="author" content="CAFECA" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
         <meta property="og:title" content="MerMer 墨沫有限公司" />
         <meta
           property="og:description"
-          content="墨沫有限公司是一家充滿活力的初創公司，我們的目標是引領區塊鏈在日常生活各方面的創新"
-        />
-        <meta
-          name="keywords"
-          content="墨沫, MerMer, 區塊鏈, Blockchain, DeFi, Web3, FinTech, 金融科技"
+          content="墨沫有限公司是一支富有經驗的區塊鏈團隊，提供 WEB 3.0 解決方案的導入、顧問與研發，曾開發知名區塊鏈冷錢包、虛擬通貨交易所以及國家高速網路中心 AI 大數據主機計劃"
         />
       </Head>
 
