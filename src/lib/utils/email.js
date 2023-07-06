@@ -16,6 +16,7 @@ class SendMail {
         /* Info: (20230324 - Julian) 發信的帳號密碼，由 dotenv 傳入以保障安全 */
         user: config.googleClientID,
         pass: config.googleClientPassword,
+        reci: config.mermerEmail,
       },
     });
 
@@ -24,7 +25,7 @@ class SendMail {
       /* Info: (20230324 - Julian) 寄件地址 */
       from: config.googleClientID,
       /* Info: (20230324 - Julian) 收信人 */
-      to: config.googleClientID,
+      to: config.mermerEmail,
       /* Info: (20230324 - Julian) 主旨 */
       subject: 'MerMer 表單回覆',
       /* Info: (20230324 - Julian) plaintext body */

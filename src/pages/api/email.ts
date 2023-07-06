@@ -4,6 +4,7 @@ import SendMail from '../../lib/utils/email';
 type emailConfig = {
   googleClientID: string;
   googleClientPassword: string;
+  mermerEmail: string;
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -11,6 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const config = {
     googleClientID: process.env.REACT_APP_GOOGLE_CLIENT_ID,
     googleClientPassword: process.env.REACT_APP_GOOGLE_CLIENT_PASSWORD,
+    mermerEmail: process.env.REACT_APP_MERMER_EMAIL,
   };
 
   /* Info: (20230324 - Julian) send email */
