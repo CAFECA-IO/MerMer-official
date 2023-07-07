@@ -6,7 +6,7 @@ module.exports = {
       backgroundImage: {
         mermerTheme: 'linear-gradient(180deg, #2E579C 0%, #252468 100%)',
         mermerTheme2:
-          'radial-gradient(127.46% 96.33% at -5.67% -30.07%, rgba(0, 118, 255, 0.20) 0%, #0F103E 100%)',
+          'radial-gradient(87.31% 65.73% at -0.00% 0%, rgba(0, 118, 255, 0.4) 0%, #0F103E 100%)',
 
         desktopWaves: 'url("/elements/bluewaves_1.png")',
         mobileWaves: 'url("/elements/bluewaves_2.png")',

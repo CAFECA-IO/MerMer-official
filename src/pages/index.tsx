@@ -34,7 +34,7 @@ const Home = () => {
 
       <NavBar />
 
-      <main className="flex w-screen flex-1 flex-col bg-mermerTheme2">
+      <main className="flex w-screen flex-1 flex-col bg-darkBlue3">
         <BlueWaves />
 
         <CatchUp />
