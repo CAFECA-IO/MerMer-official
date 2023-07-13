@@ -1,12 +1,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.mermer.cc</loc>
+    <loc>Https://mermer.com.tw</loc>
     <lastmod>2023-07-13T06:31:14+00:00</lastmod>
     <priority>1.00</priority>
   </url>
   <url>
-    <loc>https://www.mermer.cc/hiring</loc>
+    <loc>Https://mermer.com.tw/hiring</loc>
     <lastmod>2023-07-13T06:31:14+00:00</lastmod>
     <priority>0.80</priority>
+  </url>
+    <url>
+    <loc>Https://mermer.com.tw/hiring#job001</loc>
+    <lastmod>2023-07-13T06:31:14+00:00</lastmod>
+    <priority>0.50</priority>
+  </url>
+      <url>
+    <loc>Https://mermer.com.tw/hiring#job002</loc>
+    <lastmod>2023-07-13T06:31:14+00:00</lastmod>
+    <priority>0.50</priority>
+  </url>
+      <url>
+    <loc>Https://mermer.com.tw/hiring#job003</loc>
+    <lastmod>2023-07-13T06:31:14+00:00</lastmod>
+    <priority>0.50</priority>
+  </url>
+      <url>
+    <loc>Https://mermer.com.tw/hiring#job004</loc>
+    <lastmod>2023-07-13T06:31:14+00:00</lastmod>
+    <priority>0.50</priority>
   </url>
 </urlset>

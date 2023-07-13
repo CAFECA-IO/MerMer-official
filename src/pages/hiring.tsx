@@ -14,19 +14,24 @@ const HiringPage = () => {
   // Info: (20230630 - Julian) 用來控制 HiringItem 的展開狀態
   const [showJobIndex, setShowJobIndex] = useState('');
 
-  const displayHiringItems = jobList.map(({jobTitle, details, descriptions, requirements}) => {
-    return (
-      <HiringItem
-        key={jobTitle}
-        jobTitle={jobTitle}
-        details={details}
-        descriptions={descriptions}
-        requirements={requirements}
-        showJobIndex={showJobIndex}
-        setShowJobIndex={setShowJobIndex}
-      />
-    );
-  });
+  const displayHiringItems = jobList.map(
+    ({anchor, jobTitle, details, descriptions, requirements}) => {
+      return (
+        <div key={jobTitle} className="relative">
+          {/* Info: (20230713 - Julian) 為了避免被 NavBar 擋到，所以將錨點設定在 HiringItem 上方的空 div */}
+          <div className="absolute -mt-24" id={anchor}></div>
+          <HiringItem
+            jobTitle={jobTitle}
+            details={details}
+            descriptions={descriptions}
+            requirements={requirements}
+            showJobIndex={showJobIndex}
+            setShowJobIndex={setShowJobIndex}
+          />
+        </div>
+      );
+    }
+  );
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
