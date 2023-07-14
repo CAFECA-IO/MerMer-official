@@ -93,6 +93,7 @@ export const partnersContent = [
 
 export const jobList = [
   {
+    anchor: 'job001',
     jobTitle: 'HIRING_PAGE.JOB_NAME_1',
     details: [
       'HIRING_PAGE.JOB_DETAIL_FULL_TIME',
@@ -120,6 +121,7 @@ export const jobList = [
     ],
   },
   {
+    anchor: 'job002',
     jobTitle: 'HIRING_PAGE.JOB_NAME_2',
     details: [
       'HIRING_PAGE.JOB_DETAIL_FULL_TIME',
@@ -148,6 +150,7 @@ export const jobList = [
     ],
   },
   {
+    anchor: 'job003',
     jobTitle: 'HIRING_PAGE.JOB_NAME_3',
     details: [
       'HIRING_PAGE.JOB_DETAIL_FULL_TIME',
@@ -175,6 +178,7 @@ export const jobList = [
     ],
   },
   {
+    anchor: 'job004',
     jobTitle: 'HIRING_PAGE.JOB_NAME_4',
     details: [
       'HIRING_PAGE.JOB_DETAIL_PART_TIME',
