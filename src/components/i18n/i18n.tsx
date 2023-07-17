@@ -64,8 +64,8 @@ const I18n = () => {
 
   const mobileMenu = (
     <ul
-      className={`absolute left-0 top-0 z-10 flex w-screen flex-col items-center lg:hidden ${
-        languageVisible ? 'visible h-240px' : 'invisible h-200px' // Info: (20230628 - Julian) 隱藏時的高度要跟 Navbar 的 mobileMenu 高度一樣，才會有延伸的效果
+      className={`absolute left-0 top-0 z-10 flex h-260px w-screen flex-col items-center lg:hidden ${
+        languageVisible ? 'visible opacity-100' : 'invisible opacity-0'
       } space-y-2 bg-mermerTheme py-3 font-Barlow text-base font-medium shadow-drop transition-all duration-300 ease-in`}
     >
       {internationalizationList.map(({label, value}) => (
