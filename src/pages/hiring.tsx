@@ -21,6 +21,7 @@ const HiringPage = () => {
           {/* Info: (20230713 - Julian) 為了避免被 NavBar 擋到，所以將錨點設定在 HiringItem 上方的空 div */}
           <div className="absolute -mt-24" id={anchor}></div>
           <HiringItem
+            jobId={anchor}
             jobTitle={jobTitle}
             details={details}
             descriptions={descriptions}
