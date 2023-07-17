@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import useOuterClick from '../../lib/hooks/use_outer_click';
 import {useState} from 'react';
 import {useRouter} from 'next/router';
 import {useTranslation} from 'next-i18next';
@@ -17,24 +18,29 @@ const I18n = () => {
     {label: '简体中文', value: 'cn'},
   ];
 
-  const [showMenu, setShowMenu] = useState(false);
+  const {
+    targetRef: languageRef,
+    componentVisible: languageVisible,
+    setComponentVisible: setLanguageVisible,
+  } = useOuterClick<HTMLDivElement>(false);
+
   const [currentLanguage, setCurrentLanguage] = useState('Language');
 
-  const showMenuHandler = () => setShowMenu(!showMenu);
+  const showMenuHandler = () => setLanguageVisible(!languageVisible);
   const changeLanguageHandler = (value: string) => {
     const language = internationalizationList.find(({value: v}) => v === value);
     if (language) {
       setCurrentLanguage(language.label);
     }
-    setShowMenu(false);
+    setLanguageVisible(false);
   };
 
-  const showText = showMenu ? t('NAV_BAR.LANGUAGE') : currentLanguage;
+  const showText = languageVisible ? t('NAV_BAR.LANGUAGE') : currentLanguage;
 
   const desktopMenu = (
     <ul
       className={`absolute mt-3 hidden flex-col items-center bg-mermerTheme px-2 ${
-        showMenu ? 'visible opacity-100' : 'invisible opacity-0'
+        languageVisible ? 'visible opacity-100' : 'invisible opacity-0'
       } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in lg:flex`}
     >
       {internationalizationList.map(({label, value}) => (
@@ -59,7 +65,7 @@ const I18n = () => {
   const mobileMenu = (
     <ul
       className={`absolute left-0 top-0 z-10 flex w-screen flex-col items-center lg:hidden ${
-        showMenu ? 'visible h-240px' : 'invisible h-200px' // Info: (20230628 - Julian) 隱藏時的高度要跟 Navbar 的 mobileMenu 高度一樣，才會有延伸的效果
+        languageVisible ? 'visible h-240px' : 'invisible h-200px' // Info: (20230628 - Julian) 隱藏時的高度要跟 Navbar 的 mobileMenu 高度一樣，才會有延伸的效果
       } space-y-2 bg-mermerTheme py-3 font-Barlow text-base font-medium shadow-drop transition-all duration-300 ease-in`}
     >
       {internationalizationList.map(({label, value}) => (
@@ -85,7 +91,7 @@ const I18n = () => {
   );
 
   return (
-    <>
+    <div ref={languageRef}>
       <button
         className="relative flex w-130px items-center space-x-2 hover:cursor-pointer hover:text-lightBlue1"
         onClick={showMenuHandler}
@@ -98,7 +104,7 @@ const I18n = () => {
 
       {desktopMenu}
       {mobileMenu}
-    </>
+    </div>
   );
 };
 
