@@ -2,6 +2,7 @@
   "NAV_BAR": {
     "CONTACT_US": "Contact Us",
     "HIRING": "Hiring",
+    "KNOWLEDGE_MANAGEMENT": "Knowledge Management",
     "LANGUAGE": "Language",
     "BACK_BUTTON": "Back"
   },
@@ -104,6 +105,14 @@
     "JOB_REQUIREMENT_20": "Good English reading and writing skills.",
     "JOB_REQUIREMENT_21": "Ability to identify potential software issues.",
     "EMAIL_SUJECT": "MerMer Job Application"
+  },
+  "KM_PAGE": {
+    "TITLE": "Knowledge Management",
+    "CATEGORY_TITLE": "Category",
+    "SORT_BY_TITLE": "Sort By",
+    "SEARCH_PLACEHOLDER": "Search",
+    "PREVIOUS": "Previous",
+    "NEXT": "Next"
   },
   "FOOTER": {
     "ADDRESS": "9F., No. 156, Sec. 3, Minsheng E. Rd., Songshan Dist., Taipei City 105402 , Taiwan"

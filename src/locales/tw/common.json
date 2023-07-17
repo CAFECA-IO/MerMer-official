@@ -2,6 +2,7 @@
   "NAV_BAR": {
     "CONTACT_US": "聯絡我們",
     "HIRING": "人才招募",
+    "KNOWLEDGE_MANAGEMENT": "知識庫",
     "LANGUAGE": "語言",
     "BACK_BUTTON": "返回"
   },
@@ -104,6 +105,14 @@
     "JOB_REQUIREMENT_20": "良好英語閱讀及寫作能力",
     "JOB_REQUIREMENT_21": "能洞察軟體潛在問題",
     "EMAIL_SUJECT": "MerMer 應徵職缺"
+  },
+  "KM_PAGE": {
+    "TITLE": "知識庫",
+    "CATEGORY_TITLE": "分類",
+    "SORT_BY_TITLE": "排序方式",
+    "SEARCH_PLACEHOLDER": "搜尋",
+    "PREVIOUS": "上一頁",
+    "NEXT": "下一頁"
   },
   "FOOTER": {
     "ADDRESS": "台北市松山區民生東路三段 156 號 9 樓"
