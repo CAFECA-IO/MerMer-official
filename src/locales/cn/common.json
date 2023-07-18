@@ -2,6 +2,7 @@
   "NAV_BAR": {
     "CONTACT_US": "联络我们",
     "HIRING": "人才招募",
+    "KNOWLEDGE_MANAGEMENT": "知识库",
     "LANGUAGE": "语言",
     "BACK_BUTTON": "返回"
   },
@@ -104,6 +105,14 @@
     "JOB_REQUIREMENT_20": "良好英语阅读及写作能力",
     "JOB_REQUIREMENT_21": "能洞察软体潜在问题",
     "EMAIL_SUJECT": "MerMer 应征职缺"
+  },
+  "KM_PAGE": {
+    "TITLE": "知识库",
+    "CATEGORY_TITLE": "分类",
+    "SORT_BY_TITLE": "排序方式",
+    "SEARCH_PLACEHOLDER": "搜寻",
+    "PAGINATION_PREVIOUS": "上一页",
+    "PAGINATION_NEXT": "下一页"
   },
   "FOOTER": {
     "ADDRESS": "台北市松山区民生东路三段 156 号 9 楼"

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import MerMerButton from '../mermer_button/mermer_button';
+import {MERURL} from '../../constants/url';
 import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
 
@@ -18,7 +19,7 @@ const BlueWaves = () => {
           {t('HOME_PAGE.MAIN_TITLE_2')}
         </h1>
         <p className="text-sm">{t('HOME_PAGE.MAIN_DESCRIPTION')}</p>
-        <Link href="/#contact_us" scroll={false}>
+        <Link href={MERURL.CONTACT_US} scroll={false}>
           <MerMerButton className="space-x-2 px-10 py-10px">
             <Image src="/icons/star.svg" alt="" width={24} height={24} />
             <p>{t('NAV_BAR.CONTACT_US')}</p>
@@ -51,7 +52,7 @@ const BlueWaves = () => {
           </h1>
           <p className="text-lg">{t('HOME_PAGE.MAIN_DESCRIPTION')}</p>
 
-          <Link href="/#contact_us" scroll={false}>
+          <Link href={MERURL.CONTACT_US} scroll={false}>
             <MerMerButton className="space-x-2 px-10 py-10px">
               <Image src="/icons/star.svg" alt="" width={24} height={24} />
               <p>{t('NAV_BAR.CONTACT_US')}</p>

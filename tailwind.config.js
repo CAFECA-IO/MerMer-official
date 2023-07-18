@@ -12,6 +12,8 @@ module.exports = {
         mobileWaves: 'url("/elements/bluewaves_2.png")',
 
         hiringBanner: 'url("/elements/hiring_banner.png")',
+        kmBanner: 'url("/elements/km_banner.png")',
+        authorIntro: 'url("/elements/bluewaves_3.png")',
 
         glass:
           'linear-gradient(225deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.20) 47.40%, rgba(255, 255, 255, 0.00) 100%)',
@@ -23,12 +25,14 @@ module.exports = {
         darkBlue1: '#30528F',
         darkBlue2: '#10164A',
         darkBlue3: '#0F103E',
+        darkBlue4: '#001D6C',
 
         lightBlue1: '#62DDE4',
 
         lightWhite1: '#F2F2F2',
 
         lightGray1: '#8B8F92',
+        lightGray2: '#F2F4F8',
       },
       fontFamily: {
         Dosis: 'Dosis, sans-serif',
@@ -145,14 +149,12 @@ module.exports = {
         '220px': '220px',
         '240px': '240px',
         '250px': '250px',
-        '254px': '254px',
         '255px': '255px',
-        '271px': '271px',
-        '278px': '278px',
+        '260px': '260px',
+        '270px': '270px',
         '280px': '280px',
         '285px': '285px',
         '290px': '290px',
-        '296px': '296px',
         '300px': '300px',
         '310px': '310px',
         '320px': '320px',
@@ -296,6 +298,9 @@ module.exports = {
       },
       backgroundPosition: {
         'top-12': 'center top 48px',
+      },
+      backgroundSize: {
+        150: '150% 150%',
       },
       scale: {
         80: '0.8',

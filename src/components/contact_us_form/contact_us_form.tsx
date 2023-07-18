@@ -236,7 +236,7 @@ const ContactUsForm = () => {
   );
 
   return (
-    <div id="contact_us" className="relative flex w-full py-20 font-Dosis text-lightWhite1">
+    <div id="contact-us" className="relative flex w-full py-20 font-Dosis text-lightWhite1">
       {/* Info: (20230628 - Julian) Picture for desktop */}
       <div className="absolute top-0 hidden h-600px w-3/5 lg:block">
         <Image
