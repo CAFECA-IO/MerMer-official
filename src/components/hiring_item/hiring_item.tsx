@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import MerMerButton from '../../components/mermer_button/mermer_button';
-import {Dispatch, SetStateAction} from 'react';
+import {Dispatch, SetStateAction, useEffect} from 'react';
+import {useRouter} from 'next/router';
 import {FiChevronDown} from 'react-icons/fi';
 import {FaMapMarkerAlt} from 'react-icons/fa';
 import {useTranslation} from 'next-i18next';
@@ -8,6 +9,7 @@ import {TranslateFunction} from '../../interfaces/locale';
 import {mermerEmail} from '../../constants/config';
 
 interface IHiringItemProps {
+  jobId: string;
   jobTitle: string;
   details: string[];
   descriptions: string[];
@@ -17,6 +19,7 @@ interface IHiringItemProps {
 }
 
 const HiringItem = ({
+  jobId,
   jobTitle,
   details,
   descriptions,
@@ -26,16 +29,26 @@ const HiringItem = ({
 }: IHiringItemProps) => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
-  // Info: (20230630 - Julian) 如果 showJobIndex === jobTitle ，則 isShow 為 true，反之為 false
-  const isShow = showJobIndex === jobTitle;
+  // Info: (20230630 - Julian) 如果 showJobIndex === jobId ，則 isShow 為 true，反之為 false
+  const isShow = showJobIndex === jobId;
 
-  /* Info: (20230630 - Julian) 點擊 item 時將 showJobIndex 設為目前的 jobTitle
-   * 如果已經是目前的 jobTitle 則收合 */
+  const router = useRouter();
+  const {asPath} = router;
+  const anchor = asPath.split('#')[1];
+
+  useEffect(() => {
+    setShowJobIndex(anchor ?? '');
+  }, [asPath]);
+
+  /* Info: (20230630 - Julian) 點擊 item 時將 showJobIndex 設為目前的 jobId
+   * 如果已經是目前的 jobId 則收合 */
   const clickHandler = () => {
-    if (showJobIndex !== jobTitle) {
-      setShowJobIndex(jobTitle);
+    if (showJobIndex !== jobId) {
+      setShowJobIndex(jobId);
+      router.push('#' + jobId);
     } else {
       setShowJobIndex('');
+      router.push('');
     }
   };
 
