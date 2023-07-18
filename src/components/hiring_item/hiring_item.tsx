@@ -45,8 +45,10 @@ const HiringItem = ({
   const clickHandler = () => {
     if (showJobIndex !== jobId) {
       setShowJobIndex(jobId);
+      router.push('#' + jobId);
     } else {
       setShowJobIndex('');
+      router.push('');
     }
   };
 
