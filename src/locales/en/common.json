@@ -111,8 +111,8 @@
     "CATEGORY_TITLE": "Category",
     "SORT_BY_TITLE": "Sort By",
     "SEARCH_PLACEHOLDER": "Search",
-    "PREVIOUS": "Previous",
-    "NEXT": "Next"
+    "PAGINATION_PREVIOUS": "Previous",
+    "PAGINATION_NEXT": "Next"
   },
   "FOOTER": {
     "ADDRESS": "9F., No. 156, Sec. 3, Minsheng E. Rd., Songshan Dist., Taipei City 105402 , Taiwan"

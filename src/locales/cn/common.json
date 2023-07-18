@@ -111,8 +111,8 @@
     "CATEGORY_TITLE": "分类",
     "SORT_BY_TITLE": "排序方式",
     "SEARCH_PLACEHOLDER": "搜寻",
-    "PREVIOUS": "上一页",
-    "NEXT": "下一页"
+    "PAGINATION_PREVIOUS": "上一页",
+    "PAGINATION_NEXT": "下一页"
   },
   "FOOTER": {
     "ADDRESS": "台北市松山区民生东路三段 156 号 9 楼"
