@@ -25,7 +25,7 @@ export const notFoundKM = {
 export const dummyKMList: IKnowledgeManagement[] = [
   {
     id: 'km000001',
-    date: 1683870086,
+    date: 1683870086000,
     title: 'Article Title1',
     description: 'Egestas elit dui scelerisque ut eu purus aliquam vitae habitasse.',
     content:
@@ -37,7 +37,7 @@ export const dummyKMList: IKnowledgeManagement[] = [
   {
     id: 'km000002',
     title: 'Article Title2',
-    date: 1683890086,
+    date: 16938986000000,
     description: 'Egestas elit dui scelerisque ut eu purus aliquam vitae habitasse.',
     content:
       'Quisque elit enim, iaculis a interdum sit amet, maximus non odio. Donec in nibh urna. In hac habitasse platea dictumst. Maecenas faucibus lectus ut aliquet congue. Proin interdum, lorem sit amet interdum volutpat, lorem turpis tempor velit, a egestas mi neque vitae lectus. Pellentesque et quam aliquet, mollis lorem vel, sollicitudin justo. Morbi tincidunt ipsum et erat volutpat tempor ac vel arcu. Morbi consequat turpis ut neque ultrices venenatis. Pellentesque lacinia diam quis ultrices accumsan. Nam neque mi, auctor nec sem eget, porta tempus purus. Donec fermentum ultrices vulputate. Maecenas ullamcorper vehicula faucibus.',
@@ -47,7 +47,7 @@ export const dummyKMList: IKnowledgeManagement[] = [
   },
   {
     id: 'km000003',
-    date: 1683892451,
+    date: 1687892451000,
     title: 'Article Title3',
     description: 'Egestas elit dui scelerisque ut eu purus aliquam vitae habitasse.',
     content:

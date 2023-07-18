@@ -1,6 +1,6 @@
 import KMItem from '../km_item/km_item';
 import Pagination from '../pagination/pagination';
-import {kmList} from '../../constants/km';
+import {dummyKMList} from '../../interfaces/km_article';
 import {useState} from 'react';
 import {MdOutlineKeyboardArrowDown} from 'react-icons/md';
 import {RiSearchLine} from 'react-icons/ri';
@@ -14,7 +14,7 @@ const KMPageBody = () => {
   const [activePage, setActivePage] = useState(1);
   const totalPages = 10; //ToDo: (20230718 - Julian) Get total pages
 
-  const displayKMList = kmList.map(item => {
+  const displayKMList = dummyKMList.map(item => {
     return (
       <KMItem
         key={item.id}
@@ -23,16 +23,14 @@ const KMPageBody = () => {
         description={item.description}
         category={item.cagetory}
         picture={item.picture}
-        authorName={item.authorName}
-        authorIntro={item.authorIntro}
-        authorAvatar={item.authorAvatar}
+        author={item.author}
       />
     );
   });
 
   return (
     <div className="flex min-h-screen w-full flex-col font-Dosis">
-      {/* Info: (20230718 - Julian) Breadcrumb */}
+      {/* ToDo: (20230718 - Julian) Breadcrumb */}
       <div className="px-20 py-10">breadcrumb</div>
       {/* Info: (20230718 - Julian) Page Body */}
       <div className="flex w-full flex-col items-center space-y-16 px-20">
@@ -60,7 +58,8 @@ const KMPageBody = () => {
           </div>
         </div>
         <ul className="flex flex-wrap justify-center gap-x-4 gap-y-16">{displayKMList}</ul>
-        <Pagination activePage={activePage} setActivePage={setActivePage} totalPages={totalPages} />
+        {/* ToDo: (20230718 - Julian) Pagination */}
+        {/* <Pagination activePage={activePage} setActivePage={setActivePage} totalPages={totalPages} /> */}
       </div>
     </div>
   );
