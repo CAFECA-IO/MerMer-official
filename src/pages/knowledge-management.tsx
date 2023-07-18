@@ -22,7 +22,7 @@ const KnowledgeManagementPage = () => {
 
       <main className="mt-20 flex w-screen flex-1 flex-col bg-kmBanner bg-contain bg-top bg-no-repeat py-20 font-Dosis">
         {/* Info: (20230717 - Julian) KM Title */}
-        <div className="flex h-400px w-full flex-col items-start">
+        <div className="flex h-450px w-full flex-col items-start">
           <h1 className="mt-1/5 px-20 text-2xl font-bold drop-shadow-heightLight lg:text-54px">
             {t('KM_PAGE.TITLE')}
           </h1>
