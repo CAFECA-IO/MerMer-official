@@ -48,7 +48,7 @@ const HiringItem = ({
       router.push('#' + jobId);
     } else {
       setShowJobIndex('');
-      router.push('#');
+      router.push('');
     }
   };
 
