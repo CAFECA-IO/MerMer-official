@@ -30,6 +30,7 @@ module.exports = {
         lightWhite1: '#F2F2F2',
 
         lightGray1: '#8B8F92',
+        lightGray2: '#F2F4F8',
       },
       fontFamily: {
         Dosis: 'Dosis, sans-serif',
