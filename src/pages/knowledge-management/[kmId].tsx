@@ -7,11 +7,10 @@ import {ImFacebook, ImTwitter, ImLinkedin2} from 'react-icons/im';
 import {FaRedditAlien} from 'react-icons/fa';
 import {RiArrowLeftSLine} from 'react-icons/ri';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
-import {ILocale} from '../../interfaces/locale';
 import {useRouter} from 'next/router';
 import {dummyKMList, notFoundKM} from '../../interfaces/km_article';
 import {useTranslation} from 'next-i18next';
-import {TranslateFunction} from '../../interfaces/locale';
+import {TranslateFunction, ILocale} from '../../interfaces/locale';
 import {MERURL} from '../../constants/url';
 
 const KMDetailPage = () => {
@@ -31,7 +30,7 @@ const KMDetailPage = () => {
       <NavBar />
 
       <main className="flex w-screen flex-1 flex-col overflow-x-hidden bg-darkBlue3 pt-20">
-        {/* Info: (20230718 - Julian) Breadcrumb */}
+        {/* ToDo: (20230718 - Julian) Breadcrumb */}
         <div className="px-20 py-10">breadcrumb</div>
 
         {/* Info: (20230718 - Julian) Page Body */}

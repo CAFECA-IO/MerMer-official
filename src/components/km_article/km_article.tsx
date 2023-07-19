@@ -28,7 +28,7 @@ const KMArticle = ({title, date, content, picture, author}: IKMArticlerops) => {
         <div className="flex flex-col space-y-12">
           {/* Info: (20230718 - Julian) title & date */}
           <div className="flex flex-col items-center">
-            <h2 className="text-xl font-bold text-lightBlue1">{timestampToString(date)}</h2>
+            <h2 className="text-xl font-bold text-lightBlue1">{timestampToString(date).date}</h2>
             <h1 className="text-42px font-bold">{title}</h1>
           </div>
           {/* Info: (20230718 - Julian) content */}
