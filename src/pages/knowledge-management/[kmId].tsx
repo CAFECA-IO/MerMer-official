@@ -85,10 +85,8 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
   }
 
   // ToDo: (20230719 - Julian) 整理 dir data
-  //const dir = params.kmId.includes('julian') ? 'src/km/julian' : '/';
-  //const kmData = await getPost(dir, params.kmId);
-
-  const kmData = await getPost('src/km/julian', 'km-julian-20230719001');
+  const dir = params.kmId.includes('julian') ? 'src/km/julian' : '/';
+  const kmData = await getPost(dir, params.kmId);
 
   if (!kmData) {
     return {
@@ -108,12 +106,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
 export const getStaticPaths = async () => {
   return {
     // ToDo: (20230719 - Julian) paths
-    paths: [
-      {params: {kmId: 'km000001'}},
-      {params: {kmId: 'km000002'}},
-      {params: {kmId: 'km000003'}},
-      {params: {kmId: 'km000004'}},
-    ],
+    paths: [{params: {kmId: 'km-julian-20230719001'}}],
     fallback: 'blocking',
   };
 };

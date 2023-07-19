@@ -29,7 +29,8 @@ const KMItem = ({id, title, description, category, picture, author}: IKMItemProp
 
   return (
     <li className="flex w-300px flex-col items-center rounded-xl border border-transparent bg-mermerTheme p-5 font-Dosis hover:cursor-pointer hover:border-lightBlue1">
-      <Link href={`${MERURL.KM}/${id}`}>
+      {/* ToDo: (20230719 - Julian) Link to KM Detail Page */}
+      <Link href={`${MERURL.KM}/km-julian-20230719001` /* `${MERURL.KM}/${id}` */}>
         {/* Info: (20230718 - Julian) Picture */}
         <div className="relative h-200px w-260px">
           <Image src={picture} fill style={{objectFit: 'cover'}} alt="picture" />
