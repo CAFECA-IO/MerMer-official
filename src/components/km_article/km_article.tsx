@@ -29,7 +29,7 @@ const KMArticle = ({title, date, content, picture, author}: IKMArticlerops) => {
     /* Info: (20230719 - Julian) 超連結樣式 */
     .replace(
       /<a /g,
-      `<a class="text-lightBlue1 underline" `
+      `<a class="text-lightBlue1 underline" target="_blank" rel="noopener noreferrer" `
     ) /* Info: (20230719 - Julian) 程式碼區塊 */
     .replace(
       /<pre><code class="([^"]+)">([^<]+)<\/code><\/pre>/g,
