@@ -114,6 +114,11 @@
     "PAGINATION_PREVIOUS": "上一頁",
     "PAGINATION_NEXT": "下一頁"
   },
+  "KM_DETAIL_PAGE": {
+    "CHECK_AUTHOR": "查看作者的其他文章",
+    "BACK_BUTTON": "回上頁",
+    "SHARE_TO": "分享到"
+  },
   "FOOTER": {
     "ADDRESS": "台北市松山區民生東路三段 156 號 9 樓"
   }
