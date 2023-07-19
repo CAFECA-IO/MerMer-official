@@ -17,6 +17,28 @@ interface IKMArticlerops {
 const KMArticle = ({title, date, content, picture, author}: IKMArticlerops) => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
+  const parsedBody = content
+    /* Info: (20230719 - Julian) h3 字體放大加粗 & 以 margin y 實現段落間距 */
+    .replace(/<h3><strong>([^<]+)<\/strong><\/h3>/g, `<h3 class="font-bold text-2xl my-4">$1</h3>`)
+    /* Info: (20230719 - Julian) h4 字體放大加粗 & 以 margin y 實現段落間距 */
+    .replace(/<h4><strong>([^<]+)<\/strong><\/h4>/g, `<h3 class="font-bold text-lg my-4">$1</h3>`)
+    /* Info: (20230719 - Julian) ul, ol, li 縮排及列表樣式 */
+    .replace(/<ul>(<\/ul>)?/g, `<ul class="my-4 ml-4 list-disc">$1`)
+    .replace(/<ol>(<\/ol>)?/g, `<ol class="my-4 ml-4 list-roman">$1`)
+    .replace(/<li>(<\/li>)?/g, `<li class="ml-5">$1`)
+    /* Info: (20230719 - Julian) 超連結樣式 */
+    .replace(
+      /<a /g,
+      `<a class="text-lightBlue1 underline" `
+    ) /* Info: (20230719 - Julian) 程式碼區塊 */
+    .replace(
+      /<pre><code class="([^"]+)">([^<]+)<\/code><\/pre>/g,
+      `<pre class="bg-mermerTheme my-4 p-4"><code class="text-sm $1">$2</code></pre>`
+    )
+    /* Info: (20230719 - Julian) 表格樣式 */
+    .replace(/<th>(<\/th>)?/g, `<th class="border-x border-t border-lightWhite1 p-2">$1`)
+    .replace(/<td/g, `<td class="border border-lightWhite1 p-2"`);
+
   return (
     <div className="min-h-screen w-full font-Dosis">
       <div className="flex flex-col space-y-12 p-20">
@@ -32,8 +54,8 @@ const KMArticle = ({title, date, content, picture, author}: IKMArticlerops) => {
             <h1 className="text-42px font-bold">{title}</h1>
           </div>
           {/* Info: (20230718 - Julian) content */}
-          <div className="">
-            <p>{content}</p>
+          <div className="text-lg">
+            <article dangerouslySetInnerHTML={{__html: parsedBody}} />
           </div>
         </div>
       </div>

@@ -7,18 +7,20 @@ import {ImFacebook, ImTwitter, ImLinkedin2} from 'react-icons/im';
 import {FaRedditAlien} from 'react-icons/fa';
 import {RiArrowLeftSLine} from 'react-icons/ri';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
-import {useRouter} from 'next/router';
-import {dummyKMList, notFoundKM} from '../../interfaces/km_article';
+import {IKnowledgeManagement} from '../../interfaces/km_article';
 import {useTranslation} from 'next-i18next';
-import {TranslateFunction, ILocale} from '../../interfaces/locale';
+import {TranslateFunction} from '../../interfaces/locale';
 import {MERURL} from '../../constants/url';
+import {getPost} from '../../lib/posts';
+import {GetStaticProps} from 'next';
 
-const KMDetailPage = () => {
+interface IPageProps {
+  kmId: string;
+  kmData: IKnowledgeManagement;
+}
+
+const KMDetailPage = ({kmId, kmData}: IPageProps) => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
-  const router = useRouter();
-  const {kmId} = router.query;
-
-  const kmData = dummyKMList.find(km => km.id === kmId) ?? notFoundKM;
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
@@ -75,13 +77,48 @@ const KMDetailPage = () => {
   );
 };
 
-const getStaticPropsFunction = async ({locale}: ILocale) => ({
-  props: {
-    ...(await serverSideTranslations(locale, ['common'])),
-  },
-});
+export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale}) => {
+  if (!params || !params.kmId || typeof params.kmId !== 'string') {
+    return {
+      notFound: true,
+    };
+  }
 
-export const getStaticProps = getStaticPropsFunction;
+  const kmData = await getPost('src/km/julian', 'km-julian-20230719001');
+
+  if (!kmData) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      kmId: params.kmId,
+      kmData,
+      ...(await serverSideTranslations(locale as string, ['common', 'footer'])),
+    },
+  };
+};
+
+/* export const getStaticProps = async () => {
+  const source = await readFile(`src/km/julian/km-julian-20230719001.md`, 'utf-8');
+
+  const {
+    data: {date, title, description, cagetory},
+    content,
+  } = matter(source);
+
+  marked.setOptions({headerIds: false, mangle: false});
+
+  const body = marked(content);
+
+  return {
+    props: {
+      body,
+    },
+  };
+}; */
 
 export const getStaticPaths = async () => {
   return {
