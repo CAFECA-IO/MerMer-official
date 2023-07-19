@@ -34,7 +34,7 @@ const KMPageBody = () => {
       <div className="px-20 py-10">breadcrumb</div>
       {/* Info: (20230718 - Julian) Page Body */}
       <div className="flex w-full flex-col items-center space-y-16 px-20">
-        <div className="flex w-full space-x-20">
+        <div className="flex w-full flex-col items-center space-y-8 lg:flex-row lg:space-x-20 lg:space-y-0">
           {/* Info: (20230717 - Julian) category dropmenu */}
           <div className="flex items-center space-x-2 text-base hover:cursor-pointer">
             <p>{t('KM_PAGE.CATEGORY_TITLE')}</p>
@@ -59,7 +59,7 @@ const KMPageBody = () => {
         </div>
         <ul className="flex flex-wrap justify-center gap-x-4 gap-y-16">{displayKMList}</ul>
         {/* ToDo: (20230718 - Julian) Pagination */}
-        {/* <Pagination activePage={activePage} setActivePage={setActivePage} totalPages={totalPages} /> */}
+        <Pagination activePage={activePage} setActivePage={setActivePage} totalPages={totalPages} />
       </div>
     </div>
   );

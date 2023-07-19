@@ -37,7 +37,7 @@ export const dummyKMList: IKnowledgeManagement[] = [
   {
     id: 'km000002',
     title: 'Article Title2',
-    date: 16938986000000,
+    date: 1686898600000,
     description: 'Egestas elit dui scelerisque ut eu purus aliquam vitae habitasse.',
     content:
       'Quisque elit enim, iaculis a interdum sit amet, maximus non odio. Donec in nibh urna. In hac habitasse platea dictumst. Maecenas faucibus lectus ut aliquet congue. Proin interdum, lorem sit amet interdum volutpat, lorem turpis tempor velit, a egestas mi neque vitae lectus. Pellentesque et quam aliquet, mollis lorem vel, sollicitudin justo. Morbi tincidunt ipsum et erat volutpat tempor ac vel arcu. Morbi consequat turpis ut neque ultrices venenatis. Pellentesque lacinia diam quis ultrices accumsan. Nam neque mi, auctor nec sem eget, porta tempus purus. Donec fermentum ultrices vulputate. Maecenas ullamcorper vehicula faucibus.',
@@ -55,5 +55,16 @@ export const dummyKMList: IKnowledgeManagement[] = [
     cagetory: 'Category',
     picture: '/km/03.png',
     author: dummyAuthors[2],
+  },
+  {
+    id: 'km000004',
+    date: 1687892851000,
+    title: 'Article Title4',
+    description: 'Egestas elit dui scelerisque ut eu purus aliquam vitae habitasse.',
+    content:
+      'Vestibulum vitae ante neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam in mollis arcu, et fermentum lacus. Curabitur non posuere eros, vel pellentesque enim. Quisque fermentum purus eros, sed lacinia sem elementum sit amet. Nunc vitae vulputate arcu, ac lacinia nulla. Quisque elementum est velit, placerat iaculis urna finibus nec. Aenean euismod felis est, at pellentesque nulla semper ac. Quisque accumsan finibus sollicitudin. Sed iaculis libero nec ante pellentesque convallis et et nunc. Fusce euismod lobortis ultrices. Integer suscipit vulputate elit, id vestibulum nisi auctor ac. Integer eget velit nibh.',
+    cagetory: 'Category',
+    picture: '/km/01.png',
+    author: dummyAuthors[1],
   },
 ];
