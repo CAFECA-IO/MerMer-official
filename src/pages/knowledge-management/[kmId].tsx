@@ -19,13 +19,13 @@ interface IPageProps {
   kmData: IKnowledgeManagement;
 }
 
-const KMDetailPage = ({kmId, kmData}: IPageProps) => {
+const KMDetailPage = ({kmData}: IPageProps) => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
       <Head>
-        <title>MerMer - Knowledge Management</title>
+        <title>MerMer - {kmData.title}</title>
         <link rel="icon" href="/favicon/favicon.ico" />
       </Head>
 
@@ -84,6 +84,10 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
     };
   }
 
+  // ToDo: (20230719 - Julian) 整理 dir data
+  //const dir = params.kmId.includes('julian') ? 'src/km/julian' : '/';
+  //const kmData = await getPost(dir, params.kmId);
+
   const kmData = await getPost('src/km/julian', 'km-julian-20230719001');
 
   if (!kmData) {
@@ -101,27 +105,9 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
   };
 };
 
-/* export const getStaticProps = async () => {
-  const source = await readFile(`src/km/julian/km-julian-20230719001.md`, 'utf-8');
-
-  const {
-    data: {date, title, description, cagetory},
-    content,
-  } = matter(source);
-
-  marked.setOptions({headerIds: false, mangle: false});
-
-  const body = marked(content);
-
-  return {
-    props: {
-      body,
-    },
-  };
-}; */
-
 export const getStaticPaths = async () => {
   return {
+    // ToDo: (20230719 - Julian) paths
     paths: [
       {params: {kmId: 'km000001'}},
       {params: {kmId: 'km000002'}},
