@@ -18,7 +18,7 @@ export const mermerAuthors: IAuthor[] = [
   {
     id: 'julian',
     name: 'Julian Hsu',
-    jobTitle: 'Frontend Developer',
+    jobTitle: 'Frontend Engineer',
     intro:
       'Give me a cup of Milk Cap Tea and I can lift the whole world. Must be full sugar and Cream Cheese flavor. Preferably topped with a Strawberry Mochi.',
     avatar: '/profiles/profile_julian.png',
