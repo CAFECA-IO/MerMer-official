@@ -14,17 +14,20 @@ interface IKMItemProps {
 
 const KMItem = ({id, title, description, category, picture, author}: IKMItemProps) => {
   const displayedAuthor = (
-    <div className="flex flex-1 items-center space-x-4 pt-4">
-      {/* Info: (20230718 - Julian) Author avatar */}
-      <div className="relative flex h-48px w-48px items-center justify-center overflow-hidden rounded-full bg-lightGray2">
-        <Image src={author.avatar} fill style={{objectFit: 'cover'}} alt="author_avatar" />
+    // ToDo: (20230720 - Julian) Link to Author Page
+    <Link href={`#`} className="z-10">
+      <div className="flex items-center space-x-4 pt-4">
+        {/* Info: (20230718 - Julian) Author avatar */}
+        <div className="relative flex h-48px w-48px items-center justify-center overflow-hidden rounded-full bg-lightGray2">
+          <Image src={author.avatar} fill style={{objectFit: 'cover'}} alt="author_avatar" />
+        </div>
+        {/* Info: (20230718 - Julian) Author name */}
+        <div className="flex flex-col">
+          <p className="text-base text-lightBlue1">{author.name}</p>
+          <p className="text-base text-lightWhite1">{author.jobTitle}</p>
+        </div>
       </div>
-      {/* Info: (20230718 - Julian) Author name */}
-      <div className="flex flex-col">
-        <p className="text-base text-lightBlue1">{author.name}</p>
-        <p className="text-base text-lightWhite1">{author.jobTitle}</p>
-      </div>
-    </div>
+    </Link>
   );
 
   const displayedCategory =
@@ -32,17 +35,21 @@ const KMItem = ({id, title, description, category, picture, author}: IKMItemProp
       ? category.map(item => {
           return (
             // ToDo: (20230720 - Julian) Link to Category
-            <p className="px-1" key={item}>
-              {item}
-            </p>
+            <Link href={`#`}>
+              <p className="px-1 hover:text-lightBlue1" key={item}>
+                {item}
+              </p>
+            </Link>
           );
         })
       : category.slice(0, 4).map(item => {
           return (
             // ToDo: (20230720 - Julian) Link to Category
-            <p className="px-1" key={item}>
-              {item}
-            </p>
+            <Link href={`#`}>
+              <p className="px-1 hover:text-lightBlue1" key={item}>
+                {item}
+              </p>
+            </Link>
           );
         });
 
@@ -56,7 +63,7 @@ const KMItem = ({id, title, description, category, picture, author}: IKMItemProp
         <div className="flex w-full flex-col px-4 py-6">
           {/* Info: (20230718 - Julian) Category & Title */}
           <div className="flex flex-col">
-            <div className="flex items-center divide-x divide-dashed divide-lightWhite1 whitespace-nowrap text-base text-lightWhite1">
+            <div className="z-10 flex items-center whitespace-nowrap text-base text-lightWhite1">
               {displayedCategory}
             </div>
             <p className="text-xl text-lightBlue1">{title}</p>
