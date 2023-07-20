@@ -1,23 +1,24 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import Image from 'next/image';
 import NavBar from '../../../components/nav_bar/nav_bar';
 import Footer from '../../../components/footer/footer';
-import KMFilters from '../../../components/km_filter/km_filter';
-import {useTranslation} from 'next-i18next';
-import {TranslateFunction, ILocale} from '../../../interfaces/locale';
+import KMPageBody from '../../../components/km_page_body/km_page_body';
+import {getPosts, getAuthor} from '../../../lib/posts';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {GetStaticProps} from 'next';
+import {IKnowledgeManagement} from '../../../interfaces/km_article';
+import {IAuthor} from '../../../interfaces/author_data';
 
-interface IPageProps {}
+interface IPageProps {
+  author: IAuthor;
+  kmList: IKnowledgeManagement[];
+}
 
-const AuthorPage = () => {
-  const {t}: {t: TranslateFunction} = useTranslation('common');
-
+const AuthorPage = ({author, kmList}: IPageProps) => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
       <Head>
-        <title>MerMer - Author</title>
+        <title>MerMer - {author.name}</title>
         <link rel="icon" href="/favicon/favicon.ico" />
       </Head>
 
@@ -29,27 +30,22 @@ const AuthorPage = () => {
           <div className="flex flex-1 flex-col items-center space-y-4 rounded-3xl bg-glass p-12">
             {/* Info: (20230718 - Julian) author avatar */}
             <div className="relative flex h-96px w-96px items-center justify-center overflow-hidden rounded-full bg-lightGray2">
-              <Image
-                src={`/icons/user.svg`}
-                fill
-                style={{objectFit: 'cover'}}
-                alt="author_avatar"
-              />
+              <Image src={author.avatar} fill style={{objectFit: 'cover'}} alt="author_avatar" />
             </div>
             {/* Info: (20230718 - Julian) author name & introduction */}
             <div className="flex flex-col items-center">
-              <p className="text-2xl font-bold text-lightBlue1">{`Welly Wang`}</p>
-              <p className="text-lg text-lightWhite1">{`Intern`}</p>
+              <p className="text-2xl font-bold text-lightBlue1">{author.name}</p>
+              <p className="text-lg text-lightWhite1">{author.jobTitle}</p>
             </div>
-            <p className="text-lg text-lightWhite1">{`I like cake`}</p>
+            <p className="text-lg text-lightWhite1">{author.intro}</p>
           </div>
         </div>
 
-        {/* ToDo: (20230720 - Julian) breadcrumb */}
-        <div className="px-20 py-10">breadcrumb</div>
-        {/* Info: (20230720 - Julian) Author Page Body */}
-        <div className="flex flex-col px-20">
-          <KMFilters />
+        <div className="flex min-h-screen w-full flex-col font-Dosis">
+          {/* ToDo: (20230718 - Julian) Breadcrumb */}
+          <div className="px-20 py-10">breadcrumb</div>
+          {/* Info: (20230718 - Julian) Page Body */}
+          <KMPageBody briefs={kmList} />
         </div>
       </main>
 
@@ -58,13 +54,24 @@ const AuthorPage = () => {
   );
 };
 
-const getStaticPropsFunction = async ({locale}: ILocale) => ({
-  props: {
-    ...(await serverSideTranslations(locale, ['common'])),
-  },
-});
+export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale}) => {
+  if (!params || !params.authorId || typeof params.authorId !== 'string') {
+    return {
+      notFound: true,
+    };
+  }
 
-export const getStaticProps = getStaticPropsFunction;
+  const author = await getAuthor(params?.authorId);
+  const kmList = await getPosts(`src/km/${params?.authorId}`);
+
+  return {
+    props: {
+      author,
+      kmList,
+      ...(await serverSideTranslations(locale as string, ['common', 'footer'])),
+    },
+  };
+};
 
 export const getStaticPaths = async () => {
   return {
@@ -73,22 +80,5 @@ export const getStaticPaths = async () => {
     fallback: 'blocking',
   };
 };
-
-// export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale}) => {
-//   //const allKmData = await getPosts('src/km/julian');
-
-//   // if (!allKmData) {
-//   //   return {
-//   //     notFound: true,
-//   //   };
-//   // }
-
-//   return {
-//     props: {
-//       //briefs,
-//       ...(await serverSideTranslations(locale as string, ['common', 'footer'])),
-//     },
-//   };
-// };
 
 export default AuthorPage;

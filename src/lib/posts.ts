@@ -1,8 +1,9 @@
 import {IKnowledgeManagement} from '../interfaces/km_article';
-import {readFile, readdir} from 'fs/promises';
+import {readFile, readdir, stat} from 'fs/promises';
 import matter from 'gray-matter';
 import {marked} from 'marked';
-import {julianData, notFoundAuthor} from '../interfaces/author_data';
+import {join} from 'path';
+import {IAuthor, notFoundAuthor, mermerAuthors} from '../interfaces/author_data';
 
 export async function getPost(src: string, slug: string): Promise<IKnowledgeManagement | null> {
   try {
@@ -16,7 +17,7 @@ export async function getPost(src: string, slug: string): Promise<IKnowledgeMana
 
     const body = marked(content);
     const picture = `/km/${slug}.png`;
-    const author = slug.includes('julian') ? julianData : notFoundAuthor;
+    const author = await getAuthor(slug.split('-')[1]);
 
     return {
       id: slug,
@@ -43,17 +44,50 @@ export async function getSlugs(src: string): Promise<string[] | undefined> {
   }
 }
 
-export async function getPosts(src: string): Promise<IKnowledgeManagement[]> {
+export async function getPosts(src?: string): Promise<IKnowledgeManagement[]> {
   const posts: IKnowledgeManagement[] = [];
 
-  const slugs = await getSlugs(src);
-  if (!slugs) return [];
-  for (const slug of slugs) {
-    const post = await getPost(src, slug);
-    if (post) {
-      posts.push(post);
+  if (!src) {
+    const directories = await getDirectories('./src/km');
+    for (const directory of directories) {
+      const slugs = await getSlugs(directory);
+      if (!slugs) return [];
+      for (const slug of slugs) {
+        const post = await getPost(directory, slug);
+        if (post) {
+          posts.push(post);
+        }
+      }
+    }
+  } else {
+    const slugs = await getSlugs(src);
+    if (!slugs) return [];
+    for (const slug of slugs) {
+      const post = await getPost(src, slug);
+      if (post) {
+        posts.push(post);
+      }
     }
   }
 
   return posts;
+}
+
+export async function getAuthor(id: string): Promise<IAuthor> {
+  const idLower = id.toLowerCase();
+  const author = mermerAuthors.find(author => author.id === idLower) || notFoundAuthor;
+
+  return author;
+}
+
+export async function getDirectories(src: string): Promise<string[]> {
+  const subdirs = await readdir(src);
+  const directories = [];
+  for (const subdir of subdirs) {
+    const absolutePath = join(src, subdir);
+    if ((await stat(absolutePath)).isDirectory()) {
+      directories.push(absolutePath);
+    }
+  }
+  return directories;
 }

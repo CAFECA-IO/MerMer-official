@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import {MERURL} from '../../constants/url';
+import {KM_TAG_LIMIT, KM_DESCRIPTION_LIMIT, KM_TITLE_LIMIT} from '../../constants/config';
+import {truncateText} from '../../lib/common';
 import {IAuthor} from '../../interfaces/author_data';
 
 interface IKMItemProps {
@@ -29,7 +31,10 @@ const KMItem = ({id, title, description, category, picture, author}: IKMItemProp
     </Link>
   );
 
-  const displayedCategory = category.slice(0, 4).map(item => {
+  const displayedTitle = truncateText(title, KM_TITLE_LIMIT);
+  const displayedDescription = truncateText(description, KM_DESCRIPTION_LIMIT);
+
+  const displayedCategory = category.slice(0, KM_TAG_LIMIT).map(item => {
     return (
       // ToDo: (20230720 - Julian) Link to Category
       <Link href={`#`} key={item}>
@@ -53,10 +58,10 @@ const KMItem = ({id, title, description, category, picture, author}: IKMItemProp
             <div className="z-10 flex items-center whitespace-nowrap text-base text-lightWhite1">
               {displayedCategory}
             </div>
-            <p className="text-xl text-lightBlue1">{title}</p>
+            <p className="text-xl text-lightBlue1">{displayedTitle}</p>
           </div>
           {/* Info: (20230718 - Julian) Description */}
-          <p className="py-4 text-base text-lightWhite1">{description}</p>
+          <p className="py-4 text-base text-lightWhite1">{displayedDescription}</p>
           {/* Info: (20230718 - Julian) Author */}
           {displayedAuthor}
         </div>

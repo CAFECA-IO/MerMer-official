@@ -2,13 +2,11 @@ import Head from 'next/head';
 import NavBar from '../../components/nav_bar/nav_bar';
 import Footer from '../../components/footer/footer';
 import KMPageBody from '../../components/km_page_body/km_page_body';
-import {KM_DESCRIPTION_LIMIT} from '../../constants/config';
 import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
 import {IKnowledgeManagement} from '../../interfaces/km_article';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {GetStaticProps} from 'next';
-import {truncateText} from '../../lib/common';
 import {getPosts} from '../../lib/posts';
 
 interface IPageProps {
@@ -49,21 +47,7 @@ const KnowledgeManagementPage = ({briefs}: IPageProps) => {
 };
 
 export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale}) => {
-  const allKmData = await getPosts('src/km/julian');
-
-  const briefs: IKnowledgeManagement[] = allKmData.map(km => {
-    const description = truncateText(km.description, KM_DESCRIPTION_LIMIT);
-    return {
-      id: km.id,
-      date: km.date,
-      title: km.title,
-      description,
-      content: km.content,
-      picture: km.picture,
-      category: km.category,
-      author: km.author,
-    };
-  });
+  const allKmData = await getPosts();
 
   if (!allKmData) {
     return {
@@ -73,7 +57,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
 
   return {
     props: {
-      briefs,
+      briefs: allKmData,
       ...(await serverSideTranslations(locale as string, ['common', 'footer'])),
     },
   };

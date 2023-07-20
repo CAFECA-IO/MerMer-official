@@ -106,7 +106,11 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
 export const getStaticPaths = async () => {
   return {
     // ToDo: (20230719 - Julian) paths
-    paths: [{params: {kmId: 'km-julian-20230719001'}}, {params: {kmId: 'km-julian-20230720001'}}],
+    paths: [
+      {params: {kmId: 'km-julian-20230719001'}},
+      {params: {kmId: 'km-julian-20230720001'}},
+      {params: {kmId: 'km-test-20230720001'}},
+    ],
     fallback: 'blocking',
   };
 };
