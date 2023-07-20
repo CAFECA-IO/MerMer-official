@@ -3,6 +3,8 @@ export const KM_TITLE_LIMIT = 20;
 export const KM_DESCRIPTION_LIMIT = 50;
 export const KM_TAG_LIMIT = 3;
 
+export const KM_FOLDER = 'src/km';
+
 export const DOMAIN = 'https://mermer.com.tw';
 
 export const web3Content = [

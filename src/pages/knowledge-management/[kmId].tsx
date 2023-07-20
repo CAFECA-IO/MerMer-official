@@ -11,7 +11,7 @@ import {IKnowledgeManagement} from '../../interfaces/km_article';
 import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
 import {MERURL} from '../../constants/url';
-import {DOMAIN, KM_DESCRIPTION_LIMIT} from '../../constants/config';
+import {DOMAIN, KM_DESCRIPTION_LIMIT, KM_FOLDER} from '../../constants/config';
 import {getPost} from '../../lib/posts';
 import {GetStaticProps} from 'next';
 import {truncateText} from '../../lib/common';
@@ -122,7 +122,8 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
   }
 
   // ToDo: (20230719 - Julian) 整理 dir data
-  const dir = params.kmId.includes('julian') ? 'src/km/julian' : '/';
+  const authorId = params.kmId.split('-')[1];
+  const dir = `${KM_FOLDER}/${authorId}`;
   const kmData = await getPost(dir, params.kmId);
 
   if (!kmData) {

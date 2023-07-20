@@ -53,7 +53,7 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
 
   return (
     <div className="min-h-screen w-full font-Dosis">
-      <div className="flex flex-col space-y-12 p-20">
+      <div className="flex flex-col space-y-12 px-64 py-20">
         {/* Info: (20230718 - Julian) picture */}
         <div className="relative h-580px w-full">
           <Image src={picture} fill style={{objectFit: 'cover'}} alt="picture" />

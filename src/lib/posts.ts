@@ -3,6 +3,7 @@ import {readFile, readdir, stat} from 'fs/promises';
 import matter from 'gray-matter';
 import {marked} from 'marked';
 import {join} from 'path';
+import {KM_FOLDER} from '../constants/config';
 import {IAuthor, notFoundAuthor, mermerAuthors} from '../interfaces/author_data';
 
 export async function getPost(src: string, slug: string): Promise<IKnowledgeManagement | null> {
@@ -48,7 +49,7 @@ export async function getPosts(src?: string): Promise<IKnowledgeManagement[]> {
   const posts: IKnowledgeManagement[] = [];
 
   if (!src) {
-    const directories = await getDirectories('./src/km');
+    const directories = await getDirectories(`./${KM_FOLDER}`);
     for (const directory of directories) {
       const slugs = await getSlugs(directory);
       if (!slugs) return [];
