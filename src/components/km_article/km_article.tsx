@@ -5,6 +5,7 @@ import {IAuthor} from '../../interfaces/author_data';
 import {timestampToString} from '../../lib/common';
 import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
+import {MERURL} from '../../constants/url';
 
 interface IKMArticleProps {
   title: string;
@@ -40,6 +41,16 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
     .replace(/<th>(<\/th>)?/g, `<th class="border-x border-t border-lightWhite1 p-2">$1`)
     .replace(/<td/g, `<td class="border border-lightWhite1 p-2"`);
 
+  const displayedCategory = category.map(item => {
+    return (
+      <Link href={`#`}>
+        <p className="px-1 hover:text-lightBlue1" key={item}>
+          {item}
+        </p>
+      </Link>
+    );
+  });
+
   return (
     <div className="min-h-screen w-full font-Dosis">
       <div className="flex flex-col space-y-12 p-20">
@@ -54,6 +65,8 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
             <h2 className="text-xl font-bold text-lightBlue1">{timestampToString(date).date}</h2>
             <h1 className="text-42px font-bold">{title}</h1>
           </div>
+          {/* Info: (20230718 - Julian) category tags */}
+          <div className="flex items-center justify-end">{displayedCategory}</div>
           {/* Info: (20230718 - Julian) content */}
           <div className="text-lg">
             <article dangerouslySetInnerHTML={{__html: parsedBody}} />
@@ -74,7 +87,7 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
             <p className="text-lg text-lightWhite1">{author.jobTitle}</p>
           </div>
           <p className="text-lg text-lightWhite1">{author.intro}</p>
-          <Link href={'#'} className="group flex items-center">
+          <Link href={`${MERURL.AUTHOR}/${author.id}`} className="group flex items-center">
             <p className="text-sm text-lightBlue1">{t('KM_DETAIL_PAGE.CHECK_AUTHOR')}</p>
             <ImArrowRight2 className="ml-4 transition-all duration-300 ease-in-out group-hover:ml-8" />
           </Link>

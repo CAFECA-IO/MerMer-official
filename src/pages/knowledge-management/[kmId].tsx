@@ -65,7 +65,6 @@ const KMDetailPage = ({kmData}: IPageProps) => {
             </div>
           </div>
           {/* Info: (20230719 - Julian) Back Button */}
-
           <Link href={MERURL.KM} className="group flex items-center text-2xl hover:text-lightBlue1">
             <RiArrowLeftSLine className="mr-2 text-2xl transition-all duration-300 ease-in-out group-hover:mr-4" />
             <p className="text-base">{t('KM_DETAIL_PAGE.BACK_BUTTON')}</p>
@@ -107,7 +106,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
 export const getStaticPaths = async () => {
   return {
     // ToDo: (20230719 - Julian) paths
-    paths: [{params: {kmId: 'km-julian-20230719001'}}],
+    paths: [{params: {kmId: 'km-julian-20230719001'}}, {params: {kmId: 'km-julian-20230720001'}}],
     fallback: 'blocking',
   };
 };

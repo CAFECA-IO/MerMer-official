@@ -14,8 +14,7 @@ interface IKMItemProps {
 
 const KMItem = ({id, title, description, category, picture, author}: IKMItemProps) => {
   const displayedAuthor = (
-    // ToDo: (20230720 - Julian) Link to Author Page
-    <Link href={`#`} className="z-10">
+    <Link href={`${MERURL.AUTHOR}/${author.id}`} className="z-10">
       <div className="flex items-center space-x-4 pt-4">
         {/* Info: (20230718 - Julian) Author avatar */}
         <div className="relative flex h-48px w-48px items-center justify-center overflow-hidden rounded-full bg-lightGray2">
@@ -48,7 +47,7 @@ const KMItem = ({id, title, description, category, picture, author}: IKMItemProp
         <div className="relative h-200px w-260px">
           <Image src={picture} fill style={{objectFit: 'cover'}} alt="picture" />
         </div>
-        <div className="flex w-full flex-col px-4 py-6">
+        <div className="flex w-full flex-1 flex-col px-4 py-6">
           {/* Info: (20230718 - Julian) Category & Title */}
           <div className="flex flex-col">
             <div className="z-10 flex items-center whitespace-nowrap text-base text-lightWhite1">
