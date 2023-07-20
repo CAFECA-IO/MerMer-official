@@ -6,15 +6,16 @@ import {timestampToString} from '../../lib/common';
 import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
 
-interface IKMArticlerops {
+interface IKMArticleProps {
   title: string;
   date: number;
   content: string;
+  category: string[];
   picture: string;
   author: IAuthor;
 }
 
-const KMArticle = ({title, date, content, picture, author}: IKMArticlerops) => {
+const KMArticle = ({title, date, content, category, picture, author}: IKMArticleProps) => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
   const parsedBody = content

@@ -40,6 +40,7 @@ const KMDetailPage = ({kmData}: IPageProps) => {
           title={kmData.title}
           date={kmData.date}
           content={kmData.content}
+          category={kmData.category}
           picture={kmData.picture}
           author={kmData.author}
         />
