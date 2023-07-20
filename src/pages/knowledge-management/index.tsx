@@ -2,6 +2,7 @@ import Head from 'next/head';
 import NavBar from '../../components/nav_bar/nav_bar';
 import Footer from '../../components/footer/footer';
 import KMPageBody from '../../components/km_page_body/km_page_body';
+import {KM_DESCRIPTION_LIMIT} from '../../constants/config';
 import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
 import {IKnowledgeManagement} from '../../interfaces/km_article';
@@ -34,8 +35,12 @@ const KnowledgeManagementPage = ({briefs}: IPageProps) => {
           </h1>
         </div>
 
-        {/* Info: (20230717 - Julian) KM Page Body */}
-        <KMPageBody briefs={briefs} />
+        <div className="flex min-h-screen w-full flex-col font-Dosis">
+          {/* ToDo: (20230718 - Julian) Breadcrumb */}
+          <div className="px-20 py-10">breadcrumb</div>
+          {/* Info: (20230718 - Julian) Page Body */}
+          <KMPageBody briefs={briefs} />
+        </div>
       </main>
 
       <Footer />
@@ -47,7 +52,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
   const allKmData = await getPosts('src/km/julian');
 
   const briefs: IKnowledgeManagement[] = allKmData.map(km => {
-    const description = truncateText(km.description, 40);
+    const description = truncateText(km.description, KM_DESCRIPTION_LIMIT);
     return {
       id: km.id,
       date: km.date,

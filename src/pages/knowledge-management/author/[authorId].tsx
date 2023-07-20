@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import NavBar from '../../../components/nav_bar/nav_bar';
 import Footer from '../../../components/footer/footer';
+import KMFilters from '../../../components/km_filter/km_filter';
 import {useTranslation} from 'next-i18next';
 import {TranslateFunction, ILocale} from '../../../interfaces/locale';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
@@ -44,7 +45,12 @@ const AuthorPage = () => {
           </div>
         </div>
 
-        {/* Info: (20230717 - Julian) Author Page Body */}
+        {/* ToDo: (20230720 - Julian) breadcrumb */}
+        <div className="px-20 py-10">breadcrumb</div>
+        {/* Info: (20230720 - Julian) Author Page Body */}
+        <div className="flex flex-col px-20">
+          <KMFilters />
+        </div>
       </main>
 
       <Footer />

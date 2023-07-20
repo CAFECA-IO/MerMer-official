@@ -43,7 +43,7 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
 
   const displayedCategory = category.map(item => {
     return (
-      <Link href={`#`}>
+      <Link href={`#`} key={item}>
         <p className="px-1 hover:text-lightBlue1" key={item}>
           {item}
         </p>

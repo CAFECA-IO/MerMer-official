@@ -1,3 +1,6 @@
+export const KM_PER_PAGE = 8;
+export const KM_DESCRIPTION_LIMIT = 40;
+
 export const web3Content = [
   {
     title: 'HOME_PAGE.CATCH_UP_BLOCK_1_TITLE',

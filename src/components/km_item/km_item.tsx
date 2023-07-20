@@ -32,7 +32,7 @@ const KMItem = ({id, title, description, category, picture, author}: IKMItemProp
   const displayedCategory = category.slice(0, 4).map(item => {
     return (
       // ToDo: (20230720 - Julian) Link to Category
-      <Link href={`#`}>
+      <Link href={`#`} key={item}>
         <p className="px-1 hover:text-lightBlue1" key={item}>
           {item}
         </p>
