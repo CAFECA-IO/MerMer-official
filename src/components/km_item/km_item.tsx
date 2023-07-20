@@ -30,28 +30,16 @@ const KMItem = ({id, title, description, category, picture, author}: IKMItemProp
     </Link>
   );
 
-  const displayedCategory =
-    category.length <= 4
-      ? category.map(item => {
-          return (
-            // ToDo: (20230720 - Julian) Link to Category
-            <Link href={`#`}>
-              <p className="px-1 hover:text-lightBlue1" key={item}>
-                {item}
-              </p>
-            </Link>
-          );
-        })
-      : category.slice(0, 4).map(item => {
-          return (
-            // ToDo: (20230720 - Julian) Link to Category
-            <Link href={`#`}>
-              <p className="px-1 hover:text-lightBlue1" key={item}>
-                {item}
-              </p>
-            </Link>
-          );
-        });
+  const displayedCategory = category.slice(0, 4).map(item => {
+    return (
+      // ToDo: (20230720 - Julian) Link to Category
+      <Link href={`#`}>
+        <p className="px-1 hover:text-lightBlue1" key={item}>
+          {item}
+        </p>
+      </Link>
+    );
+  });
 
   return (
     <li className="relative flex h-auto w-300px items-center rounded-xl border border-transparent bg-mermerTheme p-5 font-Dosis hover:cursor-pointer hover:border-lightBlue1">
