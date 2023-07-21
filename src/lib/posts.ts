@@ -10,15 +10,14 @@ export async function getPost(src: string, slug: string): Promise<IKnowledgeMana
   try {
     const source = await readFile(`${src}/${slug}.md`, 'utf-8');
     const {
-      data: {date, title, description, category},
+      data: {date, title, description, picture, category, authorId},
       content,
     } = matter(source);
 
     marked.setOptions({headerIds: false, mangle: false});
 
     const body = marked(content);
-    const picture = `/km/${slug}.png`;
-    const author = await getAuthor(slug.split('-')[1]);
+    const author = await getAuthor(authorId);
 
     return {
       id: slug,
@@ -28,7 +27,7 @@ export async function getPost(src: string, slug: string): Promise<IKnowledgeMana
       content: body,
       category,
       picture,
-      author: author,
+      author,
     };
   } catch (error) {
     return null;
@@ -45,32 +44,41 @@ export async function getSlugs(src: string): Promise<string[] | undefined> {
   }
 }
 
-export async function getPosts(src?: string): Promise<IKnowledgeManagement[]> {
+export async function getPosts(): Promise<IKnowledgeManagement[]> {
   const posts: IKnowledgeManagement[] = [];
-
-  if (!src) {
-    const directories = await getDirectories(`./${KM_FOLDER}`);
-    for (const directory of directories) {
-      const slugs = await getSlugs(directory);
-      if (!slugs) return [];
-      for (const slug of slugs) {
-        const post = await getPost(directory, slug);
-        if (post) {
-          posts.push(post);
-        }
-      }
-    }
-  } else {
-    const slugs = await getSlugs(src);
-    if (!slugs) return [];
-    for (const slug of slugs) {
-      const post = await getPost(src, slug);
-      if (post) {
-        posts.push(post);
-      }
+  const slugs = await getSlugs(KM_FOLDER);
+  if (!slugs) return [];
+  for (const slug of slugs) {
+    const post = await getPost(KM_FOLDER, slug);
+    if (post) {
+      posts.push(post);
     }
   }
 
+  return posts;
+}
+
+// Info: (20230721 - Julian) 抓取特定分類的文章
+export async function getPostsByCategory(category: string): Promise<IKnowledgeManagement[]> {
+  const posts: IKnowledgeManagement[] = [];
+  const allPosts = await getPosts();
+  for (const post of allPosts) {
+    if (post.category.includes(category)) {
+      posts.push(post);
+    }
+  }
+  return posts;
+}
+
+// Info: (20230721 - Julian) 抓取特定作者的文章
+export async function getPostsByAuthor(authorId: string): Promise<IKnowledgeManagement[]> {
+  const posts: IKnowledgeManagement[] = [];
+  const allPosts = await getPosts();
+  for (const post of allPosts) {
+    if (post.author.id === authorId) {
+      posts.push(post);
+    }
+  }
   return posts;
 }
 

@@ -121,10 +121,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
     };
   }
 
-  // ToDo: (20230719 - Julian) 整理 dir data
-  const authorId = params.kmId.split('-')[1];
-  const dir = `${KM_FOLDER}/${authorId}`;
-  const kmData = await getPost(dir, params.kmId);
+  const kmData = await getPost(KM_FOLDER, params.kmId);
 
   if (!kmData) {
     return {

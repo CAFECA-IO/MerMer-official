@@ -3,12 +3,11 @@ import Image from 'next/image';
 import NavBar from '../../../components/nav_bar/nav_bar';
 import Footer from '../../../components/footer/footer';
 import KMPageBody from '../../../components/km_page_body/km_page_body';
-import {getPosts, getAuthor} from '../../../lib/posts';
+import {getAuthor, getPostsByAuthor} from '../../../lib/posts';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {GetStaticProps} from 'next';
 import {IKnowledgeManagement} from '../../../interfaces/km_article';
 import {IAuthor} from '../../../interfaces/author_data';
-import {KM_FOLDER} from '../../../constants/config';
 
 interface IPageProps {
   author: IAuthor;
@@ -63,7 +62,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
   }
 
   const author = await getAuthor(params?.authorId);
-  const kmList = await getPosts(`${KM_FOLDER}/${params?.authorId}`);
+  const kmList = await getPostsByAuthor(params?.authorId);
 
   return {
     props: {
