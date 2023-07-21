@@ -69,6 +69,20 @@ const KMPageBody = ({briefs}: IPageProps) => {
     // Info: (20230721 - Julian) 印出當前頁面的 KM
     .slice(startIdx, endIdx);
 
+  const displaySearchBar = (
+    <div className="relative flex flex-1 items-center">
+      <input
+        type="search"
+        className="w-full items-center rounded-full bg-dropDownHover px-10 py-3 text-base"
+        placeholder={t('KM_PAGE.SEARCH_PLACEHOLDER')}
+        onChange={searchChangeHandler}
+      />
+      <div className="absolute left-4 text-base font-bold">
+        <RiSearchLine />
+      </div>
+    </div>
+  );
+
   return (
     <div className="flex w-full flex-col items-center space-y-16 px-20">
       <div className="flex w-full flex-col items-center space-y-8 lg:flex-row lg:space-x-20 lg:space-y-0">
@@ -78,17 +92,7 @@ const KMPageBody = ({briefs}: IPageProps) => {
           <MdOutlineKeyboardArrowDown />
         </div>
         {/* Info: (20230717 - Julian) search input */}
-        <div className="relative flex flex-1 items-center">
-          <input
-            type="search"
-            className="w-full items-center rounded-full bg-dropDownHover px-10 py-3 text-base"
-            placeholder={t('KM_PAGE.SEARCH_PLACEHOLDER')}
-            onChange={searchChangeHandler}
-          />
-          <div className="absolute left-4 text-base font-bold">
-            <RiSearchLine />
-          </div>
-        </div>
+        {displaySearchBar}
         {/* Info: (20230717 - Julian) sort menu */}
         <div className="flex items-center space-x-2 text-base hover:cursor-pointer">
           <TbSortDescending />
