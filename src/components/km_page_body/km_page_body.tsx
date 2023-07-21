@@ -97,9 +97,10 @@ const KMPageBody = ({briefs}: IPageProps) => {
   const displaySortingDropmenu = (
     <div
       ref={sortRef}
+      onClick={() => setSortVisible(!sortVisible)}
       className="relative flex w-90px flex-col items-center text-base hover:cursor-pointer"
     >
-      <div className="flex space-x-2" onClick={() => setSortVisible(!sortVisible)}>
+      <div className="flex space-x-2">
         <TbSortDescending />
         <p>{t('KM_PAGE.SORT_BY_TITLE')}</p>
       </div>
@@ -107,7 +108,7 @@ const KMPageBody = ({briefs}: IPageProps) => {
       <ul
         className={`absolute right-0 top-8 z-10 flex flex-col bg-mermerTheme ${
           sortVisible ? 'visible opacity-100' : 'invisible opacity-0'
-        } transition-all duration-150 ease-in`}
+        } shadow-drop transition-all duration-150 ease-in`}
       >
         <li className="w-80px p-2 hover:bg-dropDownHover" onClick={newestSortHandler}>
           {t('KM_PAGE.SORT_BY_NEWEST')}
