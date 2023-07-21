@@ -32,14 +32,18 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
     .replace(
       /<a /g,
       `<a class="text-lightBlue1 underline" target="_blank" rel="noopener noreferrer" `
-    ) /* Info: (20230719 - Julian) 程式碼區塊 */
+    ) /* Info: (20230719 - Julian) 程式碼區塊 & copy button */
     .replace(
       /<pre><code class="([^"]+)">([^<]+)<\/code><\/pre>/g,
-      `<pre class="bg-mermerTheme my-4 p-4"><code class="text-sm $1">$2</code></pre>`
+      /* ToDo: (20230721 - Julian) copy button
+       * <button class="absolute opacity-70 top-4 text-sm right-4 hover:opacity-100">Copy</button> */
+      `<pre class="bg-mermerTheme my-4 p-4 relative"><code class="text-sm $1">$2</code></pre>`
     )
     /* Info: (20230719 - Julian) 表格樣式 */
     .replace(/<th>(<\/th>)?/g, `<th class="border-x border-t border-lightWhite1 p-2">$1`)
-    .replace(/<td/g, `<td class="border border-lightWhite1 p-2"`);
+    .replace(/<td/g, `<td class="border border-lightWhite1 p-2"`)
+    /* Info: (20230719 - Julian) 引用區塊樣式 */
+    .replace(/<blockquote/g, `<blockquote class="text-sm my-4 opacity-70"`);
 
   const displayedCategory = category.map(item => {
     return (
@@ -53,7 +57,7 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
 
   return (
     <div className="min-h-screen w-full font-Dosis">
-      <div className="flex flex-col space-y-12 px-20 py-20 lg:px-64">
+      <div className="flex flex-col space-y-12 p-20 lg:px-64 lg:py-20">
         {/* Info: (20230718 - Julian) picture */}
         <div className="relative h-580px w-full">
           <Image src={picture} fill style={{objectFit: 'cover'}} alt="picture" />
