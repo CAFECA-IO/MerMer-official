@@ -110,6 +110,8 @@
     "TITLE": "Knowledge Management",
     "CATEGORY_TITLE": "Category",
     "SORT_BY_TITLE": "Sort By",
+    "SORT_BY_NEWEST": "Newest",
+    "SORT_BY_OLDEST": "Oldest",
     "SEARCH_PLACEHOLDER": "Search",
     "PAGINATION_PREVIOUS": "Previous",
     "PAGINATION_NEXT": "Next"
