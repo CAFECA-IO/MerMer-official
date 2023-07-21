@@ -3,10 +3,18 @@ import NavBar from '../../components/nav_bar/nav_bar';
 import Footer from '../../components/footer/footer';
 import KMPageBody from '../../components/km_page_body/km_page_body';
 import {useTranslation} from 'next-i18next';
-import {TranslateFunction, ILocale} from '../../interfaces/locale';
+import {TranslateFunction} from '../../interfaces/locale';
+import {IKnowledgeManagement} from '../../interfaces/km_article';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
+import {GetStaticProps} from 'next';
+import {truncateText} from '../../lib/common';
+import {getPosts} from '../../lib/posts';
 
-const KnowledgeManagementPage = () => {
+interface IPageProps {
+  briefs: IKnowledgeManagement[];
+}
+
+const KnowledgeManagementPage = ({briefs}: IPageProps) => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
   return (
@@ -27,7 +35,7 @@ const KnowledgeManagementPage = () => {
         </div>
 
         {/* Info: (20230717 - Julian) KM Page Body */}
-        <KMPageBody />
+        <KMPageBody briefs={briefs} />
       </main>
 
       <Footer />
@@ -35,12 +43,35 @@ const KnowledgeManagementPage = () => {
   );
 };
 
-const getStaticPropsFunction = async ({locale}: ILocale) => ({
-  props: {
-    ...(await serverSideTranslations(locale, ['common'])),
-  },
-});
+export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale}) => {
+  const allKmData = await getPosts('src/km/julian');
 
-export const getStaticProps = getStaticPropsFunction;
+  const briefs: IKnowledgeManagement[] = allKmData.map(km => {
+    const description = truncateText(km.description, 40);
+    return {
+      id: km.id,
+      date: km.date,
+      title: km.title,
+      description,
+      content: km.content,
+      picture: km.picture,
+      category: km.category,
+      author: km.author,
+    };
+  });
+
+  if (!allKmData) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      briefs,
+      ...(await serverSideTranslations(locale as string, ['common', 'footer'])),
+    },
+  };
+};
 
 export default KnowledgeManagementPage;

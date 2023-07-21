@@ -131,6 +131,7 @@ module.exports = {
         '85px': '85px',
         '90px': '90px',
         '95px': '95px',
+        '96px': '96px',
         '100px': '100px',
         '105px': '105px',
         '110px': '110px',
@@ -304,6 +305,9 @@ module.exports = {
       },
       scale: {
         80: '0.8',
+      },
+      listStyleType: {
+        roman: 'lower-roman',
       },
       gridTemplateRows: {
         0: 'repeat(1, minmax(0px, 0fr))',

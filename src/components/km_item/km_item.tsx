@@ -7,45 +7,64 @@ interface IKMItemProps {
   id: string;
   title: string;
   description: string;
-  category: string;
+  category: string[];
   picture: string;
   author: IAuthor;
 }
 
 const KMItem = ({id, title, description, category, picture, author}: IKMItemProps) => {
   const displayedAuthor = (
-    <div className="flex items-center space-x-4 pt-4">
-      {/* Info: (20230718 - Julian) Author avatar */}
-      <div className="relative flex h-48px w-48px items-center justify-center overflow-hidden rounded-full bg-lightGray2">
-        <Image src={author.avatar} fill style={{objectFit: 'cover'}} alt="author_avatar" />
+    // ToDo: (20230720 - Julian) Link to Author Page
+    <Link href={`#`} className="z-10">
+      <div className="flex items-center space-x-4 pt-4">
+        {/* Info: (20230718 - Julian) Author avatar */}
+        <div className="relative flex h-48px w-48px items-center justify-center overflow-hidden rounded-full bg-lightGray2">
+          <Image src={author.avatar} fill style={{objectFit: 'cover'}} alt="author_avatar" />
+        </div>
+        {/* Info: (20230718 - Julian) Author name */}
+        <div className="flex flex-col">
+          <p className="text-base text-lightBlue1">{author.name}</p>
+          <p className="text-base text-lightWhite1">{author.jobTitle}</p>
+        </div>
       </div>
-      {/* Info: (20230718 - Julian) Author name */}
-      <div className="flex flex-col">
-        <p className="text-base text-lightBlue1">{author.name}</p>
-        <p className="text-base text-lightWhite1">{author.intro}</p>
-      </div>
-    </div>
+    </Link>
   );
 
+  const displayedCategory = category.slice(0, 4).map(item => {
+    return (
+      // ToDo: (20230720 - Julian) Link to Category
+      <Link href={`#`}>
+        <p className="px-1 hover:text-lightBlue1" key={item}>
+          {item}
+        </p>
+      </Link>
+    );
+  });
+
   return (
-    <li className="flex w-300px flex-col items-center rounded-xl border border-transparent bg-mermerTheme p-5 font-Dosis hover:cursor-pointer hover:border-lightBlue1">
-      {/* ToDo: (20230718 - Julian) KM detail page <Link href={`${MERURL.KM}/${id}`}> */}
-      {/* Info: (20230718 - Julian) Picture */}
-      <div className="relative h-200px w-260px">
-        <Image src={picture} fill style={{objectFit: 'cover'}} alt="picture" />
-      </div>
-      <div className="flex flex-col px-4 py-6">
-        {/* Info: (20230718 - Julian) Category & Title */}
-        <div className="flex flex-col">
-          <text className="text-base text-lightWhite1">{category}</text>
-          <h2 className="text-xl text-lightBlue1">{title}</h2>
+    <li className="relative flex h-auto w-300px items-center rounded-xl border border-transparent bg-mermerTheme p-5 font-Dosis hover:cursor-pointer hover:border-lightBlue1">
+      <div className="flex flex-col items-center">
+        {/* Info: (20230718 - Julian) Picture */}
+        <div className="relative h-200px w-260px">
+          <Image src={picture} fill style={{objectFit: 'cover'}} alt="picture" />
         </div>
-        {/* Info: (20230718 - Julian) Description */}
-        <p className="py-4 text-base text-lightWhite1">{description}</p>
-        {/* Info: (20230718 - Julian) Author */}
-        {displayedAuthor}
+        <div className="flex w-full flex-col px-4 py-6">
+          {/* Info: (20230718 - Julian) Category & Title */}
+          <div className="flex flex-col">
+            <div className="z-10 flex items-center whitespace-nowrap text-base text-lightWhite1">
+              {displayedCategory}
+            </div>
+            <p className="text-xl text-lightBlue1">{title}</p>
+          </div>
+          {/* Info: (20230718 - Julian) Description */}
+          <p className="py-4 text-base text-lightWhite1">{description}</p>
+          {/* Info: (20230718 - Julian) Author */}
+          {displayedAuthor}
+        </div>
       </div>
-      {/* </Link> */}
+
+      {/* ToDo: (20230719 - Julian) Link to KM Detail Page */}
+      <Link href={`${MERURL.KM}/${id}`} className="absolute left-0 top-0 h-full w-full"></Link>
     </li>
   );
 };

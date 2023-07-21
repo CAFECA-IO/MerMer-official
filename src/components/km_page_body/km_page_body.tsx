@@ -1,6 +1,6 @@
 import KMItem from '../km_item/km_item';
 import Pagination from '../pagination/pagination';
-import {dummyKMList} from '../../interfaces/km_article';
+import {IKnowledgeManagement} from '../../interfaces/km_article';
 import {useState} from 'react';
 import {MdOutlineKeyboardArrowDown} from 'react-icons/md';
 import {RiSearchLine} from 'react-icons/ri';
@@ -8,20 +8,24 @@ import {TbSortDescending} from 'react-icons/tb';
 import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
 
-const KMPageBody = () => {
+interface IPageProps {
+  briefs: IKnowledgeManagement[];
+}
+
+const KMPageBody = ({briefs}: IPageProps) => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
   const [activePage, setActivePage] = useState(1);
   const totalPages = 10; //ToDo: (20230718 - Julian) Get total pages
 
-  const displayKMList = dummyKMList.map(item => {
+  const displayKMList = briefs.map(item => {
     return (
       <KMItem
         key={item.id}
         id={item.id}
         title={item.title}
         description={item.description}
-        category={item.cagetory}
+        category={item.category}
         picture={item.picture}
         author={item.author}
       />
@@ -34,7 +38,7 @@ const KMPageBody = () => {
       <div className="px-20 py-10">breadcrumb</div>
       {/* Info: (20230718 - Julian) Page Body */}
       <div className="flex w-full flex-col items-center space-y-16 px-20">
-        <div className="flex w-full space-x-20">
+        <div className="flex w-full flex-col items-center space-y-8 lg:flex-row lg:space-x-20 lg:space-y-0">
           {/* Info: (20230717 - Julian) category dropmenu */}
           <div className="flex items-center space-x-2 text-base hover:cursor-pointer">
             <p>{t('KM_PAGE.CATEGORY_TITLE')}</p>
@@ -59,7 +63,7 @@ const KMPageBody = () => {
         </div>
         <ul className="flex flex-wrap justify-center gap-x-4 gap-y-16">{displayKMList}</ul>
         {/* ToDo: (20230718 - Julian) Pagination */}
-        {/* <Pagination activePage={activePage} setActivePage={setActivePage} totalPages={totalPages} /> */}
+        <Pagination activePage={activePage} setActivePage={setActivePage} totalPages={totalPages} />
       </div>
     </div>
   );
