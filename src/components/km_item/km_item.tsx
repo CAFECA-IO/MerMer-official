@@ -39,7 +39,6 @@ const KMItem = ({id, title, description, category, picture, author}: IKMItemProp
 
   const displayedCategory = category.slice(0, KM_TAG_LIMIT).map((item, i) => {
     return (
-      // ToDo: (20230720 - Julian) Link to Category
       <Link key={i} href={MERURL.KM + `?category=` + item}>
         <p className="px-1 hover:text-lightBlue1">{t(item)}</p>
       </Link>
@@ -68,7 +67,7 @@ const KMItem = ({id, title, description, category, picture, author}: IKMItemProp
         </div>
       </div>
 
-      {/* ToDo: (20230719 - Julian) Link to KM Detail Page */}
+      {/* Info: (20230719 - Julian) Link to KM Detail Page */}
       <Link href={`${MERURL.KM}/${id}`} className="absolute left-0 top-0 h-full w-full"></Link>
     </li>
   );

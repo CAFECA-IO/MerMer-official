@@ -1,13 +1,16 @@
 import Head from 'next/head';
 import NavBar from '../../components/nav_bar/nav_bar';
 import Footer from '../../components/footer/footer';
+import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 import KMPageBody from '../../components/km_page_body/km_page_body';
 import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
 import {IKnowledgeManagement} from '../../interfaces/km_article';
+import {ICrumbItem} from '../../interfaces/crumb_item';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {GetStaticProps} from 'next';
 import {getPosts, getCategorys} from '../../lib/posts';
+import {MERURL} from '../../constants/url';
 
 interface IPageProps {
   posts: IKnowledgeManagement[];
@@ -16,6 +19,14 @@ interface IPageProps {
 
 const KnowledgeManagementPage = ({posts, categorys}: IPageProps) => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
+
+  const crumbs: ICrumbItem[] = [
+    {label: t('NAV_BAR.HOME'), path: MERURL.HOME},
+    {
+      label: t('NAV_BAR.KNOWLEDGE_MANAGEMENT'),
+      path: MERURL.KM,
+    },
+  ];
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
@@ -35,8 +46,10 @@ const KnowledgeManagementPage = ({posts, categorys}: IPageProps) => {
         </div>
 
         <div className="flex min-h-screen w-full flex-col font-Dosis">
-          {/* ToDo: (20230718 - Julian) Breadcrumb */}
-          <div className="px-20 py-10">breadcrumb</div>
+          {/* Info: (20230718 - Julian) Breadcrumb */}
+          <div className="px-20 py-10">
+            <Breadcrumb crumbs={crumbs} />
+          </div>
           {/* Info: (20230718 - Julian) Page Body */}
           <KMPageBody posts={posts} categorys={categorys} />
         </div>
@@ -47,7 +60,7 @@ const KnowledgeManagementPage = ({posts, categorys}: IPageProps) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale}) => {
+export const getStaticProps: GetStaticProps<IPageProps> = async ({locale}) => {
   const posts = await getPosts();
   const categorys = await getCategorys();
 

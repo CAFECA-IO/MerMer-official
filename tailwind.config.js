@@ -297,6 +297,9 @@ module.exports = {
       maxWidth: {
         '900px': '900px',
       },
+      minWidth: {
+        '80px': '80px',
+      },
       backgroundPosition: {
         'top-12': 'center top 48px',
       },

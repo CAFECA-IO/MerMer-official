@@ -112,23 +112,23 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
       onClick={() => setCatagoryVisible(!catagoryVisible)}
       className="relative flex w-90px flex-col items-center text-base hover:cursor-pointer"
     >
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-2 hover:text-lightBlue1">
         <p>{category ? t(category) : t('KM_PAGE.CATEGORY_TITLE')}</p>
         <MdOutlineKeyboardArrowDown />
       </div>
 
       <ul
-        className={`absolute left-0 top-8 z-10 flex flex-col bg-mermerTheme ${
+        className={`absolute top-8 z-10 flex flex-col bg-mermerTheme px-2 ${
           catagoryVisible ? 'visible opacity-100' : 'invisible opacity-0'
-        } shadow-drop transition-all duration-150 ease-in`}
+        } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in`}
       >
-        <li className="w-80px p-2 hover:bg-dropDownHover" onClick={() => setCategory('')}>
+        <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={() => setCategory('')}>
           {t('KM_CATEGORY.ALL')}
         </li>
         {categorys.map((item, i) => (
           <li
             key={i}
-            className="w-80px p-2 hover:bg-dropDownHover"
+            className="min-w-80px p-2 hover:bg-dropDownHover"
             onClick={() => setCategory(item)}
           >
             {t(item)}
@@ -158,20 +158,20 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
       onClick={() => setSortVisible(!sortVisible)}
       className="relative flex w-90px flex-col items-center text-base hover:cursor-pointer"
     >
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-2 hover:text-lightBlue1">
         <TbSortDescending />
         <p>{sortingText}</p>
       </div>
 
       <ul
-        className={`absolute right-0 top-8 z-10 flex flex-col bg-mermerTheme ${
+        className={`absolute top-8 z-10 flex flex-col bg-mermerTheme px-2 ${
           sortVisible ? 'visible opacity-100' : 'invisible opacity-0'
-        } shadow-drop transition-all duration-150 ease-in`}
+        } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in`}
       >
-        <li className="w-80px p-2 hover:bg-dropDownHover" onClick={newestSortHandler}>
+        <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={newestSortHandler}>
           {t('KM_PAGE.SORT_BY_NEWEST')}
         </li>
-        <li className="w-80px p-2 hover:bg-dropDownHover" onClick={oldestSortHandler}>
+        <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={oldestSortHandler}>
           {t('KM_PAGE.SORT_BY_OLDEST')}
         </li>
       </ul>
