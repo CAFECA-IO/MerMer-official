@@ -3,7 +3,7 @@ import Image from 'next/image';
 import NavBar from '../../../components/nav_bar/nav_bar';
 import Footer from '../../../components/footer/footer';
 import KMPageBody from '../../../components/km_page_body/km_page_body';
-import {getAuthor, getPostsByAuthor} from '../../../lib/posts';
+import {getAuthor, getPostsByAuthor, getCategorys} from '../../../lib/posts';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {GetStaticProps} from 'next';
 import {IKnowledgeManagement} from '../../../interfaces/km_article';
@@ -11,10 +11,11 @@ import {IAuthor} from '../../../interfaces/author_data';
 
 interface IPageProps {
   author: IAuthor;
-  kmList: IKnowledgeManagement[];
+  posts: IKnowledgeManagement[];
+  categorys: string[];
 }
 
-const AuthorPage = ({author, kmList}: IPageProps) => {
+const AuthorPage = ({author, posts, categorys}: IPageProps) => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
       <Head>
@@ -45,7 +46,7 @@ const AuthorPage = ({author, kmList}: IPageProps) => {
           {/* ToDo: (20230718 - Julian) Breadcrumb */}
           <div className="px-20 py-10">breadcrumb</div>
           {/* Info: (20230718 - Julian) Page Body */}
-          <KMPageBody briefs={kmList} />
+          <KMPageBody posts={posts} categorys={categorys} />
         </div>
       </main>
 
@@ -62,12 +63,14 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
   }
 
   const author = await getAuthor(params?.authorId);
-  const kmList = await getPostsByAuthor(params?.authorId);
+  const posts = await getPostsByAuthor(params?.authorId);
+  const categorys = await getCategorys();
 
   return {
     props: {
       author,
-      kmList,
+      posts,
+      categorys,
       ...(await serverSideTranslations(locale as string, ['common', 'footer'])),
     },
   };

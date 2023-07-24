@@ -58,6 +58,21 @@ export async function getPosts(): Promise<IKnowledgeManagement[]> {
   return posts;
 }
 
+export async function getCategorys(): Promise<string[]> {
+  const categorys: string[] = [];
+  const allPosts = await getPosts();
+  for (const post of allPosts) {
+    for (const category of post.category) {
+      // Info: (20230721 - Julian) 確認分類是否已經存在
+      if (!categorys.includes(category)) {
+        categorys.push(category);
+      }
+    }
+  }
+
+  return categorys;
+}
+
 // Info: (20230721 - Julian) 抓取特定分類的文章
 export async function getPostsByCategory(category: string): Promise<IKnowledgeManagement[]> {
   const posts: IKnowledgeManagement[] = [];

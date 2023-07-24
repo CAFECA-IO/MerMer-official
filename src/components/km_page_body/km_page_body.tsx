@@ -3,6 +3,7 @@ import Pagination from '../pagination/pagination';
 import useOuterClick from '../../lib/hooks/use_outer_click';
 import useStateRef from 'react-usestateref';
 import {useState, useEffect} from 'react';
+import {useRouter} from 'next/router';
 import {KM_PER_PAGE} from '../../constants/config';
 import {IKnowledgeManagement} from '../../interfaces/km_article';
 import {MdOutlineKeyboardArrowDown} from 'react-icons/md';
@@ -12,17 +13,30 @@ import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
 
 interface IPageProps {
-  briefs: IKnowledgeManagement[];
+  posts: IKnowledgeManagement[];
+  categorys: string[];
 }
 
-const KMPageBody = ({briefs}: IPageProps) => {
+const KMPageBody = ({posts, categorys}: IPageProps) => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
-  const [activePage, setActivePage] = useState(1);
-  const [totalPages, setTotalPages] = useState(Math.ceil(briefs.length / KM_PER_PAGE));
-  const [search, setSearch, searchRef] = useStateRef('');
-  const [sorting, setSorting] = useState('Newest');
+  const router = useRouter();
+  const {category: categoryQuery} = router.query;
 
+  const [activePage, setActivePage] = useState(1);
+  const [totalPages, setTotalPages] = useState(Math.ceil(posts.length / KM_PER_PAGE));
+  const [search, setSearch, searchRef] = useStateRef('');
+  const [sorting, setSorting] = useState('');
+  const [category, setCategory] = useState((categoryQuery as string) ?? '');
+
+  // Info: (20230721 - Julian) catagory dropmenu 的開關
+  const {
+    targetRef: catagoryRef,
+    componentVisible: catagoryVisible,
+    setComponentVisible: setCatagoryVisible,
+  } = useOuterClick<HTMLDivElement>(false);
+
+  // Info: (20230721 - Julian) sorting dropmenu 的開關
   const {
     targetRef: sortRef,
     componentVisible: sortVisible,
@@ -31,13 +45,25 @@ const KMPageBody = ({briefs}: IPageProps) => {
 
   useEffect(() => {
     setActivePage(1);
+    setCategory(categoryQuery as string);
     setTotalPages(Math.ceil(kmList.length / KM_PER_PAGE));
-  }, [searchRef.current]);
+  }, [searchRef.current, categoryQuery]);
 
   const endIdx = activePage * KM_PER_PAGE;
   const startIdx = endIdx - KM_PER_PAGE;
 
-  const kmList = briefs
+  const sortingText =
+    sorting === 'Newest'
+      ? t('KM_PAGE.SORT_BY_NEWEST')
+      : sorting === 'Oldest'
+      ? t('KM_PAGE.SORT_BY_OLDEST')
+      : t('KM_PAGE.SORT_BY_TITLE');
+
+  const kmList = posts
+    .filter(item => {
+      const result = category === '' || !category ? true : item.category.includes(category);
+      return result;
+    })
     .filter(item => {
       const result =
         searchRef.current === '' || !searchRef.current
@@ -80,6 +106,38 @@ const KMPageBody = ({briefs}: IPageProps) => {
     // Info: (20230721 - Julian) 印出當前頁面的 KM
     .slice(startIdx, endIdx);
 
+  const displayCategoryDropmenu = (
+    <div
+      ref={catagoryRef}
+      onClick={() => setCatagoryVisible(!catagoryVisible)}
+      className="relative flex w-90px flex-col items-center text-base hover:cursor-pointer"
+    >
+      <div className="flex items-center space-x-2">
+        <p>{category ? t(category) : t('KM_PAGE.CATEGORY_TITLE')}</p>
+        <MdOutlineKeyboardArrowDown />
+      </div>
+
+      <ul
+        className={`absolute left-0 top-8 z-10 flex flex-col bg-mermerTheme ${
+          catagoryVisible ? 'visible opacity-100' : 'invisible opacity-0'
+        } shadow-drop transition-all duration-150 ease-in`}
+      >
+        <li className="w-80px p-2 hover:bg-dropDownHover" onClick={() => setCategory('')}>
+          {t('KM_CATEGORY.ALL')}
+        </li>
+        {categorys.map(item => (
+          <li
+            key={item}
+            className="w-80px p-2 hover:bg-dropDownHover"
+            onClick={() => setCategory(item)}
+          >
+            {t(item)}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+
   const displaySearchBar = (
     <div className="relative flex flex-1 items-center">
       <input
@@ -100,9 +158,9 @@ const KMPageBody = ({briefs}: IPageProps) => {
       onClick={() => setSortVisible(!sortVisible)}
       className="relative flex w-90px flex-col items-center text-base hover:cursor-pointer"
     >
-      <div className="flex space-x-2">
+      <div className="flex items-center space-x-2">
         <TbSortDescending />
-        <p>{t('KM_PAGE.SORT_BY_TITLE')}</p>
+        <p>{sortingText}</p>
       </div>
 
       <ul
@@ -124,10 +182,7 @@ const KMPageBody = ({briefs}: IPageProps) => {
     <div className="flex w-full flex-col items-center space-y-16 px-20">
       <div className="flex w-full flex-col items-center space-y-8 lg:flex-row lg:space-x-20 lg:space-y-0">
         {/* Info: (20230717 - Julian) category dropmenu */}
-        <div className="flex items-center space-x-2 text-base hover:cursor-pointer">
-          <p>{t('KM_PAGE.CATEGORY_TITLE')}</p>
-          <MdOutlineKeyboardArrowDown />
-        </div>
+        {displayCategoryDropmenu}
         {/* Info: (20230717 - Julian) search input */}
         {displaySearchBar}
         {/* Info: (20230717 - Julian) sort menu */}

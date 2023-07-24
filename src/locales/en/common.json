@@ -123,5 +123,9 @@
   },
   "FOOTER": {
     "ADDRESS": "9F., No. 156, Sec. 3, Minsheng E. Rd., Songshan Dist., Taipei City 105402 , Taiwan"
+  },
+  "KM_CATEGORY": {
+    "ALL": "All",
+    "NEWBIE": "Newbie"
   }
 }
