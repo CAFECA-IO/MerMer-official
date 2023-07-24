@@ -55,12 +55,12 @@ const HiringItem = ({
   // Info: (20230630 - Julian) Email 主旨
   const emailSubject = `${t('HIRING_PAGE.EMAIL_SUJECT')}: ${t(jobTitle)}`;
 
-  const displayDescription = descriptions.map(item => {
-    return <li key={item}>{t(item)}</li>;
+  const displayDescription = descriptions.map((item, i) => {
+    return <li key={i}>{t(item)}</li>;
   });
 
-  const displayRequirements = requirements.map(item => {
-    return <li key={item}>{t(item)}</li>;
+  const displayRequirements = requirements.map((item, i) => {
+    return <li key={i}>{t(item)}</li>;
   });
 
   return (

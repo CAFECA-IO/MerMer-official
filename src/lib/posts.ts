@@ -63,7 +63,7 @@ export async function getCategorys(): Promise<string[]> {
   const allPosts = await getPosts();
   for (const post of allPosts) {
     for (const category of post.category) {
-      // Info: (20230721 - Julian) 確認分類是否已經存在
+      // Info: (20230721 - Julian) 確認分類不存在才加入
       if (!categorys.includes(category)) {
         categorys.push(category);
       }
@@ -71,18 +71,6 @@ export async function getCategorys(): Promise<string[]> {
   }
 
   return categorys;
-}
-
-// Info: (20230721 - Julian) 抓取特定分類的文章
-export async function getPostsByCategory(category: string): Promise<IKnowledgeManagement[]> {
-  const posts: IKnowledgeManagement[] = [];
-  const allPosts = await getPosts();
-  for (const post of allPosts) {
-    if (post.category.includes(category)) {
-      posts.push(post);
-    }
-  }
-  return posts;
 }
 
 // Info: (20230721 - Julian) 抓取特定作者的文章

@@ -45,19 +45,17 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
     /* Info: (20230719 - Julian) 引用區塊樣式 */
     .replace(/<blockquote/g, `<blockquote class="text-sm my-4 opacity-70"`);
 
-  const displayedCategory = category.map(item => {
+  const displayedCategory = category.map((item, i) => {
     return (
-      <Link href={MERURL.KM + `?category=` + item} key={item}>
-        <p className="px-1 hover:text-lightBlue1" key={item}>
-          {t(item)}
-        </p>
+      <Link key={i} href={MERURL.KM + `?category=` + item}>
+        <p className="px-1 hover:text-lightBlue1">{t(item)}</p>
       </Link>
     );
   });
 
   return (
     <div className="min-h-screen w-full font-Dosis">
-      <div className="flex flex-col space-y-12 p-20 lg:px-64 lg:py-20">
+      <div className="flex flex-col space-y-12 p-10 py-20 lg:px-64">
         {/* Info: (20230718 - Julian) picture */}
         <div className="relative h-580px w-full">
           <Image src={picture} fill style={{objectFit: 'cover'}} alt="picture" />

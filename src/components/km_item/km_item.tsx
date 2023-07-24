@@ -37,13 +37,11 @@ const KMItem = ({id, title, description, category, picture, author}: IKMItemProp
   const displayedTitle = truncateText(title, KM_TITLE_LIMIT);
   const displayedDescription = truncateText(description, KM_DESCRIPTION_LIMIT);
 
-  const displayedCategory = category.slice(0, KM_TAG_LIMIT).map(item => {
+  const displayedCategory = category.slice(0, KM_TAG_LIMIT).map((item, i) => {
     return (
       // ToDo: (20230720 - Julian) Link to Category
-      <Link href={MERURL.KM + `?category=` + item} key={item}>
-        <p className="px-1 hover:text-lightBlue1" key={item}>
-          {t(item)}
-        </p>
+      <Link key={i} href={MERURL.KM + `?category=` + item}>
+        <p className="px-1 hover:text-lightBlue1">{t(item)}</p>
       </Link>
     );
   });

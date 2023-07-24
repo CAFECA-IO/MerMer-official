@@ -15,9 +15,9 @@ const HiringPage = () => {
   const [showJobIndex, setShowJobIndex] = useState('');
 
   const displayHiringItems = jobList.map(
-    ({anchor, jobTitle, details, descriptions, requirements}) => {
+    ({anchor, jobTitle, details, descriptions, requirements}, i) => {
       return (
-        <div key={jobTitle} className="relative">
+        <div key={i} className="relative">
           {/* Info: (20230713 - Julian) 為了避免被 NavBar 擋到，所以將錨點設定在 HiringItem 上方的空 div */}
           <div className="absolute -mt-24" id={anchor}></div>
           <HiringItem

@@ -125,9 +125,9 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
         <li className="w-80px p-2 hover:bg-dropDownHover" onClick={() => setCategory('')}>
           {t('KM_CATEGORY.ALL')}
         </li>
-        {categorys.map(item => (
+        {categorys.map((item, i) => (
           <li
-            key={item}
+            key={i}
             className="w-80px p-2 hover:bg-dropDownHover"
             onClick={() => setCategory(item)}
           >
