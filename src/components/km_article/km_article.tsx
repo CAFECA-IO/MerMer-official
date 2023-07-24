@@ -31,7 +31,7 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
     /* Info: (20230719 - Julian) 超連結樣式 */
     .replace(
       /<a /g,
-      `<a class="text-lightBlue1 underline" target="_blank" rel="noopener noreferrer" `
+      `<a class="text-lightBlue1 underline hover:text-indigo-300" target="_blank" rel="noopener noreferrer" `
     ) /* Info: (20230719 - Julian) 程式碼區塊 & copy button */
     .replace(
       /<pre><code class="([^"]+)">([^<]+)<\/code><\/pre>/g,

@@ -9,11 +9,11 @@ export type BreadcrumbProps = {
 const Breadcrumb = ({crumbs}: BreadcrumbProps) => {
   const crumbList = crumbs.map((crumb, i) => {
     const isLast = i === crumbs.length - 1;
+
     if (!isLast) {
       return (
-        <>
+        <div className="flex items-center space-x-2" key={i}>
           <Link
-            key={i}
             href={crumb.path}
             className="text-lightWhite1 hover:text-lightBlue1 hover:underline"
           >
@@ -21,10 +21,14 @@ const Breadcrumb = ({crumbs}: BreadcrumbProps) => {
           </Link>
           {/* Info: (20230724 - Julian) separator */}
           <FiChevronRight className="text-2xl" />
-        </>
+        </div>
       );
     } else {
-      return <p className="text-lightBlue1">{crumb.label}</p>;
+      return (
+        <p key={i} className="text-lightBlue1">
+          {crumb.label}
+        </p>
+      );
     }
   });
 
