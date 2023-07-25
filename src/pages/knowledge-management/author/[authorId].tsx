@@ -4,7 +4,7 @@ import NavBar from '../../../components/nav_bar/nav_bar';
 import Footer from '../../../components/footer/footer';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import KMPageBody from '../../../components/km_page_body/km_page_body';
-import {getAuthor, getPostsByAuthor, getCategorys} from '../../../lib/posts';
+import {getAuthor, getPostsByAuthor, getCategories} from '../../../lib/posts';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {GetStaticProps} from 'next';
 import {IKnowledgeManagement} from '../../../interfaces/km_article';
@@ -79,7 +79,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
 
   const author = await getAuthor(params?.authorId);
   const posts = await getPostsByAuthor(params?.authorId);
-  const categorys = await getCategorys();
+  const categorys = await getCategories();
 
   return {
     props: {

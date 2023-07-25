@@ -9,7 +9,7 @@ import {IKnowledgeManagement} from '../../interfaces/km_article';
 import {ICrumbItem} from '../../interfaces/crumb_item';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {GetStaticProps} from 'next';
-import {getPosts, getCategorys} from '../../lib/posts';
+import {getPosts, getCategories} from '../../lib/posts';
 import {MERURL} from '../../constants/url';
 
 interface IPageProps {
@@ -62,7 +62,7 @@ const KnowledgeManagementPage = ({posts, categorys}: IPageProps) => {
 
 export const getStaticProps: GetStaticProps<IPageProps> = async ({locale}) => {
   const posts = await getPosts();
-  const categorys = await getCategorys();
+  const categorys = await getCategories();
 
   if (!posts) {
     return {
