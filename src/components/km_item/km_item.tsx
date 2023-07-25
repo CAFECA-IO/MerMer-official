@@ -4,7 +4,8 @@ import {MERURL} from '../../constants/url';
 import {KM_TAG_LIMIT, KM_DESCRIPTION_LIMIT, KM_TITLE_LIMIT} from '../../constants/config';
 import {truncateText} from '../../lib/common';
 import {IAuthor} from '../../interfaces/author_data';
-
+import {useTranslation} from 'next-i18next';
+import {TranslateFunction} from '../../interfaces/locale';
 interface IKMItemProps {
   id: string;
   title: string;
@@ -15,6 +16,8 @@ interface IKMItemProps {
 }
 
 const KMItem = ({id, title, description, category, picture, author}: IKMItemProps) => {
+  const {t}: {t: TranslateFunction} = useTranslation('common');
+
   const displayedAuthor = (
     <Link href={`${MERURL.AUTHOR}/${author.id}`} className="z-10">
       <div className="flex items-center space-x-4 pt-4">
@@ -34,13 +37,10 @@ const KMItem = ({id, title, description, category, picture, author}: IKMItemProp
   const displayedTitle = truncateText(title, KM_TITLE_LIMIT);
   const displayedDescription = truncateText(description, KM_DESCRIPTION_LIMIT);
 
-  const displayedCategory = category.slice(0, KM_TAG_LIMIT).map(item => {
+  const displayedCategory = category.slice(0, KM_TAG_LIMIT).map((item, i) => {
     return (
-      // ToDo: (20230720 - Julian) Link to Category
-      <Link href={`#`} key={item}>
-        <p className="px-1 hover:text-lightBlue1" key={item}>
-          {item}
-        </p>
+      <Link key={i} href={MERURL.KM + `?category=` + item}>
+        <p className="px-1 hover:text-lightBlue1">{t(item)}</p>
       </Link>
     );
   });
@@ -67,7 +67,7 @@ const KMItem = ({id, title, description, category, picture, author}: IKMItemProp
         </div>
       </div>
 
-      {/* ToDo: (20230719 - Julian) Link to KM Detail Page */}
+      {/* Info: (20230719 - Julian) Link to KM Detail Page */}
       <Link href={`${MERURL.KM}/${id}`} className="absolute left-0 top-0 h-full w-full"></Link>
     </li>
   );

@@ -2,19 +2,33 @@ import Head from 'next/head';
 import Image from 'next/image';
 import NavBar from '../../../components/nav_bar/nav_bar';
 import Footer from '../../../components/footer/footer';
+import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import KMPageBody from '../../../components/km_page_body/km_page_body';
-import {getAuthor, getPostsByAuthor} from '../../../lib/posts';
+import {getAuthor, getPostsByAuthor, getCategories} from '../../../lib/posts';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {GetStaticProps} from 'next';
 import {IKnowledgeManagement} from '../../../interfaces/km_article';
+import {ICrumbItem} from '../../../interfaces/crumb_item';
+import {MERURL} from '../../../constants/url';
 import {IAuthor} from '../../../interfaces/author_data';
+import {useTranslation} from 'next-i18next';
+import {TranslateFunction} from '../../../interfaces/locale';
 
 interface IPageProps {
   author: IAuthor;
-  kmList: IKnowledgeManagement[];
+  posts: IKnowledgeManagement[];
+  categorys: string[];
 }
 
-const AuthorPage = ({author, kmList}: IPageProps) => {
+const AuthorPage = ({author, posts, categorys}: IPageProps) => {
+  const {t}: {t: TranslateFunction} = useTranslation('common');
+
+  const crumbs: ICrumbItem[] = [
+    {label: t('NAV_BAR.HOME'), path: MERURL.HOME},
+    {label: t('NAV_BAR.KNOWLEDGE_MANAGEMENT'), path: MERURL.KM},
+    {label: author.name, path: `${MERURL.AUTHOR}/${author.id}`},
+  ];
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
       <Head>
@@ -26,7 +40,7 @@ const AuthorPage = ({author, kmList}: IPageProps) => {
 
       <main className="flex w-screen flex-1 flex-col py-20 font-Dosis">
         <div className="relative flex h-440px w-full items-center justify-center bg-authorIntro bg-150 bg-center bg-no-repeat px-20 py-10">
-          {/* ToDo: (20230718 - Julian) author information */}
+          {/* Info: (20230718 - Julian) author information */}
           <div className="flex flex-1 flex-col items-center space-y-4 rounded-3xl bg-glass p-12">
             {/* Info: (20230718 - Julian) author avatar */}
             <div className="relative flex h-96px w-96px items-center justify-center overflow-hidden rounded-full bg-lightGray2">
@@ -42,10 +56,12 @@ const AuthorPage = ({author, kmList}: IPageProps) => {
         </div>
 
         <div className="flex min-h-screen w-full flex-col font-Dosis">
-          {/* ToDo: (20230718 - Julian) Breadcrumb */}
-          <div className="px-20 py-10">breadcrumb</div>
+          {/* Info: (20230718 - Julian) Breadcrumb */}
+          <div className="px-20 py-10">
+            <Breadcrumb crumbs={crumbs} />
+          </div>
           {/* Info: (20230718 - Julian) Page Body */}
-          <KMPageBody briefs={kmList} />
+          <KMPageBody posts={posts} categorys={categorys} />
         </div>
       </main>
 
@@ -62,12 +78,14 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
   }
 
   const author = await getAuthor(params?.authorId);
-  const kmList = await getPostsByAuthor(params?.authorId);
+  const posts = await getPostsByAuthor(params?.authorId);
+  const categorys = await getCategories();
 
   return {
     props: {
       author,
-      kmList,
+      posts,
+      categorys,
       ...(await serverSideTranslations(locale as string, ['common', 'footer'])),
     },
   };

@@ -31,7 +31,7 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
     /* Info: (20230719 - Julian) 超連結樣式 */
     .replace(
       /<a /g,
-      `<a class="text-lightBlue1 underline" target="_blank" rel="noopener noreferrer" `
+      `<a class="text-lightBlue1 underline hover:text-indigo-300" target="_blank" rel="noopener noreferrer" `
     ) /* Info: (20230719 - Julian) 程式碼區塊 & copy button */
     .replace(
       /<pre><code class="([^"]+)">([^<]+)<\/code><\/pre>/g,
@@ -45,19 +45,17 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
     /* Info: (20230719 - Julian) 引用區塊樣式 */
     .replace(/<blockquote/g, `<blockquote class="text-sm my-4 opacity-70"`);
 
-  const displayedCategory = category.map(item => {
+  const displayedCategory = category.map((item, i) => {
     return (
-      <Link href={`#`} key={item}>
-        <p className="px-1 hover:text-lightBlue1" key={item}>
-          {item}
-        </p>
+      <Link key={i} href={MERURL.KM + `?category=` + item}>
+        <p className="px-1 hover:text-lightBlue1">{t(item)}</p>
       </Link>
     );
   });
 
   return (
     <div className="min-h-screen w-full font-Dosis">
-      <div className="flex flex-col space-y-12 p-20 lg:px-64 lg:py-20">
+      <div className="flex flex-col space-y-12 p-10 py-20 lg:px-64">
         {/* Info: (20230718 - Julian) picture */}
         <div className="relative h-580px w-full">
           <Image src={picture} fill style={{objectFit: 'cover'}} alt="picture" />
@@ -79,7 +77,7 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
       </div>
       {/* Info: (20230718 - Julian) author */}
       <div className="relative flex h-440px w-full items-center justify-center bg-authorIntro bg-150 bg-center bg-no-repeat px-20 py-10">
-        {/* ToDo: (20230718 - Julian) author information */}
+        {/* Info: (20230718 - Julian) author information */}
         <div className="flex flex-1 flex-col items-center space-y-4 rounded-3xl bg-glass p-12">
           {/* Info: (20230718 - Julian) author avatar */}
           <div className="relative flex h-96px w-96px items-center justify-center overflow-hidden rounded-full bg-lightGray2">

@@ -1,5 +1,6 @@
 {
   "NAV_BAR": {
+    "HOME": "首页",
     "CONTACT_US": "联络我们",
     "HIRING": "人才招募",
     "KNOWLEDGE_MANAGEMENT": "知识库",
@@ -123,5 +124,9 @@
   },
   "FOOTER": {
     "ADDRESS": "台北市松山区民生东路三段 156 号 9 楼"
+  },
+  "KM_CATEGORY": {
+    "ALL": "全部",
+    "NEWBIE": "新手入门"
   }
 }

@@ -7,12 +7,9 @@ import {TranslateFunction} from '../../interfaces/locale';
 const WhyMermer = () => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
-  const displayWhyMermerContent = whyMermerContent.map(({title, description, image}) => {
+  const displayWhyMermerContent = whyMermerContent.map(({title, description, image}, i) => {
     return (
-      <div
-        key={title}
-        className="flex w-full flex-col items-center space-y-2 rounded-2xl bg-glass p-4"
-      >
+      <div key={i} className="flex w-full flex-col items-center space-y-2 rounded-2xl bg-glass p-4">
         <Image
           src={image}
           alt={title}
@@ -29,12 +26,12 @@ const WhyMermer = () => {
     );
   });
 
-  const displayPartners = partnersContent.map(({name, image, hover, link}) => {
+  const displayPartners = partnersContent.map(({name, image, hover, link}, i) => {
     return (
       <Link
         href={link}
         target="_blank"
-        key={name}
+        key={i}
         className="group relative mt-10 block h-200px w-200px p-10 lg:mt-0 lg:h-200px"
       >
         <div className="absolute left-6 top-0 flex w-150px items-center justify-center group-hover:opacity-100">

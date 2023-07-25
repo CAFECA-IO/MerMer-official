@@ -58,16 +58,19 @@ export async function getPosts(): Promise<IKnowledgeManagement[]> {
   return posts;
 }
 
-// Info: (20230721 - Julian) 抓取特定分類的文章
-export async function getPostsByCategory(category: string): Promise<IKnowledgeManagement[]> {
-  const posts: IKnowledgeManagement[] = [];
+export async function getCategories(): Promise<string[]> {
+  const categories: string[] = [];
   const allPosts = await getPosts();
   for (const post of allPosts) {
-    if (post.category.includes(category)) {
-      posts.push(post);
+    for (const category of post.category) {
+      // Info: (20230721 - Julian) 確認分類不存在才加入
+      if (!categories.includes(category)) {
+        categories.push(category);
+      }
     }
   }
-  return posts;
+
+  return categories;
 }
 
 // Info: (20230721 - Julian) 抓取特定作者的文章

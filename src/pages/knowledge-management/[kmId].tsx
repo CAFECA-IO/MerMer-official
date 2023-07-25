@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import NavBar from '../../components/nav_bar/nav_bar';
 import Footer from '../../components/footer/footer';
+import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 import Link from 'next/link';
 import KMArticle from '../../components/km_article/km_article';
 import {ImFacebook, ImTwitter, ImLinkedin2} from 'react-icons/im';
@@ -8,6 +9,7 @@ import {FaRedditAlien} from 'react-icons/fa';
 import {RiArrowLeftSLine} from 'react-icons/ri';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {IKnowledgeManagement} from '../../interfaces/km_article';
+import {ICrumbItem} from '../../interfaces/crumb_item';
 import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
 import {MERURL} from '../../constants/url';
@@ -26,6 +28,21 @@ const KMDetailPage = ({kmData}: IPageProps) => {
 
   const shareUrl = `${DOMAIN}${MERURL.KM}/${kmData.id}`;
   const description = truncateText(kmData.description, KM_DESCRIPTION_LIMIT);
+
+  const crumbs: ICrumbItem[] = [
+    {
+      label: t('NAV_BAR.HOME'),
+      path: MERURL.HOME,
+    },
+    {
+      label: t('NAV_BAR.KNOWLEDGE_MANAGEMENT'),
+      path: MERURL.KM,
+    },
+    {
+      label: kmData.title,
+      path: `${MERURL.KM}/${kmData.id}`,
+    },
+  ];
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
@@ -69,8 +86,10 @@ const KMDetailPage = ({kmData}: IPageProps) => {
       <NavBar />
 
       <main className="flex w-screen flex-1 flex-col overflow-x-hidden bg-darkBlue3 pt-20">
-        {/* ToDo: (20230718 - Julian) Breadcrumb */}
-        <div className="px-20 py-10">breadcrumb</div>
+        {/* Info: (20230718 - Julian) Breadcrumb */}
+        <div className="px-20 py-10">
+          <Breadcrumb crumbs={crumbs} />
+        </div>
 
         {/* Info: (20230718 - Julian) Page Body */}
         <KMArticle
