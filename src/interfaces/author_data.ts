@@ -1,4 +1,5 @@
 export interface IAuthor {
+  id: string;
   name: string;
   jobTitle: string;
   intro: string;
@@ -6,37 +7,28 @@ export interface IAuthor {
 }
 
 export const notFoundAuthor: IAuthor = {
+  id: 'none',
   name: 'NaN',
   jobTitle: 'NaN',
   intro: 'NaN',
   avatar: '/icons/user.svg',
 };
 
-export const dummyAuthors: IAuthor[] = [
+// ToDo: (20230720 - Julian) 另外拔出來
+export const mermerAuthors: IAuthor[] = [
   {
-    name: 'Jane Doe',
-    jobTitle: 'Senior Designer',
-    intro: 'I am a designer, I love to design',
-    avatar: '/icons/user.svg',
+    id: 'julian',
+    name: 'Julian Hsu',
+    jobTitle: 'Frontend Engineer',
+    intro:
+      'Give me a cup of Milk Cap Tea and I can lift the whole world. Must be full sugar and Cream Cheese flavor. Preferably topped with a Strawberry Mochi.',
+    avatar: '/profiles/profile_julian.png',
   },
   {
-    name: 'Wendy May',
-    jobTitle: 'Frontend Developer',
-    intro: 'Life is short, use React',
-    avatar: '/icons/user.svg',
-  },
-  {
-    name: 'John Doe',
-    jobTitle: 'Backend Developer',
-    intro: "If you can't fix it, it's not broken",
+    id: 'test',
+    name: 'Test',
+    jobTitle: 'Test',
+    intro: 'Test',
     avatar: '/icons/user.svg',
   },
 ];
-
-export const julianData: IAuthor = {
-  name: 'Julian Hsu',
-  jobTitle: 'Frontend Developer',
-  intro:
-    'Give me a cup of Milk Cap Tea and I can lift the whole world. Must be full sugar and Cream Cheese flavor. Preferably topped with a Strawberry Mochi.',
-  avatar: '/profiles/profile_julian.png',
-};

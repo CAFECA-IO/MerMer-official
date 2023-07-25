@@ -5,6 +5,7 @@ import {IAuthor} from '../../interfaces/author_data';
 import {timestampToString} from '../../lib/common';
 import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
+import {MERURL} from '../../constants/url';
 
 interface IKMArticleProps {
   title: string;
@@ -31,18 +32,32 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
     .replace(
       /<a /g,
       `<a class="text-lightBlue1 underline" target="_blank" rel="noopener noreferrer" `
-    ) /* Info: (20230719 - Julian) 程式碼區塊 */
+    ) /* Info: (20230719 - Julian) 程式碼區塊 & copy button */
     .replace(
       /<pre><code class="([^"]+)">([^<]+)<\/code><\/pre>/g,
-      `<pre class="bg-mermerTheme my-4 p-4"><code class="text-sm $1">$2</code></pre>`
+      /* ToDo: (20230721 - Julian) copy button
+       * <button class="absolute opacity-70 top-4 text-sm right-4 hover:opacity-100">Copy</button> */
+      `<pre class="bg-mermerTheme my-4 p-4 relative"><code class="text-sm $1">$2</code></pre>`
     )
     /* Info: (20230719 - Julian) 表格樣式 */
     .replace(/<th>(<\/th>)?/g, `<th class="border-x border-t border-lightWhite1 p-2">$1`)
-    .replace(/<td/g, `<td class="border border-lightWhite1 p-2"`);
+    .replace(/<td/g, `<td class="border border-lightWhite1 p-2"`)
+    /* Info: (20230719 - Julian) 引用區塊樣式 */
+    .replace(/<blockquote/g, `<blockquote class="text-sm my-4 opacity-70"`);
+
+  const displayedCategory = category.map(item => {
+    return (
+      <Link href={`#`} key={item}>
+        <p className="px-1 hover:text-lightBlue1" key={item}>
+          {item}
+        </p>
+      </Link>
+    );
+  });
 
   return (
     <div className="min-h-screen w-full font-Dosis">
-      <div className="flex flex-col space-y-12 p-20">
+      <div className="flex flex-col space-y-12 p-20 lg:px-64 lg:py-20">
         {/* Info: (20230718 - Julian) picture */}
         <div className="relative h-580px w-full">
           <Image src={picture} fill style={{objectFit: 'cover'}} alt="picture" />
@@ -54,6 +69,8 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
             <h2 className="text-xl font-bold text-lightBlue1">{timestampToString(date).date}</h2>
             <h1 className="text-42px font-bold">{title}</h1>
           </div>
+          {/* Info: (20230718 - Julian) category tags */}
+          <div className="flex items-center justify-end">{displayedCategory}</div>
           {/* Info: (20230718 - Julian) content */}
           <div className="text-lg">
             <article dangerouslySetInnerHTML={{__html: parsedBody}} />
@@ -74,7 +91,7 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
             <p className="text-lg text-lightWhite1">{author.jobTitle}</p>
           </div>
           <p className="text-lg text-lightWhite1">{author.intro}</p>
-          <Link href={'#'} className="group flex items-center">
+          <Link href={`${MERURL.AUTHOR}/${author.id}`} className="group flex items-center">
             <p className="text-sm text-lightBlue1">{t('KM_DETAIL_PAGE.CHECK_AUTHOR')}</p>
             <ImArrowRight2 className="ml-4 transition-all duration-300 ease-in-out group-hover:ml-8" />
           </Link>

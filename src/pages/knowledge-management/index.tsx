@@ -7,7 +7,6 @@ import {TranslateFunction} from '../../interfaces/locale';
 import {IKnowledgeManagement} from '../../interfaces/km_article';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
 import {GetStaticProps} from 'next';
-import {truncateText} from '../../lib/common';
 import {getPosts} from '../../lib/posts';
 
 interface IPageProps {
@@ -34,8 +33,12 @@ const KnowledgeManagementPage = ({briefs}: IPageProps) => {
           </h1>
         </div>
 
-        {/* Info: (20230717 - Julian) KM Page Body */}
-        <KMPageBody briefs={briefs} />
+        <div className="flex min-h-screen w-full flex-col font-Dosis">
+          {/* ToDo: (20230718 - Julian) Breadcrumb */}
+          <div className="px-20 py-10">breadcrumb</div>
+          {/* Info: (20230718 - Julian) Page Body */}
+          <KMPageBody briefs={briefs} />
+        </div>
       </main>
 
       <Footer />
@@ -44,21 +47,7 @@ const KnowledgeManagementPage = ({briefs}: IPageProps) => {
 };
 
 export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale}) => {
-  const allKmData = await getPosts('src/km/julian');
-
-  const briefs: IKnowledgeManagement[] = allKmData.map(km => {
-    const description = truncateText(km.description, 40);
-    return {
-      id: km.id,
-      date: km.date,
-      title: km.title,
-      description,
-      content: km.content,
-      picture: km.picture,
-      category: km.category,
-      author: km.author,
-    };
-  });
+  const allKmData = await getPosts();
 
   if (!allKmData) {
     return {
@@ -68,7 +57,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
 
   return {
     props: {
-      briefs,
+      briefs: allKmData,
       ...(await serverSideTranslations(locale as string, ['common', 'footer'])),
     },
   };

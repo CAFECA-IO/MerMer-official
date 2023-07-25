@@ -11,8 +11,10 @@ import {IKnowledgeManagement} from '../../interfaces/km_article';
 import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
 import {MERURL} from '../../constants/url';
+import {DOMAIN, KM_DESCRIPTION_LIMIT, KM_FOLDER} from '../../constants/config';
 import {getPost} from '../../lib/posts';
 import {GetStaticProps} from 'next';
+import {truncateText} from '../../lib/common';
 
 interface IPageProps {
   kmId: string;
@@ -22,11 +24,46 @@ interface IPageProps {
 const KMDetailPage = ({kmData}: IPageProps) => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
+  const shareUrl = `${DOMAIN}${MERURL.KM}/${kmData.id}`;
+  const description = truncateText(kmData.description, KM_DESCRIPTION_LIMIT);
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
       <Head>
-        <title>MerMer - {kmData.title}</title>
+        <title>{kmData.title}</title>
         <link rel="icon" href="/favicon/favicon.ico" />
+
+        <meta name="keywords" content={kmData.title} />
+        <meta name="description" content={description} />
+        <meta name="author" content="MerMer" />
+
+        {/* Info: (20230720 - Julian) Safari */}
+        <meta name="application-name" content="MerMer" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" />
+        <meta name="apple-mobile-web-app-title" content="MerMer" />
+
+        {/* Info: (20230720 - Julian) Open Graph Tag */}
+        <meta name="og:title" content={kmData.title} />
+        <meta name="og:type" content="website" />
+        <meta name="og:url" content={shareUrl} />
+        <meta name="og:image" content={kmData.picture} />
+        <meta name="og:image:width" content={'1200'} />
+        <meta name="og:image:height" content={'630'} />
+        <meta name="og:image:alt" content={kmData.title} />
+        <meta name="og:description" content={description} />
+        <meta name="og:site_name" content="MerMer" />
+        <meta name="og:locale" content="en_US" />
+
+        {/* Info: (20230720 - Julian) Twitter */}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@mermer" />
+        <meta name="twitter:creator" content="@mermer" />
+        <meta name="twitter:url" content={DOMAIN} />
+        <meta name="twitter:title" content={kmData.title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={kmData.picture} />
+        <meta name="twitter:image:alt" content={kmData.title} />
       </Head>
 
       <NavBar />
@@ -65,7 +102,6 @@ const KMDetailPage = ({kmData}: IPageProps) => {
             </div>
           </div>
           {/* Info: (20230719 - Julian) Back Button */}
-
           <Link href={MERURL.KM} className="group flex items-center text-2xl hover:text-lightBlue1">
             <RiArrowLeftSLine className="mr-2 text-2xl transition-all duration-300 ease-in-out group-hover:mr-4" />
             <p className="text-base">{t('KM_DETAIL_PAGE.BACK_BUTTON')}</p>
@@ -85,9 +121,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
     };
   }
 
-  // ToDo: (20230719 - Julian) 整理 dir data
-  const dir = params.kmId.includes('julian') ? 'src/km/julian' : '/';
-  const kmData = await getPost(dir, params.kmId);
+  const kmData = await getPost(KM_FOLDER, params.kmId);
 
   if (!kmData) {
     return {
@@ -107,7 +141,11 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
 export const getStaticPaths = async () => {
   return {
     // ToDo: (20230719 - Julian) paths
-    paths: [{params: {kmId: 'km-julian-20230719001'}}],
+    paths: [
+      {params: {kmId: 'km-julian-20230719001'}},
+      {params: {kmId: 'km-julian-20230720001'}},
+      {params: {kmId: 'km-test-20230720001'}},
+    ],
     fallback: 'blocking',
   };
 };
