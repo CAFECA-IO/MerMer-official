@@ -20,10 +20,14 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
   const parsedBody = content
+    /* Info: (20230728 - Julian) h1 字體放大加粗 & 以 margin y 實現段落間距 */
+    .replace(/<h1>([^<]+)<\/h1>/g, `<h1 class="font-bold text-4xl my-4">$1</h1>`)
+    /* Info: (20230728 - Julian) h2 字體放大加粗 & 以 margin y 實現段落間距 */
+    .replace(/<h2>([^<]+)<\/h2>/g, `<h2 class="font-bold text-3xl my-4">$1</h2>`)
     /* Info: (20230719 - Julian) h3 字體放大加粗 & 以 margin y 實現段落間距 */
-    .replace(/<h3><strong>([^<]+)<\/strong><\/h3>/g, `<h3 class="font-bold text-2xl my-4">$1</h3>`)
+    .replace(/<h3>([^<]+)<\/h3>/g, `<h3 class="font-bold text-2xl my-4">$1</h3>`)
     /* Info: (20230719 - Julian) h4 字體放大加粗 & 以 margin y 實現段落間距 */
-    .replace(/<h4><strong>([^<]+)<\/strong><\/h4>/g, `<h3 class="font-bold text-lg my-4">$1</h3>`)
+    .replace(/<h4>([^<]+)<\/h4>/g, `<h4 class="font-bold text-lg my-4">$1</h4>`)
     /* Info: (20230719 - Julian) ul, ol, li 縮排及列表樣式 */
     .replace(/<ul>(<\/ul>)?/g, `<ul class="my-4 lg:ml-4 list-disc">$1`)
     .replace(/<ol>(<\/ol>)?/g, `<ol class="my-4 lg:ml-4 list-roman">$1`)
@@ -39,6 +43,7 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
        * <button class="absolute opacity-70 top-4 text-sm right-4 hover:opacity-100">Copy</button> */
       `<pre class="bg-mermerTheme my-4 p-4 overflow-x-scroll relative"><code class="text-sm $1">$2</code></pre>`
     )
+    .replace(/<code>/g, `<code class="px-1 bg-lightGray1">`)
     /* Info: (20230719 - Julian) 表格樣式 */
     .replace(/<th>(<\/th>)?/g, `<th class="border-x border-t border-lightWhite1 p-2">$1`)
     .replace(/<td/g, `<td class="border border-lightWhite1 p-2"`)
