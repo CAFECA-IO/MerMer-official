@@ -26,13 +26,13 @@ const AuthorPage = ({author, posts, categorys}: IPageProps) => {
   const crumbs: ICrumbItem[] = [
     {label: t('NAV_BAR.HOME'), path: MERURL.HOME},
     {label: t('NAV_BAR.KNOWLEDGE_MANAGEMENT'), path: MERURL.KM},
-    {label: author.name, path: `${MERURL.AUTHOR}/${author.id}`},
+    {label: t(author.name), path: `${MERURL.AUTHOR}/${author.id}`},
   ];
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
       <Head>
-        <title>MerMer - {author.name}</title>
+        <title>MerMer - {t(author.name)}</title>
         <link rel="icon" href="/favicon/favicon.ico" />
       </Head>
 
