@@ -39,7 +39,7 @@ const KnowledgeManagementPage = ({posts, categorys}: IPageProps) => {
 
       <main className="flex w-screen flex-1 flex-col py-20 font-Dosis">
         {/* Info: (20230717 - Julian) KM Title */}
-        <div className="flex h-450px w-full flex-col items-start justify-center bg-kmBanner bg-cover bg-top bg-no-repeat">
+        <div className="flex h-200px w-full flex-col items-start justify-center bg-kmBanner bg-cover bg-top bg-no-repeat lg:h-450px">
           <h1 className="px-20 text-2xl font-bold drop-shadow-heightLight lg:text-54px">
             {t('KM_PAGE.TITLE')}
           </h1>
@@ -47,7 +47,7 @@ const KnowledgeManagementPage = ({posts, categorys}: IPageProps) => {
 
         <div className="flex min-h-screen w-full flex-col font-Dosis">
           {/* Info: (20230718 - Julian) Breadcrumb */}
-          <div className="px-20 py-10">
+          <div className="px-5 py-10 lg:px-20">
             <Breadcrumb crumbs={crumbs} />
           </div>
           {/* Info: (20230718 - Julian) Page Body */}

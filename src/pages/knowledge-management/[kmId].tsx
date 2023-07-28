@@ -87,7 +87,7 @@ const KMDetailPage = ({kmData}: IPageProps) => {
 
       <main className="flex w-screen flex-1 flex-col overflow-x-hidden bg-darkBlue3 pt-20">
         {/* Info: (20230718 - Julian) Breadcrumb */}
-        <div className="px-20 py-10">
+        <div className="px-5 py-10 lg:px-20">
           <Breadcrumb crumbs={crumbs} />
         </div>
 
@@ -101,7 +101,7 @@ const KMDetailPage = ({kmData}: IPageProps) => {
           author={kmData.author}
         />
 
-        <div className="flex items-center p-20">
+        <div className="flex flex-col items-center space-y-10 px-5 py-10 lg:flex-row lg:space-y-0 lg:p-20">
           {/* ToDo: (20230719 - Julian) Share */}
           <div className="flex flex-1 items-center space-x-12">
             <p>{t('KM_DETAIL_PAGE.SHARE_TO')}</p>

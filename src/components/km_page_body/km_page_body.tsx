@@ -179,7 +179,7 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
   );
 
   return (
-    <div className="flex w-full flex-col items-center space-y-16 px-20">
+    <div className="flex w-full flex-col items-center space-y-16 px-5 lg:px-20">
       <div className="flex w-full flex-col items-center space-y-8 lg:flex-row lg:space-x-20 lg:space-y-0">
         {/* Info: (20230717 - Julian) category dropmenu */}
         {displayCategoryDropmenu}

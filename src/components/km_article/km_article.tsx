@@ -25,8 +25,8 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
     /* Info: (20230719 - Julian) h4 字體放大加粗 & 以 margin y 實現段落間距 */
     .replace(/<h4><strong>([^<]+)<\/strong><\/h4>/g, `<h3 class="font-bold text-lg my-4">$1</h3>`)
     /* Info: (20230719 - Julian) ul, ol, li 縮排及列表樣式 */
-    .replace(/<ul>(<\/ul>)?/g, `<ul class="my-4 ml-4 list-disc">$1`)
-    .replace(/<ol>(<\/ol>)?/g, `<ol class="my-4 ml-4 list-roman">$1`)
+    .replace(/<ul>(<\/ul>)?/g, `<ul class="my-4 lg:ml-4 list-disc">$1`)
+    .replace(/<ol>(<\/ol>)?/g, `<ol class="my-4 lg:ml-4 list-roman">$1`)
     .replace(/<li>(<\/li>)?/g, `<li class="ml-5">$1`)
     /* Info: (20230719 - Julian) 超連結樣式 */
     .replace(
@@ -37,7 +37,7 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
       /<pre><code class="([^"]+)">([^<]+)<\/code><\/pre>/g,
       /* ToDo: (20230721 - Julian) copy button
        * <button class="absolute opacity-70 top-4 text-sm right-4 hover:opacity-100">Copy</button> */
-      `<pre class="bg-mermerTheme my-4 p-4 relative"><code class="text-sm $1">$2</code></pre>`
+      `<pre class="bg-mermerTheme my-4 p-4 overflow-x-scroll relative"><code class="text-sm $1">$2</code></pre>`
     )
     /* Info: (20230719 - Julian) 表格樣式 */
     .replace(/<th>(<\/th>)?/g, `<th class="border-x border-t border-lightWhite1 p-2">$1`)
@@ -55,7 +55,7 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
 
   return (
     <div className="min-h-screen w-full font-Dosis">
-      <div className="flex flex-col space-y-12 p-10 py-20 lg:px-64">
+      <div className="flex flex-col space-y-12 p-10 lg:px-64 lg:py-20">
         {/* Info: (20230718 - Julian) picture */}
         <div className="relative h-580px w-full">
           <Image src={picture} fill style={{objectFit: 'cover'}} alt="picture" />
@@ -70,13 +70,13 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
           {/* Info: (20230718 - Julian) category tags */}
           <div className="flex items-center justify-end">{displayedCategory}</div>
           {/* Info: (20230718 - Julian) content */}
-          <div className="text-lg">
+          <div className="text-base leading-loose lg:text-lg">
             <article dangerouslySetInnerHTML={{__html: parsedBody}} />
           </div>
         </div>
       </div>
       {/* Info: (20230718 - Julian) author */}
-      <div className="relative flex h-440px w-full items-center justify-center bg-authorIntro bg-150 bg-center bg-no-repeat px-20 py-10">
+      <div className="relative flex w-full items-center justify-center bg-authorIntro bg-150 bg-center bg-no-repeat px-5 py-10 lg:h-440px lg:px-20">
         {/* Info: (20230718 - Julian) author information */}
         <div className="flex flex-1 flex-col items-center space-y-4 rounded-3xl bg-glass p-12">
           {/* Info: (20230718 - Julian) author avatar */}
