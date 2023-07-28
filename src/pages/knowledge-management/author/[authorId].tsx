@@ -39,7 +39,7 @@ const AuthorPage = ({author, posts, categorys}: IPageProps) => {
       <NavBar />
 
       <main className="flex w-screen flex-1 flex-col py-20 font-Dosis">
-        <div className="relative flex h-440px w-full items-center justify-center bg-authorIntro bg-150 bg-center bg-no-repeat px-20 py-10">
+        <div className="relative flex w-full items-center justify-center bg-authorIntro bg-150 bg-center bg-no-repeat px-5 py-10 lg:h-440px lg:px-20">
           {/* Info: (20230718 - Julian) author information */}
           <div className="flex flex-1 flex-col items-center space-y-4 rounded-3xl bg-glass p-12">
             {/* Info: (20230718 - Julian) author avatar */}
@@ -57,7 +57,7 @@ const AuthorPage = ({author, posts, categorys}: IPageProps) => {
 
         <div className="flex min-h-screen w-full flex-col font-Dosis">
           {/* Info: (20230718 - Julian) Breadcrumb */}
-          <div className="px-20 py-10">
+          <div className="px-5 py-10 lg:px-20">
             <Breadcrumb crumbs={crumbs} />
           </div>
           {/* Info: (20230718 - Julian) Page Body */}

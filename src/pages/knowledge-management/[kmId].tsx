@@ -70,7 +70,7 @@ const KMDetailPage = ({kmData}: IPageProps) => {
         <meta name="og:image:alt" content={kmData.title} />
         <meta name="og:description" content={description} />
         <meta name="og:site_name" content="MerMer" />
-        <meta name="og:locale" content="en_US" />
+        <meta name="og:locale" content="zh_TW" />
 
         {/* Info: (20230720 - Julian) Twitter */}
         <meta name="twitter:card" content="summary" />
