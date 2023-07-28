@@ -44,14 +44,19 @@ const AuthorPage = ({author, posts, categorys}: IPageProps) => {
           <div className="flex flex-1 flex-col items-center space-y-4 rounded-3xl bg-glass p-12">
             {/* Info: (20230718 - Julian) author avatar */}
             <div className="relative flex h-96px w-96px items-center justify-center overflow-hidden rounded-full bg-lightGray2">
-              <Image src={author.avatar} fill style={{objectFit: 'cover'}} alt="author_avatar" />
+              <Image
+                src={author.avatar}
+                fill
+                style={{objectFit: 'cover'}}
+                alt={`${author.id}_avatar`}
+              />
             </div>
             {/* Info: (20230718 - Julian) author name & introduction */}
             <div className="flex flex-col items-center">
-              <p className="text-2xl font-bold text-lightBlue1">{author.name}</p>
-              <p className="text-lg text-lightWhite1">{author.jobTitle}</p>
+              <p className="text-2xl font-bold text-lightBlue1">{t(author.name)}</p>
+              <p className="text-lg text-lightWhite1">{t(author.jobTitle)}</p>
             </div>
-            <p className="text-lg text-lightWhite1">{author.intro}</p>
+            <p className="text-lg text-lightWhite1">{t(author.intro)}</p>
           </div>
         </div>
 

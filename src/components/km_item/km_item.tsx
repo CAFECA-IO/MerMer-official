@@ -27,8 +27,8 @@ const KMItem = ({id, title, description, category, picture, author}: IKMItemProp
         </div>
         {/* Info: (20230718 - Julian) Author name */}
         <div className="flex flex-col">
-          <p className="text-base text-lightBlue1">{author.name}</p>
-          <p className="text-base text-lightWhite1">{author.jobTitle}</p>
+          <p className="text-base text-lightBlue1">{t(author.name)}</p>
+          <p className="text-base text-lightWhite1">{t(author.jobTitle)}</p>
         </div>
       </div>
     </Link>

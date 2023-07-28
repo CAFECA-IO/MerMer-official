@@ -81,14 +81,19 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
         <div className="flex flex-1 flex-col items-center space-y-4 rounded-3xl bg-glass p-12">
           {/* Info: (20230718 - Julian) author avatar */}
           <div className="relative flex h-96px w-96px items-center justify-center overflow-hidden rounded-full bg-lightGray2">
-            <Image src={author.avatar} fill style={{objectFit: 'cover'}} alt="author_avatar" />
+            <Image
+              src={author.avatar}
+              fill
+              style={{objectFit: 'cover'}}
+              alt={`${author.id}_avatar`}
+            />
           </div>
           {/* Info: (20230718 - Julian) author name & introduction */}
           <div className="flex flex-col items-center">
-            <p className="text-2xl font-bold text-lightBlue1">{author.name}</p>
-            <p className="text-lg text-lightWhite1">{author.jobTitle}</p>
+            <p className="text-2xl font-bold text-lightBlue1">{t(author.name)}</p>
+            <p className="text-lg text-lightWhite1">{t(author.jobTitle)}</p>
           </div>
-          <p className="text-lg text-lightWhite1">{author.intro}</p>
+          <p className="text-lg text-lightWhite1">{t(author.intro)}</p>
           <Link href={`${MERURL.AUTHOR}/${author.id}`} className="group flex items-center">
             <p className="text-sm text-lightBlue1">{t('KM_DETAIL_PAGE.CHECK_AUTHOR')}</p>
             <ImArrowRight2 className="ml-4 transition-all duration-300 ease-in-out group-hover:ml-8" />
