@@ -1,9 +1,8 @@
-import {FaMapMarkerAlt} from 'react-icons/fa';
+import {FaMapMarkerAlt, FaGithub} from 'react-icons/fa';
 import {ImPhone} from 'react-icons/im';
 import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
 import {mermerAddressInMap, mermerPhone, mermerCopyright, githubLink} from '../../constants/config';
-import {FaGithub} from 'react-icons/fa';
 
 const Footer = () => {
   const {t}: {t: TranslateFunction} = useTranslation('common');

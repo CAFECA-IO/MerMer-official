@@ -24,11 +24,4 @@ export const mermerAuthors: IAuthor[] = [
       'Give me a cup of Milk Cap Tea and I can lift the whole world. Must be full sugar and Cream Cheese flavor. Preferably topped with a Strawberry Mochi.',
     avatar: '/profiles/profile_julian.png',
   },
-  {
-    id: 'test',
-    name: 'Test',
-    jobTitle: 'Test',
-    intro: 'Test',
-    avatar: '/icons/user.svg',
-  },
 ];

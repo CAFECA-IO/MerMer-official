@@ -57,15 +57,15 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
     <div className="min-h-screen w-full font-Dosis">
       <div className="flex flex-col space-y-12 p-10 lg:px-64 lg:py-20">
         {/* Info: (20230718 - Julian) picture */}
-        <div className="relative h-580px w-full">
+        <div className="relative h-300px w-full lg:h-580px">
           <Image src={picture} fill style={{objectFit: 'cover'}} alt="picture" />
         </div>
         {/* Info: (20230718 - Julian) article */}
-        <div className="flex flex-col space-y-12">
+        <div className="flex flex-col space-y-5 lg:space-y-12">
           {/* Info: (20230718 - Julian) title & date */}
           <div className="flex flex-col items-center">
             <h2 className="text-xl font-bold text-lightBlue1">{timestampToString(date).date}</h2>
-            <h1 className="text-42px font-bold">{title}</h1>
+            <h1 className="text-4xl font-bold lg:text-42px">{title}</h1>
           </div>
           {/* Info: (20230718 - Julian) category tags */}
           <div className="flex items-center justify-end">{displayedCategory}</div>

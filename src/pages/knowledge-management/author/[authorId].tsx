@@ -4,9 +4,9 @@ import NavBar from '../../../components/nav_bar/nav_bar';
 import Footer from '../../../components/footer/footer';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import KMPageBody from '../../../components/km_page_body/km_page_body';
-import {getAuthor, getPostsByAuthor, getCategories} from '../../../lib/posts';
+import {getAuthor, getPostsByAuthor, getCategories, getAuthors} from '../../../lib/posts';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
-import {GetStaticProps} from 'next';
+import {GetStaticProps, GetStaticPaths} from 'next';
 import {IKnowledgeManagement} from '../../../interfaces/km_article';
 import {ICrumbItem} from '../../../interfaces/crumb_item';
 import {MERURL} from '../../../constants/url';
@@ -91,10 +91,17 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
   };
 };
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({locales}) => {
+  const authors = (await getAuthors()) ?? [];
+
+  const paths = authors
+    .flatMap(author => {
+      return locales?.map(locale => ({params: {authorId: author}, locale}));
+    })
+    .filter((path): path is {params: {authorId: string}; locale: string} => !!path);
+
   return {
-    // ToDo: (20230719 - Julian) paths
-    paths: [{params: {authorId: 'julian'}}],
+    paths,
     fallback: 'blocking',
   };
 };

@@ -92,6 +92,11 @@ export async function getAuthor(id: string): Promise<IAuthor> {
   return author;
 }
 
+// Info: (20230728 - Julian) 抓取作者列表
+export async function getAuthors(): Promise<string[]> {
+  return mermerAuthors.map(author => author.id);
+}
+
 export async function getDirectories(src: string): Promise<string[]> {
   const subdirs = await readdir(src);
   const directories = [];
