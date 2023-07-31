@@ -53,7 +53,7 @@ const NavBar = () => {
         <Link href={MERURL.HIRING}>{t('NAV_BAR.HIRING')}</Link>
       </li>
       <li className="m-2 px-2 py-3 hover:cursor-pointer hover:text-lightBlue1">
-        <Link href={MERURL.HIRING} scroll={false}>
+        <Link href={MERURL.CONTACT_US} scroll={false}>
           {t('NAV_BAR.CONTACT_US')}
         </Link>
       </li>

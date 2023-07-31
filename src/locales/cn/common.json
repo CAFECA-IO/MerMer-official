@@ -128,5 +128,10 @@
   "KM_CATEGORY": {
     "ALL": "全部",
     "NEWBIE": "新手入门"
+  },
+  "AUTHOR": {
+    "JULIAN_NAME": "Julian Hsu",
+    "JULIAN_JOBTITLE": "前端工程师",
+    "JULIAN_INTRO": "给我一杯奶盖奶茶，我可以帮你举起整个世界，要全糖，要有 Cream Cheese，最好再来个草莓大福。"
   }
 }

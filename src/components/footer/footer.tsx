@@ -1,8 +1,8 @@
-import {FaMapMarkerAlt} from 'react-icons/fa';
+import {FaMapMarkerAlt, FaGithub} from 'react-icons/fa';
 import {ImPhone} from 'react-icons/im';
 import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
-import {mermerAddressInMap, mermerPhone, mermerCopyright} from '../../constants/config';
+import {mermerAddressInMap, mermerPhone, mermerCopyright, githubLink} from '../../constants/config';
 
 const Footer = () => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
@@ -20,6 +20,12 @@ const Footer = () => {
         <div className="flex flex-col items-center space-y-2 text-center lg:flex-row lg:space-x-3 lg:space-y-0 lg:text-left">
           <ImPhone className="h-20px w-20px text-lightWhite1" />
           <a href={`tel:${mermerPhone}`}>{mermerPhone}</a>
+        </div>
+
+        <div className="flex flex-col items-center space-y-2 text-2xl lg:flex-row lg:space-x-3 lg:space-y-0">
+          <a href={githubLink} target="_blank">
+            <FaGithub />
+          </a>
         </div>
       </div>
       <div>{mermerCopyright}</div>

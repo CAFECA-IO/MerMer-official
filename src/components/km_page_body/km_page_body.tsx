@@ -106,88 +106,154 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
     // Info: (20230721 - Julian) 印出當前頁面的 KM
     .slice(startIdx, endIdx);
 
-  const displayCategoryDropmenu = (
-    <div
-      ref={catagoryRef}
-      onClick={() => setCatagoryVisible(!catagoryVisible)}
-      className="relative flex w-90px flex-col items-center text-base hover:cursor-pointer"
-    >
-      <div className="flex items-center space-x-2 hover:text-lightBlue1">
-        <p>{category ? t(category) : t('KM_PAGE.CATEGORY_TITLE')}</p>
-        <MdOutlineKeyboardArrowDown />
-      </div>
-
-      <ul
-        className={`absolute top-8 z-10 flex flex-col bg-mermerTheme px-2 ${
-          catagoryVisible ? 'visible opacity-100' : 'invisible opacity-0'
-        } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in`}
+  const desktopFilter = (
+    <div className="hidden w-full items-center space-x-20 lg:flex">
+      {/* Info: (20230717 - Julian) category dropmenu */}
+      <div
+        ref={catagoryRef}
+        onClick={() => setCatagoryVisible(!catagoryVisible)}
+        className="relative flex w-90px flex-col items-center text-base hover:cursor-pointer"
       >
-        <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={() => setCategory('')}>
-          {t('KM_CATEGORY.ALL')}
-        </li>
-        {categorys.map((item, i) => (
-          <li
-            key={i}
-            className="min-w-80px p-2 hover:bg-dropDownHover"
-            onClick={() => setCategory(item)}
-          >
-            {t(item)}
+        <div className="flex items-center space-x-2 hover:text-lightBlue1">
+          <p>{category ? t(category) : t('KM_PAGE.CATEGORY_TITLE')}</p>
+          <MdOutlineKeyboardArrowDown />
+        </div>
+
+        <ul
+          className={`absolute top-8 z-10 flex flex-col bg-mermerTheme px-2 ${
+            catagoryVisible ? 'visible opacity-100' : 'invisible opacity-0'
+          } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in`}
+        >
+          <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={() => setCategory('')}>
+            {t('KM_CATEGORY.ALL')}
           </li>
-        ))}
-      </ul>
-    </div>
-  );
-
-  const displaySearchBar = (
-    <div className="relative flex flex-1 items-center">
-      <input
-        type="search"
-        className="w-full items-center rounded-full bg-dropDownHover px-10 py-3 text-base"
-        placeholder={t('KM_PAGE.SEARCH_PLACEHOLDER')}
-        onChange={searchChangeHandler}
-      />
-      <div className="absolute left-4 text-base font-bold">
-        <RiSearchLine />
+          {categorys.map((item, i) => (
+            <li
+              key={i}
+              className="min-w-80px p-2 hover:bg-dropDownHover"
+              onClick={() => setCategory(item)}
+            >
+              {t(item)}
+            </li>
+          ))}
+        </ul>
       </div>
-    </div>
-  );
-
-  const displaySortingDropmenu = (
-    <div
-      ref={sortRef}
-      onClick={() => setSortVisible(!sortVisible)}
-      className="relative flex w-90px flex-col items-center text-base hover:cursor-pointer"
-    >
-      <div className="flex items-center space-x-2 hover:text-lightBlue1">
-        <TbSortDescending />
-        <p>{sortingText}</p>
+      {/* Info: (20230717 - Julian) search input */}
+      <div className="relative flex flex-1 items-center">
+        <input
+          type="search"
+          className="w-full items-center rounded-full bg-dropDownHover px-10 py-3 text-base"
+          placeholder={t('KM_PAGE.SEARCH_PLACEHOLDER')}
+          onChange={searchChangeHandler}
+        />
+        <div className="absolute left-4 text-base font-bold">
+          <RiSearchLine />
+        </div>
       </div>
-
-      <ul
-        className={`absolute top-8 z-10 flex flex-col bg-mermerTheme px-2 ${
-          sortVisible ? 'visible opacity-100' : 'invisible opacity-0'
-        } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in`}
+      {/* Info: (20230717 - Julian) sort menu */}
+      <div
+        ref={sortRef}
+        onClick={() => setSortVisible(!sortVisible)}
+        className="relative flex w-90px flex-col items-center text-base hover:cursor-pointer"
       >
-        <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={newestSortHandler}>
-          {t('KM_PAGE.SORT_BY_NEWEST')}
-        </li>
-        <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={oldestSortHandler}>
-          {t('KM_PAGE.SORT_BY_OLDEST')}
-        </li>
-      </ul>
+        <div className="flex items-center space-x-2 hover:text-lightBlue1">
+          <TbSortDescending />
+          <p>{sortingText}</p>
+        </div>
+
+        <ul
+          className={`absolute top-8 z-10 flex flex-col bg-mermerTheme px-2 ${
+            sortVisible ? 'visible opacity-100' : 'invisible opacity-0'
+          } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in`}
+        >
+          <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={newestSortHandler}>
+            {t('KM_PAGE.SORT_BY_NEWEST')}
+          </li>
+          <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={oldestSortHandler}>
+            {t('KM_PAGE.SORT_BY_OLDEST')}
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+
+  const mobileFilter = (
+    <div className="flex w-300px flex-col items-center space-y-10 pb-10 pt-2 lg:hidden">
+      <div className="flex w-full items-center justify-between">
+        {/* Info: (20230728 - Julian) category dropmenu*/}
+        <div
+          ref={catagoryRef}
+          onClick={() => setCatagoryVisible(!catagoryVisible)}
+          className="relative flex w-90px flex-col items-center text-base hover:cursor-pointer"
+        >
+          <div className="flex items-center space-x-2 hover:text-lightBlue1">
+            <p>{category ? t(category) : t('KM_PAGE.CATEGORY_TITLE')}</p>
+            <MdOutlineKeyboardArrowDown />
+          </div>
+
+          <ul
+            className={`absolute top-8 z-10 flex flex-col bg-mermerTheme px-2 ${
+              catagoryVisible ? 'visible opacity-100' : 'invisible opacity-0'
+            } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in`}
+          >
+            <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={() => setCategory('')}>
+              {t('KM_CATEGORY.ALL')}
+            </li>
+            {categorys.map((item, i) => (
+              <li
+                key={i}
+                className="min-w-80px p-2 hover:bg-dropDownHover"
+                onClick={() => setCategory(item)}
+              >
+                {t(item)}
+              </li>
+            ))}
+          </ul>
+        </div>
+        {/* Info: (20230728 - Julian) sort menu */}
+        <div
+          ref={sortRef}
+          onClick={() => setSortVisible(!sortVisible)}
+          className="relative flex w-90px flex-col items-center text-base hover:cursor-pointer"
+        >
+          <div className="flex items-center space-x-2 hover:text-lightBlue1">
+            <TbSortDescending />
+            <p>{sortingText}</p>
+          </div>
+
+          <ul
+            className={`absolute top-8 z-10 flex flex-col bg-mermerTheme px-2 ${
+              sortVisible ? 'visible opacity-100' : 'invisible opacity-0'
+            } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in`}
+          >
+            <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={newestSortHandler}>
+              {t('KM_PAGE.SORT_BY_NEWEST')}
+            </li>
+            <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={oldestSortHandler}>
+              {t('KM_PAGE.SORT_BY_OLDEST')}
+            </li>
+          </ul>
+        </div>
+      </div>
+      {/* Info: (20230728 - Julian) search input */}
+      <div className="relative flex w-full items-center">
+        <input
+          type="search"
+          className="w-full items-center rounded-full bg-dropDownHover px-10 py-3 text-base"
+          placeholder={t('KM_PAGE.SEARCH_PLACEHOLDER')}
+          onChange={searchChangeHandler}
+        />
+        <div className="absolute left-4 text-base font-bold">
+          <RiSearchLine />
+        </div>
+      </div>
     </div>
   );
 
   return (
-    <div className="flex w-full flex-col items-center space-y-16 px-20">
-      <div className="flex w-full flex-col items-center space-y-8 lg:flex-row lg:space-x-20 lg:space-y-0">
-        {/* Info: (20230717 - Julian) category dropmenu */}
-        {displayCategoryDropmenu}
-        {/* Info: (20230717 - Julian) search input */}
-        {displaySearchBar}
-        {/* Info: (20230717 - Julian) sort menu */}
-        {displaySortingDropmenu}
-      </div>
+    <div className="flex w-full flex-col items-center px-5 lg:space-y-16 lg:px-20">
+      {desktopFilter}
+      {mobileFilter}
       <ul className="flex flex-wrap justify-center gap-x-4 gap-y-16">{displayKMList}</ul>
       <Pagination activePage={activePage} setActivePage={setActivePage} totalPages={totalPages} />
     </div>

@@ -32,7 +32,11 @@ const Breadcrumb = ({crumbs}: BreadcrumbProps) => {
     }
   });
 
-  return <div className="flex items-center space-x-2 font-Dosis text-lg">{crumbList}</div>;
+  return (
+    <div className="flex items-center space-x-2 text-center font-Dosis text-sm lg:text-lg">
+      {crumbList}
+    </div>
+  );
 };
 
 export default Breadcrumb;

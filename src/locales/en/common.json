@@ -128,5 +128,10 @@
   "KM_CATEGORY": {
     "ALL": "All",
     "NEWBIE": "Newbie"
+  },
+  "AUTHOR": {
+    "JULIAN_NAME": "Julian Hsu",
+    "JULIAN_JOBTITLE": "Frontend Engineer",
+    "JULIAN_INTRO": "Give me a cup of Milk Cap Tea and I can lift the whole world. Must be full sugar and Cream Cheese flavor. Preferably topped with a Strawberry Mochi."
   }
 }

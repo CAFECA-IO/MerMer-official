@@ -14,8 +14,8 @@ import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
 import {MERURL} from '../../constants/url';
 import {DOMAIN, KM_DESCRIPTION_LIMIT, KM_FOLDER} from '../../constants/config';
-import {getPost} from '../../lib/posts';
-import {GetStaticProps} from 'next';
+import {getPost, getSlugs} from '../../lib/posts';
+import {GetStaticPaths, GetStaticProps} from 'next';
 import {truncateText} from '../../lib/common';
 
 interface IPageProps {
@@ -70,7 +70,7 @@ const KMDetailPage = ({kmData}: IPageProps) => {
         <meta name="og:image:alt" content={kmData.title} />
         <meta name="og:description" content={description} />
         <meta name="og:site_name" content="MerMer" />
-        <meta name="og:locale" content="en_US" />
+        <meta name="og:locale" content="zh_TW" />
 
         {/* Info: (20230720 - Julian) Twitter */}
         <meta name="twitter:card" content="summary" />
@@ -87,7 +87,7 @@ const KMDetailPage = ({kmData}: IPageProps) => {
 
       <main className="flex w-screen flex-1 flex-col overflow-x-hidden bg-darkBlue3 pt-20">
         {/* Info: (20230718 - Julian) Breadcrumb */}
-        <div className="px-20 py-10">
+        <div className="px-5 py-10 lg:px-20">
           <Breadcrumb crumbs={crumbs} />
         </div>
 
@@ -101,8 +101,8 @@ const KMDetailPage = ({kmData}: IPageProps) => {
           author={kmData.author}
         />
 
-        <div className="flex items-center p-20">
-          {/* ToDo: (20230719 - Julian) Share */}
+        <div className="flex flex-col items-center space-y-10 px-5 py-10 lg:flex-row lg:space-y-0 lg:p-20">
+          {/* ToDo: (20230719 - Julian) Share function */}
           <div className="flex flex-1 items-center space-x-12">
             <p>{t('KM_DETAIL_PAGE.SHARE_TO')}</p>
             <div className="flex items-center space-x-4">
@@ -157,14 +157,17 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
   };
 };
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({locales}) => {
+  const slugs = (await getSlugs(KM_FOLDER)) ?? [];
+
+  const paths = slugs
+    .flatMap(slug => {
+      return locales?.map(locale => ({params: {kmId: slug}, locale}));
+    })
+    .filter((path): path is {params: {kmId: string}; locale: string} => !!path);
+
   return {
-    // ToDo: (20230719 - Julian) paths
-    paths: [
-      {params: {kmId: 'km-julian-20230719001'}},
-      {params: {kmId: 'km-julian-20230720001'}},
-      {params: {kmId: 'km-test-20230720001'}},
-    ],
+    paths,
     fallback: 'blocking',
   };
 };
