@@ -15,6 +15,7 @@ const Home = () => {
       <Head>
         <meta charSet="UTF-8" />
         <link rel="icon" href="/favicon/favicon.ico" />
+        <link rel="canonical" href="https://mermer.com.tw/" />
 
         <title>MerMer 墨沫有限公司</title>
         <meta
