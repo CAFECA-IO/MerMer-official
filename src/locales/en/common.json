@@ -199,11 +199,15 @@
   },
   "KM_CATEGORY": {
     "ALL": "All",
-    "NEWBIE": "Newbie"
+    "NEWBIE": "Newbie",
+    "DATABASE": "Database"
   },
   "AUTHOR": {
     "JULIAN_NAME": "Julian Hsu",
     "JULIAN_JOBTITLE": "Frontend Engineer",
-    "JULIAN_INTRO": "Give me a cup of Milk Cap Tea and I can lift the whole world. Must be full sugar and Cream Cheese flavor. Preferably topped with a Strawberry Mochi."
+    "JULIAN_INTRO": "Give me a cup of Milk Cap Tea and I can lift the whole world. Must be full sugar and Cream Cheese flavor. Preferably topped with a Strawberry Mochi.",
+    "EMILY_NAME": "Emily Liang",
+    "EMILY_JOBTITLE": "Software Engineer",
+    "EMILY_INTRO": "A weight training enthusiast who can effortlessly deadlift seventy kilograms shifted to road cycling and became a carb-loving chubby person. Now, she plans to restructure her training routine to regain the lost muscle mass."
   }
 }

@@ -199,11 +199,15 @@
   },
   "KM_CATEGORY": {
     "ALL": "全部",
-    "NEWBIE": "新手入門"
+    "NEWBIE": "新手入門",
+    "DATABASE": "資料庫"
   },
   "AUTHOR": {
     "JULIAN_NAME": "Julian Hsu",
     "JULIAN_JOBTITLE": "前端工程師",
-    "JULIAN_INTRO": "給我一杯奶蓋奶茶，我可以幫你舉起整個世界，要全糖，要有 Cream Cheese，最好再來個草莓大福。"
+    "JULIAN_INTRO": "給我一杯奶蓋奶茶，我可以幫你舉起整個世界，要全糖，要有 Cream Cheese，最好再來個草莓大福。",
+    "EMILY_NAME": "Emily Liang",
+    "EMILY_JOBTITLE": "軟體工程師",
+    "EMILY_INTRO": "熱衷於舉重的愛好者，可以毫不費力地硬舉七十公斤的重量，轉而投入公路自行車運動，並變成了一個熱愛碳水化合物的豐滿人士。現在重新調整訓練計畫，以找回失去的肌肉。"
   }
 }
