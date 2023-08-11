@@ -100,6 +100,7 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
           category={item.category}
           picture={item.picture}
           author={item.author}
+          date={item.date}
         />
       );
     })
