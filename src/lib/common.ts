@@ -9,7 +9,9 @@ export const timestampToString = (timestamp: number) => {
   const month = date.getMonth() + 1;
   const day = date.getDate();
 
-  const dateString = `${year}-${month}-${day}`;
+  const dateString = `${year}-${month.toString().padStart(2, '0')}-${day
+    .toString()
+    .padStart(2, '0')}`;
 
   return {
     date: dateString,
