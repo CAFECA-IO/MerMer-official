@@ -17,6 +17,8 @@ import {DOMAIN, KM_DESCRIPTION_LIMIT, KM_FOLDER} from '../../constants/config';
 import {getPost, getSlugs} from '../../lib/posts';
 import {GetStaticPaths, GetStaticProps} from 'next';
 import {truncateText} from '../../lib/common';
+import useShareProcess from '../../lib/hooks/use_share_process';
+import {ISocialMedia, SocialMediaConstant, ShareSettings} from '../../constants/social_media';
 
 interface IPageProps {
   kmId: string;
@@ -28,6 +30,8 @@ const KMDetailPage = ({kmData}: IPageProps) => {
 
   const shareUrl = `${DOMAIN}${MERURL.KM}/${kmData.id}`;
   const description = truncateText(kmData.description, KM_DESCRIPTION_LIMIT);
+
+  const {share} = useShareProcess({shareId: kmData.id});
 
   const crumbs: ICrumbItem[] = [
     {
@@ -43,6 +47,35 @@ const KMDetailPage = ({kmData}: IPageProps) => {
       path: `${MERURL.KM}/${kmData.id}`,
     },
   ];
+
+  const shareList = (
+    <div className="flex items-center space-x-4">
+      {Object.entries(ShareSettings).map(([key, value]) => {
+        const mediaIcon =
+          key === SocialMediaConstant.FACEBOOK ? (
+            <ImFacebook />
+          ) : key === SocialMediaConstant.TWITTER ? (
+            <ImTwitter />
+          ) : key === SocialMediaConstant.LINKEDIN ? (
+            <ImLinkedin2 />
+          ) : key === SocialMediaConstant.REDDIT ? (
+            <FaRedditAlien />
+          ) : null;
+
+        return (
+          <button
+            key={key}
+            className="text-2xl hover:text-lightBlue1"
+            onClick={() => {
+              share({socialMedia: key as ISocialMedia, text: value.text});
+            }}
+          >
+            {mediaIcon}
+          </button>
+        );
+      })}
+    </div>
+  );
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
@@ -71,6 +104,13 @@ const KMDetailPage = ({kmData}: IPageProps) => {
         <meta name="og:description" content={description} />
         <meta name="og:site_name" content="MerMer" />
         <meta name="og:locale" content="zh_TW" />
+
+        {/* Info: (20230811 - Julian) LinkedIn */}
+        <meta name="title" property="og:title" content={kmData.title} />
+        <meta property="og:type" content="website" />
+        <meta name="description" property="og:description" content={description} />
+        <meta name="image" property="og:image" content={`${DOMAIN}${kmData.picture}`} />
+        <meta property="og:url" content={shareUrl} />
 
         {/* Info: (20230720 - Julian) Twitter */}
         <meta name="twitter:card" content="summary" />
@@ -102,23 +142,10 @@ const KMDetailPage = ({kmData}: IPageProps) => {
         />
 
         <div className="flex flex-col items-center space-y-10 px-5 py-10 lg:flex-row lg:space-y-0 lg:p-20">
-          {/* ToDo: (20230719 - Julian) Share function */}
+          {/* Info: (20230811 - Julian) Share List */}
           <div className="flex flex-1 items-center space-x-12">
             <p>{t('KM_DETAIL_PAGE.SHARE_TO')}</p>
-            <div className="flex items-center space-x-4">
-              <button className="text-2xl hover:text-lightBlue1">
-                <FaRedditAlien />
-              </button>
-              <button className="text-2xl hover:text-lightBlue1">
-                <ImFacebook />
-              </button>
-              <button className="text-2xl hover:text-lightBlue1">
-                <ImTwitter />
-              </button>
-              <button className="text-2xl hover:text-lightBlue1">
-                <ImLinkedin2 />
-              </button>
-            </div>
+            {shareList}
           </div>
           {/* Info: (20230719 - Julian) Back Button */}
           <Link href={MERURL.KM} className="group flex items-center text-2xl hover:text-lightBlue1">

@@ -100,6 +100,7 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
           category={item.category}
           picture={item.picture}
           author={item.author}
+          date={item.date}
         />
       );
     })
@@ -251,10 +252,12 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
   );
 
   return (
-    <div className="flex w-full flex-col items-center px-5 lg:space-y-16 lg:px-20">
+    <div className="flex w-full flex-col items-center px-5 lg:space-y-16">
       {desktopFilter}
       {mobileFilter}
-      <ul className="flex flex-wrap justify-center gap-x-4 gap-y-16">{displayKMList}</ul>
+      <ul className="grid grid-flow-row grid-cols-1 gap-x-4 gap-y-16 md:grid-cols-2 xl:grid-cols-4">
+        {displayKMList}
+      </ul>
       <Pagination activePage={activePage} setActivePage={setActivePage} totalPages={totalPages} />
     </div>
   );

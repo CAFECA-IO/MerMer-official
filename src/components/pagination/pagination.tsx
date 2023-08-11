@@ -16,17 +16,18 @@ const Pagination = ({activePage, setActivePage, totalPages}: IPagination) => {
 
   const pages = pagesArr.map(page => {
     return (
-      <button
-        key={page}
-        onClick={() => setActivePage(page)}
-        className={`flex h-40px w-40px items-center justify-center rounded-full p-4 ${
-          activePage === page
-            ? 'bg-lightBlue1 text-darkBlue4'
-            : 'text-lightWhite1 hover:bg-lightBlue1'
-        }`}
-      >
-        {page}
-      </button>
+      <li key={page} className="flex items-center">
+        <button
+          onClick={() => setActivePage(page)}
+          className={`flex h-40px w-40px items-center justify-center rounded-full p-4 ${
+            activePage === page
+              ? 'bg-lightBlue1 text-darkBlue4'
+              : 'text-lightWhite1 hover:bg-lightBlue1'
+          }`}
+        >
+          {page}
+        </button>
+      </li>
     );
   });
 
@@ -34,7 +35,7 @@ const Pagination = ({activePage, setActivePage, totalPages}: IPagination) => {
     <button
       onClick={() => setActivePage(activePage - 1)}
       disabled={activePage === 1 ? true : false}
-      className="flex items-center text-base text-lightWhite1 disabled:text-lightGray1"
+      className="flex items-center text-base text-lightWhite1 hover:text-lightBlue1 disabled:text-lightGray1"
     >
       <RiArrowLeftSLine className="text-2xl" />
       <p className="px-2">{t('KM_PAGE.PAGINATION_PREVIOUS')}</p>
@@ -45,7 +46,7 @@ const Pagination = ({activePage, setActivePage, totalPages}: IPagination) => {
     <button
       onClick={() => setActivePage(activePage + 1)}
       disabled={activePage === totalPages ? true : false}
-      className="flex items-center text-base text-lightWhite1 disabled:text-lightGray1"
+      className="flex items-center text-base text-lightWhite1 hover:text-lightBlue1 disabled:text-lightGray1"
     >
       <p className="px-2">{t('KM_PAGE.PAGINATION_NEXT')}</p>
       <RiArrowRightSLine className="text-2xl" />
@@ -53,9 +54,9 @@ const Pagination = ({activePage, setActivePage, totalPages}: IPagination) => {
   );
 
   return (
-    <ul className="mt-10 flex items-center justify-center gap-1 text-sm font-medium lg:mr-20 lg:justify-end">
+    <ul className="mt-10 flex items-center justify-center gap-1 text-sm font-medium">
       <li>{previousBtn}</li>
-      <li className="flex items-center">{pages}</li>
+      {pages}
       <li>{nextBtn}</li>
     </ul>
   );

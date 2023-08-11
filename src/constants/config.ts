@@ -1,6 +1,5 @@
 export const KM_PER_PAGE = 8;
-export const KM_TITLE_LIMIT = 20;
-export const KM_DESCRIPTION_LIMIT = 50;
+export const KM_DESCRIPTION_LIMIT = 100;
 export const KM_TAG_LIMIT = 3;
 
 export const KM_FOLDER = 'src/km';
@@ -275,7 +274,7 @@ export const jobList = [
       'HIRING_PAGE.JOB_DESCRIPTION_8',
     ],
     requirements: [
-      'HIRING_PAGE.JOB_REQUIREMENT_37',      
+      'HIRING_PAGE.JOB_REQUIREMENT_37',
       'HIRING_PAGE.JOB_REQUIREMENT_19',
       'HIRING_PAGE.JOB_REQUIREMENT_20',
       'HIRING_PAGE.JOB_REQUIREMENT_21',
