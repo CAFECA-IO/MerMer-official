@@ -200,7 +200,13 @@
   "KM_CATEGORY": {
     "ALL": "全部",
     "NEWBIE": "新手入門",
-    "DATABASE": "資料庫"
+    "DATABASE": "資料庫",
+    "DeFi": "DeFi",
+    "CRYPTOCURRENCY": "虛擬貨幣",
+    "BALANCE_SHEET": "資產負債表",
+    "BLOCKCHAIN_TECHNOLOGY": "區塊鏈技術",
+    "WEB_SECURITY": "Web安全性",
+    "SYSTEM_ARCHITECTURE": "系統架構"
   },
   "AUTHOR": {
     "JULIAN_NAME": "Julian Hsu",
