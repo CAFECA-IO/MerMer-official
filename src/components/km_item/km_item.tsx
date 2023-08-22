@@ -55,7 +55,7 @@ const KMItem = ({id, title, description, category, picture, author, date}: IKMIt
         <div className="flex w-full flex-1 flex-col px-4 py-3">
           {/* Info: (20230718 - Julian) Category & Title */}
           <div className="flex flex-col">
-            <div className="z-10 flex items-center whitespace-nowrap text-base text-lightWhite1">
+            <div className="z-10 flex w-[230px] items-center overflow-x-hidden whitespace-nowrap text-base text-lightWhite1">
               {displayedCategory}
             </div>
             <div className="flex h-56px items-center">
