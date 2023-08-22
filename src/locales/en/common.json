@@ -200,7 +200,13 @@
   "KM_CATEGORY": {
     "ALL": "All",
     "NEWBIE": "Newbie",
-    "DATABASE": "Database"
+    "DATABASE": "Database",
+    "DeFi": "DeFi",
+    "CRYPTOCURRENCY": "Cryptocurrency",
+    "BALANCE_SHEET": "Balance Sheet",
+    "BLOCKCHAIN_TECHNOLOGY": "blockchain Technology",
+    "WEB_SECURITY": "Web Security",
+    "SYSTEM_ARCHITECTURE": "System architecture"
   },
   "AUTHOR": {
     "JULIAN_NAME": "Julian Hsu",
