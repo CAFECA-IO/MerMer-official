@@ -29,9 +29,9 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
     /* Info: (20230719 - Julian) h4 字體放大加粗 & 以 margin y 實現段落間距 */
     .replace(/<h4>([^<]+)<\/h4>/g, `<h4 class="font-bold text-xl my-4">$1</h4>`)
     /* Info: (20230719 - Julian) ul, ol, li 縮排及列表樣式 */
-    .replace(/<ul>(<\/ul>)?/g, `<ul class="my-4 lg:ml-4 list-disc">$1`)
-    .replace(/<ol>(<\/ol>)?/g, `<ol class="my-4 lg:ml-4 list-roman">$1`)
-    .replace(/<li>(<\/li>)?/g, `<li class="ml-5">$1`)
+    .replace(/<ul/g, `<ul class="my-4 lg:ml-4 list-disc"`)
+    .replace(/<ol/g, `<ol class="my-4 lg:ml-4 list-roman"`)
+    .replace(/<li/g, `<li class="ml-5"`)
     /* Info: (20230719 - Julian) 超連結樣式 */
     .replace(
       /<a /g,
@@ -45,8 +45,10 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
     )
     .replace(/<code>/g, `<code class="px-1 bg-lightGray1">`)
     /* Info: (20230719 - Julian) 表格樣式 */
-    .replace(/<th>(<\/th>)?/g, `<th class="border-x border-t border-lightWhite1 p-2">$1`)
-    .replace(/<td/g, `<td class="border border-lightWhite1 p-2"`)
+    .replace(/<table/g, `<div class="overflow-x-scroll"><table class="lg:table-fixed w-full my-4"`)
+    .replace(/<\/table>/g, `</table></div>`)
+    .replace(/<th>(<\/th>)?/g, `<th class="border-x border-t border-lightWhite1 py-2">$1`)
+    .replace(/<td/g, `<td class="border border-lightWhite1 p-2 text-left"`)
     /* Info: (20230719 - Julian) 引用區塊樣式 */
     .replace(/<blockquote/g, `<blockquote class="text-sm my-4 opacity-70"`);
 
