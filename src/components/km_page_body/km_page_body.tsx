@@ -108,20 +108,20 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
     .slice(startIdx, endIdx);
 
   const desktopFilter = (
-    <div className="z-30 hidden w-full items-center space-x-20 lg:flex">
+    <div className="z-30 hidden w-full items-center space-x-10 lg:flex">
       {/* Info: (20230717 - Julian) category dropmenu */}
       <div
         ref={catagoryRef}
         onClick={() => setCatagoryVisible(!catagoryVisible)}
-        className="relative flex w-90px flex-col items-center text-base hover:cursor-pointer"
+        className="relative flex w-160px flex-col items-start text-base hover:cursor-pointer"
       >
-        <div className="flex items-center space-x-2 hover:text-lightBlue1">
+        <div className="flex items-center space-x-2 whitespace-nowrap hover:text-lightBlue1">
           <p>{category ? t(category) : t('KM_PAGE.CATEGORY_TITLE')}</p>
           <MdOutlineKeyboardArrowDown />
         </div>
 
         <ul
-          className={`absolute left-0 top-8 z-10 flex flex-col bg-mermerTheme px-2 ${
+          className={`absolute left-0 top-8 z-10 flex flex-col whitespace-nowrap bg-mermerTheme px-2 ${
             catagoryVisible ? 'visible opacity-100' : 'invisible opacity-0'
           } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in`}
         >
@@ -180,20 +180,20 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
 
   const mobileFilter = (
     <div className="flex w-300px flex-col items-center space-y-10 pb-10 pt-2 lg:hidden">
-      <div className="flex w-full items-center justify-between">
+      <div className="flex w-full items-center">
         {/* Info: (20230728 - Julian) category dropmenu */}
         <div
           ref={catagoryRef}
           onClick={() => setCatagoryVisible(!catagoryVisible)}
-          className="relative flex w-90px flex-col items-center text-base hover:cursor-pointer"
+          className="relative flex flex-1 flex-col items-start text-base hover:cursor-pointer"
         >
-          <div className="flex items-center space-x-2 hover:text-lightBlue1">
+          <div className="flex items-center space-x-2 whitespace-nowrap hover:text-lightBlue1">
             <p>{category ? t(category) : t('KM_PAGE.CATEGORY_TITLE')}</p>
             <MdOutlineKeyboardArrowDown />
           </div>
 
           <ul
-            className={`absolute left-0 top-8 z-30 flex flex-col bg-mermerTheme px-2 ${
+            className={`absolute left-0 top-8 z-30 flex flex-col whitespace-nowrap bg-mermerTheme px-2 ${
               catagoryVisible ? 'visible opacity-100' : 'invisible opacity-0'
             } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in`}
           >

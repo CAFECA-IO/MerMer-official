@@ -15,7 +15,7 @@ const Breadcrumb = ({crumbs}: BreadcrumbProps) => {
         <div className="flex items-center space-x-2" key={i}>
           <Link
             href={crumb.path}
-            className="text-lightWhite1 hover:text-lightBlue1 hover:underline"
+            className="whitespace-nowrap text-lightWhite1 hover:text-lightBlue1 hover:underline"
           >
             {crumb.label}
           </Link>
