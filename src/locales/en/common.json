@@ -210,7 +210,8 @@
     "MARKETING": "Marketing",
     "SOCIAL_NETWORK": "Social Network",
     "PROGRAMMING": "Programming",
-    "UIUX": "UI/UX"
+    "UIUX": "UI/UX",
+    "AI":"AI"
   },
   "AUTHOR": {
     "JULIAN_NAME": "Julian Hsu",

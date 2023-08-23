@@ -210,7 +210,8 @@
     "MARKETING": "营销",
     "SOCIAL_NETWORK": "社群网络",
     "PROGRAMMING": "程式设计",
-    "UIUX": "使用者介面设计"
+    "UIUX": "使用者介面设计",
+    "AI":"人工智能"
   },
   "AUTHOR": {
     "JULIAN_NAME": "Julian Hsu",
