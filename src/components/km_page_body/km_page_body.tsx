@@ -78,7 +78,7 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
             item.author.name.toLowerCase().includes(searchRef.current.toLowerCase());
       return result;
     })
-    .sort((a, b) => (sorting === 'Newest' ? b.date - a.date : a.date - b.date));
+    .sort((a, b) => (sorting === 'Oldest' ? a.date - b.date : b.date - a.date));
 
   const searchChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = event.target.value;
