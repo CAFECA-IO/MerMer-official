@@ -204,9 +204,13 @@
     "DeFi": "DeFi",
     "CRYPTOCURRENCY": "Cryptocurrency",
     "BALANCE_SHEET": "Balance Sheet",
-    "BLOCKCHAIN_TECHNOLOGY": "blockchain Technology",
+    "BLOCKCHAIN_TECHNOLOGY": "Blockchain Technology",
     "WEB_SECURITY": "Web Security",
-    "SYSTEM_ARCHITECTURE": "System architecture"
+    "SYSTEM_ARCHITECTURE": "System architecture",
+    "MARKETING": "Marketing",
+    "SOCIAL_NETWORK": "Social Network",
+    "PROGRAMMING": "Programming",
+    "UIUX": "UI/UX"
   },
   "AUTHOR": {
     "JULIAN_NAME": "Julian Hsu",

@@ -206,7 +206,11 @@
     "BALANCE_SHEET": "资产负债表",
     "BLOCKCHAIN_TECHNOLOGY": "区块链技术",
     "WEB_SECURITY": "Web安全性",
-    "SYSTEM_ARCHITECTURE": "系统架构"
+    "SYSTEM_ARCHITECTURE": "系统架构",
+    "MARKETING": "营销",
+    "SOCIAL_NETWORK": "社群网络",
+    "PROGRAMMING": "程式设计",
+    "UIUX": "使用者介面设计"
   },
   "AUTHOR": {
     "JULIAN_NAME": "Julian Hsu",

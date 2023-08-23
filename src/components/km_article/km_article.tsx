@@ -75,7 +75,9 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
             <h1 className="text-4xl font-bold lg:text-42px">{title}</h1>
           </div>
           {/* Info: (20230718 - Julian) category tags */}
-          <div className="flex items-center justify-end">{displayedCategory}</div>
+          <div className="flex flex-col items-end justify-end lg:flex-row lg:items-center">
+            {displayedCategory}
+          </div>
           {/* Info: (20230718 - Julian) content */}
           <div className="text-base leading-loose lg:text-lg">
             <article dangerouslySetInnerHTML={{__html: parsedBody}} />
