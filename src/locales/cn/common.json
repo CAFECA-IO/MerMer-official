@@ -211,7 +211,9 @@
     "SOCIAL_NETWORK": "社群网络",
     "PROGRAMMING": "程式设计",
     "UIUX": "使用者介面设计",
-    "AI":"人工智能"
+    "AI": "人工智能",
+    "FINANCIALS": "财报",
+    "CASH_FLOW_STATEMENT": "现金流量表"
   },
   "AUTHOR": {
     "JULIAN_NAME": "Julian Hsu",
