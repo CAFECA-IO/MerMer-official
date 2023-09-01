@@ -211,7 +211,9 @@
     "SOCIAL_NETWORK": "Social Network",
     "PROGRAMMING": "Programming",
     "UIUX": "UI/UX",
-    "AI":"AI"
+    "AI": "AI",
+    "FINANCIALS": "Financials",
+    "CASH_FLOW_STATEMENT": "Cash flow statements"
   },
   "AUTHOR": {
     "JULIAN_NAME": "Julian Hsu",
