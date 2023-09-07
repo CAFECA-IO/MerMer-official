@@ -34,14 +34,14 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
     targetRef: catagoryRef,
     componentVisible: catagoryVisible,
     setComponentVisible: setCatagoryVisible,
-  } = useOuterClick<HTMLDivElement>(false);
+  } = useOuterClick<HTMLUListElement>(false);
 
   // Info: (20230721 - Julian) sorting dropmenu 的開關
   const {
     targetRef: sortRef,
     componentVisible: sortVisible,
     setComponentVisible: setSortVisible,
-  } = useOuterClick<HTMLDivElement>(false);
+  } = useOuterClick<HTMLUListElement>(false);
 
   useEffect(() => {
     setActivePage(1);
@@ -86,8 +86,83 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
   };
 
   /* Info: (20230721 - Julian) 切換排序方式 */
-  const newestSortHandler = () => setSorting('Newest');
-  const oldestSortHandler = () => setSorting('Oldest');
+  const newestSortHandler = () => {
+    setSorting('Newest');
+    setSortVisible(false);
+  };
+  const oldestSortHandler = () => {
+    setSorting('Oldest');
+    setSortVisible(false);
+  };
+
+  /* Info: (20230907 - Julian) sort menu */
+  const sortingMenu = (
+    <div className="relative flex w-90px flex-col items-center text-base hover:cursor-pointer">
+      <div
+        onClick={() => setSortVisible(!sortVisible)}
+        className="flex items-center space-x-2 hover:text-lightBlue1"
+      >
+        <TbSortDescending />
+        <p>{sortingText}</p>
+      </div>
+
+      <ul
+        ref={sortRef}
+        className={`absolute top-8 z-20 flex flex-col bg-mermerTheme px-2 ${
+          sortVisible ? 'visible opacity-100' : 'invisible opacity-0'
+        } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in`}
+      >
+        <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={newestSortHandler}>
+          {t('KM_PAGE.SORT_BY_NEWEST')}
+        </li>
+        <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={oldestSortHandler}>
+          {t('KM_PAGE.SORT_BY_OLDEST')}
+        </li>
+      </ul>
+    </div>
+  );
+
+  /* Info: (20230907 - Julian) category dropmenu */
+  const categoryMenu = (
+    <div className="relative flex flex-1 flex-col items-start text-base hover:cursor-pointer lg:w-160px lg:flex-none">
+      <div
+        onClick={() => setCatagoryVisible(!catagoryVisible)}
+        className="flex items-center space-x-2 whitespace-nowrap hover:text-lightBlue1"
+      >
+        <p>{category ? t(category) : t('KM_PAGE.CATEGORY_TITLE')}</p>
+        <MdOutlineKeyboardArrowDown />
+      </div>
+
+      <ul
+        ref={catagoryRef}
+        className={`absolute left-0 top-8 z-20 flex flex-col whitespace-nowrap bg-mermerTheme px-2 ${
+          catagoryVisible ? 'visible opacity-100' : 'invisible opacity-0'
+        } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in`}
+      >
+        <li
+          className="min-w-80px p-2 hover:bg-dropDownHover"
+          onClick={() => {
+            setCategory('');
+            setCatagoryVisible(false);
+          }}
+        >
+          {t('KM_CATEGORY.ALL')}
+        </li>
+        {categorys.map((item, i) => (
+          <li
+            key={i}
+            className="min-w-80px p-2 hover:bg-dropDownHover"
+            onClick={() => {
+              setCategory(item);
+              setCatagoryVisible(false);
+            }}
+          >
+            {t(item)}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 
   const displayKMList = kmList
     .map(item => {
@@ -108,37 +183,9 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
     .slice(startIdx, endIdx);
 
   const desktopFilter = (
-    <div className="z-30 hidden w-full items-center space-x-10 lg:flex">
+    <div className="hidden w-full items-center space-x-10 lg:flex">
       {/* Info: (20230717 - Julian) category dropmenu */}
-      <div
-        ref={catagoryRef}
-        onClick={() => setCatagoryVisible(!catagoryVisible)}
-        className="relative flex w-160px flex-col items-start text-base hover:cursor-pointer"
-      >
-        <div className="flex items-center space-x-2 whitespace-nowrap hover:text-lightBlue1">
-          <p>{category ? t(category) : t('KM_PAGE.CATEGORY_TITLE')}</p>
-          <MdOutlineKeyboardArrowDown />
-        </div>
-
-        <ul
-          className={`absolute left-0 top-8 z-10 flex flex-col whitespace-nowrap bg-mermerTheme px-2 ${
-            catagoryVisible ? 'visible opacity-100' : 'invisible opacity-0'
-          } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in`}
-        >
-          <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={() => setCategory('')}>
-            {t('KM_CATEGORY.ALL')}
-          </li>
-          {categorys.map((item, i) => (
-            <li
-              key={i}
-              className="min-w-80px p-2 hover:bg-dropDownHover"
-              onClick={() => setCategory(item)}
-            >
-              {t(item)}
-            </li>
-          ))}
-        </ul>
-      </div>
+      {categoryMenu}
       {/* Info: (20230717 - Julian) search input */}
       <div className="relative flex flex-1 items-center">
         <input
@@ -152,29 +199,7 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
         </div>
       </div>
       {/* Info: (20230717 - Julian) sort menu */}
-      <div
-        ref={sortRef}
-        onClick={() => setSortVisible(!sortVisible)}
-        className="relative flex w-90px flex-col items-center text-base hover:cursor-pointer"
-      >
-        <div className="flex items-center space-x-2 hover:text-lightBlue1">
-          <TbSortDescending />
-          <p>{sortingText}</p>
-        </div>
-
-        <ul
-          className={`absolute top-8 z-10 flex flex-col bg-mermerTheme px-2 ${
-            sortVisible ? 'visible opacity-100' : 'invisible opacity-0'
-          } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in`}
-        >
-          <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={newestSortHandler}>
-            {t('KM_PAGE.SORT_BY_NEWEST')}
-          </li>
-          <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={oldestSortHandler}>
-            {t('KM_PAGE.SORT_BY_OLDEST')}
-          </li>
-        </ul>
-      </div>
+      {sortingMenu}
     </div>
   );
 
@@ -182,59 +207,9 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
     <div className="flex w-300px flex-col items-center space-y-10 pb-10 pt-2 lg:hidden">
       <div className="flex w-full items-center">
         {/* Info: (20230728 - Julian) category dropmenu */}
-        <div
-          ref={catagoryRef}
-          onClick={() => setCatagoryVisible(!catagoryVisible)}
-          className="relative flex flex-1 flex-col items-start text-base hover:cursor-pointer"
-        >
-          <div className="flex items-center space-x-2 whitespace-nowrap hover:text-lightBlue1">
-            <p>{category ? t(category) : t('KM_PAGE.CATEGORY_TITLE')}</p>
-            <MdOutlineKeyboardArrowDown />
-          </div>
-
-          <ul
-            className={`absolute left-0 top-8 z-30 flex flex-col whitespace-nowrap bg-mermerTheme px-2 ${
-              catagoryVisible ? 'visible opacity-100' : 'invisible opacity-0'
-            } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in`}
-          >
-            <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={() => setCategory('')}>
-              {t('KM_CATEGORY.ALL')}
-            </li>
-            {categorys.map((item, i) => (
-              <li
-                key={i}
-                className="min-w-80px p-2 hover:bg-dropDownHover"
-                onClick={() => setCategory(item)}
-              >
-                {t(item)}
-              </li>
-            ))}
-          </ul>
-        </div>
+        {categoryMenu}
         {/* Info: (20230728 - Julian) sort menu */}
-        <div
-          ref={sortRef}
-          onClick={() => setSortVisible(!sortVisible)}
-          className="relative flex w-90px flex-col items-center text-base hover:cursor-pointer"
-        >
-          <div className="flex items-center space-x-2 hover:text-lightBlue1">
-            <TbSortDescending />
-            <p>{sortingText}</p>
-          </div>
-
-          <ul
-            className={`absolute top-8 z-10 flex flex-col bg-mermerTheme px-2 ${
-              sortVisible ? 'visible opacity-100' : 'invisible opacity-0'
-            } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in`}
-          >
-            <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={newestSortHandler}>
-              {t('KM_PAGE.SORT_BY_NEWEST')}
-            </li>
-            <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={oldestSortHandler}>
-              {t('KM_PAGE.SORT_BY_OLDEST')}
-            </li>
-          </ul>
-        </div>
+        {sortingMenu}
       </div>
       {/* Info: (20230728 - Julian) search input */}
       <div className="relative flex w-full items-center">
