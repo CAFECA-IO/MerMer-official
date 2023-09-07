@@ -74,7 +74,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({locale}) => {
     props: {
       posts,
       categorys,
-      ...(await serverSideTranslations(locale as string, ['common', 'footer'])),
+      ...(await serverSideTranslations(locale as string, ['common'])),
     },
   };
 };

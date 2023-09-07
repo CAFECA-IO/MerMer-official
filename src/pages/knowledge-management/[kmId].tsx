@@ -179,7 +179,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
     props: {
       kmId: params.kmId,
       kmData,
-      ...(await serverSideTranslations(locale as string, ['common', 'footer'])),
+      ...(await serverSideTranslations(locale as string, ['common'])),
     },
   };
 };

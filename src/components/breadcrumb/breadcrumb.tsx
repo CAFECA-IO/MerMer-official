@@ -2,11 +2,11 @@ import Link from 'next/link';
 import {FiChevronRight} from 'react-icons/fi';
 import {ICrumbItem} from '../../interfaces/crumb_item';
 
-export type BreadcrumbProps = {
+export interface IBreadcrumbProps {
   crumbs: ICrumbItem[];
-};
+}
 
-const Breadcrumb = ({crumbs}: BreadcrumbProps) => {
+const Breadcrumb = ({crumbs}: IBreadcrumbProps) => {
   const crumbList = crumbs.map((crumb, i) => {
     const isLast = i === crumbs.length - 1;
 
