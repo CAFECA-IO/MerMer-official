@@ -213,7 +213,8 @@
     "UIUX": "使用者介面设计",
     "AI": "人工智能",
     "FINANCIALS": "财报",
-    "CASH_FLOW_STATEMENT": "现金流量表"
+    "CASH_FLOW_STATEMENT": "现金流量表",
+    "COMPREHENSIVE_INCOME_STATEMENT": "综合损益表"
   },
   "AUTHOR": {
     "JULIAN_NAME": "Julian Hsu",
