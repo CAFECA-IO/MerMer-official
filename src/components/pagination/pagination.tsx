@@ -34,7 +34,8 @@ const Pagination = ({activePage, setActivePage, totalPages}: IPagination) => {
   const previousBtn = (
     <button
       onClick={() => setActivePage(activePage - 1)}
-      disabled={activePage === 1 ? true : false}
+      // Info: (20230907 - Julian) 總頁數為 0 或 當前頁數為第一頁時，按鈕 disabled
+      disabled={totalPages === 0 || activePage === 1 ? true : false}
       className="flex items-center text-base text-lightWhite1 hover:text-lightBlue1 disabled:text-lightGray1"
     >
       <RiArrowLeftSLine className="text-2xl" />
@@ -45,7 +46,8 @@ const Pagination = ({activePage, setActivePage, totalPages}: IPagination) => {
   const nextBtn = (
     <button
       onClick={() => setActivePage(activePage + 1)}
-      disabled={activePage === totalPages ? true : false}
+      // Info: (20230907 - Julian) 總頁數為 0 或 當前頁數為最後一頁時，按鈕 disabled
+      disabled={totalPages === 0 || activePage === totalPages ? true : false}
       className="flex items-center text-base text-lightWhite1 hover:text-lightBlue1 disabled:text-lightGray1"
     >
       <p className="px-2">{t('KM_PAGE.PAGINATION_NEXT')}</p>

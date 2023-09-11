@@ -23,6 +23,7 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
   const router = useRouter();
   const {category: categoryQuery} = router.query;
 
+  const [kmList, setKmList] = useState<IKnowledgeManagement[]>(posts);
   const [activePage, setActivePage] = useState(1);
   const [totalPages, setTotalPages] = useState(Math.ceil(posts.length / KM_PER_PAGE));
   const [search, setSearch, searchRef] = useStateRef('');
@@ -44,10 +45,33 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
   } = useOuterClick<HTMLUListElement>(false);
 
   useEffect(() => {
+    const result = posts
+      .filter(item => {
+        const result = category === '' || !category ? true : item.category.includes(category);
+        return result;
+      })
+      .filter(item => {
+        const result =
+          searchRef.current === '' || !searchRef.current
+            ? true
+            : item.title.toLowerCase().includes(searchRef.current.toLowerCase()) ||
+              item.description.toLowerCase().includes(searchRef.current.toLowerCase()) ||
+              // Info: (20230721 - Julian) 用 some() 比對 category 陣列中是否有符合條件的字串
+              item.category.some(category =>
+                category.toLowerCase().includes(searchRef.current.toLowerCase())
+              ) ||
+              item.content.toLowerCase().includes(searchRef.current.toLowerCase()) ||
+              item.author.name.toLowerCase().includes(searchRef.current.toLowerCase());
+        return result;
+      })
+      .sort((a, b) => (sorting === 'Oldest' ? a.date - b.date : b.date - a.date));
+    setKmList(result);
+  }, [sorting, category, searchRef.current]);
+
+  useEffect(() => {
     setActivePage(1);
-    setCategory(categoryQuery as string);
     setTotalPages(Math.ceil(kmList.length / KM_PER_PAGE));
-  }, [searchRef.current, categoryQuery]);
+  }, [kmList]);
 
   const endIdx = activePage * KM_PER_PAGE;
   const startIdx = endIdx - KM_PER_PAGE;
@@ -58,27 +82,6 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
       : sorting === 'Oldest'
       ? t('KM_PAGE.SORT_BY_OLDEST')
       : t('KM_PAGE.SORT_BY_TITLE');
-
-  const kmList = posts
-    .filter(item => {
-      const result = category === '' || !category ? true : item.category.includes(category);
-      return result;
-    })
-    .filter(item => {
-      const result =
-        searchRef.current === '' || !searchRef.current
-          ? true
-          : item.title.toLowerCase().includes(searchRef.current.toLowerCase()) ||
-            item.description.toLowerCase().includes(searchRef.current.toLowerCase()) ||
-            // Info: (20230721 - Julian) 用 some() 比對 category 陣列中是否有符合條件的字串
-            item.category.some(category =>
-              category.toLowerCase().includes(searchRef.current.toLowerCase())
-            ) ||
-            item.content.toLowerCase().includes(searchRef.current.toLowerCase()) ||
-            item.author.name.toLowerCase().includes(searchRef.current.toLowerCase());
-      return result;
-    })
-    .sort((a, b) => (sorting === 'Oldest' ? a.date - b.date : b.date - a.date));
 
   const searchChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = event.target.value;

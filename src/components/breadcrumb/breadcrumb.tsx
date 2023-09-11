@@ -2,7 +2,7 @@ import Link from 'next/link';
 import {FiChevronRight} from 'react-icons/fi';
 import {ICrumbItem} from '../../interfaces/crumb_item';
 
-export interface IBreadcrumbProps {
+interface IBreadcrumbProps {
   crumbs: ICrumbItem[];
 }
 
