@@ -230,10 +230,10 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
   );
 
   return (
-    <div className="flex w-full flex-col items-center px-5 lg:space-y-16 lg:px-20">
+    <div className="flex w-full flex-col items-center px-5 lg:space-y-16 lg:px-10">
       {desktopFilter}
       {mobileFilter}
-      <ul className="grid grid-flow-row grid-cols-1 gap-x-4 gap-y-16 md:grid-cols-2 xl:grid-cols-4">
+      <ul className="grid grid-flow-row grid-cols-1 gap-x-4 gap-y-16 lg:grid-cols-2 xl:grid-cols-4">
         {displayKMList}
       </ul>
       <Pagination activePage={activePage} setActivePage={setActivePage} totalPages={totalPages} />
