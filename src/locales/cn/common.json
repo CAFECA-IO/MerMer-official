@@ -179,6 +179,11 @@
     "JOB_REQUIREMENT_47": "熟悉分散式系统设计原则",
     "EMAIL_SUJECT": "MerMer 应征职缺"
   },
+  "NOT_FOUND_PAGE": {
+    "TITLE_1": "404 错误",
+    "TITLE_2": "找不到页面",
+    "DESCRIPTION": "迷失在网络世界中"
+  },
   "KM_PAGE": {
     "TITLE": "知识库",
     "CATEGORY_TITLE": "分类",

@@ -14,6 +14,7 @@ module.exports = {
         hiringBanner: 'url("/elements/hiring_banner.png")',
         kmBanner: 'url("/elements/km_banner.png")',
         authorIntro: 'url("/elements/bluewaves_3.png")',
+        stars: 'url("/elements/stars_bg.svg")',
 
         glass:
           'linear-gradient(225deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.20) 47.40%, rgba(255, 255, 255, 0.00) 100%)',

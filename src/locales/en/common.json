@@ -179,6 +179,11 @@
     "JOB_REQUIREMENT_47": "Understanding of distributed system design principles.",
     "EMAIL_SUJECT": "MerMer Job Application"
   },
+  "NOT_FOUND_PAGE": {
+    "TITLE_1": "404 Error",
+    "TITLE_2": "Page Not Found",
+    "DESCRIPTION": "Lost in Cyberspace"
+  },
   "KM_PAGE": {
     "TITLE": "Knowledge Management",
     "CATEGORY_TITLE": "Category",
