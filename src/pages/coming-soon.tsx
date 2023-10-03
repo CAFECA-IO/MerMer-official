@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import NavBar from '../components/nav_bar/nav_bar';
 import Footer from '../components/footer/footer';
 import {useTranslation} from 'next-i18next';
