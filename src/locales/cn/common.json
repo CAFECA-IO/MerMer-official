@@ -184,6 +184,10 @@
     "TITLE_2": "找不到页面",
     "DESCRIPTION": "迷失在网络世界中"
   },
+  "COMING_SOON_PAGE": {
+    "TITLE": "敬请期待",
+    "DESCRIPTION": "我们的工程师正在构筑未来"
+  },
   "KM_PAGE": {
     "TITLE": "知识库",
     "CATEGORY_TITLE": "分类",

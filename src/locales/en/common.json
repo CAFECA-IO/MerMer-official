@@ -184,6 +184,10 @@
     "TITLE_2": "Page Not Found",
     "DESCRIPTION": "Lost in Cyberspace"
   },
+  "COMING_SOON_PAGE": {
+    "TITLE": "Coming Soon",
+    "DESCRIPTION": "Our Engineers Are Building the Future"
+  },
   "KM_PAGE": {
     "TITLE": "Knowledge Management",
     "CATEGORY_TITLE": "Category",
