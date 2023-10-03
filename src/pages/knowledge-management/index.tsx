@@ -29,7 +29,7 @@ const KnowledgeManagementPage = ({posts, categories}: IPageProps) => {
   ];
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
+    <>
       <Head>
         <title>MerMer - {t('KM_PAGE.TITLE')}</title>
         <link rel="icon" href="/favicon/favicon.ico" />
@@ -56,7 +56,7 @@ const KnowledgeManagementPage = ({posts, categories}: IPageProps) => {
       </main>
 
       <Footer />
-    </div>
+    </>
   );
 };
 
