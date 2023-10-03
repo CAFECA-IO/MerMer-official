@@ -14,10 +14,10 @@ import {TranslateFunction} from '../../interfaces/locale';
 
 interface IPageProps {
   posts: IKnowledgeManagement[];
-  categorys: string[];
+  categories: string[];
 }
 
-const KMPageBody = ({posts, categorys}: IPageProps) => {
+const KMPageBody = ({posts, categories}: IPageProps) => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
   const router = useRouter();
@@ -151,7 +151,7 @@ const KMPageBody = ({posts, categorys}: IPageProps) => {
         >
           {t('KM_CATEGORY.ALL')}
         </li>
-        {categorys.map((item, i) => (
+        {categories.map((item, i) => (
           <li
             key={i}
             className="min-w-80px p-2 hover:bg-dropDownHover"

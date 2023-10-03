@@ -17,10 +17,10 @@ import {TranslateFunction} from '../../../interfaces/locale';
 interface IPageProps {
   author: IAuthor;
   posts: IKnowledgeManagement[];
-  categorys: string[];
+  categories: string[];
 }
 
-const AuthorPage = ({author, posts, categorys}: IPageProps) => {
+const AuthorPage = ({author, posts, categories}: IPageProps) => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
   const crumbs: ICrumbItem[] = [
@@ -66,7 +66,7 @@ const AuthorPage = ({author, posts, categorys}: IPageProps) => {
             <Breadcrumb crumbs={crumbs} />
           </div>
           {/* Info: (20230718 - Julian) Page Body */}
-          <KMPageBody posts={posts} categorys={categorys} />
+          <KMPageBody posts={posts} categories={categories} />
         </div>
       </main>
 
@@ -84,13 +84,13 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
 
   const author = await getAuthor(params?.authorId);
   const posts = await getPostsByAuthor(params?.authorId);
-  const categorys = await getCategories();
+  const categories = await getCategories();
 
   return {
     props: {
       author,
       posts,
-      categorys,
+      categories,
       ...(await serverSideTranslations(locale as string, ['common'])),
     },
   };

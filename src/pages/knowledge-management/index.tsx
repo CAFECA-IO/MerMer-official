@@ -14,10 +14,10 @@ import {MERURL} from '../../constants/url';
 
 interface IPageProps {
   posts: IKnowledgeManagement[];
-  categorys: string[];
+  categories: string[];
 }
 
-const KnowledgeManagementPage = ({posts, categorys}: IPageProps) => {
+const KnowledgeManagementPage = ({posts, categories}: IPageProps) => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
   const crumbs: ICrumbItem[] = [
@@ -51,7 +51,7 @@ const KnowledgeManagementPage = ({posts, categorys}: IPageProps) => {
             <Breadcrumb crumbs={crumbs} />
           </div>
           {/* Info: (20230718 - Julian) Page Body */}
-          <KMPageBody posts={posts} categorys={categorys} />
+          <KMPageBody posts={posts} categories={categories} />
         </div>
       </main>
 
@@ -62,7 +62,7 @@ const KnowledgeManagementPage = ({posts, categorys}: IPageProps) => {
 
 export const getStaticProps: GetStaticProps<IPageProps> = async ({locale}) => {
   const posts = await getPosts();
-  const categorys = await getCategories();
+  const categories = await getCategories();
 
   if (!posts) {
     return {
@@ -73,7 +73,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({locale}) => {
   return {
     props: {
       posts,
-      categorys,
+      categories,
       ...(await serverSideTranslations(locale as string, ['common'])),
     },
   };
