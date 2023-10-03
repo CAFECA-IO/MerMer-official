@@ -37,7 +37,7 @@ const HiringPage = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
       <Head>
-        <title>MerMer - Hiring</title>
+        <title>MerMer - {t('NAV_BAR.HIRING')}</title>
         <link rel="icon" href="/favicon/favicon.ico" />
       </Head>
 
