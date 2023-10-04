@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import MerMerButton from '../../components/mermer_button/mermer_button';
 import {ImArrowRight2} from 'react-icons/im';
 import {IAuthor} from '../../interfaces/author_data';
 import {timestampToString} from '../../lib/common';
@@ -52,13 +53,13 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
     /* Info: (20230719 - Julian) 引用區塊樣式 */
     .replace(/<blockquote/g, `<blockquote class="text-sm my-4 opacity-70"`);
 
-  const displayedCategory = category.map((item, i) => {
-    return (
+  const displayedCategory = category.map((item, i) => (
+    <MerMerButton className="px-4 py-px">
       <Link key={i} href={MERURL.KM + `?category=` + item}>
-        <p className="px-1 hover:text-lightBlue1">{t(item)}</p>
+        {t(item)}
       </Link>
-    );
-  });
+    </MerMerButton>
+  ));
 
   return (
     <div className="min-h-screen w-full font-Dosis">
@@ -67,16 +68,14 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
         <div className="relative h-300px w-full lg:h-580px">
           <Image src={picture} fill style={{objectFit: 'cover'}} alt="picture" />
         </div>
+        {/* Info: (20230718 - Julian) category tags */}
+        <div className="flex flex-wrap items-center gap-2 lg:space-y-0">{displayedCategory}</div>
         {/* Info: (20230718 - Julian) article */}
         <div className="flex flex-col space-y-5 lg:space-y-12">
           {/* Info: (20230718 - Julian) title & date */}
           <div className="flex flex-col items-center">
             <h2 className="text-xl font-bold text-lightBlue1">{timestampToString(date).date}</h2>
             <h1 className="text-4xl font-bold lg:text-42px">{title}</h1>
-          </div>
-          {/* Info: (20230718 - Julian) category tags */}
-          <div className="flex flex-col items-end justify-end lg:flex-row lg:items-center">
-            {displayedCategory}
           </div>
           {/* Info: (20230718 - Julian) content */}
           <div className="text-base leading-loose lg:text-lg">
