@@ -304,6 +304,9 @@ module.exports = {
       minWidth: {
         '80px': '80px',
       },
+      maxHeight: {
+        '350px': '350px',
+      },
       backgroundPosition: {
         'top-12': 'center top 48px',
         'right-93': '93% 50%',

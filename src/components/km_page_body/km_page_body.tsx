@@ -111,7 +111,7 @@ const KMPageBody = ({posts, categories}: IPageProps) => {
 
       <ul
         ref={sortRef}
-        className={`absolute top-8 z-20 flex flex-col bg-mermerTheme px-2 ${
+        className={`absolute top-8 z-20 flex max-h-350px flex-col overflow-y-scroll bg-mermerTheme px-2 ${
           sortVisible ? 'visible opacity-100' : 'invisible opacity-0'
         } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in`}
       >
@@ -138,9 +138,9 @@ const KMPageBody = ({posts, categories}: IPageProps) => {
 
       <ul
         ref={catagoryRef}
-        className={`absolute left-0 top-8 z-20 flex flex-col whitespace-nowrap bg-mermerTheme px-2 ${
+        className={`absolute left-0 top-8 z-20 flex max-h-350px flex-col whitespace-nowrap bg-mermerTheme px-2 ${
           catagoryVisible ? 'visible opacity-100' : 'invisible opacity-0'
-        } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in`}
+        } divide-y divide-lightWhite1 overflow-y-scroll shadow-drop transition-all duration-150 ease-in`}
       >
         <li
           className="min-w-80px p-2 hover:bg-dropDownHover"
