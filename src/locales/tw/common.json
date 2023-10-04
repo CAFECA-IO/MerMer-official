@@ -179,6 +179,15 @@
     "JOB_REQUIREMENT_47": "熟悉分散式系統設計原則",
     "EMAIL_SUJECT": "MerMer 應徵職缺"
   },
+  "COMING_SOON_PAGE": {
+    "TITLE": "敬請期待",
+    "DESCRIPTION": "我們的工程師正在構築未來"
+  },
+  "NOT_FOUND_PAGE": {
+    "TITLE_1": "404 錯誤",
+    "TITLE_2": "找不到頁面",
+    "DESCRIPTION": "迷失在網絡世界中"
+  },
   "KM_PAGE": {
     "TITLE": "知識庫",
     "CATEGORY_TITLE": "分類",
