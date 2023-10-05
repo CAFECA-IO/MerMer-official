@@ -1,6 +1,5 @@
 export const KM_PER_PAGE = 8;
 export const KM_DESCRIPTION_LIMIT = 100;
-export const KM_TAG_LIMIT = 3;
 
 export const KM_FOLDER = 'src/km';
 

@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import {MERURL} from '../../constants/url';
-import {KM_TAG_LIMIT} from '../../constants/config';
 import {IAuthor} from '../../interfaces/author_data';
 import {timestampToString} from '../../lib/common';
 import {useTranslation} from 'next-i18next';
@@ -20,6 +19,7 @@ const KMItem = ({id, title, description, category, picture, author, date}: IKMIt
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
   const dateStr = timestampToString(date).date;
+  const topic = category[0];
 
   const displayedAuthor = (
     <Link href={`${MERURL.AUTHOR}/${author.id}`} className="z-10">
@@ -37,13 +37,11 @@ const KMItem = ({id, title, description, category, picture, author, date}: IKMIt
     </Link>
   );
 
-  const displayedCategory = category.slice(0, KM_TAG_LIMIT).map((item, i) => {
-    return (
-      <Link key={i} href={MERURL.KM + `?category=` + item}>
-        <p className="pr-1 hover:text-lightBlue1">{t(item)}</p>
-      </Link>
-    );
-  });
+  const displayedTag = (
+    <Link href={MERURL.KM + `?category=` + topic}>
+      <p className="pr-1 text-base hover:text-lightBlue1">{t(topic)}</p>
+    </Link>
+  );
 
   return (
     <li className="relative flex h-auto w-300px items-center rounded-xl border border-transparent bg-mermerTheme p-5 font-Dosis hover:cursor-pointer hover:border-lightBlue1">
@@ -56,7 +54,7 @@ const KMItem = ({id, title, description, category, picture, author, date}: IKMIt
           {/* Info: (20230718 - Julian) Category & Title */}
           <div className="flex flex-col">
             <div className="z-10 flex w-230px items-center overflow-x-hidden whitespace-nowrap text-sm text-lightWhite1">
-              {displayedCategory}
+              {displayedTag}
             </div>
             <div className="flex h-56px items-center">
               <h2 className="line-clamp-2 text-xl text-lightBlue1">{title}</h2>
