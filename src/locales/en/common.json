@@ -223,7 +223,8 @@
     "AI": "AI",
     "FINANCIALS": "Financials",
     "CASH_FLOW_STATEMENT": "Cash flow statements",
-    "COMPREHENSIVE_INCOME_STATEMENT": "Comprehensive Income Statement"
+    "COMPREHENSIVE_INCOME_STATEMENT": "Comprehensive Income Statement",
+    "FRONTEND": "Frontend"
   },
   "AUTHOR": {
     "JULIAN_NAME": "Julian Hsu",

@@ -223,7 +223,8 @@
     "AI": "人工智慧",
     "FINANCIALS": "財報",
     "CASH_FLOW_STATEMENT": "現金流量表",
-    "COMPREHENSIVE_INCOME_STATEMENT": "綜合損益表"
+    "COMPREHENSIVE_INCOME_STATEMENT": "綜合損益表",
+    "FRONTEND": "前端"
   },
   "AUTHOR": {
     "JULIAN_NAME": "Julian Hsu",
