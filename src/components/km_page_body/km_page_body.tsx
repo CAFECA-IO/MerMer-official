@@ -44,6 +44,11 @@ const KMPageBody = ({posts, categories}: IPageProps) => {
     setComponentVisible: setSortVisible,
   } = useOuterClick<HTMLUListElement>(false);
 
+  // Info: (20231206 - Julian) 依照 categoryQuery 來設定 category 的初始值
+  useEffect(() => {
+    setCategory((categoryQuery as string) ?? '');
+  }, [categoryQuery]);
+
   useEffect(() => {
     const result = posts
       .filter(item => {
