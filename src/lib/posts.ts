@@ -58,9 +58,10 @@ export async function getPosts(): Promise<IKnowledgeManagement[]> {
   return posts;
 }
 
-export async function getCategories(): Promise<string[]> {
+export async function getCategories(posts?: IKnowledgeManagement[]): Promise<string[]> {
   const categories: string[] = [];
-  const allPosts = await getPosts();
+
+  const allPosts = posts ?? (await getPosts());
   for (const post of allPosts) {
     for (const category of post.category) {
       // Info: (20230721 - Julian) 確認分類不存在才加入

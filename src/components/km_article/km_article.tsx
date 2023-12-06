@@ -46,7 +46,7 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
     )
     .replace(/<code>/g, `<code class="px-1 bg-lightGray1">`)
     /* Info: (20230719 - Julian) 表格樣式 */
-    .replace(/<table/g, `<div class="overflow-x-scroll"><table class="lg:table-fixed w-full my-4"`)
+    .replace(/<table/g, `<div class="my-4 overflow-x-scroll"><table class="lg:table-fixed w-auto"`)
     .replace(/<\/table>/g, `</table></div>`)
     .replace(/<th>(<\/th>)?/g, `<th class="border-x border-t border-lightWhite1 py-2">$1`)
     .replace(/<td/g, `<td class="border border-lightWhite1 p-2 text-left"`)
