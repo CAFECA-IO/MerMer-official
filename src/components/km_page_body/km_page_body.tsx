@@ -172,23 +172,31 @@ const KMPageBody = ({posts, categories}: IPageProps) => {
     </div>
   );
 
-  const displayKMList = kmList
-    .map(item => {
-      return (
-        <KMItem
-          key={item.id}
-          id={item.id}
-          title={item.title}
-          description={item.description}
-          category={item.category}
-          picture={item.picture}
-          author={item.author}
-          date={item.date}
-        />
-      );
-    })
-    // Info: (20230721 - Julian) 印出當前頁面的 KM
-    .slice(startIdx, endIdx);
+  const displayKMList =
+    kmList.length === 0 ? (
+      <h2 className="mx-40 my-20 w-full text-center text-4xl font-bold">
+        {t('KM_PAGE.NOT_FOUND')}
+      </h2>
+    ) : (
+      <ul className="grid grid-flow-row grid-cols-1 gap-x-4 gap-y-16 lg:grid-cols-2 xl:grid-cols-4">
+        {kmList
+          .map(item => {
+            return (
+              <KMItem
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                description={item.description}
+                category={item.category}
+                picture={item.picture}
+                author={item.author}
+                date={item.date}
+              />
+            );
+          }) // Info: (20230721 - Julian) 印出當前頁面的 KM
+          .slice(startIdx, endIdx)}
+      </ul>
+    );
 
   const desktopFilter = (
     <div className="hidden w-full items-center space-x-10 lg:flex">
@@ -238,9 +246,7 @@ const KMPageBody = ({posts, categories}: IPageProps) => {
     <div className="flex w-full flex-col items-center px-5 lg:space-y-16 lg:px-10">
       {desktopFilter}
       {mobileFilter}
-      <ul className="grid grid-flow-row grid-cols-1 gap-x-4 gap-y-16 lg:grid-cols-2 xl:grid-cols-4">
-        {displayKMList}
-      </ul>
+      {displayKMList}
       <Pagination activePage={activePage} setActivePage={setActivePage} totalPages={totalPages} />
     </div>
   );
