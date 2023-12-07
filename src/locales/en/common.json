@@ -224,7 +224,8 @@
     "FINANCIALS": "Financials",
     "CASH_FLOW_STATEMENT": "Cash flow statements",
     "COMPREHENSIVE_INCOME_STATEMENT": "Comprehensive Income Statement",
-    "FRONTEND": "Frontend"
+    "FRONTEND": "Frontend",
+    "SMART_CONTRACT": "Smart Contract"
   },
   "AUTHOR": {
     "JULIAN_NAME": "Julian Hsu",
