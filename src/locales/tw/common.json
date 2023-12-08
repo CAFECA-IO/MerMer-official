@@ -196,7 +196,8 @@
     "SORT_BY_OLDEST": "最舊",
     "SEARCH_PLACEHOLDER": "搜尋",
     "PAGINATION_PREVIOUS": "上一頁",
-    "PAGINATION_NEXT": "下一頁"
+    "PAGINATION_NEXT": "下一頁",
+    "NOT_FOUND": "找不到相關文章"
   },
   "KM_DETAIL_PAGE": {
     "CHECK_AUTHOR": "查看作者的其他文章",

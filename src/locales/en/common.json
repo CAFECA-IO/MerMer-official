@@ -196,7 +196,8 @@
     "SORT_BY_OLDEST": "Oldest",
     "SEARCH_PLACEHOLDER": "Search",
     "PAGINATION_PREVIOUS": "Previous",
-    "PAGINATION_NEXT": "Next"
+    "PAGINATION_NEXT": "Next",
+    "NOT_FOUND": "No articles found"
   },
   "KM_DETAIL_PAGE": {
     "CHECK_AUTHOR": "Check more from this author",
