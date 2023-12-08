@@ -225,7 +225,8 @@
     "FINANCIALS": "财报",
     "CASH_FLOW_STATEMENT": "现金流量表",
     "COMPREHENSIVE_INCOME_STATEMENT": "综合损益表",
-    "FRONTEND": "前端"
+    "FRONTEND": "前端",
+    "SMART_CONTRACT": "智能合约"
   },
   "AUTHOR": {
     "JULIAN_NAME": "Julian Hsu",
