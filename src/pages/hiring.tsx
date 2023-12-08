@@ -3,7 +3,7 @@ import NavBar from '../components/nav_bar/nav_bar';
 import Footer from '../components/footer/footer';
 import HiringItem from '../components/hiring_item/hiring_item';
 import {useState} from 'react';
-import {jobList} from '../constants/config';
+import {jobList} from '../constants/jobs';
 import {useTranslation} from 'next-i18next';
 import {TranslateFunction, ILocale} from '../interfaces/locale';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';

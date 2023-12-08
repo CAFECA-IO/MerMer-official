@@ -1,5 +1,6 @@
 export const MERURL = {
   HOME: '/#',
+  INDEX: '/',
   HIRING: '/hiring',
   KM: '/knowledge-management',
   AUTHOR: '/knowledge-management/author',
