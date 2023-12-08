@@ -44,4 +44,11 @@ export const mermerAuthors: IAuthor[] = [
     intro: 'AUTHOR.SHIRLEY_INTRO',
     avatar: '/profiles/profile_shirley.png',
   },
+  {
+    id: 'yang',
+    name: 'AUTHOR.YANG_NAME',
+    jobTitle: 'AUTHOR.YANG_JOBTITLE',
+    intro: 'AUTHOR.YANG_INTRO',
+    avatar: '/profiles/profile_yang.jpg',
+  },
 ];
