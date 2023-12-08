@@ -224,7 +224,8 @@
     "FINANCIALS": "财报",
     "CASH_FLOW_STATEMENT": "现金流量表",
     "COMPREHENSIVE_INCOME_STATEMENT": "综合损益表",
-    "FRONTEND": "前端"
+    "FRONTEND": "前端",
+    "ALGORITHM": "算法"
   },
   "AUTHOR": {
     "JULIAN_NAME": "Julian Hsu",
@@ -238,6 +239,9 @@
     "EMILY_INTRO": "热衷于举重的爱好者，可以毫不费力地硬举七十公斤的重量，转而投入公路自行车运动，并变成了一个热爱碳水化合物的丰满人士。现在重新调整训练计画，以找回失去的肌肉。",
     "SHIRLEY_NAME": "Shirley Chang",
     "SHIRLEY_JOBTITLE": "软体工程师",
-    "SHIRLEY_INTRO": "「最近想买个萤幕，来去无印良品逛逛好了」是这样思路的一个人。 "
+    "SHIRLEY_INTRO": "「最近想买个萤幕，来去无印良品逛逛好了」是这样思路的一个人。 ",
+    "STEVE_NAME": "Steve",
+    "STEVE_JOBTITLE": "品酒师",
+    "STEVE_INTRO": "因为喝太多酒所以记忆很差，连自己名字都忘记了，唯独不爱喝雪利酒"
   }
 }

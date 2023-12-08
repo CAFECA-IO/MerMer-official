@@ -224,7 +224,8 @@
     "FINANCIALS": "Financials",
     "CASH_FLOW_STATEMENT": "Cash flow statements",
     "COMPREHENSIVE_INCOME_STATEMENT": "Comprehensive Income Statement",
-    "FRONTEND": "Frontend"
+    "FRONTEND": "Frontend",
+    "ALGORITHM": "Algorithm"
   },
   "AUTHOR": {
     "JULIAN_NAME": "Julian Hsu",
@@ -238,6 +239,9 @@
     "EMILY_INTRO": "A weight training enthusiast who can effortlessly deadlift seventy kilograms shifted to road cycling and became a carb-loving chubby person. Now, she plans to restructure her training routine to regain the lost muscle mass.",
     "SHIRLEY_NAME": "Shirley Chang",
     "SHIRLEY_JOBTITLE": "Software Engineer",
-    "SHIRLEY_INTRO": "“I'm thinking of buying a new monitor, maybe I'll head to MUJI and take a look,” is her train of thought."
+    "SHIRLEY_INTRO": "“I'm thinking of buying a new monitor, maybe I'll head to MUJI and take a look,” is her train of thought.",
+    "STEVE_NAME": "Steve",
+    "STEVE_JOBTITLE": "Wine taster",
+    "STEVE_INTRO": "Due to his excessive drinking, Steve suffers from serious memory impairment. He has a skill for wine tasting, but he often loses track of who he is. The only thing he is sure of is his aversion to sherry."
   }
 }
