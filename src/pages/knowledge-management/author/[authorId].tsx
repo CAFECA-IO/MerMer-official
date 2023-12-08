@@ -84,7 +84,7 @@ export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale
 
   const author = await getAuthor(params?.authorId);
   const posts = await getPostsByAuthor(params?.authorId);
-  const categories = await getCategories();
+  const categories = await getCategories(posts);
 
   return {
     props: {

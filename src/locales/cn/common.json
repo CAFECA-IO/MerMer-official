@@ -196,7 +196,8 @@
     "SORT_BY_OLDEST": "最旧",
     "SEARCH_PLACEHOLDER": "搜寻",
     "PAGINATION_PREVIOUS": "上一页",
-    "PAGINATION_NEXT": "下一页"
+    "PAGINATION_NEXT": "下一页",
+    "NOT_FOUND": "找不到相关文章"
   },
   "KM_DETAIL_PAGE": {
     "CHECK_AUTHOR": "查看作者的其他文章",
@@ -225,7 +226,8 @@
     "CASH_FLOW_STATEMENT": "现金流量表",
     "COMPREHENSIVE_INCOME_STATEMENT": "综合损益表",
     "FRONTEND": "前端",
-    "ALGORITHM": "算法"
+    "ALGORITHM": "算法",
+    "SMART_CONTRACT": "智能合约"
   },
   "AUTHOR": {
     "JULIAN_NAME": "Julian Hsu",

@@ -196,7 +196,8 @@
     "SORT_BY_OLDEST": "最舊",
     "SEARCH_PLACEHOLDER": "搜尋",
     "PAGINATION_PREVIOUS": "上一頁",
-    "PAGINATION_NEXT": "下一頁"
+    "PAGINATION_NEXT": "下一頁",
+    "NOT_FOUND": "找不到相關文章"
   },
   "KM_DETAIL_PAGE": {
     "CHECK_AUTHOR": "查看作者的其他文章",
@@ -225,7 +226,8 @@
     "CASH_FLOW_STATEMENT": "現金流量表",
     "COMPREHENSIVE_INCOME_STATEMENT": "綜合損益表",
     "FRONTEND": "前端",
-    "ALGORITHM": "演算法"
+    "ALGORITHM": "演算法",
+    "SMART_CONTRACT": "智能合約"
   },
   "AUTHOR": {
     "JULIAN_NAME": "Julian Hsu",
@@ -242,6 +244,9 @@
     "SHIRLEY_INTRO": "「最近想買個螢幕，來去無印良品逛逛好了」是這樣思路的一個人。",
     "STEVE_NAME": "Steve",
     "STEVE_JOBTITLE": "品酒師",
-    "STEVE_INTRO": "因為喝太多酒所以記憶很差，連自己名字都忘記了，唯獨不愛喝雪利酒"
+    "STEVE_INTRO": "因為喝太多酒所以記憶很差，連自己名字都忘記了，唯獨不愛喝雪利酒",
+    "YANG_NAME": "CHEN PIN YANG",
+    "YANG_JOBTITLE": "軟體工程師",
+    "YANG_INTRO": "一杯Ramos Gin Fizz，一點blues，還有無止盡的面容焦慮。喜歡到舞池跳舞，但又懶得運動。"
   }
 }
