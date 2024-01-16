@@ -11,10 +11,20 @@
     "check-format": "prettier --ignore-path .gitignore --list-different \"**/*.+(js|ts|json)\"",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "validate": "npm run test && npm run check-format && npm run lint",
-    "production": "next start -p 80"
+    "production": "next start -p 80",
+    "migrate:dev": "npx dotenv -e .env.local -- prisma migrate dev",
+    "db:push": "npx dotenv -e .env.local -- prisma db push",
+    "migrate:reset": "npx dotenv -e .env.local -- prisma migrate reset",
+    "db:seed": "npx dotenv -e .env.local -- prisma db seed",
+    "prisma:generate": "npx dotenv -e .env.local -- prisma generate",
+    "prisma:studio": "npx dotenv -e .env.local -- prisma studio",
+    "production:build": "npx prisma generate && npx prisma migrate deploy && next build",
+    "build:withSeed": "npx dotenv -e .env.local -- prisma db seed && next build"
   },
   "dependencies": {
+    "@prisma/client": "^5.8.1",
     "@types/marked": "^5.0.1",
+    "dotenv-cli": "^7.3.0",
     "gray-matter": "^4.0.3",
     "i18next": "^23.2.3",
     "marked": "^5.1.1",
@@ -46,6 +56,7 @@
     "lint-staged": "^13.2.2",
     "postcss": "^8.4.24",
     "prettier-plugin-tailwindcss": "^0.3.0",
+    "prisma": "^5.8.1",
     "tailwindcss": "^3.3.2",
     "ts-jest": "^29.1.0",
     "typescript": "5.1.3"

@@ -133,3 +133,6 @@ dist
 .pnp.*
 
 *.Identifier
+
+# Apple DS_Store
+.DS_Store
