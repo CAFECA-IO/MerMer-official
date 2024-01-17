@@ -95,6 +95,11 @@
     "avatar": "/profiles/profile_steve.jpg",
     "twUserData": {
       "name": "Steve",
+      "intro": "因為喝太多酒所以記憶很差，連自己名字都忘記了，唯獨不愛喝雪利酒",
+      "jobTitle": "品酒師"
+    },
+    "cnUserData": {
+      "name": "Steve",
       "intro": "因为喝太多酒所以记忆很差，连自己名字都忘记了，唯独不爱喝雪利酒",
       "jobTitle": "品酒师"
     },

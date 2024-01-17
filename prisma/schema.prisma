@@ -17,7 +17,7 @@ model User {
   signer     String      @unique
   role       Role        @default(USER)
   avatar     String?
-  kms        KM[]
+  kms        Km[]
   twUserData TwUserData?
   enUserData EnUserData?
   cnUserData CnUserData?
@@ -63,16 +63,17 @@ model JobTitle {
   CnUserDataId Int         @unique
 }
 
-model KM {
+model Km {
   id          String     @id
   title       String
   isPublished Boolean    @default(false)
   author      User       @relation(fields: [authorId], references: [userId])
   authorId    Int
+  picture     String?
   description String?    @db.Text
   mdFile      String     @db.Text
   categories  Category[]
-  Topic       Topic      @relation(fields: [topicId], references: [id])
+  topic       Topic      @relation(fields: [topicId], references: [id])
   topicId     Int        @unique
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
@@ -81,13 +82,13 @@ model KM {
 model Category {
   id   Int    @id @default(autoincrement())
   name String
-  kms  KM[]
+  kms  Km[]
 }
 
 model Topic {
   id   Int    @id @default(autoincrement())
   name String
-  kms  KM[]
+  kms  Km[]
 }
 
 enum Role {

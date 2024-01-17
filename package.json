@@ -24,6 +24,7 @@
   "dependencies": {
     "@prisma/client": "^5.8.1",
     "@types/marked": "^5.0.1",
+    "@uploadthing/react": "^6.1.0",
     "dotenv-cli": "^7.3.0",
     "gray-matter": "^4.0.3",
     "i18next": "^23.2.3",
@@ -36,7 +37,8 @@
     "react-dom": "18.2.0",
     "react-i18next": "^13.0.1",
     "react-icons": "^4.10.1",
-    "react-usestateref": "^1.0.8"
+    "react-usestateref": "^1.0.8",
+    "uploadthing": "^6.1.1"
   },
   "devDependencies": {
     "@types/jest": "^29.5.2",
