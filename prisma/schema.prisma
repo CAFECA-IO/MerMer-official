@@ -15,8 +15,8 @@ model User {
   id         String      @unique
   email      String      @unique
   signer     String      @unique
-  name       String?
   role       Role        @default(USER)
+  avatar     String?
   kms        KM[]
   twUserData TwUserData?
   enUserData EnUserData?
