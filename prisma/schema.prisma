@@ -26,41 +26,41 @@ model User {
 }
 
 model TwUserData {
-  id       Int       @id @default(autoincrement())
-  name     String
-  user     User      @relation(fields: [userId], references: [userId])
-  userId   Int       @unique
-  intro    String?
-  jobTitle JobTitle?
+  id         Int       @id @default(autoincrement())
+  name       String
+  user       User      @relation(fields: [userId], references: [userId])
+  userId     Int       @unique
+  intro      String?
+  jobTitle   JobTitle? @relation(fields: [jobTitleId], references: [id])
+  jobTitleId Int
 }
 
 model EnUserData {
-  id       Int       @id @default(autoincrement())
-  name     String
-  user     User      @relation(fields: [userId], references: [userId])
-  userId   Int       @unique
-  intro    String?
-  jobTitle JobTitle?
+  id         Int       @id @default(autoincrement())
+  name       String
+  user       User      @relation(fields: [userId], references: [userId])
+  userId     Int       @unique
+  intro      String?
+  jobTitle   JobTitle? @relation(fields: [jobTitleId], references: [id])
+  jobTitleId Int
 }
 
 model CnUserData {
-  id       Int       @id @default(autoincrement())
-  name     String
-  user     User      @relation(fields: [userId], references: [userId])
-  userId   Int       @unique
-  intro    String?
-  jobTitle JobTitle?
+  id         Int       @id @default(autoincrement())
+  name       String
+  user       User      @relation(fields: [userId], references: [userId])
+  userId     Int       @unique
+  intro      String?
+  jobTitle   JobTitle? @relation(fields: [jobTitleId], references: [id])
+  jobTitleId Int
 }
 
 model JobTitle {
-  id           Int         @id @default(autoincrement())
-  jobTitle     String
-  twUserData   TwUserData? @relation(fields: [TwUserDataId], references: [id])
-  TwUserDataId Int         @unique
-  enUserData   EnUserData? @relation(fields: [EnUserDataId], references: [id])
-  EnUserDataId Int         @unique
-  cnUserData   CnUserData? @relation(fields: [CnUserDataId], references: [id])
-  CnUserDataId Int         @unique
+  id          Int          @id @default(autoincrement())
+  jobTitle    String
+  twUserDatas TwUserData[]
+  enUserDatas EnUserData[]
+  cnUserDatas CnUserData[]
 }
 
 model Km {
@@ -74,7 +74,7 @@ model Km {
   mdFile      String     @db.Text
   categories  Category[]
   topic       Topic      @relation(fields: [topicId], references: [id])
-  topicId     Int        @unique
+  topicId     Int
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 }

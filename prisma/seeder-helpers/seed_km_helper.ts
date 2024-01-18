@@ -13,7 +13,7 @@ export async function getPost(src: string, slug: string) {
     } = matter(source);
 
     return {
-      id: slug,
+      id: slug.split('-')[1],
       date: new Date ( date * SECOND_TO_MILLISECOND_), // Info: (20240116 - Murky) km use unit timestamp which is by second, need to convert into mine
       title,
       description,

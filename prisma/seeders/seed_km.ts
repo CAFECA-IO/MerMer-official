@@ -1,8 +1,8 @@
 import { type PrismaClient } from '@prisma/client';
 import * as KmHelper from '../seeder-helpers/seed_km_helper';
 import { seederConfig } from '../seed_config';
-
-export async function seedUserData(prisma: PrismaClient): Promise<void> {
+import { getOrCreateCategory, getOrCreateTopic } from '../seeder-helpers/get_or_create';
+export async function seedKm(prisma: PrismaClient): Promise<void> {
 
   try {
     // Info: (20240116 - Murky) in seeder every topic of KM is "general"
@@ -54,6 +54,7 @@ export async function seedUserData(prisma: PrismaClient): Promise<void> {
             connect: categoryIds.map(id => ({ id }))
           },
           topicId: topicId,
+          isPublished: true,
           createdAt: km.date,
           updatedAt: km.date
         }
@@ -61,34 +62,7 @@ export async function seedUserData(prisma: PrismaClient): Promise<void> {
     }
 
   }catch(e) {
-    return
+    // eslint-disable-next-line no-console
+    throw e;
   }
-}
-
-async function getOrCreateCategory(name: string, prisma: PrismaClient): Promise<number> {
-  let category = await prisma.category.findFirst({
-    where: { name }
-  });
-
-  if (!category) {
-    category = await prisma.category.create({
-      data: { name }
-    });
-  }
-
-  return category.id;
-}
-
-async function getOrCreateTopic(topicName: string, prisma: PrismaClient): Promise<number> {
-  let topic = await prisma.topic.findFirst({
-    where: { name: topicName }
-  });
-  
-  if (!topic) {
-    topic = await prisma.topic.create({
-      data: { name: topicName }
-    });
-  }
-
-  return topic.id
 }
