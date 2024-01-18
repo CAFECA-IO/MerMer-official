@@ -1,0 +1,22 @@
+{
+  "ALL": "All",
+  "NEWBIE": "Newbie",
+  "DATABASE": "Database",
+  "DeFi": "DeFi",
+  "CRYPTOCURRENCY": "Cryptocurrency",
+  "BALANCE_SHEET": "Balance Sheet",
+  "BLOCKCHAIN_TECHNOLOGY": "Blockchain Technology",
+  "WEB_SECURITY": "Web Security",
+  "SYSTEM_ARCHITECTURE": "System Architecture",
+  "MARKETING": "Marketing",
+  "SOCIAL_NETWORK": "Social Network",
+  "PROGRAMMING": "Programming",
+  "UIUX": "UI/UX",
+  "AI": "AI",
+  "FINANCIALS": "Financials",
+  "CASH_FLOW_STATEMENT": "Cash flow statements",
+  "COMPREHENSIVE_INCOME_STATEMENT": "Comprehensive Income Statement",
+  "FRONTEND": "Frontend",
+  "ALGORITHM": "Algorithm",
+  "SMART_CONTRACT": "Smart Contract"
+}

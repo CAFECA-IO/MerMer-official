@@ -15,9 +15,9 @@ model User {
   id         String      @unique
   email      String      @unique
   signer     String      @unique
-  name       String?
   role       Role        @default(USER)
-  kms        KM[]
+  avatar     String?
+  kms        Km[]
   twUserData TwUserData?
   enUserData EnUserData?
   cnUserData CnUserData?
@@ -26,54 +26,55 @@ model User {
 }
 
 model TwUserData {
-  id       Int       @id @default(autoincrement())
-  name     String
-  user     User      @relation(fields: [userId], references: [userId])
-  userId   Int       @unique
-  intro    String?
-  jobTitle JobTitle?
+  id         Int       @id @default(autoincrement())
+  name       String
+  user       User      @relation(fields: [userId], references: [userId])
+  userId     Int       @unique
+  intro      String?
+  jobTitle   JobTitle? @relation(fields: [jobTitleId], references: [id])
+  jobTitleId Int
 }
 
 model EnUserData {
-  id       Int       @id @default(autoincrement())
-  name     String
-  user     User      @relation(fields: [userId], references: [userId])
-  userId   Int       @unique
-  intro    String?
-  jobTitle JobTitle?
+  id         Int       @id @default(autoincrement())
+  name       String
+  user       User      @relation(fields: [userId], references: [userId])
+  userId     Int       @unique
+  intro      String?
+  jobTitle   JobTitle? @relation(fields: [jobTitleId], references: [id])
+  jobTitleId Int
 }
 
 model CnUserData {
-  id       Int       @id @default(autoincrement())
-  name     String
-  user     User      @relation(fields: [userId], references: [userId])
-  userId   Int       @unique
-  intro    String?
-  jobTitle JobTitle?
+  id         Int       @id @default(autoincrement())
+  name       String
+  user       User      @relation(fields: [userId], references: [userId])
+  userId     Int       @unique
+  intro      String?
+  jobTitle   JobTitle? @relation(fields: [jobTitleId], references: [id])
+  jobTitleId Int
 }
 
 model JobTitle {
-  id           Int         @id @default(autoincrement())
-  jobTitle     String
-  twUserData   TwUserData? @relation(fields: [TwUserDataId], references: [id])
-  TwUserDataId Int         @unique
-  enUserData   EnUserData? @relation(fields: [EnUserDataId], references: [id])
-  EnUserDataId Int         @unique
-  cnUserData   CnUserData? @relation(fields: [CnUserDataId], references: [id])
-  CnUserDataId Int         @unique
+  id          Int          @id @default(autoincrement())
+  jobTitle    String
+  twUserDatas TwUserData[]
+  enUserDatas EnUserData[]
+  cnUserDatas CnUserData[]
 }
 
-model KM {
+model Km {
   id          String     @id
   title       String
   isPublished Boolean    @default(false)
   author      User       @relation(fields: [authorId], references: [userId])
   authorId    Int
+  picture     String?
   description String?    @db.Text
   mdFile      String     @db.Text
   categories  Category[]
-  Topic       Topic      @relation(fields: [topicId], references: [id])
-  topicId     Int        @unique
+  topic       Topic      @relation(fields: [topicId], references: [id])
+  topicId     Int
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 }
@@ -81,13 +82,13 @@ model KM {
 model Category {
   id   Int    @id @default(autoincrement())
   name String
-  kms  KM[]
+  kms  Km[]
 }
 
 model Topic {
   id   Int    @id @default(autoincrement())
   name String
-  kms  KM[]
+  kms  Km[]
 }
 
 enum Role {

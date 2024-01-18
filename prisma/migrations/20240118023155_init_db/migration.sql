@@ -7,8 +7,8 @@ CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "signer" TEXT NOT NULL,
-    "name" TEXT,
     "role" "Role" NOT NULL DEFAULT 'USER',
+    "avatar" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -21,6 +21,7 @@ CREATE TABLE "TwUserData" (
     "name" TEXT NOT NULL,
     "userId" INTEGER NOT NULL,
     "intro" TEXT,
+    "jobTitleId" INTEGER NOT NULL,
 
     CONSTRAINT "TwUserData_pkey" PRIMARY KEY ("id")
 );
@@ -31,6 +32,7 @@ CREATE TABLE "EnUserData" (
     "name" TEXT NOT NULL,
     "userId" INTEGER NOT NULL,
     "intro" TEXT,
+    "jobTitleId" INTEGER NOT NULL,
 
     CONSTRAINT "EnUserData_pkey" PRIMARY KEY ("id")
 );
@@ -41,6 +43,7 @@ CREATE TABLE "CnUserData" (
     "name" TEXT NOT NULL,
     "userId" INTEGER NOT NULL,
     "intro" TEXT,
+    "jobTitleId" INTEGER NOT NULL,
 
     CONSTRAINT "CnUserData_pkey" PRIMARY KEY ("id")
 );
@@ -49,26 +52,24 @@ CREATE TABLE "CnUserData" (
 CREATE TABLE "JobTitle" (
     "id" SERIAL NOT NULL,
     "jobTitle" TEXT NOT NULL,
-    "TwUserDataId" INTEGER NOT NULL,
-    "EnUserDataId" INTEGER NOT NULL,
-    "CnUserDataId" INTEGER NOT NULL,
 
     CONSTRAINT "JobTitle_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "KM" (
+CREATE TABLE "Km" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "isPublished" BOOLEAN NOT NULL DEFAULT false,
     "authorId" INTEGER NOT NULL,
+    "picture" TEXT,
     "description" TEXT,
     "mdFile" TEXT NOT NULL,
     "topicId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "KM_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Km_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -88,7 +89,7 @@ CREATE TABLE "Topic" (
 );
 
 -- CreateTable
-CREATE TABLE "_CategoryToKM" (
+CREATE TABLE "_CategoryToKm" (
     "A" INTEGER NOT NULL,
     "B" TEXT NOT NULL
 );
@@ -112,49 +113,37 @@ CREATE UNIQUE INDEX "EnUserData_userId_key" ON "EnUserData"("userId");
 CREATE UNIQUE INDEX "CnUserData_userId_key" ON "CnUserData"("userId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "JobTitle_TwUserDataId_key" ON "JobTitle"("TwUserDataId");
+CREATE UNIQUE INDEX "_CategoryToKm_AB_unique" ON "_CategoryToKm"("A", "B");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "JobTitle_EnUserDataId_key" ON "JobTitle"("EnUserDataId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "JobTitle_CnUserDataId_key" ON "JobTitle"("CnUserDataId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "KM_topicId_key" ON "KM"("topicId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "_CategoryToKM_AB_unique" ON "_CategoryToKM"("A", "B");
-
--- CreateIndex
-CREATE INDEX "_CategoryToKM_B_index" ON "_CategoryToKM"("B");
+CREATE INDEX "_CategoryToKm_B_index" ON "_CategoryToKm"("B");
 
 -- AddForeignKey
 ALTER TABLE "TwUserData" ADD CONSTRAINT "TwUserData_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "TwUserData" ADD CONSTRAINT "TwUserData_jobTitleId_fkey" FOREIGN KEY ("jobTitleId") REFERENCES "JobTitle"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "EnUserData" ADD CONSTRAINT "EnUserData_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "EnUserData" ADD CONSTRAINT "EnUserData_jobTitleId_fkey" FOREIGN KEY ("jobTitleId") REFERENCES "JobTitle"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "CnUserData" ADD CONSTRAINT "CnUserData_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "JobTitle" ADD CONSTRAINT "JobTitle_TwUserDataId_fkey" FOREIGN KEY ("TwUserDataId") REFERENCES "TwUserData"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "CnUserData" ADD CONSTRAINT "CnUserData_jobTitleId_fkey" FOREIGN KEY ("jobTitleId") REFERENCES "JobTitle"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "JobTitle" ADD CONSTRAINT "JobTitle_EnUserDataId_fkey" FOREIGN KEY ("EnUserDataId") REFERENCES "EnUserData"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Km" ADD CONSTRAINT "Km_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "JobTitle" ADD CONSTRAINT "JobTitle_CnUserDataId_fkey" FOREIGN KEY ("CnUserDataId") REFERENCES "CnUserData"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Km" ADD CONSTRAINT "Km_topicId_fkey" FOREIGN KEY ("topicId") REFERENCES "Topic"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "KM" ADD CONSTRAINT "KM_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "_CategoryToKm" ADD CONSTRAINT "_CategoryToKm_A_fkey" FOREIGN KEY ("A") REFERENCES "Category"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "KM" ADD CONSTRAINT "KM_topicId_fkey" FOREIGN KEY ("topicId") REFERENCES "Topic"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_CategoryToKM" ADD CONSTRAINT "_CategoryToKM_A_fkey" FOREIGN KEY ("A") REFERENCES "Category"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_CategoryToKM" ADD CONSTRAINT "_CategoryToKM_B_fkey" FOREIGN KEY ("B") REFERENCES "KM"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "_CategoryToKm" ADD CONSTRAINT "_CategoryToKm_B_fkey" FOREIGN KEY ("B") REFERENCES "Km"("id") ON DELETE CASCADE ON UPDATE CASCADE;
