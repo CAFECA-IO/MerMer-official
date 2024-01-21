@@ -89,7 +89,6 @@
     "JOB_DESCRIPTION_17": "撰寫規格文件與測試報告",
     "JOB_DESCRIPTION_18": "開發自動化測試與單元測試",
     "JOB_DESCRIPTION_19": "定期撰寫工作日誌與技術報告、會議出席與簡報",
-
     "JOB_DESCRIPTION_20": "跨單位合作了解客戶需求，提供解決方案並定義技術特性與優勢",
     "JOB_DESCRIPTION_21": "執行市場研究與分析，暸解市場趨勢、競爭對手產品，並細分市場的需求",
     "JOB_DESCRIPTION_22": "定義項目的願景、功能規格、執行戰略與路線圖",
@@ -97,7 +96,6 @@
     "JOB_DESCRIPTION_24": "為新產品或功能制定定價策略與業務方案",
     "JOB_DESCRIPTION_25": "分析產品指標並追蹤關鍵指標，規劃產品優化方向",
     "JOB_DESCRIPTION_26": "與管理階層及項目投資人有效地溝通、討論、及更新專案計畫",
-
     "JOB_DESCRIPTION_27": "制定技術研發佈局策略以及執行路線圖",
     "JOB_DESCRIPTION_28": "管理多個不同技術領域的工程師團隊",
     "JOB_DESCRIPTION_29": "制定工程最佳標準執行流程與檢驗標準，確保技術品質與性能",
@@ -107,7 +105,6 @@
     "JOB_DESCRIPTION_33": "與品質管理團隊合作，協調與制定品質管理計劃，確保品質管理完整覆蓋",
     "JOB_DESCRIPTION_34": "定期實施改善計畫，監督與控制專案技術債",
     "JOB_DESCRIPTION_35": "評估並招募技術人才，建立強大的研發團隊",
-
     "JOB_DESCRIPTION_36": "使用 React、RxJS、Next.js、Electron 等框架開發前端功能",
     "JOB_DESCRIPTION_37": "與設計團隊合作，為產品建立卓越的用戶體驗",
     "JOB_DESCRIPTION_38": "構建響應式使用者介面，確保產品在各種螢幕尺寸的用戶體驗",
@@ -117,7 +114,6 @@
     "JOB_DESCRIPTION_42": "進行代碼審查、編寫技術文檔並指導其他工程師",
     "JOB_DESCRIPTION_43": "協助建立前端開發標準和最佳執行標準流程",
     "JOB_DESCRIPTION_44": "與後端工程師密切合作，共同制定應用程式通訊介面",
-
     "JOB_DESCRIPTION_45": "設計和構建可擴展的高性能後端系統與服務",
     "JOB_DESCRIPTION_46": "開發和維護前端應用程式的 API 功能",
     "JOB_DESCRIPTION_47": "持續優化後端程式碼以提高速度、安全性、可靠性和效率",
@@ -125,7 +121,6 @@
     "JOB_DESCRIPTION_49": "規劃並維護資料庫架構、確保資料隱私、安全與正常運作",
     "JOB_DESCRIPTION_50": "監控系統運行狀況，預防並即時解決各種系統異常",
     "JOB_DESCRIPTION_51": "隨時關注並研究後端技術的發展與更新",
-
     "JOB_REQUIREMENT_1": "熟悉 React、RxJS、Next.js 等前端開發框架",
     "JOB_REQUIREMENT_2": "熟悉 Flutter APP 開發技術",
     "JOB_REQUIREMENT_3": "熟悉 Babel、webpack、NPM 等常見的前端開發工具",
@@ -147,7 +142,6 @@
     "JOB_REQUIREMENT_19": "具備或願意自學 UML 知識",
     "JOB_REQUIREMENT_20": "良好英語閱讀及寫作能力",
     "JOB_REQUIREMENT_21": "能洞察軟體潛在問題",
-
     "JOB_REQUIREMENT_22": "3 年以上專案管理經驗",
     "JOB_REQUIREMENT_23": "具備資訊或管理學院等相關領域學士以上學位",
     "JOB_REQUIREMENT_24": "擅長分析並解決問題",
@@ -155,7 +149,6 @@
     "JOB_REQUIREMENT_26": "能夠獨立工作並同時管理多個專案",
     "JOB_REQUIREMENT_27": "具備優秀的且快速的技術理解能力",
     "JOB_REQUIREMENT_28": "熱衷於發現市場機會並為客戶創造價值",
-
     "JOB_REQUIREMENT_29": "10 年以上技術團隊的領導經驗",
     "JOB_REQUIREMENT_30": "具備資訊或理工學院等相關領域學士以上學位",
     "JOB_REQUIREMENT_31": "具備跨領域的專業技術以及整合能力",
@@ -164,14 +157,12 @@
     "JOB_REQUIREMENT_34": "具備 CI/CD 和 DevOps 實踐的經驗",
     "JOB_REQUIREMENT_35": "了解可擴展性資訊基礎建設和系統設計模式",
     "JOB_REQUIREMENT_36": "具備指導和培養技術人才的實務經驗",
-
     "JOB_REQUIREMENT_37": "5 年以上前端開發經驗，曾參與完整的產品生命週期開發",
     "JOB_REQUIREMENT_38": "熟悉 React、RxJS、Next.js、Electron 等前端框架",
     "JOB_REQUIREMENT_39": "熟悉行動裝置介面的響應式佈局開發實務",
     "JOB_REQUIREMENT_40": "了解設計模式和開發最佳實踐",
     "JOB_REQUIREMENT_41": "優秀中英文溝通、協作與問題解決能力。",
     "JOB_REQUIREMENT_42": "優秀的團隊合作和解決問題的能力",
-
     "JOB_REQUIREMENT_43": "5 年以上後端開發經驗，曾參與完整的產品生命週期開發",
     "JOB_REQUIREMENT_44": "熟悉 Golang、Rust、Node.js 等程式語言的專業知識",
     "JOB_REQUIREMENT_45": "具備 Postgresql、MongoDB、SQLite、LevelDB 等資料庫的專業知識",
@@ -248,5 +239,33 @@
     "YANG_NAME": "CHEN PIN YANG",
     "YANG_JOBTITLE": "軟體工程師",
     "YANG_INTRO": "一杯Ramos Gin Fizz，一點blues，還有無止盡的面容焦慮。喜歡到舞池跳舞，但又懶得運動。"
+  },
+  "WALLET_PANEL": {
+    "TITLE": "連接錢包",
+    "SEARCHING": "尋找錢包...",
+    "CONNECTING": "連接中...",
+    "WALLET_EXTENSION_NOT_FOUND1": "找不到錢包",
+    "WALLET_EXTENSION_NOT_FOUND2": "建議您嘗試其他瀏覽器",
+    "WALLET_EXTENSION_NOT_FOUND3": "或",
+    "WALLET_EXTENSION_NOT_FOUND4": "掃描 QR Code 以登入",
+    "WALLET_EXTENSION_NOT_FOUND5": "我沒有錢包?",
+    "QR_CODE_DESCRIPTION_PART1": "請開啟您的",
+    "QR_CODE_DESCRIPTION_HIGHLIGHT": "錢包",
+    "QR_CODE_DESCRIPTION_PART2": "並掃描 QR 碼",
+    "SIGNATURE_DESCRIPTION_LINE1": "您將收到兩項簽名請求",
+    "SIGNATURE_DESCRIPTION_LINE2_PART1": "簽名是",
+    "SIGNATURE_DESCRIPTION_LINE2_HIGHLIGHT": "免費",
+    "SIGNATURE_DESCRIPTION_LINE2_PART2": "的，並不會發送任何交易",
+    "SIGNATURE_STEP1_TITLE": "驗證所有權",
+    "SIGNATURE_STEP1_DESCRIPTION": "確認您為這個錢包的所有人",
+    "SIGNATURE_STEP2_TITLE": "同意政策",
+    "SIGNATURE_STEP2_DESCRIPTION1": "請閱讀並同意",
+    "SIGNATURE_STEP2_DESCRIPTION2": "政策",
+    "DISABLE_SERVICE_TERM_ERROR_MESSAGE": "您已拒絕簽名",
+    "ERROR_MESSAGE": "發生錯誤，請再試一次",
+    "SEND_REQUESTS_BUTTON": "發送請求",
+    "HELLO_DESCRIPTION": "歡迎來到MerMer Admin",
+    "HELLO_CONNECT_LINK": "連接 TideBit",
+    "DONE_BUTTON": "完成"
   }
 }
