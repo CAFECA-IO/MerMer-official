@@ -3,7 +3,13 @@ export const KM_DESCRIPTION_LIMIT = 100;
 
 export const KM_FOLDER = 'src/km';
 
+export const SERVICE_TERM_TITLE = 'ServiceTerm';
 export const DOMAIN = 'https://mermer.com.tw';
+export const API_URL = 'https://mermer.com.tw'; //'http://localhost:80';
+export const API_VERSION = 'v1';
+export const TERM_OF_SERVICE = DOMAIN + '{hash}';
+export const PRIVATE_POLICY = DOMAIN + '{hash}';
+export const DeWT_VALIDITY_PERIOD = 60 * 60; // seconds
 
 export const web3Content = [
   {

@@ -35,6 +35,7 @@ module.exports = {
 
         lightGray1: '#8B8F92',
         lightGray2: '#F2F4F8',
+        errorRed: '#FC8181',
       },
       fontFamily: {
         Dosis: 'Dosis, sans-serif',
