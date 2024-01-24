@@ -19,16 +19,22 @@ export async function getUserByDeWT(deWT: string): Promise<{user:User, deWTDecod
   if (!!deWT) {
     const encodedData = deWT.split('.')[0];
     const {isDeWTLegit, serviceTerm} = verifySignedServiceTerm(encodedData);
-    const findedUser = await prisma.user.findUnique({
+    
+    // Info - (20230124) signer in serviceTerm is all lowercase, can't not use findUnique to match db data
+    const findedUser = await prisma.user.findFirst({
       where: {
-        signer:serviceTerm.message.signer
+        signer: {
+          equals:serviceTerm.message.signer,
+          mode: 'insensitive'
+        }
       }
     });
+
     if (findedUser && isDeWTLegit) {
       return {
         user: findedUser,
         deWTDecode: serviceTerm.message
-      }
+      };
     }
   }
   return null;
