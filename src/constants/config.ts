@@ -112,3 +112,10 @@ export const mermerEmail = process.env.REACT_APP_MERMER_EMAIL;
 export const mermerCopyright = process.env.REACT_APP_MERMER_COPYRIGHT;
 
 export const githubLink = process.env.REACT_APP_GITHUB_LINK;
+
+// Login KM Editor(MerMer Admin) related
+export const merMerAdminConfig = {
+  redirectUrlIfLoginSuccess: '/admin/browse',
+  redirectUrlIfLoginFail: '/admin/login',
+  postloginVerifyUrl: '/api/auth/login'
+}

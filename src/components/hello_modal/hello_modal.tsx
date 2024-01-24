@@ -9,9 +9,10 @@ interface IHelloModal {
   helloModalRef?: React.RefObject<HTMLDivElement>;
   helloModalVisible?: boolean;
   helloClickHandler?: () => void;
+  helloSuccessLoginClickHandler?: () => void;
 }
 
-const HelloModal = ({helloModalRef, helloModalVisible = false, helloClickHandler}: IHelloModal) => {
+const HelloModal = ({helloModalRef, helloModalVisible = false, helloClickHandler, helloSuccessLoginClickHandler}: IHelloModal) => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
   const isDisplayedHelloModal = helloModalVisible ? (
@@ -63,7 +64,7 @@ const HelloModal = ({helloModalRef, helloModalVisible = false, helloClickHandler
         <MerMerButton
           id="HelloModalDone"
           className="flex gap-2 rounded px-10 py-10px font-normal transition-all hover:opacity-90"
-          onClick={helloClickHandler}
+          onClick={helloSuccessLoginClickHandler}
         >
           <Image
             className="relative"
