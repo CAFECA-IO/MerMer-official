@@ -58,8 +58,17 @@ export async function middleware(request: NextRequest) {
   if (!userData || !userData?.user || !userData?.deWTDecode) {
     return NextResponse.redirect(new URL(merMerAdminConfig.redirectUrlIfLoginFail, request.url));
   }
+  
+  // Info (20240124) Murky: 把User資料直接放在req的header內
+  // const userInHeader = {
+  //   id: userData.user.id,
+  //   role: userData.user.role,
+  //   avatar: userData.user.avatar
+  // }
+  const response = NextResponse.next();
 
-  return NextResponse.next();
+  // response.headers.set('x-user-data', JSON.stringify(userInHeader));
+  return response;
 }
  
 // See "Matching Paths" below to learn more
