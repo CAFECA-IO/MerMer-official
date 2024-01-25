@@ -13,8 +13,12 @@ type Props = {
 
 export default function KmCardDropdown({kmId, isPublish, setIsPublish, className}: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  const toggleDropdown = () => setIsOpen(!isOpen);
-  const handlePublishOnclick = async (kmId: string) => {
+  const toggleDropdown = (event:React.MouseEvent) => {
+    event.stopPropagation(); // Info (202400125) Murky card 點擊下拉選單時才可以正確點到，不會跳轉
+    setIsOpen(!isOpen);
+  }
+  const handlePublishOnclick = async (event:React.MouseEvent) => {
+    event.stopPropagation();
     const res = await fetch(`/api/km/${kmId}/publish`, {
         method: 'POST',
         headers: {
@@ -33,7 +37,8 @@ export default function KmCardDropdown({kmId, isPublish, setIsPublish, className
     setIsPublish(!isPublish);
   } 
 
-  const handleDeleteOnclick = async (kmId: string) => {
+  const handleDeleteOnclick = async (event:React.MouseEvent) => {
+    event.stopPropagation();
     const res = await fetch(`/api/km/${kmId}`, {
         method: 'DELETE',
     });
@@ -57,7 +62,7 @@ export default function KmCardDropdown({kmId, isPublish, setIsPublish, className
         isOpen && (
           <div className='absolute left-[-96px] flex flex-col items-center justify-center rounded-[5px] bg-mermerTheme shadow-drop'>
             <MerMerDropdownButton
-              onClick={() => handlePublishOnclick(kmId)}
+              onClick={handlePublishOnclick}
               hidden={isPublish}
               // eslint-disable-next-line tailwindcss/migration-from-tailwind-2
               className='h-[44px] w-[131px] rounded-t-[5px] border-b-[0.5px] border-b-lightWhite1'
@@ -75,7 +80,7 @@ export default function KmCardDropdown({kmId, isPublish, setIsPublish, className
               </div>
             </MerMerDropdownButton>
             <MerMerDropdownButton
-              onClick={() => handlePublishOnclick(kmId)}
+              onClick={handlePublishOnclick}
               hidden={!isPublish}
               className='h-[44px] w-[131px] rounded-t-[5px] border-b-[0.5px] border-b-lightWhite1'
             >
@@ -92,7 +97,7 @@ export default function KmCardDropdown({kmId, isPublish, setIsPublish, className
               </div>
             </MerMerDropdownButton>
             <MerMerDropdownButton
-              onClick={() => handleDeleteOnclick(kmId)}
+              onClick={handleDeleteOnclick}
               className='flex h-[44px] w-[131px] rounded-b-[5px]'
             >
               <div className='flex items-center justify-center gap-2'>

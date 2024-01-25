@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import KmCardDropdown from './km_card_dropdown'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 type Props = {
   kmId: string,
   published: boolean,
@@ -12,9 +13,14 @@ type Props = {
 }
 
 export default function KmCard({kmId, published, title, date, view, share, cover}: Props) {
+  const router = useRouter()
+
+  function handleClick() {
+    router.push(`/admin/edit/${kmId}`)
+  }
   const [isPublish, setIsPublish] = useState(published)
   return (
-    <div id={kmId} className='relative flex h-[166px] w-[944px] items-center justify-start  gap-6 rounded-[10px] border-[3px] border-darkBlue3 bg-mermerTheme p-2 hover:border-lightBlue1/100'>
+    <div id={kmId} onClick={handleClick} className='relative flex h-[166px] w-[944px] cursor-pointer items-center justify-start  gap-6 rounded-[10px] border-[3px] border-darkBlue3 bg-mermerTheme p-2 hover:border-lightBlue1/100'>
       <KmCardDropdown className='absolute right-2 top-[23px]' kmId={kmId} isPublish={isPublish} setIsPublish={setIsPublish}/>
       <div className='relative h-[150px] w-[183px] overflow-hidden'>
         <Image

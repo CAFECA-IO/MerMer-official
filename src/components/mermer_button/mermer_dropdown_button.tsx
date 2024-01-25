@@ -3,7 +3,7 @@ import React from 'react'
 type Props = {
   children: React.ReactNode,
   className?: string,
-  onClick?: () => void,
+  onClick?: (event: React.MouseEvent) => Promise<void>,
   id?: string,
   type?: 'button' | 'submit' | 'reset',
   hidden?: boolean,
