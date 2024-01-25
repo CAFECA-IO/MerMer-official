@@ -9,6 +9,7 @@ type Props = {
   clickHandler: () => void
 }
 
+
 export default function NavItem({iconSrc, tagName, activeUrl, clickHandler}: Props) {
   const router = useRouter()
   const isActive = router.pathname === activeUrl
@@ -18,7 +19,7 @@ export default function NavItem({iconSrc, tagName, activeUrl, clickHandler}: Pro
         items-center justify-center gap-2
         rounded-[5px]  px-6
         py-[2px]
-        ${isActive ? 'bg-darkBlue3/100' : 'bg-darkBlue3/0'}`}
+        ${isActive ? 'bg-darkBlue3/100' : 'bg-darkBlue3/0 hover:bg-dropDownHover hover:text-lightBlue1'}`}
       onClick={clickHandler}
     >
       <Image
@@ -26,7 +27,7 @@ export default function NavItem({iconSrc, tagName, activeUrl, clickHandler}: Pro
         alt={`${tagName} icon`}
         width={24}
         height={24}
-        style={{width: '24px', height: '24'}}
+        style={{width: '24px', height: '24px'}}
       />
       <span className='grow text-sm'>{tagName}</span>
     </div>

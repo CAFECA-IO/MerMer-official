@@ -24,6 +24,8 @@ export default function index() {
     <>
       <Head>
         <title>MerMer Admin - Login</title>
+        <link rel="icon" href="/favicon/favicon.ico" />
+        <link rel="canonical" href="https://mermer.com.tw/" />
       </Head>
       <div className='flex h-screen flex-row items-center'>
         <div

@@ -1,27 +1,89 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import {MERURL} from '../../../constants/url';
 import { merMerAdminConfig } from '../../../constants/config';
-import { useRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 import NavItem from './nav_item';
+import NavUserProfile from './nav_user_profile';
+import { getCookieByName, getUserDataLanguageName } from '../../../lib/common';
 
 type Props = {
   className?: string
 }
 
-export default function Navbar({className}: Props) {
-  const router = useRouter()
-  const [activeUrl, setActiveUrl] = useState(merMerAdminConfig.browsePageUrl);
 
+async function fetchUserProfile(router: NextRouter) {
+  const userProfile = {
+    userName: 'Not Found',
+    userAvatar: merMerAdminConfig.defaultUserAvatarUrl
+  }
+
+  const deWT = getCookieByName('DeWT');
+  const res = await fetch('/api/users/profile', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      deWT
+    })
+  });
+
+  if (!res.ok) userProfile;
+  
+  const userData = await res.json();
+  if (userData?.success && userData?.data) {
+    const userDataLanguage = getUserDataLanguageName(router);
+    userProfile.userName = userData.data[userDataLanguage].name;
+    userProfile.userAvatar = userData.data.avatar;
+  }
+  return userProfile;
+} 
+
+export default function Navbar({className}: Props) {
   const navItems = [
     { iconSrc: '/elements/star2.svg', tagName: 'Dashboard', activeUrl: merMerAdminConfig.dashboardPageUrl },
     { iconSrc: '/elements/Group17.svg', tagName: 'Knowledge Management', activeUrl: merMerAdminConfig.browsePageUrl },
     // ... other nav items
   ];
 
+  const [userProfile, setUserProfile] = useState({
+    userName: 'Not Found',
+    userAvatar: merMerAdminConfig.defaultUserAvatarUrl
+  });
+  const router = useRouter();
+
+  useEffect(() => {
+    async function fetchUserProfile() {
+      const deWT = getCookieByName('DeWT');
+      try {
+        const res = await fetch('/api/users/profile', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ deWT })
+        });
+
+        if (!res.ok) throw new Error('Response is not ok');
+
+        const userData = await res.json();
+        console.log(userData)
+        if (userData?.success && userData?.data) {
+          const userDataLanguage = getUserDataLanguageName(router);
+          setUserProfile({
+            userName: userData.data[userDataLanguage].name,
+            userAvatar: userData.data.avatar
+          });
+        }
+      } catch (error) {
+        throw new Error(`Failed to fetch user profile: ${error}`);
+      }
+    }
+
+    fetchUserProfile();
+  }, [router]); 
+
   const handleClick = (url: string) => {
-    setActiveUrl(url);
     router.push(url)
     // additional click handling logic if needed
   };
@@ -33,7 +95,7 @@ export default function Navbar({className}: Props) {
         key={item.activeUrl}
         iconSrc={item.iconSrc}
         tagName={item.tagName}
-        activeUrl={activeUrl}
+        activeUrl={item.activeUrl}
         clickHandler={() => handleClick(item.activeUrl)}
       />
     ))}
@@ -50,6 +112,7 @@ export default function Navbar({className}: Props) {
           style={{width: '192px', height: 'auto'}}
         />
       </Link>
+      <NavUserProfile userProfile={userProfile}/>
       {navItemsDiv}
     </div>
   )

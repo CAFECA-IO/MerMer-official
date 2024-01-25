@@ -241,6 +241,7 @@
     "email": "amanda@fakeemail.com",
     "signer": "fakeAmandaWallet",
     "role": "USER",
+    "avatar": "/profiles/murky.png",
     "twUserData": {
       "name": "Amanda Lin",
       "intro": "Hello, I am Amanda!",

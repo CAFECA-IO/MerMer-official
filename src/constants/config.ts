@@ -120,5 +120,6 @@ export const merMerAdminConfig = {
   postloginVerifyUrl: '/api/auth/login',
   dashboardPageUrl: '/admin/dashboard',
   browsePageUrl: '/admin/browse',
-  editPageUrl: '/admin/edit'
+  editPageUrl: '/admin/edit',
+  defaultUserAvatarUrl: '/profiles/default_profile.png',
 }
