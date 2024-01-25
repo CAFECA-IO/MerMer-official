@@ -5,6 +5,7 @@ import RLP from "rlp";
 import ServiceTerm from "../constants/contracts/service_term";
 import IEIP712Data from "../interfaces/ieip712data";
 import IJSON from "../interfaces/ijson";
+import type { NextRouter } from "next/router";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Keccak = require('@cafeca/keccak');
 
@@ -226,7 +227,7 @@ export const rlpDecodeServiceTerm = (data: string) => {
     asciiToString((decodedData[2] as Array<Uint8Array>)[1]),
   ];
   const signer = decodedData[3]
-    ? `0x${Buffer.from(decodedData[3] as Uint8Array).toString('hex')}`
+    ? `${toChecksumAddress(Buffer.from(decodedData[3] as Uint8Array).toString('hex'))}`
     : undefined;
   const expired = decodedData[4] ? asciiToInt(decodedData[4] as Uint8Array) : undefined;
   const iat = decodedData[5] ? asciiToInt(decodedData[5] as Uint8Array) : undefined;
@@ -279,3 +280,17 @@ export const getServiceTermContract = (address: string) => {
   serviceTermsContract.message = message;
   return serviceTermsContract;
 };
+
+export const getUserDataLanguageName = (router: NextRouter): string => {
+  const language = router.locale
+  switch(language) {
+    case 'en':
+      return 'enUserData'
+    case 'cn':
+      return 'cnUserData'
+    default:
+      return 'twUserData'
+  }
+
+
+}

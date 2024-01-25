@@ -117,5 +117,9 @@ export const githubLink = process.env.REACT_APP_GITHUB_LINK;
 export const merMerAdminConfig = {
   redirectUrlIfLoginSuccess: '/admin/browse',
   redirectUrlIfLoginFail: '/admin/login',
-  postloginVerifyUrl: '/api/auth/login'
+  postloginVerifyUrl: '/api/auth/login',
+  dashboardPageUrl: '/admin/dashboard',
+  browsePageUrl: '/admin/browse',
+  editPageUrl: '/admin/edit',
+  defaultUserAvatarUrl: '/profiles/default_profile.png',
 }
