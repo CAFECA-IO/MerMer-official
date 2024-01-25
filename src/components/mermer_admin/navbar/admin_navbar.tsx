@@ -67,7 +67,6 @@ export default function Navbar({className}: Props) {
         if (!res.ok) throw new Error('Response is not ok');
 
         const userData = await res.json();
-        console.log(userData)
         if (userData?.success && userData?.data) {
           const userDataLanguage = getUserDataLanguageName(router);
           setUserProfile({

@@ -17,8 +17,8 @@ export default function NavItem({iconSrc, tagName, activeUrl, clickHandler}: Pro
     <div
       className={`flex h-[44px] w-full
         items-center justify-center gap-2
-        rounded-[5px]  px-6
-        py-[2px]
+        rounded-[5px]  px-6 py-[2px]
+        hover:cursor-pointer
         ${isActive ? 'bg-darkBlue3/100' : 'bg-darkBlue3/0 hover:bg-dropDownHover hover:text-lightBlue1'}`}
       onClick={clickHandler}
     >
