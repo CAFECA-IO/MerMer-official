@@ -20,7 +20,7 @@ export default function KmCard({kmId, published, title, date, view, share, cover
   }
   const [isPublish, setIsPublish] = useState(published)
   return (
-    <div id={kmId} onClick={handleClick} className='relative flex h-[166px] w-[944px] cursor-pointer items-center justify-start  gap-6 rounded-[10px] border-[3px] border-darkBlue3 bg-mermerTheme p-2 hover:border-lightBlue1/100'>
+    <div id={kmId} data-tag={"key"} onClick={handleClick} className='relative flex h-[166px] w-[944px] cursor-pointer items-center justify-start  gap-6 rounded-[10px] border-[3px] border-darkBlue3 bg-mermerTheme p-2 hover:border-lightBlue1/100'>
       <KmCardDropdown className='absolute right-2 top-[23px]' kmId={kmId} isPublish={isPublish} setIsPublish={setIsPublish}/>
       <div className='relative h-[150px] w-[183px] overflow-hidden'>
         <Image
