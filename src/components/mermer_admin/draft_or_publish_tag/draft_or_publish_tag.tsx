@@ -17,6 +17,7 @@ export default function DraftOrPublishTag({ tagName, amount, activeTag, setActiv
 
   return (
     <div
+      key={tagName}
       onClick={handleOnClick}
       className={`
         group flex flex-col gap-2 font-Dosis
@@ -38,7 +39,7 @@ export default function DraftOrPublishTag({ tagName, amount, activeTag, setActiv
         <span className={`
           h-[18px] leading-[19.6px] flex justify-center items-center w-[18px] text-xxs font-bold rounded-full px-[5.5px] py-[0.5px] text-darkBlue3 bg-lightWhite1
           ${activeTag === tagName
-            ? 'font-bold text-lightWhite1'
+            ? 'font-bold'
             : 'bg-lightWhite1 group-hover:bg-lightBlue1'
           }
         `}>

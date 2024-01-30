@@ -11,7 +11,7 @@ const fakeCard = [
     view: 3253,
     share: 12,
     cover: '/km/aaa_fix.png',
-    published:true
+    published: true
   },
   {
     kmId: '20220101002',
@@ -20,12 +20,12 @@ const fakeCard = [
     view: 0,
     share: 0,
     cover: '/km/AI-ETH.jpg',
-    published:false
+    published: false
   }
 ]
 export default function KmCardDisplay() {
   const cards = fakeCard.map(card => {
-    return <KmCard kmId={card.kmId} title={card.title} date={card.date} view={card.view} share={card.share} cover={card.cover} published={card.published}/>
+    return <KmCard key={card.kmId} kmId={card.kmId} title={card.title} date={card.date} view={card.view} share={card.share} cover={card.cover} published={card.published} />
   })
   return (
     <div className='flex flex-col items-center justify-center gap-2'>
