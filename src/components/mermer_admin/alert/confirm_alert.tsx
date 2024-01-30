@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image';
 import { createPortal } from 'react-dom';
 import useConfirm from '../../../contexts/confirm_context/useConfirm';
@@ -12,9 +12,13 @@ export default function ConfirmAlert({
 }: IConfirmAlert) {
 
   const { onConfirm, onCancel, confirmState } = useConfirm();
-  const portalElement = document.getElementById('portal');
-
-  console.log('Hi I am comfirm Alert')
+  const [portalElement, setPortalElement] = useState<HTMLElement | null>(null);
+  useEffect(() => {
+    // 確保只在客戶端訪問 document
+    if (typeof window !== 'undefined') {
+      setPortalElement(document.getElementById('portal'));
+    }
+  }, []);
   const isDisplayedCautionModal = confirmState.show ? (
 
     <div className="w-screen h-screen fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-darkBlue3/0 outline-none backdrop-blur-sm focus:outline-none">
@@ -57,7 +61,6 @@ export default function ConfirmAlert({
     </div>
   ) : null;
 
-  console.log('portalElement: ', portalElement)
   return portalElement ? createPortal(isDisplayedCautionModal, portalElement) : null;
 }
 

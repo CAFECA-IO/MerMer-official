@@ -16,7 +16,6 @@ export const ConfirmContext = createContext<IConfirmContext>(
 
 export const ConfirmContextProvider = ({ children }: IConfirmProvider) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log('state: ', state)
   return (
     <ConfirmContext.Provider value={{ confirmReducer: [state, dispatch] }}>
       {children}

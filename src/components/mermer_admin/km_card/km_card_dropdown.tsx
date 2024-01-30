@@ -43,9 +43,7 @@ export default function KmCardDropdown({ kmId, kmTitle, isPublish, setIsPublish,
   const handleDeleteOnclick = async (event: React.MouseEvent) => {
     event.stopPropagation();
 
-    console.log('I got click')
     const isConfirmed = await confirm(`Are you sure you want to delete "${kmTitle}" this article?`);
-    console.log('isConfirmed: ', isConfirmed)
 
     if (!isConfirmed) return
 

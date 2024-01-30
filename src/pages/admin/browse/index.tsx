@@ -38,7 +38,7 @@ export default function index() {
   return (
     <>
       <Head>
-        <title>MerMer Admin - Login</title>
+        <title>MerMer Admin - KM</title>
         <link rel="icon" href="/favicon/favicon.ico" />
         <link rel="canonical" href="https://mermer.com.tw/" />
       </Head>
