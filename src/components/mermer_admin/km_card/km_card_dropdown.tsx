@@ -1,53 +1,63 @@
 import React, { useState } from 'react'
 import Image from 'next/image';
 import MerMerDropdownButton from '../../mermer_button/mermer_dropdown_button'
-import MerMerButton from '../../mermer_button/mermer_button';
+import useConfirm from '../../../contexts/confirm_context/useConfirm';
 
 type Props = {
   kmId: string,
+  kmTitle: string,
   isPublish: boolean,
   setIsPublish: React.Dispatch<React.SetStateAction<boolean>>
   className?: string,
 }
 
 
-export default function KmCardDropdown({kmId, isPublish, setIsPublish, className}: Props) {
+export default function KmCardDropdown({ kmId, kmTitle, isPublish, setIsPublish, className }: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  const toggleDropdown = (event:React.MouseEvent) => {
+  const { confirm } = useConfirm();
+
+  const toggleDropdown = (event: React.MouseEvent) => {
     event.stopPropagation(); // Info (202400125) Murky card 點擊下拉選單時才可以正確點到，不會跳轉
     setIsOpen(!isOpen);
   }
-  const handlePublishOnclick = async (event:React.MouseEvent) => {
+  const handlePublishOnclick = async (event: React.MouseEvent) => {
     event.stopPropagation();
     const res = await fetch(`/api/km/${kmId}/publish`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          published: !isPublish,
-        })
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        published: !isPublish,
+      })
     });
 
-    if(!res.ok) {
+    if (!res.ok) {
       window.alert('Change Publish state faild');
       return;
     }
 
     setIsPublish(!isPublish);
-  } 
+  }
 
-  const handleDeleteOnclick = async (event:React.MouseEvent) => {
+  const handleDeleteOnclick = async (event: React.MouseEvent) => {
     event.stopPropagation();
+
+    console.log('I got click')
+    const isConfirmed = await confirm(`Are you sure you want to delete "${kmTitle}" this article?`);
+    console.log('isConfirmed: ', isConfirmed)
+
+    if (!isConfirmed) return
+
     const res = await fetch(`/api/km/${kmId}`, {
-        method: 'DELETE',
+      method: 'DELETE',
     });
 
-    if(!res.ok) {
+    if (!res.ok) {
       window.alert('Delete faild');
       return;
     }
-  } 
+  }
   return (
     <div className={`${className}`}>
       <button onClick={toggleDropdown} className='h-[44px] w-[44px] bg-darkBlue1/0 p-[7px]'>

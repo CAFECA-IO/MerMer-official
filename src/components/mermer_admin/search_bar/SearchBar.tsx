@@ -10,7 +10,7 @@ interface Props {
 export default function SearchBar({ search, setSearch }: Props) {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    event.preventDefault()
     setSearch("");
   }
 

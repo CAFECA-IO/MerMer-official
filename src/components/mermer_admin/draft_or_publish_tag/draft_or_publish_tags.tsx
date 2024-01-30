@@ -14,9 +14,10 @@ type Props = {
 export default function DraftOrPublishTags({ tagDatas, activeTag, setActiveTag }: Props) {
 
 
-  const tags = tagDatas.map(tagData => {
+  const tags = tagDatas.map((tagData, index) => {
     return (
       <DraftOrPublishTag
+        key={index}
         tagName={tagData.tagName}
         amount={tagData.amount}
         activeTag={activeTag}
