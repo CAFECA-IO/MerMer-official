@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import DraftOrPublishTag from './draft_or_publish_tag';
 
 export type tagData = {
@@ -28,7 +28,7 @@ export default function DraftOrPublishTags({ tagDatas, activeTag, setActiveTag }
 
 
   return (
-    <div className='flex justify-center items-center gap-6'>
+    <div className='flex items-center justify-center gap-6'>
       {tags}
     </div>
   );

@@ -3,6 +3,7 @@ import { Code, ICode, Reason } from "../constants/code";
 export interface IResult {
   success: boolean;
   code: ICode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: any;
   reason?: string;
 }

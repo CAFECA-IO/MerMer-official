@@ -43,15 +43,15 @@ export default function index() {
         <link rel="canonical" href="https://mermer.com.tw/" />
       </Head>
       <Layout>
-        <div className='flex flex-col gap-6 px-10 py-6 font-Dosis max-w-[1024px]'>
+        <div className='flex max-w-[1024px] flex-col gap-6 px-10 py-6 font-Dosis'>
           <h4 className='m-0 p-0 text-2xl font-bold'>Knowledge Management</h4>
           <div className='flex w-full justify-between'>
             <DraftOrPublishTags tagDatas={tagDatas} activeTag={activeTag} setActiveTag={setActiveTag} />
             <SearchBar search={search} setSearch={setSearch} />
           </div>
-          <div className='flex w-full justify-between items-center'>
+          <div className='flex w-full items-center justify-between'>
             <span>{tagDatas.find(tagData => tagData.tagName === activeTag)?.amount} Articles</span>
-            <MerMerButton className='h-[44px] w-[44px] flex justify-center items-center rounded-full'>
+            <MerMerButton className='flex h-[44px] w-[44px] items-center justify-center rounded-full'>
               <Image
                 src="/elements/plus.svg"
                 width={16}

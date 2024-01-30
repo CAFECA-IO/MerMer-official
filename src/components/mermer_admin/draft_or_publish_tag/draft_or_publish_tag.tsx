@@ -36,8 +36,8 @@ export default function DraftOrPublishTag({ tagName, amount, activeTag, setActiv
         `}>
           {tagName}
         </span>
-        <span className={`
-          h-[18px] leading-[19.6px] flex justify-center items-center w-[18px] text-xxs font-bold rounded-full px-[5.5px] py-[0.5px] text-darkBlue3 bg-lightWhite1
+        <span className={` 
+          flex h-[18px] w-[18px] items-center justify-center rounded-full bg-lightWhite1 px-[5.5px] py-[0.5px] text-xxs font-bold leading-[19.6px] text-darkBlue3
           ${activeTag === tagName
             ? 'font-bold'
             : 'bg-lightWhite1 group-hover:bg-lightBlue1'

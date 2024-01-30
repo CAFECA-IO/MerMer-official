@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import {MERURL} from '../../../constants/url';
+import { MERURL } from '../../../constants/url';
 import { merMerAdminConfig } from '../../../constants/config';
 import { NextRouter, useRouter } from 'next/router';
 import NavItem from './nav_item';
@@ -12,36 +12,7 @@ type Props = {
   className?: string
 }
 
-
-async function fetchUserProfile(router: NextRouter) {
-  const userProfile = {
-    userName: 'Not Found',
-    userAvatar: merMerAdminConfig.defaultUserAvatarUrl
-  }
-
-  const deWT = getCookieByName('DeWT');
-  const res = await fetch('/api/users/profile', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json'
-    },
-    body: JSON.stringify({
-      deWT
-    })
-  });
-
-  if (!res.ok) userProfile;
-  
-  const userData = await res.json();
-  if (userData?.success && userData?.data) {
-    const userDataLanguage = getUserDataLanguageName(router);
-    userProfile.userName = userData.data[userDataLanguage].name;
-    userProfile.userAvatar = userData.data.avatar;
-  }
-  return userProfile;
-} 
-
-export default function Navbar({className}: Props) {
+export default function Navbar({ className }: Props) {
   const navItems = [
     { iconSrc: '/elements/star2.svg', tagName: 'Dashboard', activeUrl: merMerAdminConfig.dashboardPageUrl },
     { iconSrc: '/elements/Group17.svg', tagName: 'Knowledge Management', activeUrl: merMerAdminConfig.browsePageUrl },
@@ -80,7 +51,7 @@ export default function Navbar({className}: Props) {
     }
 
     fetchUserProfile();
-  }, [router]); 
+  }, [router]);
 
   const handleClick = (url: string) => {
     router.push(url)
@@ -89,15 +60,15 @@ export default function Navbar({className}: Props) {
 
   const navItemsDiv = (
     <div className='flex w-full flex-col gap-2'>
-    {navItems.map((item) => (
-      <NavItem
-        key={item.activeUrl}
-        iconSrc={item.iconSrc}
-        tagName={item.tagName}
-        activeUrl={item.activeUrl}
-        clickHandler={() => handleClick(item.activeUrl)}
-      />
-    ))}
+      {navItems.map((item) => (
+        <NavItem
+          key={item.activeUrl}
+          iconSrc={item.iconSrc}
+          tagName={item.tagName}
+          activeUrl={item.activeUrl}
+          clickHandler={() => handleClick(item.activeUrl)}
+        />
+      ))}
     </div>
   );
   return (
@@ -108,10 +79,10 @@ export default function Navbar({className}: Props) {
           alt="MerMer_logo"
           width={0}
           height={0}
-          style={{width: '192px', height: 'auto'}}
+          style={{ width: '192px', height: 'auto' }}
         />
       </Link>
-      <NavUserProfile userProfile={userProfile}/>
+      <NavUserProfile userProfile={userProfile} />
       {navItemsDiv}
     </div>
   )

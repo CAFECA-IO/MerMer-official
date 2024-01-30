@@ -21,7 +21,7 @@ export default function useConfirm() {
     // Info (20240130) Murky: 用Promise的方法，把 resolve綁到 resolveCallback
     // 當onConfirm和 onCancel輸入 true 和 false 的時候都會resolve
     // 並回傳 true/false 到 hook 外面變成 isConfirmed
-    return new Promise((resolve, rejected) => {
+    return new Promise((resolve) => {
       resolveCallback = resolve;
     });
   }

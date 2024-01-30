@@ -11,7 +11,12 @@ export interface IConfirmProvider {
   children: React.ReactNode;
 }
 export const ConfirmContext = createContext<IConfirmContext>(
-  { confirmReducer: [initialState, (value: Action) => { }] }
+  {
+    confirmReducer: [initialState, (value: Action) => {
+      value
+      return
+    }]
+  }
 );
 
 export const ConfirmContextProvider = ({ children }: IConfirmProvider) => {

@@ -2,31 +2,29 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image';
 import { createPortal } from 'react-dom';
 import useConfirm from '../../../contexts/confirm_context/useConfirm';
-interface IConfirmAlert {
-}
-
 // Referece
 // https://devrecipes.net/custom-confirm-dialog-with-react-hooks-and-the-context-api/
 
-export default function ConfirmAlert({
-}: IConfirmAlert) {
+export default function ConfirmAlert({ }) {
 
   const { onConfirm, onCancel, confirmState } = useConfirm();
   const [portalElement, setPortalElement] = useState<HTMLElement | null>(null);
+
+
+  // 確保只在客戶端訪問 document
   useEffect(() => {
-    // 確保只在客戶端訪問 document
     if (typeof window !== 'undefined') {
       setPortalElement(document.getElementById('portal'));
     }
   }, []);
   const isDisplayedCautionModal = confirmState.show ? (
 
-    <div className="w-screen h-screen fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-darkBlue3/0 outline-none backdrop-blur-sm focus:outline-none">
+    <div className="fixed inset-0 z-50 flex h-screen w-screen items-center justify-center overflow-y-auto overflow-x-hidden bg-darkBlue3/0 outline-none backdrop-blur-sm focus:outline-none">
       <div
-        className='font-Dosis rounded-[10px] text-[14px] w-[269px]  text-lightWhite1 p-4 pt-5 bg-mermerTheme flex flex-col justify-center items-center gap-4'
+        className='flex w-[269px] flex-col items-center  justify-center gap-4 rounded-[10px] bg-mermerTheme p-4 pt-5 font-Dosis text-[14px] text-lightWhite1'
       >
         <div className='flex flex-col gap-[10px]'>
-          <div className='flex justify-center items-center gap-2'>
+          <div className='flex items-center justify-center gap-2'>
             <Image
               src='/elements/caution.svg'
               width={24}
@@ -42,7 +40,7 @@ export default function ConfirmAlert({
         <div className='flex gap-2'>
           <button
             onClick={onCancel}
-            className='bg-darkBlue3 rounded-[5px] w-[110px] h-auto flex justify-center items-center px-[7px] py-[6px]'
+            className='flex h-auto w-[110px] items-center justify-center rounded-[5px] bg-darkBlue3 px-[7px] py-[6px]'
           >
             <span className="font-bold text-lightWhite1">
               Cancel
@@ -50,7 +48,7 @@ export default function ConfirmAlert({
           </button>
           <button
             onClick={onConfirm}
-            className='bg-lightBlue1 rounded-[5px] w-[110px] h-auto flex justify-center items-center px-[7px] py-[6px]'
+            className='flex h-auto w-[110px] items-center justify-center rounded-[5px] bg-lightBlue1 px-[7px] py-[6px]'
           >
             <span className="font-bold text-darkBlue2">
               Yes
