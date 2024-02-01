@@ -12,10 +12,12 @@ import {
   type MDXEditorProps,
   toolbarPlugin,
   linkDialogPlugin,
+  imagePlugin,
 } from '@mdxeditor/editor'
 import ToolbarContents from './toolbar_contents'
 // eslint-disable-next-line import/no-unresolved
 import '@mdxeditor/editor/style.css'
+import { imageUploadHandler } from './imageUploadHandler'
 
 // Only import this to the next file
 export default function InitializedMDXEditor({
@@ -40,6 +42,9 @@ export default function InitializedMDXEditor({
           toolbarContents: () => (
             <ToolbarContents />
           )
+        }),
+        imagePlugin({
+          imageUploadHandler: imageUploadHandler
         })
       ]}
 

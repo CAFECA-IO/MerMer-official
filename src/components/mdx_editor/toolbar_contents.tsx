@@ -6,6 +6,7 @@ import {
   BlockTypeSelect,
   CodeToggle,
   CreateLink,
+  InsertImage,
 } from '@mdxeditor/editor'
 
 
@@ -13,7 +14,7 @@ import {
 
 export default function ToolbarContents() {
   return (
-    <div className='flex w-[944px] items-center justify-center'>
+    <div className='flex w-full items-center justify-center'>
       <UndoRedo />
       <Separator />
       <BoldItalicUnderlineToggles />
@@ -22,6 +23,7 @@ export default function ToolbarContents() {
       <CreateLink />
       <Separator />
       <BlockTypeSelect />
+      <InsertImage />
       {/* <ChangeCodeMirrorLanguage /> */}
     </div>
   )
