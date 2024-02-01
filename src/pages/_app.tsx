@@ -1,4 +1,5 @@
 import '../styles/globals.css';
+import '../styles/Mdx_Dark_Editor.css';
 import type { AppProps } from 'next/app';
 import { appWithTranslation } from 'next-i18next';
 import { UserProvider } from '../contexts/user_context';

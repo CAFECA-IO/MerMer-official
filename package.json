@@ -27,7 +27,9 @@
   "dependencies": {
     "@cafeca/keccak": "^0.8.8",
     "@cafeca/lunar": "^0.5.15",
+    "@mdxeditor/editor": "^2.5.1",
     "@prisma/client": "^5.8.1",
+    "@radix-ui/colors": "^3.0.0",
     "@types/marked": "^5.0.1",
     "@uploadthing/react": "^6.1.0",
     "dotenv-cli": "^7.3.0",
@@ -48,6 +50,7 @@
     "uploadthing": "^6.1.1"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
     "@types/jest": "^29.5.2",
     "@types/node": "20.3.1",
     "@types/react": "18.2.14",
