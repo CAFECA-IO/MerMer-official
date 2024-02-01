@@ -44,7 +44,7 @@ export default function InitializedMDXEditor({
       ]}
 
       // eslint-disable-next-line tailwindcss/no-custom-classname
-      className={`dark-theme dark-editor ${className}`}
+      className={`dark-editor dark-theme ${className}`}
       contentEditableClassName="prose prose-sm prose-slate prose-invert"
       {...restProp}
       ref={editorRef}
