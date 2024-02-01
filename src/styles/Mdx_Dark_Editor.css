@@ -50,3 +50,7 @@
   --basePageBg: var(--iris-1);
   background: var(--basePageBg);
 }
+
+div[data-radix-popper-content-wrapper] {
+  z-index: 9999 !important;
+}

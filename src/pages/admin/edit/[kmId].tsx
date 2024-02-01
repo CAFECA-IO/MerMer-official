@@ -21,7 +21,7 @@ export default function KmEdit({ }) {
         <link rel="canonical" href="https://mermer.com.tw/" />
       </Head>
       <Layout>
-        <div className="flex w-[1024px] flex-col items-start justify-center gap-6 px-10 py-6">
+        <div className="flex w-full flex-col items-start justify-center gap-6 px-10 py-6">
           <div className="flex flex-col gap-6">{kmId}</div>
           {/* MDX editor */}
           <button onClick={() => editorRef.current?.setMarkdown('new markdown')}>Set new markdown</button>
