@@ -81,7 +81,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 
       const buffer = await fs.readFile(image[0].filepath);
-      const uuidFileName = uuidv4() + `_${imageName[0]}`;
+      const uuidFileName = uuidv4() + `${path.extname(imageName[0])}`;
       const saveFiledUrl = path.join(imageSavesUrl[0], uuidFileName)
 
       await fs.writeFile(path.join(process.cwd(), saveFiledUrl), buffer);
