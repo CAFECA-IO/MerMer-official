@@ -235,7 +235,10 @@
     "SHIRLEY_INTRO": "「最近想买个萤幕，来去无印良品逛逛好了」是这样思路的一个人。 ",
     "STEVE_NAME": "Steve",
     "STEVE_JOBTITLE": "品酒师",
-    "STEVE_INTRO": "因为喝太多酒所以记忆很差，连自己名字都忘记了，唯独不爱喝雪利酒"
+    "STEVE_INTRO": "因为喝太多酒所以记忆很差，连自己名字都忘记了，唯独不爱喝雪利酒",
+    "LIZ_NAME": "Liz",
+    "LIZ_JOBTITLE": "软体工程师",
+    "LIZ_INTRO": "喜欢冷笑话和搜集迷因。有点社交焦虑。在 MBTI 中连续多年的测试结果为 ISTP。最爱的活动是坐在沙发上和好朋友玩电动一整天。"
   },
   "WALLET_PANEL": {
     "TITLE": "连接钱包",
