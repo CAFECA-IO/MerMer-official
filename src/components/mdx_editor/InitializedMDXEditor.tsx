@@ -18,6 +18,7 @@ import ToolbarContents from './toolbar_contents'
 // eslint-disable-next-line import/no-unresolved
 import '@mdxeditor/editor/style.css'
 import { imageUploadHandler } from './imageUploadHandler'
+import React from 'react'
 
 // Only import this to the next file
 export default function InitializedMDXEditor({

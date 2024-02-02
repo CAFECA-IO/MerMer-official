@@ -1,10 +1,11 @@
+import { merMerAdminConfig } from "../../constants/config"
 export async function imageUploadHandler(image: File) {
   const formData = new FormData()
   formData.append('image', image)
-  // formData.append('imageName', image.name)
+  formData.append('imageName', image.name)
+  formData.append('imageSavedUrl', merMerAdminConfig.kmImageStoreInPublicUrl)
   // send the file to your server and return
   // the URL of the uploaded image in the response
-  console.log('bbbbbbbbbbbbbbbb')
   const response = await fetch('/api/upload/image', {
     method: 'POST',
     body: formData

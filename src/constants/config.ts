@@ -122,4 +122,6 @@ export const merMerAdminConfig = {
   browsePageUrl: '/admin/browse',
   editPageUrl: '/admin/edit',
   defaultUserAvatarUrl: '/profiles/default_profile.png',
+  formidableUploadUrl: '/public/temp',
+  kmImageStoreInPublicUrl: '/public/km'
 }
