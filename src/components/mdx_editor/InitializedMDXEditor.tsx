@@ -1,6 +1,6 @@
 'use client'
 // InitializedMDXEditor.tsx
-import type { ForwardedRef } from 'react'
+import type { ForwardedRef } from 'react';
 import {
   headingsPlugin,
   listsPlugin,
@@ -13,12 +13,18 @@ import {
   toolbarPlugin,
   linkDialogPlugin,
   imagePlugin,
-} from '@mdxeditor/editor'
-import ToolbarContents from './toolbar_contents'
+  tablePlugin,
+  codeBlockPlugin,
+  codeMirrorPlugin,
+  diffSourcePlugin,
+} from '@mdxeditor/editor';
+import ToolbarContents from './toolbar_contents';
 // eslint-disable-next-line import/no-unresolved
-import '@mdxeditor/editor/style.css'
-import { imageUploadHandler } from './imageUploadHandler'
-import React from 'react'
+import '@mdxeditor/editor/style.css';
+import { imageUploadHandler } from './imageUploadHandler';
+import React from 'react';
+// eslint-disable-next-line import/no-unresolved
+import { coolGlow } from 'thememirror';
 
 // Only import this to the next file
 export default function InitializedMDXEditor({
@@ -39,19 +45,23 @@ export default function InitializedMDXEditor({
         quotePlugin(),
         thematicBreakPlugin(),
         markdownShortcutPlugin(),
+        tablePlugin(),
+        imagePlugin({
+          imageUploadHandler: imageUploadHandler
+        }),
+        codeBlockPlugin({ defaultCodeBlockLanguage: 'js' }),
+        codeMirrorPlugin({ codeBlockLanguages: { js: 'JavaScript', css: 'CSS', ts: 'TypeScript', bash: 'Bash', tsx: 'tsx', jsx: 'jsx', python: 'Python' } }),
+        diffSourcePlugin({ diffMarkdown: 'An older version', viewMode: 'rich-text', codeMirrorExtensions: [coolGlow] }),
         toolbarPlugin({
           toolbarContents: () => (
             <ToolbarContents />
           )
         }),
-        imagePlugin({
-          imageUploadHandler: imageUploadHandler
-        })
       ]}
 
       // eslint-disable-next-line tailwindcss/no-custom-classname
-      className={`dark-editor dark-theme w-full ${className}`}
-      contentEditableClassName="prose prose-sm prose-slate prose-invert"
+      className={`dark-editor dark-theme w-full justify-center ${className}`}
+      contentEditableClassName="max-w-none min-h-[235px] prose prose-sm prose-slate prose-invert"
       {...restProp}
       ref={editorRef}
     />
