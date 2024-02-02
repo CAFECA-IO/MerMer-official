@@ -136,3 +136,6 @@ dist
 
 # Apple DS_Store
 .DS_Store
+
+# Public temp
+public/temp/*
