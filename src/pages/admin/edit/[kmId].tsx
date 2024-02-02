@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Layout from '../../../components/mermer_admin/layout/admin_layout';
@@ -6,6 +6,7 @@ import { ForwardRefEditor } from '../../../components/mdx_editor/ForwardRefEdito
 
 // Editor pacage
 import type { MDXEditorMethods } from '@mdxeditor/editor';
+import KmCover from '../../../components/mermer_admin/km_meta/km_cover';
 
 export default function KmEdit({ }) {
   const router = useRouter();
@@ -13,6 +14,7 @@ export default function KmEdit({ }) {
 
   // Editor ref，可以用來直接控制Ｍdx editor
   const editorRef = useRef<MDXEditorMethods>(null);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   return (
     <>
       <Head>
@@ -23,6 +25,9 @@ export default function KmEdit({ }) {
       <Layout>
         <div className="flex w-full flex-col items-start justify-center gap-6 px-10 py-6">
           <div className="flex flex-col gap-6">{kmId}</div>
+          <div id="meta-area">
+            <KmCover setSelectedImage={setSelectedImage} />
+          </div>
           {/* MDX editor, demo */}
           {/* <button onClick={() => editorRef.current?.setMarkdown('new markdown')}>Set new markdown</button>
           <button onClick={() => editorRef.current?.insertMarkdown('new markdown to insert')}>Insert new markdown</button>
