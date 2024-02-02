@@ -18,7 +18,8 @@ import {
   codeMirrorPlugin,
   diffSourcePlugin,
 } from '@mdxeditor/editor';
-import ToolbarContents from './toolbar_contents';
+
+import ToolbarContents from './toolbar_contents'
 // eslint-disable-next-line import/no-unresolved
 import '@mdxeditor/editor/style.css';
 import { imageUploadHandler } from './imageUploadHandler';

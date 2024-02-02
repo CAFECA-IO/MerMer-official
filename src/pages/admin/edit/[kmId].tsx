@@ -23,11 +23,11 @@ export default function KmEdit({ }) {
       <Layout>
         <div className="flex w-full flex-col items-start justify-center gap-6 px-10 py-6">
           <div className="flex flex-col gap-6">{kmId}</div>
-          {/* MDX editor */}
-          <button onClick={() => editorRef.current?.setMarkdown('new markdown')}>Set new markdown</button>
+          {/* MDX editor, demo */}
+          {/* <button onClick={() => editorRef.current?.setMarkdown('new markdown')}>Set new markdown</button>
           <button onClick={() => editorRef.current?.insertMarkdown('new markdown to insert')}>Insert new markdown</button>
 
-          <button onClick={() => console.log(editorRef.current?.getMarkdown())}>Get markdown</button>
+          <button onClick={() => console.log(editorRef.current?.getMarkdown())}>Get markdown</button> */}
           <ForwardRefEditor className='' markdown='Hellow' ref={editorRef} />
         </div>
       </Layout>
