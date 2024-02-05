@@ -17,7 +17,7 @@ export default function KmCover({ setSelectedImage }: Props) {
   };
 
   return (
-    <div className="flex h-[189px] w-[230px] items-center justify-center gap-24 rounded-[4px] bg-mermerTheme">
+    <div className="flex h-[189px] w-[230px] shrink-0 items-center justify-center gap-24 rounded-[4px] bg-mermerTheme">
       <input
         type="file"
         accept="image/*"
