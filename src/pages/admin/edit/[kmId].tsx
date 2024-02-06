@@ -7,6 +7,7 @@ import { ForwardRefEditor } from '../../../components/mdx_editor/ForwardRefEdito
 // Editor pacage
 import type { MDXEditorMethods } from '@mdxeditor/editor';
 import KmMeta from '../../../components/mermer_admin/km_meta/km_meta';
+import Tags from '../../../components/mermer_admin/tags/tags';
 
 export default function KmEdit({ }) {
   const router = useRouter();
@@ -28,7 +29,7 @@ export default function KmEdit({ }) {
         <link rel="canonical" href="https://mermer.com.tw/" />
       </Head>
       <Layout>
-        <div className="flex w-full flex-col items-start justify-center gap-6 px-10 py-6">
+        <div className="flex size-full flex-col items-start justify-center gap-6 px-10 py-6">
           <div className="flex flex-col gap-6">{kmId}</div>
           <KmMeta
             setSelectedImage={setSelectedImage}
@@ -37,6 +38,7 @@ export default function KmEdit({ }) {
             selectedKmTopic={selectedKmTopic}
             setSeletedKmTopic={setSeletedKmTopi}
           />
+          <Tags />
           {/* MDX editor, demo */}
           {/* <button onClick={() => editorRef.current?.setMarkdown('new markdown')}>Set new markdown</button>
           <button onClick={() => editorRef.current?.insertMarkdown('new markdown to insert')}>Insert new markdown</button>
