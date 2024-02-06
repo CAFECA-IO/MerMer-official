@@ -61,8 +61,8 @@ export default function InitializedMDXEditor({
       ]}
 
       // eslint-disable-next-line tailwindcss/no-custom-classname
-      className={`dark-editor dark-theme w-full justify-center ${className}`}
-      contentEditableClassName="max-w-none min-h-[235px] prose prose-sm prose-slate prose-invert"
+      className={`dark-editor dark-theme size-full justify-center ${className}`}
+      contentEditableClassName="max-w-none min-h-[235px] h-full prose prose-sm prose-slate prose-invert"
       {...restProp}
       ref={editorRef}
     />
