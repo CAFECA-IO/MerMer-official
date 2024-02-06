@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import type { Category } from '@prisma/client';
-import TagsList from './tags_list';
 import TagsInputField from './tags_input_field';
 
 type TestTag = {

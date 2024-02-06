@@ -69,6 +69,7 @@ export default function TagsInputField({
         setTags((prev) => [...prev, createOption(inputValue)]);
         setInputValue('');
 
+        // eslint-disable-next-line no-console
         console.log('handleKeyDown', tags)
         event.preventDefault();
     }
@@ -83,6 +84,7 @@ export default function TagsInputField({
       return newValue
     })
     setTags(newTags)
+    // eslint-disable-next-line no-console
     console.log('OnChange', newTags)
   };
 
