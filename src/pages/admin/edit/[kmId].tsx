@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Layout from '../../../components/mermer_admin/layout/admin_layout';
@@ -8,6 +8,9 @@ import { ForwardRefEditor } from '../../../components/mdx_editor/ForwardRefEdito
 import type { MDXEditorMethods } from '@mdxeditor/editor';
 import KmMeta from '../../../components/mermer_admin/km_meta/km_meta';
 import Tags from '../../../components/mermer_admin/tags/tags';
+
+// Test alert
+import { useAlerts } from '../../../contexts/alert_context';
 
 export default function KmEdit({ }) {
   const router = useRouter();
@@ -21,6 +24,19 @@ export default function KmEdit({ }) {
   const [kmTitle, setKmTitle] = useState<string>('');
   const [selectedKmTopic, setSeletedKmTopi] = useState<string>('');
 
+  // Test Alert
+  const { addAlert, clearAlerts } = useAlerts();
+  const handleOnclickAlert = () => {
+    addAlert({
+      severity: 'success', message: '成功訊息', timeout: 3000, handleDismiss: () => {
+        setTimeout(() => {
+          clearAlerts();
+        }, 2000);
+      }
+    });
+  };
+
+
   return (
     <>
       <Head>
@@ -30,7 +46,9 @@ export default function KmEdit({ }) {
       </Head>
       <Layout>
         <div className="flex size-full flex-col items-start justify-center gap-6 px-10 py-6">
-          <div className="flex flex-col gap-6">{kmId}</div>
+          <div className="flex flex-col gap-6">
+            <button onClick={handleOnclickAlert}>Test Alert</button>
+          </div>
           <KmMeta
             setSelectedImage={setSelectedImage}
             kmTitle={kmTitle}
