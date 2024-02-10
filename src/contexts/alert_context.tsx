@@ -14,7 +14,6 @@ import { Alert, AlertsWrapper, IAlert } from "../components/mermer_admin/alert/a
 // 將 serverity = 'success'| 'error, message = '錯誤訊息', timeout = 到期時間 放入addAlert, handleDismiss可以決定timeout之後要做什麼事，不提供就會在timeout後alert自己消失
 // addAlert({ severity, message, timeout });
 
-// 用 useEffect 清除所有alert
 
 // 範例如下，要展現收回去的動畫，要用setTimeout之後再 clearAlerts
 // Test Alert
