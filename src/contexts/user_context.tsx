@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext} from 'react'
+import React, { createContext, useCallback, useContext } from 'react'
 import useState from 'react-usestateref';
 import { IUserContext } from '../interfaces/user_context';
 import { IResult, defaultResultFailed } from '../interfaces/result';
@@ -7,17 +7,15 @@ import { CustomError } from '../lib/custom_error';
 import Lunar from '@cafeca/lunar';
 import { User } from '@prisma/client';
 import { getCookieByName, getServiceTermContract, rlpEncodeServiceTerm } from '../lib/common';
-import { KmEvent } from '../constants/km_event';
-import { NotificationContext } from './notification_context';
 import { iDeWTDecode } from '../interfaces/deWT';
 
 export interface IUserProvider {
   children: React.ReactNode;
 }
 
-export const UserContext = createContext<IUserContext>( {
+export const UserContext = createContext<IUserContext>({
   isConnected: false,
-  connect: (): Promise<IResult> => { 
+  connect: (): Promise<IResult> => {
     throw new CustomError(Code.FUNCTION_NOT_IMPLEMENTED);
   },
   signServiceTerm: (): Promise<IResult> => {
@@ -25,10 +23,9 @@ export const UserContext = createContext<IUserContext>( {
   },
 })
 
-export const UserProvider = ({children}: IUserProvider) => {
+export const UserProvider = ({ children }: IUserProvider) => {
   // Info (20240121) Murky - this is Singleton
   const lunar = Lunar.getInstance();
-  const notificationCtx = useContext(NotificationContext);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [user, setUser, userRef] = useState<User | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -46,19 +43,18 @@ export const UserProvider = ({children}: IUserProvider) => {
     // setOpenedCFDs([]);
     // setClosedCFDs([]);
     // setFavoriteTickers([]);
-    notificationCtx.emitter.emit(KmEvent.DISCONNECTED);
   }, []);
-  const connect = useCallback(async(): Promise<IResult> => {
-    let result:IResult = { ...defaultResultFailed };
+  const connect = useCallback(async (): Promise<IResult> => {
+    let result: IResult = { ...defaultResultFailed };
     let resultCode = Code.UNKNOWN_ERROR;
 
     try {
       result.code = Code.WALLET_IS_NOT_CONNECT;
       const connect = await lunar.connect({});
       setIsConnected(connect);
-      if(connect && lunar.isConnected) {
-        if(!userRef.current) {
-          const {isDeWTLegit, signer, deWT} = await checkDeWT();
+      if (connect && lunar.isConnected) {
+        if (!userRef.current) {
+          const { isDeWTLegit, signer, deWT } = await checkDeWT();
           if (isDeWTLegit && signer && deWT) await setPrivateData(signer, deWT);
         }
         resultCode = Code.SUCCESS;
@@ -68,11 +64,11 @@ export const UserProvider = ({children}: IUserProvider) => {
         };
       }
 
-    } catch(e) {
+    } catch (e) {
       result.code = resultCode;
       result.reason = Reason[resultCode];
     }
-    
+
     return result;
   }, []);
 
@@ -88,7 +84,7 @@ export const UserProvider = ({children}: IUserProvider) => {
     const res = await fetch('/api/auth/checkDeWT', {
       method: 'POST',
       headers: {
-          'Content-type': 'application/json',
+        'Content-type': 'application/json',
       },
       body: JSON.stringify({
         deWT,
@@ -100,7 +96,7 @@ export const UserProvider = ({children}: IUserProvider) => {
       isDeWTLegit = result.isDeWTLegit
       signer = result.signer
     }
-    return {isDeWTLegit, signer, deWT};
+    return { isDeWTLegit, signer, deWT };
   }, []);
 
   const login = useCallback(async (): Promise<{
@@ -113,7 +109,7 @@ export const UserProvider = ({children}: IUserProvider) => {
     const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: {
-          'Content-type': 'application/json',
+        'Content-type': 'application/json',
       },
       body: JSON.stringify({
         deWT
@@ -140,7 +136,7 @@ export const UserProvider = ({children}: IUserProvider) => {
     result = await deWTLogin(address, deWT);
     if (result.success) {
       const user: User = result.data.user;
-      const expiredAt:string = result.data.deWTDecode.expiredAt
+      const expiredAt: string = result.data.deWTDecode.expiredAt
 
       const expiredAtDate = new Date(expiredAt);
       // Deprecate: [debug] (20230524 - tzuhan)
@@ -162,9 +158,9 @@ export const UserProvider = ({children}: IUserProvider) => {
   }, []);
 
   const deWTLogin = useCallback(async (address: string, deWT: string) => {
-    const result: IResult = {...defaultResultFailed};
+    const result: IResult = { ...defaultResultFailed };
     // 先 checkDeWT 是否legit後，再去呼叫User
-    const {isDeWTLegit} = await checkDeWT();
+    const { isDeWTLegit } = await checkDeWT();
     if (address && deWT && isDeWTLegit) {
       // Info postDeWT and get User data
       try {
@@ -185,7 +181,7 @@ export const UserProvider = ({children}: IUserProvider) => {
   const signServiceTerm = useCallback(async (): Promise<IResult> => {
     let eip712signature: string;
     let resultCode = Code.UNKNOWN_ERROR;
-    let result: IResult = {...defaultResultFailed, code: resultCode, reason: Reason[resultCode]};
+    let result: IResult = { ...defaultResultFailed, code: resultCode, reason: Reason[resultCode] };
 
     try {
       if (lunar.isConnected) {
