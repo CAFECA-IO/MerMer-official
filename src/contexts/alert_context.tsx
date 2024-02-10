@@ -15,13 +15,20 @@ import { Alert, AlertsWrapper, IAlert } from "../components/mermer_admin/alert/a
 // addAlert({ severity, message, timeout });
 
 // 用 useEffect 清除所有alert
-// clear alerts when this component unmounts.
-// useEffect(() => {
-//   return () => {
-//     clearAlerts();
-//   };
-//   // eslint-disable-next-line react-hooks/exhaustive-deps
-// }, []);
+
+// 範例如下，要展現收回去的動畫，要用setTimeout之後再 clearAlerts
+// Test Alert
+// const { addAlert, clearAlerts } = useAlerts();
+// const handleOnclickAlert = () => {
+//   addAlert({
+//     severity: 'success', message: '成功訊息', timeout: 3000, handleDismiss: () => {
+//       setTimeout(() => {
+//         clearAlerts();
+//       }, 2000);
+//     }
+//   });
+// };
+
 
 type IAlertOmitId = Omit<IAlert, "id">
 
@@ -67,16 +74,17 @@ export default function AlertsProvider({ children }: IAlertsProvider) {
     dismissAlert,
   };
 
-  // 預設是alert會自動消失
-  const defaltHandleDissmiss = (alert: IAlert) => {
-    dismissAlert(alert.id)
-  }
+  // // 預設是alert會自動消失
+  // const defaltHandleDissmiss = (alert: IAlert) => {
+  //   dismissAlert(alert.id)
+  // }
 
   return (
     <AlertsContext.Provider value={defaltValue}>
       <AlertsWrapper>
         {alerts.map((alert) => (
-          <Alert key={alert.id} {...alert} handleDismiss={() => { defaltHandleDissmiss(alert) }} />
+          // <Alert key={alert.id} {...alert} handleDismiss={() => { defaltHandleDissmiss(alert) }} />
+          <Alert key={alert.id} {...alert} />
         ))}
       </AlertsWrapper>
       {children}

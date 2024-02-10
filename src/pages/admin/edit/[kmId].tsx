@@ -27,13 +27,15 @@ export default function KmEdit({ }) {
   // Test Alert
   const { addAlert, clearAlerts } = useAlerts();
   const handleOnclickAlert = () => {
-    addAlert({ severity: 'success', message: '成功訊息', timeout: 2000, handleDismiss: () => clearAlerts() });
+    addAlert({
+      severity: 'success', message: '成功訊息', timeout: 3000, handleDismiss: () => {
+        setTimeout(() => {
+          clearAlerts();
+        }, 2000);
+      }
+    });
   };
-  useEffect(() => {
-    return () => {
-      clearAlerts();
-    };
-  }, []);
+
 
   return (
     <>

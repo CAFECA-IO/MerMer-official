@@ -27,6 +27,7 @@
   "dependencies": {
     "@cafeca/keccak": "^0.8.8",
     "@cafeca/lunar": "^0.5.15",
+    "@headlessui/react": "^1.7.18",
     "@mdxeditor/editor": "^2.5.1",
     "@prisma/client": "^5.8.1",
     "@radix-ui/colors": "^3.0.0",
