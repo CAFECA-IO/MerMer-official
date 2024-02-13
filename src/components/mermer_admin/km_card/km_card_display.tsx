@@ -8,27 +8,6 @@ type Props = {
   activePage: number
 }
 
-// const fakeCard = [
-//   {
-//     kmId: '20220101001',
-//     title: 'The SAS interface is down, input the cross-platform capacitor so we can quantify the CSS panel!',
-//     date: new Date(),
-//     view: 3253,
-//     share: 12,
-//     cover: '/km/aaa_fix.png',
-//     published: true
-//   },
-//   {
-//     kmId: '20220101002',
-//     title: 'This is short Title',
-//     date: new Date(),
-//     view: 0,
-//     share: 0,
-//     cover: '/km/AI-ETH.jpg',
-//     published: false
-//   }
-// ]
-
 const isCardNeedToBeRender = (cardsRenderPerPage: number, activePage: number, cardIndex: number): boolean => {
   // Info Murky (20240212) activePage start from 1, cardIndex start from 0
   return cardIndex < activePage * cardsRenderPerPage && cardIndex >= (activePage - 1) * cardsRenderPerPage
