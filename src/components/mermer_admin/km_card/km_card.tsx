@@ -6,13 +6,14 @@ type Props = {
   kmId: string,
   published: boolean,
   title: string,
-  date: Date,
+  date: string,
   view: number,
   share: number,
-  cover: string,
+  cover: string | null,
 }
 
 export default function KmCard({ kmId, published, title, date, view, share, cover }: Props) {
+  const parsedDate = new Date(date)
   const router = useRouter()
 
   function handleClick() {
@@ -20,11 +21,11 @@ export default function KmCard({ kmId, published, title, date, view, share, cove
   }
   const [isPublish, setIsPublish] = useState(published)
   return (
-    <div id={kmId} data-tag={"key"} onClick={handleClick} className='relative flex h-[166px] w-[944px] cursor-pointer items-center justify-start  gap-6 rounded-[10px] border-[3px] border-darkBlue3 bg-mermerTheme p-2 hover:border-lightBlue1/100'>
+    <div id={kmId} data-tag={"key"} onClick={handleClick} className='relative flex h-[166px] w-full max-w-[944px] cursor-pointer items-center justify-start  gap-6 rounded-[10px] border-[3px] border-darkBlue3 bg-mermerTheme p-2 hover:border-lightBlue1/100'>
       <KmCardDropdown className='absolute right-2 top-[23px]' kmId={kmId} kmTitle={title} isPublish={isPublish} setIsPublish={setIsPublish} />
       <div className='relative h-[150px] w-[183px] overflow-hidden'>
         <Image
-          src={cover}
+          src={cover || '/elements/bluewaves_3.png'}
           alt="cover"
           fill={true}
         />
@@ -32,7 +33,7 @@ export default function KmCard({ kmId, published, title, date, view, share, cove
       <div className='flex w-[585px] flex-col items-start justify-center gap-[11px] font-Dosis text-lightWhite1'>
         <h2 className='text-2xl font-bold '>{title}</h2>
         <div className='flex w-full items-center justify-between text-base'>
-          <span>{[date.getFullYear(), date.getMonth() + 1, date.getDate()].join('/')}</span>
+          <span>{[parsedDate.getFullYear(), parsedDate.getMonth() + 1, parsedDate.getDate()].join('/')}</span>
           <div className={`${isPublish ? 'flex' : 'hidden'} flex items-center justify-between gap-6`}>
             <div className='flex items-center justify-center gap-2'>
               <Image

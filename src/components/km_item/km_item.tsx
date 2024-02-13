@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import {MERURL} from '../../constants/url';
-import {IAuthor} from '../../interfaces/author_data';
-import {timestampToString} from '../../lib/common';
-import {useTranslation} from 'next-i18next';
-import {TranslateFunction} from '../../interfaces/locale';
+import { MERURL } from '../../constants/url';
+import { IAuthor } from '../../interfaces/author_data';
+import { timestampToString } from '../../lib/common';
+import { useTranslation } from 'next-i18next';
+import { TranslateFunction } from '../../interfaces/locale';
 interface IKMItemProps {
   id: string;
   title: string;
@@ -15,8 +15,8 @@ interface IKMItemProps {
   date: number;
 }
 
-const KMItem = ({id, title, description, category, picture, author, date}: IKMItemProps) => {
-  const {t}: {t: TranslateFunction} = useTranslation('common');
+const KMItem = ({ id, title, description, category, picture, author, date }: IKMItemProps) => {
+  const { t }: { t: TranslateFunction } = useTranslation('common');
 
   const dateStr = timestampToString(date).date;
   const topic = category[0];
@@ -25,8 +25,8 @@ const KMItem = ({id, title, description, category, picture, author, date}: IKMIt
     <Link href={`${MERURL.AUTHOR}/${author.id}`} className="z-10">
       <div className="flex items-center space-x-4 border-t border-lightGray1 pt-4">
         {/* Info: (20230718 - Julian) Author avatar */}
-        <div className="relative flex h-48px w-48px items-center justify-center overflow-hidden rounded-full bg-lightGray2">
-          <Image src={author.avatar} fill style={{objectFit: 'cover'}} alt="author_avatar" />
+        <div className="relative flex size-48px items-center justify-center overflow-hidden rounded-full bg-lightGray2">
+          <Image src={author.avatar} fill style={{ objectFit: 'cover' }} alt="author_avatar" />
         </div>
         {/* Info: (20230718 - Julian) Author name */}
         <div className="flex flex-col">
@@ -48,7 +48,7 @@ const KMItem = ({id, title, description, category, picture, author, date}: IKMIt
       <div className="flex flex-col items-center">
         {/* Info: (20230718 - Julian) Picture */}
         <div className="relative h-200px w-260px">
-          <Image src={picture} fill style={{objectFit: 'cover'}} alt="picture" />
+          <Image src={picture} fill style={{ objectFit: 'cover' }} alt="picture" />
         </div>
         <div className="flex w-full flex-1 flex-col px-4 py-3">
           {/* Info: (20230718 - Julian) Category & Title */}
@@ -70,7 +70,7 @@ const KMItem = ({id, title, description, category, picture, author, date}: IKMIt
       </div>
 
       {/* Info: (20230719 - Julian) Link to KM Detail Page */}
-      <Link href={`${MERURL.KM}/${id}`} className="absolute left-0 top-0 h-full w-full"></Link>
+      <Link href={`${MERURL.KM}/${id}`} className="absolute left-0 top-0 size-full"></Link>
     </li>
   );
 };
