@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image';
 import Layout from '../../../components/mermer_admin/layout/admin_layout'
 import Head from 'next/head';
@@ -9,6 +9,8 @@ import { ILocale } from '../../../interfaces/locale';
 import SearchBar from '../../../components/mermer_admin/search_bar/SearchBar';
 import DraftOrPublishTags from '../../../components/mermer_admin/draft_or_publish_tag/draft_or_publish_tags';
 import MerMerButton from '../../../components/mermer_button/mermer_button';
+import { IAllKmMeta, IKmMeta } from '../../../interfaces/km';
+import useWindowDimensions from '../../../lib/hooks/use_window_dimensions';
 // type Props = {}
 
 const getStaticPropsFunction = async ({ locale }: ILocale) => ({
@@ -19,22 +21,58 @@ const getStaticPropsFunction = async ({ locale }: ILocale) => ({
 
 export const getStaticProps = getStaticPropsFunction;
 
+const getCardsDisplayPerPage = (screenHeight: number | undefined | null): number => {
+  // if (screenHeight && screenHeight >= 960) return 4
+  return 3
+}
+
 export default function index() {
+  const defaultKmAllMeta: IAllKmMeta = {
+    drafts: {
+      publishStatus: 'Drafts',
+      kmMetas: []
+    },
+    published: {
+      publishStatus: 'Published',
+      kmMetas: []
+    }
+  }
+
   const [activePage, setActivePage] = useState(1)
   const [search, setSearch] = useState("")
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { height: _, width: screenWidth } = useWindowDimensions();
+  const cardsRenderPerPage = getCardsDisplayPerPage(screenWidth);
 
-  const tagDatas = [
-    {
-      tagName: 'Drafts',
-      amount: 100,
-    },
-    {
-      tagName: 'Published',
-      amount: 5,
+  const [kmAllMeta, setKmAllMeta] = useState<IAllKmMeta>(defaultKmAllMeta)
+  const [renderedKmMeta, setRenderedKmMeta] = useState<IKmMeta[]>([])
+  const [activePublishStatus, setActivePublishStatus] = useState<'drafts' | 'published'>(Object.keys(kmAllMeta)[0] as 'drafts' | 'published');
+  useEffect(() => {
+    const fetchAllKmMeta = async () => {
+      const response = await fetch('/api/kms');
+      if (!response.ok) return null;
+      const json = await response.json();
+      setKmAllMeta(json);
+    };
+    fetchAllKmMeta();
+  }, []);
+
+  useEffect(() => {
+    if (!search) {
+      setRenderedKmMeta(kmAllMeta[activePublishStatus].kmMetas || []);
+      return;
     }
-  ];
+    const filteredKmMeta = kmAllMeta[activePublishStatus].kmMetas?.filter(km => {
+      const isRendered: boolean = (
+        km.title.toLowerCase().includes(search.toLowerCase()) ||
+        km.categories.some(category => category.name.toLowerCase().includes(search.toLowerCase())) ||
+        km.topic.name.toLowerCase().includes(search.toLowerCase())
+      )
+      return isRendered
+    });
+    setRenderedKmMeta(filteredKmMeta || []);
+  }, [search, kmAllMeta, activePublishStatus]);
 
-  const [activeTag, setActiveTag] = useState(tagDatas[0].tagName)
   return (
     <>
       <Head>
@@ -43,15 +81,17 @@ export default function index() {
         <link rel="canonical" href="https://mermer.com.tw/" />
       </Head>
       <Layout>
-        <div className='flex max-w-[1024px] flex-col gap-6 px-10 py-6 font-Dosis'>
+        <div className='flex w-[500px] flex-col gap-6 px-10 py-6 font-Dosis md:w-[640px] lg:w-[768px] xl:w-[1024px]'>
           <h4 className='m-0 p-0 text-2xl font-bold'>Knowledge Management</h4>
           <div className='flex w-full justify-between'>
-            <DraftOrPublishTags tagDatas={tagDatas} activeTag={activeTag} setActiveTag={setActiveTag} />
+            <DraftOrPublishTags kmAllMetas={kmAllMeta} activePublishStatus={activePublishStatus} setActivePublishStatus={setActivePublishStatus} />
+            {/* 最後回來改search */}
             <SearchBar search={search} setSearch={setSearch} />
           </div>
           <div className='flex w-full items-center justify-between'>
-            <span>{tagDatas.find(tagData => tagData.tagName === activeTag)?.amount} Articles</span>
-            <MerMerButton className='flex h-[44px] w-[44px] items-center justify-center rounded-full'>
+            <span>{renderedKmMeta.length} Articles</span>
+            {/* 記得幫加號新增新的文章 */}
+            <MerMerButton className='flex size-[44px] items-center justify-center rounded-full'>
               <Image
                 src="/elements/plus.svg"
                 width={16}
@@ -60,8 +100,8 @@ export default function index() {
               />
             </MerMerButton>
           </div>
-          <KmCardDisplay />
-          <Pagination activePage={activePage} setActivePage={setActivePage} totalPages={15}></Pagination>
+          <KmCardDisplay kmCards={renderedKmMeta} cardsRenderPerPage={cardsRenderPerPage} activePage={activePage} />
+          <Pagination activePage={activePage} setActivePage={setActivePage} totalPages={Math.ceil((renderedKmMeta.length) / cardsRenderPerPage)}></Pagination>
         </div>
       </Layout>
     </>

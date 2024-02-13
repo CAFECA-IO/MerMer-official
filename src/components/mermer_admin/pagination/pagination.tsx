@@ -1,7 +1,7 @@
-import {Dispatch, SetStateAction} from 'react';
-import {RiArrowLeftSLine, RiArrowRightSLine} from 'react-icons/ri';
-import {useTranslation} from 'next-i18next';
-import {TranslateFunction} from '../../../interfaces/locale';
+import { Dispatch, SetStateAction } from 'react';
+import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri';
+import { useTranslation } from 'next-i18next';
+import { TranslateFunction } from '../../../interfaces/locale';
 
 interface IPagination {
   activePage: number;
@@ -9,19 +9,19 @@ interface IPagination {
   totalPages: number;
 }
 
-const Pagination = ({activePage, setActivePage, totalPages}: IPagination) => {
-  const {t}: {t: TranslateFunction} = useTranslation('common');
+const Pagination = ({ activePage, setActivePage, totalPages }: IPagination) => {
+  const { t }: { t: TranslateFunction } = useTranslation('common');
 
-  const pagesArr = Array.from({length: totalPages}, (_, i) => i + 1);
+  const pagesArr = Array.from({ length: totalPages }, (_, i) => i + 1);
   // 判斷是否顯示某頁碼
   const shouldShowPageNumber = (page: number) => {
     // 總是顯示第一頁和最後一頁
     if (page === 1 || page === totalPages) return true;
     // 在前5頁或後5頁時顯示所有這些頁碼
-    if (activePage <= 2 ) {
+    if (activePage <= 2) {
       return page <= 5;
     }
-    if ( activePage > totalPages - 3) {
+    if (activePage > totalPages - 3) {
       return page > totalPages - 5;
     }
     // 其他情況下顯示當前頁面前後兩頁
@@ -36,11 +36,10 @@ const Pagination = ({activePage, setActivePage, totalPages}: IPagination) => {
         <li key={page} className="flex items-center">
           <button
             onClick={() => setActivePage(page)}
-            className={`flex h-40px w-40px items-center justify-center rounded-full p-4 ${
-              activePage === page
-                ? 'bg-lightBlue1 text-darkBlue4'
-                : 'text-lightWhite1 hover:bg-lightBlue1'
-            }`}
+            className={`flex size-40px items-center justify-center rounded-full p-4 ${activePage === page
+              ? 'bg-lightBlue1 text-darkBlue4'
+              : 'text-lightWhite1 hover:bg-lightBlue1'
+              }`}
           >
             {page}
           </button>
@@ -51,7 +50,7 @@ const Pagination = ({activePage, setActivePage, totalPages}: IPagination) => {
       pageBtn = (
         <li key={page} className="flex items-center">
           <div
-            className={`flex h-40px w-40px items-center justify-center rounded-full p-4 `}
+            className={`flex size-40px items-center justify-center rounded-full p-4`}
           >
             ...
           </div>

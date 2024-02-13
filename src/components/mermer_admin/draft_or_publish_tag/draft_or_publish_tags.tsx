@@ -1,27 +1,25 @@
 import React from 'react'
 import DraftOrPublishTag from './draft_or_publish_tag';
+import { IAllKmMeta } from '../../../interfaces/km';
 
-export type tagData = {
-  tagName: string,
-  amount: number
-}
 type Props = {
-  tagDatas: tagData[]
-  activeTag: string,
-  setActiveTag: React.Dispatch<React.SetStateAction<string>>
+  kmAllMetas: IAllKmMeta
+  activePublishStatus: string,
+  setActivePublishStatus: React.Dispatch<React.SetStateAction<'drafts' | 'published'>>
 }
 
-export default function DraftOrPublishTags({ tagDatas, activeTag, setActiveTag }: Props) {
+export default function DraftOrPublishTags({ kmAllMetas, activePublishStatus, setActivePublishStatus }: Props) {
 
 
-  const tags = tagDatas.map((tagData, index) => {
+
+  const tags = Object.values(kmAllMetas).map((kmDraftOrPublishMetas) => {
     return (
       <DraftOrPublishTag
-        key={index}
-        tagName={tagData.tagName}
-        amount={tagData.amount}
-        activeTag={activeTag}
-        setActiveTag={setActiveTag}
+        key={kmDraftOrPublishMetas.publishStatus}
+        tagName={kmDraftOrPublishMetas.publishStatus}
+        amount={kmDraftOrPublishMetas.kmMetas?.length || 0}
+        activePublishStatus={activePublishStatus}
+        setActivePublishStatus={setActivePublishStatus}
       />
     );
   });

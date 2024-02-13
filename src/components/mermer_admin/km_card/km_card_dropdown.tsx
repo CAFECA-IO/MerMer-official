@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image';
 import MerMerDropdownButton from '../../mermer_button/mermer_dropdown_button'
-import useConfirm from '../../../contexts/confirm_context/useConfirm';
+import useConfirm from '../../../contexts/confirm_context/use_confirm';
 
 type Props = {
   kmId: string,
@@ -58,7 +58,7 @@ export default function KmCardDropdown({ kmId, kmTitle, isPublish, setIsPublish,
   }
   return (
     <div className={`${className}`}>
-      <button onClick={toggleDropdown} className='h-[44px] w-[44px] bg-darkBlue1/0 p-[7px]'>
+      <button onClick={toggleDropdown} className='size-[44px] bg-darkBlue1/0 p-[7px]'>
         <Image
           src='/elements/more-horizontal.svg'
           height={30}

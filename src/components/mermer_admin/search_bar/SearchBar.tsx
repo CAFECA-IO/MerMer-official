@@ -16,7 +16,7 @@ export default function SearchBar({ search, setSearch }: Props) {
 
   return (
     // onSubmit={e => hanldeSubmit()}然後把滑鼠移動到e上面就可以看到type
-    <form className="flex h-[44px] w-[320px] justify-center gap-2 rounded-[41px] bg-dropDownHover px-4 py-3 md:justify-between"
+    <form className="flex h-[44px] w-full max-w-[320px] justify-center gap-2 rounded-[41px] bg-dropDownHover px-4 py-3 md:justify-between"
       onSubmit={handleSubmit}
     >
       {/* input要用動態setSearch變換值 */}

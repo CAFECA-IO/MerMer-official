@@ -1,18 +1,18 @@
 import React from 'react'
 
 type Props = {
-  tagName: string,
+  tagName: 'Drafts' | 'Published',
   amount: number,
-  activeTag: string,
-  setActiveTag: React.Dispatch<React.SetStateAction<string>>
+  activePublishStatus: string,
+  setActivePublishStatus: React.Dispatch<React.SetStateAction<'drafts' | 'published'>>
 }
 
-export default function DraftOrPublishTag({ tagName, amount, activeTag, setActiveTag }: Props) {
+export default function DraftOrPublishTag({ tagName, amount, activePublishStatus, setActivePublishStatus }: Props) {
   // const lineUrl = activeTag === tagName ? '/elements/Line_lightBlue1' : '/elements/Line_gray1'
   const displayAmount = amount > 99 ? '99+' : String(amount);
 
   const handleOnClick = () => {
-    setActiveTag(tagName);
+    setActivePublishStatus(tagName.toLowerCase() as 'drafts' | 'published');
   }
 
   return (
@@ -21,7 +21,7 @@ export default function DraftOrPublishTag({ tagName, amount, activeTag, setActiv
       onClick={handleOnClick}
       className={`
         group flex flex-col gap-2 font-Dosis
-        ${activeTag === tagName
+        ${activePublishStatus === tagName.toLowerCase()
           ? ""
           : "cursor-pointer"
         }
@@ -29,7 +29,7 @@ export default function DraftOrPublishTag({ tagName, amount, activeTag, setActiv
       <div className='flex items-center justify-center gap-1'>
         <span className={`
           text-base 
-          ${activeTag === tagName
+          ${activePublishStatus === tagName.toLowerCase()
             ? 'font-bold text-lightWhite1'
             : 'text-lightWhite1 group-hover:text-lightBlue1'
           }
@@ -37,8 +37,8 @@ export default function DraftOrPublishTag({ tagName, amount, activeTag, setActiv
           {tagName}
         </span>
         <span className={` 
-          flex h-[18px] w-[18px] items-center justify-center rounded-full bg-lightWhite1 px-[5.5px] py-[0.5px] text-xxs font-bold leading-[19.6px] text-darkBlue3
-          ${activeTag === tagName
+          flex size-[18px] items-center justify-center rounded-full bg-lightWhite1 px-[5.5px] py-[0.5px] text-xxs font-bold leading-[19.6px] text-darkBlue3
+          ${activePublishStatus === tagName.toLowerCase()
             ? 'font-bold'
             : 'bg-lightWhite1 group-hover:bg-lightBlue1'
           }
@@ -48,7 +48,7 @@ export default function DraftOrPublishTag({ tagName, amount, activeTag, setActiv
       </div>
       <div className={`
         h-[3px] w-full rounded-full
-        ${activeTag === tagName
+        ${activePublishStatus === tagName.toLowerCase()
           ? 'bg-lightBlue1'
           : 'bg-lightGray1'
         }
