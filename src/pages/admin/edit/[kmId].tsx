@@ -11,6 +11,8 @@ import Tags from '../../../components/mermer_admin/tags/tags';
 
 // Test alert
 import { useAlerts } from '../../../contexts/alert_context';
+import { IKm, IKmTag } from '../../../interfaces/km';
+import { Topic } from '@prisma/client';
 
 export default function KmEdit({ }) {
   const router = useRouter();
@@ -22,8 +24,8 @@ export default function KmEdit({ }) {
   // For KmMeta
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [kmTitle, setKmTitle] = useState<string>('');
-  const [selectedKmTopic, setSeletedKmTopi] = useState<string>('');
-
+  const [selectedKmTopic, setSeletedKmTopic] = useState<string>('');
+  const [kmTags, setKmTags] = useState<IKmTag[]>([])
   // Test Alert
   const { addAlert, clearAlerts } = useAlerts();
   const handleOnclickAlert = () => {
@@ -37,10 +39,47 @@ export default function KmEdit({ }) {
   };
 
 
-  return (
+  // Fetch km
+  const [km, setKm] = useState<IKm>();
+  useEffect(() => {
+    if (kmId) {
+      const fetchKm = async () => {
+        const response = await fetch(`/api/kms/${kmId}`);
+        if (!response.ok) return null;
+        const json = await response.json();
+        setKm(json);
+        setKmTitle(json.title);
+        setSeletedKmTopic(json.topic.name);
+        setKmTags(json.categories);
+        // read preview image
+        const imgResponse = await fetch(json.picture);
+        const imgBlob = await imgResponse.blob();
+        const imgFile = new File([imgBlob], imgBlob.name, { type: imgBlob.type });
+        setSelectedImage(imgFile);
+      };
+      fetchKm();
+    }
+  }, [kmId]);
+
+  // Fetch all topic
+  const [kmTopics, setKmTopics] = useState<Topic[]>([]);
+  useEffect(() => {
+    const fetchTopics = async () => {
+      const response = await fetch('/api/topics');
+      if (!response.ok) return;
+      const json = await response.json();
+      setKmTopics(json);
+    };
+    fetchTopics();
+  }, []);
+
+  // 如果有圖片路徑卻沒有 圖片load進來，reuturn null
+  if (km && km.picture && !selectedImage) return null;
+
+  return km && (
     <>
       <Head>
-        <title>KM Edit - {kmId}</title>
+        <title>KM Edit - {km.title}</title>
         <link rel="icon" href="/favicon/favicon.ico" />
         <link rel="canonical" href="https://mermer.com.tw/" />
       </Head>
@@ -50,19 +89,21 @@ export default function KmEdit({ }) {
             <button onClick={handleOnclickAlert}>Test Alert</button>
           </div>
           <KmMeta
+            selectedImage={selectedImage}
             setSelectedImage={setSelectedImage}
-            kmTitle={kmTitle}
+            kmTitle={km.title}
             setKmTitle={setKmTitle}
             selectedKmTopic={selectedKmTopic}
-            setSeletedKmTopic={setSeletedKmTopi}
+            setSeletedKmTopic={setSeletedKmTopic}
+            kmTopics={kmTopics}
           />
-          <Tags />
+          <Tags tags={kmTags} setTags={setKmTags} />
           {/* MDX editor, demo */}
           {/* <button onClick={() => editorRef.current?.setMarkdown('new markdown')}>Set new markdown</button>
           <button onClick={() => editorRef.current?.insertMarkdown('new markdown to insert')}>Insert new markdown</button>
 
           <button onClick={() => console.log(editorRef.current?.getMarkdown())}>Get markdown</button> */}
-          <ForwardRefEditor className='' markdown='Hellow' ref={editorRef} />
+          <ForwardRefEditor className='' markdown={km.mdFile} ref={editorRef} />
         </div>
       </Layout>
     </>

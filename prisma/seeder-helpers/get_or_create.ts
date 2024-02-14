@@ -15,12 +15,17 @@ export async function getOrCreateJobTitle(jobName: string, prisma: PrismaClient)
 
 export async function getOrCreateCategory(name: string, prisma: PrismaClient): Promise<number> {
   let category = await prisma.category.findFirst({
-    where: { name }
+    where: { 
+      label: name
+     }
   });
 
   if (!category) {
     category = await prisma.category.create({
-      data: { name }
+      data: { 
+        label: name,
+        value: name
+       }
     });
   }
 

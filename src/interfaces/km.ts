@@ -14,3 +14,12 @@ export type IAllKmMeta = {
     kmMetas?:IKmMeta[]
   },
 };
+
+export interface IKm extends Km{
+  categories?: Category[];
+  topic: Topic;
+}
+
+export interface IKmTag extends Category {
+  __isNew__?: boolean;
+}

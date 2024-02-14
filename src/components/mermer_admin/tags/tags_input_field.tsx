@@ -1,16 +1,12 @@
-import React, { Dispatch, KeyboardEventHandler, useId } from 'react';
+import React, { Dispatch, KeyboardEventHandler, useEffect, useId } from 'react';
 // eslint-disable-next-line import/named
 import { MultiValue } from 'react-select';
 import AsyncCreatableSelect from 'react-select/async-creatable';
-type TestTag = {
-  id: number,
-  value: string,
-  label: string,
-  __isNew__?: boolean,
-}
+import { IKmTag } from '../../../interfaces/km';
+
 type Props = {
-  tags: TestTag[],
-  setTags: Dispatch<React.SetStateAction<TestTag[]>>
+  tags: IKmTag[],
+  setTags: Dispatch<React.SetStateAction<IKmTag[]>>
 }
 
 export default function TagsInputField({
@@ -19,42 +15,23 @@ export default function TagsInputField({
 }: Props) {
 
   // tags 是原始文章的 tags
-  // TAGS 是後端拿到的所有 tags
+  // allTags 是後端拿到的所有 tags
 
-  // 後端好了改這裡，從後端拿資料
-
-
-  const TAGS: TestTag[] = [
-    {
-      id: 1,
-      value: "Algorithm",
-      label: "Algorithm",
-    },
-    {
-      id: 2,
-      value: "Programming",
-      label: "Programming",
-    },
-    {
-      id: 3,
-      value: "Blockchain Technology",
-      label: "Blockchain Technology",
-    },
-    {
-      id: 4,
-      value: "Smart Contract",
-      label: "Smart Contract",
-    },
-    {
-      id: 5,
-      value: "Newbie",
-      label: "Newbie",
+  const [allTags, setAllTags] = React.useState<IKmTag[]>([]);
+  useEffect(() => {
+    const fetchAllTags = async () => {
+      const response = await fetch('/api/tags');
+      if (!response.ok) return null;
+      const json = await response.json();
+      setAllTags(json);
     }
-  ]
+    fetchAllTags();
+  }, [])
+
 
   const [inputValue, setInputValue] = React.useState('');
 
-  const createOption = (label: string): TestTag => ({
+  const createOption = (label: string): IKmTag => ({
     id: -1,
     label,
     value: label,
@@ -75,7 +52,7 @@ export default function TagsInputField({
     }
   };
 
-  const handleOnChange = (newValues: MultiValue<TestTag>): void => {
+  const handleOnChange = (newValues: MultiValue<IKmTag>): void => {
     // MultiValue<TestTag> 是 readonly TestTag[]
     // setTags((prev) => [...prev, ...newValue])
 
@@ -89,13 +66,13 @@ export default function TagsInputField({
   };
 
   const filterTags = (inputValue: string) => {
-    return TAGS.filter((i) =>
+    return allTags.filter((i) =>
       i.label.toLowerCase().includes(inputValue.toLowerCase())
     );
   };
 
   const promiseOptions = (inputValue: string) =>
-    new Promise<TestTag[]>((resolve) => {
+    new Promise<IKmTag[]>((resolve) => {
       setTimeout(() => {
         resolve(filterTags(inputValue));
       }, 1000);

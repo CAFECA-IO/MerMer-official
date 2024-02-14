@@ -80,9 +80,10 @@ model Km {
 }
 
 model Category {
-  id   Int    @id @default(autoincrement())
-  name String
-  kms  Km[]
+  id    Int    @id @default(autoincrement())
+  label String
+  value String
+  kms   Km[]
 }
 
 model Topic {
