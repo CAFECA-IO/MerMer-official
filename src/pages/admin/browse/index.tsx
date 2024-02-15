@@ -58,6 +58,8 @@ export default function index() {
   useEffect(() => {
     // 把draft或publish的狀態存在localstorage
     localStorage.setItem('activePublishStatus', activePublishStatus);
+    setRenderedKmMeta(kmAllMeta[activePublishStatus].kmMetas || []);
+    setActivePage(1);
   }, [activePublishStatus]);
 
   useEffect(() => {
