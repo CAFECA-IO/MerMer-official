@@ -14,8 +14,8 @@ type Props = {
 
 export default function Navbar({ className }: Props) {
   const navItems = [
-    { iconSrc: '/elements/star2.svg', tagName: 'Dashboard', activeUrl: merMerAdminConfig.dashboardPageUrl },
-    { iconSrc: '/elements/Group17.svg', tagName: 'Knowledge Management', activeUrl: merMerAdminConfig.browsePageUrl },
+    { iconSrc: '/elements/star2.svg', tagName: 'Dashboard', activeUrls: [merMerAdminConfig.dashboardPageUrl] },
+    { iconSrc: '/elements/Group17.svg', tagName: 'Knowledge Management', activeUrls: [merMerAdminConfig.browsePageUrl, merMerAdminConfig.editPageUrl] },
     // ... other nav items
   ];
 
@@ -62,11 +62,11 @@ export default function Navbar({ className }: Props) {
     <div className='flex w-full flex-col gap-2'>
       {navItems.map((item) => (
         <NavItem
-          key={item.activeUrl}
+          key={item.tagName}
           iconSrc={item.iconSrc}
           tagName={item.tagName}
-          activeUrl={item.activeUrl}
-          clickHandler={() => handleClick(item.activeUrl)}
+          activeUrls={item.activeUrls}
+          clickHandler={() => handleClick(item.activeUrls[0])}
         />
       ))}
     </div>

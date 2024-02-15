@@ -38,7 +38,10 @@ export async function seedKm(prisma: PrismaClient): Promise<void> {
       // Info: (20240116 - Murky) create or get categories when topic already exist
       // prisma do not allow create twice when @unique constrain is used
       const categoryIds = await Promise.all(
-        km.categories.map(categoryName => getOrCreateCategory(categoryName, prisma))
+        km.categories.map(categoryName => {
+          getOrCreateTopic(categoryName, prisma);
+          return getOrCreateCategory(categoryName, prisma);
+        })
       );
       await prisma.km.upsert({
         where: {id: km.id},

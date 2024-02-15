@@ -7,23 +7,17 @@ type Props = {
   kmTitle: string,
   setKmTitle: Dispatch<SetStateAction<string>>,
   selectedImage: File | null,
-  setSelectedImage: React.Dispatch<React.SetStateAction<File | null>>,
+  setIsNewImage: Dispatch<React.SetStateAction<boolean>>,
+  setSelectedImage: Dispatch<React.SetStateAction<File | null>>,
   selectedKmTopic: string,
   setSeletedKmTopic: Dispatch<SetStateAction<string>>,
   kmTopics: Topic[],
 };
 
-const mockTopics = [
-  'Topic 1',
-  'Topic 2',
-  'Topic 3',
-  'Topic 4',
-  'Topic 5'
-]
-
 export default function KmMeta({
   kmTitle,
   setKmTitle,
+  setIsNewImage,
   setSelectedImage,
   selectedKmTopic,
   selectedImage,
@@ -33,7 +27,11 @@ export default function KmMeta({
 
   return (
     <div className="flex w-full gap-4">
-      <KmCover selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
+      <KmCover
+        selectedImage={selectedImage}
+        setSelectedImage={setSelectedImage}
+        setIsNewImage={setIsNewImage}
+      />
       <KmTitleAndTopic
         setKmTitle={setKmTitle}
         kmTitle={kmTitle}

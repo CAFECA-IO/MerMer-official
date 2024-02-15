@@ -114,6 +114,12 @@ CREATE UNIQUE INDEX "EnUserData_userId_key" ON "EnUserData"("userId");
 CREATE UNIQUE INDEX "CnUserData_userId_key" ON "CnUserData"("userId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Category_label_key" ON "Category"("label");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Topic_name_key" ON "Topic"("name");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "_CategoryToKm_AB_unique" ON "_CategoryToKm"("A", "B");
 
 -- CreateIndex

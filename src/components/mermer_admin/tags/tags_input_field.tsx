@@ -1,8 +1,9 @@
-import React, { Dispatch, KeyboardEventHandler, useEffect, useId } from 'react';
+import React, { Dispatch, KeyboardEventHandler } from 'react';
 // eslint-disable-next-line import/named
 import { MultiValue } from 'react-select';
 import AsyncCreatableSelect from 'react-select/async-creatable';
 import { IKmTag } from '../../../interfaces/km';
+import { useAlerts } from '../../../contexts/alert_context';
 
 type Props = {
   tags: IKmTag[],
@@ -14,36 +15,43 @@ export default function TagsInputField({
   setTags
 }: Props) {
 
-  // tags 是原始文章的 tags
-  // allTags 是後端拿到的所有 tags
-
-  const [allTags, setAllTags] = React.useState<IKmTag[]>([]);
-  useEffect(() => {
-    const fetchAllTags = async () => {
-      const response = await fetch('/api/tags');
-      if (!response.ok) return null;
-      const json = await response.json();
-      setAllTags(json);
-    }
-    fetchAllTags();
-  }, [])
-
+  const { addAlert, clearAlerts } = useAlerts();
 
   const [inputValue, setInputValue] = React.useState('');
 
-  const createOption = (label: string): IKmTag => ({
-    id: -1,
-    label,
-    value: label,
-    __isNew__: true,
-  });
+  const createOption = async (label: string): Promise<IKmTag | null> => {
+    const response = await fetch('/api/tags', {
+      method: 'POST',
+      body: JSON.stringify({ label }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok) {
+      addAlert({
+        severity: 'error', message: "Can't fetch tags", timeout: 3000, handleDismiss: () => {
+          setTimeout(() => {
+            clearAlerts();
+          }, 2000);
+        }
+      });
+      return null
+    }
 
-  const handleKeyDown: KeyboardEventHandler = (event) => {
+    const newTag = await response.json();
+    return newTag;
+  };
+
+  const handleKeyDown: KeyboardEventHandler = async (event) => {
     if (!inputValue) return;
     switch (event.key) {
       case 'Enter':
       case 'Tab':
-        setTags((prev) => [...prev, createOption(inputValue)]);
+        const newTag = await createOption(inputValue);
+        if (!newTag || tags.some(tag => tag.label === newTag.label)) {
+          return
+        }
+        setTags((prev) => [...prev, newTag]);
         setInputValue('');
 
         // eslint-disable-next-line no-console
@@ -52,20 +60,36 @@ export default function TagsInputField({
     }
   };
 
-  const handleOnChange = (newValues: MultiValue<IKmTag>): void => {
-    // MultiValue<TestTag> 是 readonly TestTag[]
-    // setTags((prev) => [...prev, ...newValue])
-
-    const newTags = newValues.map((newValue) => {
-      newValue.__isNew__ ? newValue.id = -1 : newValue.id = newValue.id
-      return newValue
-    })
+  const handleOnChange = async (newValues: MultiValue<IKmTag>): Promise<void> => {
+    // newValues = [...new Set(newValues)]
+    const newTags = await Promise.all(newValues.map(async (newValue) => {
+      if (newValue.__isNew__ && !tags.some(tag => tag.label === newValue.label)) {
+        const newTag = await createOption(newValue.label);
+        return newTag ? newTag : newValue
+      } else {
+        // newValue.id = newValue.id
+        return newValue
+      }
+    }));
     setTags(newTags)
+
     // eslint-disable-next-line no-console
     console.log('OnChange', newTags)
   };
 
-  const filterTags = (inputValue: string) => {
+  const filterTags = async (inputValue: string): Promise<IKmTag[]> => {
+    const response = await fetch('/api/tags');
+    if (!response.ok) {
+      addAlert({
+        severity: 'error', message: "Can't fetch tags", timeout: 3000, handleDismiss: () => {
+          setTimeout(() => {
+            clearAlerts();
+          }, 2000);
+        }
+      });
+      return []
+    }
+    const allTags: IKmTag[] = await response.json();
     return allTags.filter((i) =>
       i.label.toLowerCase().includes(inputValue.toLowerCase())
     );
@@ -73,12 +97,8 @@ export default function TagsInputField({
 
   const promiseOptions = (inputValue: string) =>
     new Promise<IKmTag[]>((resolve) => {
-      setTimeout(() => {
-        resolve(filterTags(inputValue));
-      }, 1000);
-    }
-    );
-
+      resolve(filterTags(inputValue));
+    });
 
   return (<AsyncCreatableSelect
     // id, instanceId, inputId 是為了解決 warning: Prop `id` did not match.

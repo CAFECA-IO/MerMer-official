@@ -1,9 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { IncomingForm, Files, Fields, Options } from 'formidable';
-import { merMerAdminConfig } from '../../../constants/config';
 import path from 'path';
 import { promises as fs } from 'fs';
 import { v4 as uuidv4 } from 'uuid';
+import { parseForm } from '../../../lib/parse_form_data';
 
 // Info (20240202) Murky API 範例如下：
 //要用 formData 來 Post 圖片
@@ -30,31 +29,6 @@ export const config = {
   api: {
     bodyParser: false,
   },
-};
-const options: Partial<Options> = {
-  encoding: 'utf-8',
-  uploadDir: path.join(process.cwd(), merMerAdminConfig.formidableUploadUrl),
-  keepExtensions: true,
-  maxFieldsSize: 200 * 1024 * 1024, // (200mb),
-  maxFields: 1000,
-  multiples: false,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  filter: function ({name, originalFilename, mimetype}) {
-    // keep only images
-    return !!(mimetype && mimetype.includes("image"));
-  }
-}
-// Helper function to wrap formidable's parse method in a promise
-const parseForm = (req: NextApiRequest): Promise<{ fields: Fields, files: Files<string>}> => {
-  return new Promise((resolve, reject) => {
-    const form = new IncomingForm(options);
-    form.parse(req, (err, fields, files) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve({ fields, files });
-    });
-  });
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

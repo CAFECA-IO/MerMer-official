@@ -5,14 +5,14 @@ import Image from 'next/image';
 type Props = {
   iconSrc: string,
   tagName: string,
-  activeUrl: string,
+  activeUrls: string[],
   clickHandler: () => void
 }
 
 
-export default function NavItem({iconSrc, tagName, activeUrl, clickHandler}: Props) {
+export default function NavItem({ iconSrc, tagName, activeUrls, clickHandler }: Props) {
   const router = useRouter()
-  const isActive = router.pathname === activeUrl
+  const isActive = activeUrls.some(url => router.pathname.includes(url))
   return (
     <div
       className={`flex h-[44px] w-full
@@ -27,7 +27,7 @@ export default function NavItem({iconSrc, tagName, activeUrl, clickHandler}: Pro
         alt={`${tagName} icon`}
         width={24}
         height={24}
-        style={{width: '24px', height: '24px'}}
+        style={{ width: '24px', height: '24px' }}
       />
       <span className='grow text-sm'>{tagName}</span>
     </div>

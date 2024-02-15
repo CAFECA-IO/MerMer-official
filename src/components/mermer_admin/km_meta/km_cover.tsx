@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, Dispatch } from 'react';
 import Image from 'next/image';
 type Props = {
   selectedImage: File | null,
-  setSelectedImage: React.Dispatch<React.SetStateAction<File | null>>
+  setSelectedImage: Dispatch<React.SetStateAction<File | null>>
+  setIsNewImage: Dispatch<React.SetStateAction<boolean>>
 };
 
-export default function KmCover({ selectedImage, setSelectedImage }: Props) {
+export default function KmCover({ selectedImage, setSelectedImage, setIsNewImage }: Props) {
   const [previewImage, setPreviewImage] = useState<string | null>(!!selectedImage ? URL.createObjectURL(selectedImage) : null);
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setSelectedImage(file);
       setPreviewImage(URL.createObjectURL(file));
+      setIsNewImage(true);
     }
   };
 
