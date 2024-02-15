@@ -17,6 +17,7 @@ import {
   codeBlockPlugin,
   codeMirrorPlugin,
   diffSourcePlugin,
+  linkPlugin,
 } from '@mdxeditor/editor';
 
 import ToolbarContents from './toolbar_contents'
@@ -40,6 +41,7 @@ export default function InitializedMDXEditor({
         // Example Plugin Usage
         headingsPlugin(),
         listsPlugin(),
+        linkPlugin(),
         linkDialogPlugin({
           linkAutocompleteSuggestions: ['https://mermer.com.tw/', 'https://github.com/', 'https://www.figma.com/']
         }),
@@ -51,8 +53,8 @@ export default function InitializedMDXEditor({
           imageUploadHandler: imageUploadHandler
         }),
         codeBlockPlugin({ defaultCodeBlockLanguage: 'js' }),
-        codeMirrorPlugin({ codeBlockLanguages: { js: 'JavaScript', css: 'CSS', ts: 'TypeScript', bash: 'Bash', tsx: 'tsx', jsx: 'jsx', python: 'Python' } }),
-        diffSourcePlugin({ diffMarkdown: 'An older version', viewMode: 'rich-text', codeMirrorExtensions: [coolGlow] }),
+        codeMirrorPlugin({ codeBlockLanguages: { js: 'JavaScript(js)', javascript: 'JavaScript', css: 'CSS', ts: 'TypeScript(ts)', typescript: 'TypeScript', bash: 'Bash', tsx: 'tsx', jsx: 'jsx', python: 'Python', json: 'JSON', solidity: 'Solidity' } }),
+        diffSourcePlugin({ diffMarkdown: restProp.markdown, viewMode: 'rich-text', codeMirrorExtensions: [coolGlow] }),
         toolbarPlugin({
           toolbarContents: () => (
             <ToolbarContents />

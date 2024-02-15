@@ -46,7 +46,20 @@ export default function index() {
 
   const [kmAllMeta, setKmAllMeta] = useState<IAllKmMeta>(defaultKmAllMeta)
   const [renderedKmMeta, setRenderedKmMeta] = useState<IKmMeta[]>([])
-  const [activePublishStatus, setActivePublishStatus] = useState<'drafts' | 'published'>(Object.keys(kmAllMeta)[0] as 'drafts' | 'published');
+  const [activePublishStatus, setActivePublishStatus] = useState<'drafts' | 'published'>(
+    () => {
+      // 記得上次是在draft還是published
+      if (typeof localStorage === 'undefined') return 'drafts'
+      const savedStatus = localStorage.getItem('activePublishStatus');
+      return savedStatus === 'drafts' || savedStatus === 'published' ? savedStatus : 'drafts';
+    }
+  );
+
+  useEffect(() => {
+    // 把draft或publish的狀態存在localstorage
+    localStorage.setItem('activePublishStatus', activePublishStatus);
+  }, [activePublishStatus]);
+
   useEffect(() => {
     const fetchAllKmMeta = async () => {
       const response = await fetch('/api/kms');
@@ -65,7 +78,7 @@ export default function index() {
     const filteredKmMeta = kmAllMeta[activePublishStatus].kmMetas?.filter(km => {
       const isRendered: boolean = (
         km.title.toLowerCase().includes(search.toLowerCase()) ||
-        km.categories.some(category => category.name.toLowerCase().includes(search.toLowerCase())) ||
+        km.categories.some(category => category.label.toLowerCase().includes(search.toLowerCase())) ||
         km.topic.name.toLowerCase().includes(search.toLowerCase())
       )
       return isRendered

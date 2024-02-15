@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, Dispatch } from 'react';
 import Image from 'next/image';
 type Props = {
-  // selectedImage: File,
-  setSelectedImage: React.Dispatch<React.SetStateAction<File | null>>
+  selectedImage: File | null,
+  setSelectedImage: Dispatch<React.SetStateAction<File | null>>
+  setIsNewImage: Dispatch<React.SetStateAction<boolean>>
 };
 
-export default function KmCover({ setSelectedImage }: Props) {
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
-
+export default function KmCover({ selectedImage, setSelectedImage, setIsNewImage }: Props) {
+  const [previewImage, setPreviewImage] = useState<string | null>(!!selectedImage ? URL.createObjectURL(selectedImage) : null);
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setSelectedImage(file);
       setPreviewImage(URL.createObjectURL(file));
+      setIsNewImage(true);
     }
   };
 
@@ -25,9 +26,19 @@ export default function KmCover({ setSelectedImage }: Props) {
         className="hidden"
         id="cover-upload"
       />
-      <label htmlFor="cover-upload" className="flex size-full cursor-pointer items-center justify-center">
+      <label htmlFor="cover-upload" className="relative flex size-full cursor-pointer items-center justify-center">
         {previewImage ? (
-          <img src={previewImage} alt="Cover Preview" className="size-full object-cover" />
+          <>
+            <img src={previewImage} alt="Cover Preview" className="size-full object-cover" />
+            <div className='absolute bottom-1 right-1 flex size-[44px] items-center justify-center rounded-full bg-mermerTheme shadow-drop'>
+              <Image
+                src="/elements/pen.svg"
+                height={24}
+                width={24}
+                alt='pen'
+              />
+            </div>
+          </>
         ) : (
           <Image
             src="/elements/camera.svg"

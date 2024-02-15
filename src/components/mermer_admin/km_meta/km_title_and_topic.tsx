@@ -1,3 +1,4 @@
+import { Topic } from '@prisma/client';
 import React, { Dispatch, SetStateAction } from 'react';
 
 type Props = {
@@ -5,7 +6,7 @@ type Props = {
   setKmTitle: Dispatch<SetStateAction<string>>,
   selectedKmTopic: string,
   setSeletedKmTopic: Dispatch<SetStateAction<string>>,
-  kmTopics: string[]
+  kmTopics: Topic[]
 };
 
 export default function KmTitleAndTopic({
@@ -63,9 +64,9 @@ export default function KmTitleAndTopic({
           onChange={handleTopicSelectChange}
         >
           <option value="" disabled className='text-lightGray1'>Main Topic</option>
-          {kmTopics.map((topic, index) => (
-            <option key={index} value={topic}>
-              {topic}
+          {kmTopics.map((topic) => (
+            <option key={topic.id} value={topic.name}>
+              {topic.name}
             </option>
           ))}
         </select>
