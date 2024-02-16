@@ -238,7 +238,10 @@
     "STEVE_INTRO": "因为喝太多酒所以记忆很差，连自己名字都忘记了，唯独不爱喝雪利酒",
     "LIZ_NAME": "Liz",
     "LIZ_JOBTITLE": "软体工程师",
-    "LIZ_INTRO": "喜欢冷笑话和搜集迷因。有点社交焦虑。在 MBTI 中连续多年的测试结果为 ISTP。最爱的活动是坐在沙发上和好朋友玩电动一整天。"
+    "LIZ_INTRO": "喜欢冷笑话和搜集迷因。有点社交焦虑。在 MBTI 中连续多年的测试结果为 ISTP。最爱的活动是坐在沙发上和好朋友玩电动一整天。",
+    "MURKY_NAME": "Murky",
+    "MURKY_JOBTITLE": "软件工程师",
+    "MURKY_INTRO": "想要杀死恶魔，就应该把死掉的法师偷放进恶魔的口袋里。"
   },
   "WALLET_PANEL": {
     "TITLE": "连接钱包",

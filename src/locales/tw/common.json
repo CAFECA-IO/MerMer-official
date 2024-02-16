@@ -241,7 +241,10 @@
     "YANG_INTRO": "一杯Ramos Gin Fizz，一點blues，還有無止盡的面容焦慮。喜歡到舞池跳舞，但又懶得運動。",
     "LIZ_NAME": "Liz",
     "LIZ_JOBTITLE": "軟體工程師",
-    "LIZ_INTRO": "喜歡冷笑話和蒐集迷因。有點社交焦慮。在 MBTI 中連續多年的測試結果為 ISTP。最愛的活動是坐在沙發上和好朋友玩電動一整天。"
+    "LIZ_INTRO": "喜歡冷笑話和蒐集迷因。有點社交焦慮。在 MBTI 中連續多年的測試結果為 ISTP。最愛的活動是坐在沙發上和好朋友玩電動一整天。",
+    "MURKY_NAME": "Murky",
+    "MURKY_JOBTITLE": "軟體工程師",
+    "MURKY_INTRO": "想要殺死惡魔，就應該把死掉的法師偷放進惡魔的口袋裡。"
   },
   "WALLET_PANEL": {
     "TITLE": "連接錢包",
