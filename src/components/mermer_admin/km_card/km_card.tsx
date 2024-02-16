@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { Dispatch, useState } from 'react'
 import KmCardDropdown from './km_card_dropdown'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import { IAllKmMeta } from '../../../interfaces/km'
 type Props = {
   kmId: string,
   published: boolean,
@@ -10,9 +11,11 @@ type Props = {
   view: number,
   share: number,
   cover: string | null,
+  kmAllMeta: IAllKmMeta,
+  setKmAllMeta: Dispatch<React.SetStateAction<IAllKmMeta>>,
 }
 
-export default function KmCard({ kmId, published, title, date, view, share, cover }: Props) {
+export default function KmCard({ kmId, published, title, date, view, share, cover, kmAllMeta, setKmAllMeta }: Props) {
   const parsedDate = new Date(date)
   const router = useRouter()
 
@@ -22,7 +25,15 @@ export default function KmCard({ kmId, published, title, date, view, share, cove
   const [isPublish, setIsPublish] = useState(published)
   return (
     <div id={kmId} data-tag={"key"} onClick={handleClick} className='relative flex h-[166px] w-full max-w-[944px] cursor-pointer items-center justify-start  gap-6 rounded-[10px] border-[3px] border-darkBlue3 bg-mermerTheme p-2 hover:border-lightBlue1/100'>
-      <KmCardDropdown className='absolute right-2 top-[23px]' kmId={kmId} kmTitle={title} isPublish={isPublish} setIsPublish={setIsPublish} />
+      <KmCardDropdown
+        className='absolute right-2 top-[23px]'
+        kmId={kmId}
+        kmTitle={title}
+        isPublish={isPublish}
+        setIsPublish={setIsPublish}
+        kmAllMeta={kmAllMeta}
+        setKmAllMeta={setKmAllMeta}
+      />
       <div className='relative h-[150px] w-[183px] overflow-hidden'>
         <Image
           src={cover || '/elements/bluewaves_3.png'}

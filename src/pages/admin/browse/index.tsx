@@ -68,19 +68,14 @@ export default function index() {
   const [renderedKmMeta, setRenderedKmMeta] = useState<IKmMeta[]>([])
   const [activePublishStatus, setActivePublishStatus] = useState<'drafts' | 'published'>(
     () => {
-      // 記得上次是在draft還是published
-      if (typeof localStorage === 'undefined') return 'drafts'
-      const savedStatus = localStorage.getItem('activePublishStatus');
-      return savedStatus === 'drafts' || savedStatus === 'published' ? savedStatus : 'drafts';
+      return 'drafts' as 'drafts' | 'published'
+      // 記得上次是在draft還是published, 目前有bug暫時不使用
+      // if (typeof localStorage === 'undefined') return 'drafts'
+      // const savedStatus = localStorage.getItem('activePublishStatus');
+      // if (!savedStatus) return 'drafts'
+      // return savedStatus === 'drafts' ? 'drafts' : 'published';
     }
   );
-
-  useEffect(() => {
-    // 把draft或publish的狀態存在localstorage
-    localStorage.setItem('activePublishStatus', activePublishStatus);
-    setRenderedKmMeta(kmAllMeta[activePublishStatus].kmMetas || []);
-    setActivePage(1);
-  }, [activePublishStatus]);
 
   useEffect(() => {
     const fetchAllKmMeta = async () => {
@@ -91,6 +86,14 @@ export default function index() {
     };
     fetchAllKmMeta();
   }, []);
+
+  useEffect(() => {
+    // 把draft或publish的狀態存在localstorage
+    // localStorage.setItem('activePublishStatus', activePublishStatus);
+    setRenderedKmMeta(kmAllMeta[activePublishStatus].kmMetas || []);
+    setActivePage(1);
+  }, [activePublishStatus]);
+
 
   useEffect(() => {
     if (!search) {
@@ -152,7 +155,7 @@ export default function index() {
               />
             </MerMerButton>
           </div>
-          <KmCardDisplay kmCards={renderedKmMeta} cardsRenderPerPage={cardsRenderPerPage} activePage={activePage} />
+          <KmCardDisplay kmCards={renderedKmMeta} cardsRenderPerPage={cardsRenderPerPage} activePage={activePage} kmAllMeta={kmAllMeta} setKmAllMeta={setKmAllMeta} />
           <Pagination activePage={activePage} setActivePage={setActivePage} totalPages={Math.ceil((renderedKmMeta.length) / cardsRenderPerPage)}></Pagination>
         </div>
       </Layout>
