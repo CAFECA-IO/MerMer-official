@@ -1,14 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../lib/db";
-import { changeImgTagsToSelfClosing, changeSelfClosingImgTagsToNormal } from "../../../lib/img_to_imgJSX";
-import { isIKmForSave } from "../../../interfaces/km";
-import { parseForm } from "../../../lib/parse_form_data";
+import prisma from "../../../../lib/db";
+import { changeImgTagsToSelfClosing, changeSelfClosingImgTagsToNormal } from "../../../../lib/img_to_imgJSX";
+import { isIKmForSave } from "../../../../interfaces/km";
+import { parseForm } from "../../../../lib/parse_form_data";
 import { promises as fs } from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import path from "path";
 import { File } from "formidable";
 import mime from "mime-types";
-import { merMerAdminConfig } from "../../../constants/config";
+import { merMerAdminConfig } from "../../../../constants/config";
 // 要使用formidable要先關掉bodyParsor
 export const config = {
   api: {

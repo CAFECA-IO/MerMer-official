@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { Dispatch, useState } from 'react'
 import Image from 'next/image';
 import MerMerDropdownButton from '../../mermer_button/mermer_dropdown_button'
 import useConfirm from '../../../contexts/confirm_context/use_confirm';
+import { useAlerts } from '../../../contexts/alert_context';
+import { IAllKmMeta, IKmMeta } from '../../../interfaces/km';
 
 type Props = {
   kmId: string,
@@ -9,10 +11,24 @@ type Props = {
   isPublish: boolean,
   setIsPublish: React.Dispatch<React.SetStateAction<boolean>>
   className?: string,
+  kmAllMeta: IAllKmMeta,
+  setKmAllMeta: Dispatch<React.SetStateAction<IAllKmMeta>>,
 }
 
 
-export default function KmCardDropdown({ kmId, kmTitle, isPublish, setIsPublish, className }: Props) {
+export default function KmCardDropdown({ kmId, kmTitle, isPublish, setIsPublish, kmAllMeta, setKmAllMeta, className }: Props) {
+  // Info (20240216 - Murky) Alert
+  const { addAlert, clearAlerts } = useAlerts();
+  function emitAlert(severity: 'error' | 'success', message: string) {
+    addAlert({
+      severity, message, timeout: 3000, handleDismiss: () => {
+        setTimeout(() => {
+          clearAlerts();
+        }, 2000);
+      }
+    });
+  }
+
   const [isOpen, setIsOpen] = useState(false);
   const { confirm } = useConfirm();
 
@@ -20,24 +36,64 @@ export default function KmCardDropdown({ kmId, kmTitle, isPublish, setIsPublish,
     event.stopPropagation(); // Info (202400125) Murky card 點擊下拉選單時才可以正確點到，不會跳轉
     setIsOpen(!isOpen);
   }
-  const handlePublishOnclick = async (event: React.MouseEvent) => {
-    event.stopPropagation();
-    const res = await fetch(`/api/km/${kmId}/publish`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        published: !isPublish,
-      })
-    });
+  const handlePublishUnpublishOnclick = (goPublish: boolean) => {
 
-    if (!res.ok) {
-      window.alert('Change Publish state faild');
-      return;
+    const goto = goPublish ? 'publish' : 'unpublish';
+    const goPublishOrInpublish = async (event: React.MouseEvent) => {
+      event.stopPropagation();
+      const res = await fetch(`/api/kms/${kmId}/${goto}`, {
+        method: 'PUT',
+      });
+
+      if (!res.ok) {
+        emitAlert('error', 'Change Publish state failed');
+        return;
+      }
+
+
+      const { ispublish: kmIsPublished } = await res.json();
+      setIsPublish(kmIsPublished);
+      if (goPublish) {
+        const newPublishedKmMeta = kmAllMeta.drafts.kmMetas?.find(km => km.id === kmId);
+        if (!newPublishedKmMeta) return;
+        newPublishedKmMeta.isPublished = goPublish;
+        const allPublishedKmMeta = kmAllMeta.published.kmMetas ? [newPublishedKmMeta, ...kmAllMeta.published.kmMetas] : [newPublishedKmMeta];
+        const updatePublishKmMeta = allPublishedKmMeta.filter(km => km !== undefined) as IKmMeta[] | undefined;
+
+        setKmAllMeta({
+          drafts: {
+            publishStatus: 'Drafts',
+            kmMetas: kmAllMeta.drafts.kmMetas?.filter(km => km.id !== kmId)
+          },
+          published: {
+            publishStatus: 'Published',
+            kmMetas: updatePublishKmMeta
+          }
+        });
+      } else {
+
+        const newUnpublishedKmMeta = kmAllMeta.published.kmMetas?.find(km => km.id === kmId);
+        if (!newUnpublishedKmMeta) return;
+        newUnpublishedKmMeta.isPublished = goPublish;
+        const allUnpublishedKmMeta = kmAllMeta.drafts.kmMetas ? [newUnpublishedKmMeta, ...kmAllMeta.drafts.kmMetas] : [newUnpublishedKmMeta];
+        const updateUnpublishKmMeta = allUnpublishedKmMeta.filter(km => km !== undefined) as IKmMeta[] | undefined;
+
+        setKmAllMeta({
+          drafts: {
+            publishStatus: 'Drafts',
+            kmMetas: updateUnpublishKmMeta
+          },
+          published: {
+            publishStatus: 'Published',
+            kmMetas: kmAllMeta.published.kmMetas?.filter(km => km.id !== kmId)
+          }
+        });
+      }
+
+      emitAlert('success', `Change Publish state to ${goPublish ? 'Published' : 'Unpublished'}`);
     }
 
-    setIsPublish(!isPublish);
+    return goPublishOrInpublish;
   }
 
   const handleDeleteOnclick = async (event: React.MouseEvent) => {
@@ -57,7 +113,7 @@ export default function KmCardDropdown({ kmId, kmTitle, isPublish, setIsPublish,
     }
   }
   return (
-    <div className={`${className}`}>
+    <div className={`${className} z-50`}>
       <button onClick={toggleDropdown} className='size-[44px] bg-darkBlue1/0 p-[7px]'>
         <Image
           src='/elements/more-horizontal.svg'
@@ -70,7 +126,7 @@ export default function KmCardDropdown({ kmId, kmTitle, isPublish, setIsPublish,
         isOpen && (
           <div className='absolute left-[-96px] flex flex-col items-center justify-center rounded-[5px] bg-mermerTheme shadow-drop'>
             <MerMerDropdownButton
-              onClick={handlePublishOnclick}
+              onClick={handlePublishUnpublishOnclick(!isPublish)}
               hidden={isPublish}
               className='h-[44px] w-[131px] rounded-t-[5px] border-b-[0.5px] border-b-lightWhite1'
             >
@@ -87,7 +143,7 @@ export default function KmCardDropdown({ kmId, kmTitle, isPublish, setIsPublish,
               </div>
             </MerMerDropdownButton>
             <MerMerDropdownButton
-              onClick={handlePublishOnclick}
+              onClick={handlePublishUnpublishOnclick(!isPublish)}
               hidden={!isPublish}
               className='h-[44px] w-[131px] rounded-t-[5px] border-b-[0.5px] border-b-lightWhite1'
             >
