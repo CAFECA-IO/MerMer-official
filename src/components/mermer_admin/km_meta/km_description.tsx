@@ -28,7 +28,7 @@ export default function KmDescription({
           className="h-12 w-full  border-b-[1px] border-lightWhite1 bg-lightGray1/0 px-4 py-3 text-lightWhite1 outline-none placeholder:text-lightGray1"
           type="text"
           id="title"
-          placeholder="Article Title"
+          placeholder="Article Description"
           value={kmDescription}
           onChange={handleTitleOnChange}
         />

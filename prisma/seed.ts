@@ -7,11 +7,11 @@ const prisma = new PrismaClient();
 async function main() {
   await seedUser(prisma);
   await seedKm(prisma);
-  // 可以继续添加更多的种子函数调用
 }
 
 main()
   .catch((e) => {
+    // Till: (20240316 - Murky) handle error
     // eslint-disable-next-line no-console
     console.error(e);
     process.exit(1);

@@ -42,10 +42,13 @@ export interface IAlertsProvider {
 }
 const AlertsContext = createContext<IAlertsContext>({
   alerts: [],
+
+  // Till (20240316 - Murky) 這是default value, argument不會被使用
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   addAlert: (alert: IAlertOmitId) => {
     return '';
   },
+  // Till (20240316 - Murky) 這是default value, argument不會被使用
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   dismissAlert: (id: string) => {
     return;
@@ -57,7 +60,7 @@ export default function AlertsProvider({ children }: IAlertsProvider) {
 
 
   const addAlert = (alert: IAlertOmitId) => {
-    // random id
+    // Info (20240316 - Murky) random id
     const id = Math.random().toString(36).slice(2, 9) + new Date().getTime().toString(36);
     setAlerts((prev) => [{ ...alert, id: id }, ...prev]);
     return id;
@@ -73,11 +76,6 @@ export default function AlertsProvider({ children }: IAlertsProvider) {
     dismissAlert,
   };
 
-  // // 預設是alert會自動消失
-  // const defaltHandleDissmiss = (alert: IAlert) => {
-  //   dismissAlert(alert.id)
-  // }
-
   return (
     <AlertsContext.Provider value={defaltValue}>
       <AlertsWrapper>
@@ -91,7 +89,7 @@ export default function AlertsProvider({ children }: IAlertsProvider) {
   );
 }
 
-// hook
+// Info (20240316 - Murky) hook
 export const useAlerts = () => {
   const [alertIds, setAlertIds] = useState<string[]>([]);
   const alertIdsRef = useRef(alertIds);

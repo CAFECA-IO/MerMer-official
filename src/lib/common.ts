@@ -6,6 +6,8 @@ import ServiceTerm from "../constants/contracts/service_term";
 import IEIP712Data from "../interfaces/ieip712data";
 import IJSON from "../interfaces/ijson";
 import type { NextRouter } from "next/router";
+
+// Till (20240316 - Murky) @cafeca/keccak 需要用require
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Keccak = require('@cafeca/keccak');
 
