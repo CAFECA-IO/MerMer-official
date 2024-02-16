@@ -21,10 +21,14 @@ import {
 } from '@mdxeditor/editor';
 
 import ToolbarContents from './toolbar_contents'
+
+// Till: (20240316 - Murky) 目前不加下面這個escape會有錯誤, 但功能完全正常
 // eslint-disable-next-line import/no-unresolved
 import '@mdxeditor/editor/style.css';
 import { imageUploadHandler } from './imageUploadHandler';
 import React from 'react';
+
+// Till: (20240316 - Murky) 目前不加下面這個escape會有錯誤, 但功能完全正常
 // eslint-disable-next-line import/no-unresolved
 import { coolGlow } from 'thememirror';
 
@@ -62,6 +66,7 @@ export default function InitializedMDXEditor({
         }),
       ]}
 
+      // Till: (20240316 - Murky) 需要使用mdx-editor自己的className，所以取消tailwind檢查
       // eslint-disable-next-line tailwindcss/no-custom-classname
       className={`dark-editor dark-theme size-full justify-center ${className}`}
       contentEditableClassName="max-w-none min-h-[235px] h-full prose prose-sm prose-slate prose-invert"

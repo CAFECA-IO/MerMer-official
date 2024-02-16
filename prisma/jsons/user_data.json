@@ -241,7 +241,6 @@
     "email": "amanda@fakeemail.com",
     "signer": "fakeAmandaWallet",
     "role": "USER",
-    "avatar": "/profiles/murky.png",
     "twUserData": {
       "name": "Amanda Lin",
       "intro": "Hello, I am Amanda!",
@@ -263,6 +262,7 @@
     "email": "murky0830@gmail.com",
     "signer": "0x7903d1813b1f2254909FE975155a648F4Db0B7cE",
     "role": "USER",
+    "avatar": "/profiles/profile_murky.png",
     "twUserData": {
       "name": "Murky",
       "intro": "想要殺死惡魔，就應該把死掉的法師偷放進惡魔的口袋裡。",

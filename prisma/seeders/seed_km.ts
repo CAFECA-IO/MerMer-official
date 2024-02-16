@@ -65,7 +65,6 @@ export async function seedKm(prisma: PrismaClient): Promise<void> {
     }
 
   }catch(e) {
-    // eslint-disable-next-line no-console
     throw e;
   }
 }

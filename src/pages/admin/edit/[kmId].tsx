@@ -33,7 +33,7 @@ export default function KmEdit({ }) {
   const [kmTags, setKmTags] = useState<IKmTag[]>([])
   const [isPublished, setIsPublished] = useState<boolean>(false);
 
-  // Alert
+  // Info (20240216 - Murky) Alert
   const { addAlert, clearAlerts } = useAlerts();
   function emitAlert(severity: 'error' | 'success', message: string) {
     addAlert({
@@ -45,7 +45,7 @@ export default function KmEdit({ }) {
     });
   }
 
-  // Fetch km
+  // Info (20240216 - Murky) Fetch km
   const [km, setKm] = useState<IKm>();
   useEffect(() => {
     if (kmId) {
@@ -64,7 +64,7 @@ export default function KmEdit({ }) {
         setSeletedKmTopic(json.topic.name);
         setKmTags(json.categories);
         setIsPublished(json.isPublished);
-        // read preview image
+        // Info (20240216 - Murky) read preview image
         const imgResponse = await fetch(json.picture);
         const imgBlob = await imgResponse.blob();
         const imgFile = new File([imgBlob], imgBlob.name, { type: imgBlob.type });
@@ -74,7 +74,7 @@ export default function KmEdit({ }) {
     }
   }, [kmId]);
 
-  // Fetch all topic
+  // Info (20240216 - Murky) Fetch all topic
   const [kmTopics, setKmTopics] = useState<Topic[]>([]);
   useEffect(() => {
     const fetchTopics = async () => {
@@ -91,7 +91,7 @@ export default function KmEdit({ }) {
     fetchTopics();
   }, []);
 
-  // Save or publish km
+  // Info (20240216 - Murky) Save or publish km
   async function saveKm(publishNow: boolean) {
     const formData = new FormData();
     const alertWording = publishNow ? 'Publish' : 'Save';
@@ -126,7 +126,7 @@ export default function KmEdit({ }) {
     return null
   }
 
-  // 如果有圖片路徑卻沒有 圖片load進來，reuturn null
+  // Info (20240216 - Murky) 如果有圖片路徑卻沒有 圖片load進來，reuturn null
   if (km && km.picture && !selectedImage) return null;
 
   return km && (

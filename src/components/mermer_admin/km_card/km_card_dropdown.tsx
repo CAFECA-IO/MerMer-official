@@ -72,7 +72,6 @@ export default function KmCardDropdown({ kmId, kmTitle, isPublish, setIsPublish,
             <MerMerDropdownButton
               onClick={handlePublishOnclick}
               hidden={isPublish}
-              // eslint-disable-next-line tailwindcss/migration-from-tailwind-2
               className='h-[44px] w-[131px] rounded-t-[5px] border-b-[0.5px] border-b-lightWhite1'
             >
               <div className='flex  items-center justify-center gap-2'>

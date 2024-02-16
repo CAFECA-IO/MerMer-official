@@ -14,9 +14,11 @@ export const parseForm = (req: NextApiRequest): Promise<{ fields: Fields, files:
     maxFieldsSize: 200 * 1024 * 1024, // (200mb),
     maxFields: 1000,
     multiples: false,
+
+    // Till (20240316 - Murky) 預留給以後開發使用
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     filter: function ({name, originalFilename, mimetype}) {
-      // keep only images
+      // Info (20240316 - Murky) keep only images type
       return !!(mimetype && mimetype.includes("image"));
     }
   }

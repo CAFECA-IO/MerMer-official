@@ -11,6 +11,8 @@ import DraftOrPublishTags from '../../../components/mermer_admin/draft_or_publis
 import MerMerButton from '../../../components/mermer_button/mermer_button';
 import { IAllKmMeta, IKmMeta } from '../../../interfaces/km';
 import useWindowDimensions from '../../../lib/hooks/use_window_dimensions';
+import { useAlerts } from '../../../contexts/alert_context';
+import { useRouter } from 'next/router';
 // type Props = {}
 
 const getStaticPropsFunction = async ({ locale }: ILocale) => ({
@@ -21,6 +23,9 @@ const getStaticPropsFunction = async ({ locale }: ILocale) => ({
 
 export const getStaticProps = getStaticPropsFunction;
 
+// Till (20240316 - Murky) 這個function是用來計算每個頁面要顯示多少個卡片
+// 可以根據螢幕高度來決定要顯示多少個卡片，目前只會回傳3
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getCardsDisplayPerPage = (screenHeight: number | undefined | null): number => {
   // if (screenHeight && screenHeight >= 960) return 4
   return 3
@@ -37,11 +42,26 @@ export default function index() {
       kmMetas: []
     }
   }
+  // Alert context
+  const { addAlert, clearAlerts } = useAlerts();
+  function emitAlert(severity: 'error' | 'success', message: string) {
+    addAlert({
+      severity, message, timeout: 3000, handleDismiss: () => {
+        setTimeout(() => {
+          clearAlerts();
+        }, 2000);
+      }
+    });
+  }
+
+  const router = useRouter();
 
   const [activePage, setActivePage] = useState(1)
   const [search, setSearch] = useState("")
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { height: _, width: screenWidth } = useWindowDimensions();
+
+  // Info (20240316 - Murky) 這個hook是用來取得螢幕的寬度
+  // 可以用 {height, width} = useWindowDimensions() 來取得螢幕的高度和寬度
+  const { width: screenWidth } = useWindowDimensions();
   const cardsRenderPerPage = getCardsDisplayPerPage(screenWidth);
 
   const [kmAllMeta, setKmAllMeta] = useState<IAllKmMeta>(defaultKmAllMeta)
@@ -88,6 +108,20 @@ export default function index() {
     setRenderedKmMeta(filteredKmMeta || []);
   }, [search, kmAllMeta, activePublishStatus]);
 
+  // 新增文章
+  const addNewKm = async () => {
+    const response = await fetch('/api/kms', {
+      method: 'POST',
+    });
+
+    if (!response.ok) {
+      emitAlert('error', "Can't add new KM");
+      return null;
+    }
+
+    const { kmId } = await response.json();
+    router.push(`/admin/edit/${kmId}`);
+  }
   return (
     <>
       <Head>
@@ -105,8 +139,11 @@ export default function index() {
           </div>
           <div className='flex w-full items-center justify-between'>
             <span>{renderedKmMeta.length} Articles</span>
-            {/* 記得幫加號新增新的文章 */}
-            <MerMerButton className='flex size-[44px] items-center justify-center rounded-full'>
+            {/* 新增新的文章 */}
+            <MerMerButton
+              className='flex size-[44px] items-center justify-center rounded-full'
+              onClick={addNewKm}
+            >
               <Image
                 src="/elements/plus.svg"
                 width={16}
