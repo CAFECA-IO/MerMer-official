@@ -10,7 +10,6 @@ export default function Layout({ children }: Props) {
       <Navbar className='col-span-1' />
       <main className='col-span-4 flex items-start justify-center'>
         {/* for alert */}
-        <div id="portal"></div>
         {children}
       </main>
     </div>

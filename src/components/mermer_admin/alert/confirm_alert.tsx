@@ -17,9 +17,10 @@ export default function ConfirmAlert({ }) {
       setPortalElement(document.getElementById('portal'));
     }
   }, []);
+
   const isDisplayedCautionModal = confirmState.show ? (
 
-    <div className="size-screen fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-darkBlue3/0 outline-none backdrop-blur-sm focus:outline-none">
+    <div className="fixed inset-0 z-40 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-darkBlue3/0 outline-none backdrop-blur-sm focus:outline-none">
       <div
         className='flex w-[269px] flex-col items-center  justify-center gap-4 rounded-[10px] bg-mermerTheme p-4 pt-5 font-Dosis text-[14px] text-lightWhite1'
       >

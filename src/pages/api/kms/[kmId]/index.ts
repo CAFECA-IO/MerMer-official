@@ -116,6 +116,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } catch (error) {
       return res.status(500).json({ error: 'An error occurred while updating the km.' });
     }
+  } else if (req.method === 'DELETE') {
+    try {
+      await prisma.km.delete({
+        where: {
+          id: kmId
+        }
+      });
+      return res.status(200).json({ message: 'Km deleted successfully' });
+    } catch (error) {
+      return res.status(500).json({ error: 'An error occurred while deleting the km.' });
+    }
   }
   else {
     return res.status(405).json({ error: 'Method Not Allowed' });

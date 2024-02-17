@@ -5,8 +5,8 @@ import { useContext } from 'react';
 import { ConfirmContext } from './confirm_context';
 import { HIDE_CONFIRM, SHOW_CONFIRM } from './confirm_reducer';
 
+ 
 let resolveCallback: (value: unknown) => void;
-
 export default function useConfirm() {
   const [confirmState, dispatch] = useContext(ConfirmContext).confirmReducer;
 
@@ -22,6 +22,7 @@ export default function useConfirm() {
     // 當onConfirm和 onCancel輸入 true 和 false 的時候都會resolve
     // 並回傳 true/false 到 hook 外面變成 isConfirmed
     return new Promise((resolve) => {
+
       resolveCallback = resolve;
     });
   }

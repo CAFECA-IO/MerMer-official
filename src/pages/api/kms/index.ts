@@ -15,6 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           description: true,
           categories: true,
           topic : true,
+          mdFile: true,
           createdAt: true,
           updatedAt: true
         },
@@ -24,18 +25,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
 
 
-      const response: IAllKmMeta = {
-        drafts: {
-          publishStatus: 'Drafts',
-          kmMetas: allKms.filter(km => !km.isPublished),
-        },
-        published: {
-          publishStatus: 'Published',
-          kmMetas: allKms.filter(km => km.isPublished),
-        },
-      };
 
-      return res.status(200).json(response);
+      return res.status(200).json(allKms);
     } catch (error) {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
