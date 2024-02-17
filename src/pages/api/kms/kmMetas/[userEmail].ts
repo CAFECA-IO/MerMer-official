@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '../../../lib/db';
-import { IAllKmMeta } from '../../../interfaces/km';
+import prisma from '../../../../lib/db';
+import { IAllKmMeta } from '../../../../interfaces/km';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {

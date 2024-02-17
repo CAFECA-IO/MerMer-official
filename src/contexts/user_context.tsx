@@ -224,6 +224,7 @@ export const UserProvider = ({ children }: IUserProvider) => {
   }, []);
 
   const setDeWT = useCallback(async (deWT: string) => {
+    // Info (20230117) Murky: Set DeWT to Cookie
     document.cookie = `DeWT=${deWT}; path=/;`;
   }, []);
 

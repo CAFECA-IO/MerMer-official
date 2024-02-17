@@ -13,6 +13,7 @@ import { IAllKmMeta, IKmMeta } from '../../../interfaces/km';
 import useWindowDimensions from '../../../lib/hooks/use_window_dimensions';
 import { useAlerts } from '../../../contexts/alert_context';
 import { useRouter } from 'next/router';
+import { cookies } from 'next/headers'
 // type Props = {}
 
 const getStaticPropsFunction = async ({ locale }: ILocale) => ({
@@ -20,6 +21,8 @@ const getStaticPropsFunction = async ({ locale }: ILocale) => ({
     ...(await serverSideTranslations(locale, ['common', 'footer'])),
   },
 });
+
+
 
 export const getStaticProps = getStaticPropsFunction;
 
@@ -77,7 +80,16 @@ export default function index() {
     }
   );
 
+  // Info (20240316 - Murky) 下面這個useEffect是用來取得所有的KM的metadata
   useEffect(() => {
+    //get cookies user email
+    const cookieStore = cookies();
+    const userEmail = cookieStore.get('userEmail');
+
+    if (!userEmail) {
+      return;
+    }
+
     const fetchAllKmMeta = async () => {
       const response = await fetch('/api/kms/kmMetas');
       if (!response.ok) return null;
@@ -87,6 +99,7 @@ export default function index() {
     fetchAllKmMeta();
   }, []);
 
+  // Info (20240316 - Murky) 下面這個useEffect是用來當activePublishStatus改變時，重新render KM的metadata, 可以在draft和publish之間切換
   useEffect(() => {
     // 把draft或publish的狀態存在localstorage
     // localStorage.setItem('activePublishStatus', activePublishStatus);
@@ -95,6 +108,7 @@ export default function index() {
   }, [activePublishStatus]);
 
 
+  // Info (20240316 - Murky) 下面這個useEffect是用來當search改變時，重新render KM的metadata, 可以在draft和publish之間切換
   useEffect(() => {
     if (!search) {
       setRenderedKmMeta(kmAllMeta[activePublishStatus].kmMetas || []);
