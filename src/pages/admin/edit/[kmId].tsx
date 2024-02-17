@@ -9,20 +9,24 @@ import Image from 'next/image'
 import type { MDXEditorMethods } from '@mdxeditor/editor';
 import KmMeta from '../../../components/mermer_admin/km_meta/km_meta';
 import Tags from '../../../components/mermer_admin/tags/tags';
-
-// Test alert
 import { useAlerts } from '../../../contexts/alert_context';
-import { IKm, IKmForSave, IKmTag } from '../../../interfaces/km';
+import { IKm, IKmTag } from '../../../interfaces/km';
 import { Topic } from '@prisma/client';
 import KmDescription from '../../../components/mermer_admin/km_meta/km_description';
-import MerMerButton from '../../../components/mermer_button/mermer_button';
+import EditPageSavePublishDelete from '../../../components/mermer_admin/edit_page_save_publish_delete/edit_page_save_publish_delete';
+
 
 export default function KmEdit({ }) {
+
+
   const router = useRouter();
   const kmId = router.query.kmId;
+  if (typeof kmId !== 'string') return (<div>loading...</div>);
 
-  // Editor ref，可以用來直接控制Ｍdx editor
+  // Info (20240217 - Murky) Editor ref，可以用來直接控制Ｍdx editor
   const editorRef = useRef<MDXEditorMethods>(null);
+
+
 
   // For KmMeta
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -44,6 +48,8 @@ export default function KmEdit({ }) {
       }
     });
   }
+
+
 
   // Info (20240216 - Murky) Fetch km
   const [km, setKm] = useState<IKm>();
@@ -91,41 +97,6 @@ export default function KmEdit({ }) {
     fetchTopics();
   }, []);
 
-  // Info (20240216 - Murky) Save or publish km
-  async function saveKm(publishNow: boolean) {
-    const formData = new FormData();
-    const alertWording = publishNow ? 'Publish' : 'Save';
-    const kmForSave: IKmForSave = {
-      title: kmTitle,
-      selectedKmTopicName: selectedKmTopic,
-      description: kmDescription,
-      tags: kmTags,
-      isNewImage,
-      mdFile: editorRef.current?.getMarkdown() || '',
-      isPublished: publishNow || isPublished,
-    };
-
-    formData.append('kmForSave', JSON.stringify(kmForSave));
-    if (isNewImage && selectedImage) {
-      formData.append('image', selectedImage);
-    }
-    const response = await fetch(`/api/kms/${kmId}`, {
-      method: 'PUT',
-      body: formData,
-    });
-
-    if (!response.ok) {
-      emitAlert('error', `Can't ${alertWording} KM`);
-      return null
-    }
-
-    emitAlert('success', `${alertWording} Put KM Complete`);
-    if (publishNow) {
-      router.push('/admin/browse');
-    }
-    return null
-  }
-
   // Info (20240216 - Murky) 如果有圖片路徑卻沒有 圖片load進來，reuturn null
   if (km && km.picture && !selectedImage) return null;
 
@@ -137,6 +108,7 @@ export default function KmEdit({ }) {
         <link rel="canonical" href="https://mermer.com.tw/" />
       </Head>
       <Layout>
+        {/* <ConfirmWraper /> */}
         <div className="flex size-full flex-col items-start justify-center gap-6 px-10 py-6">
           <div className="flex w-full items-center justify-between">
             <div className='flex cursor-pointer gap-2' onClick={() => router.push('/admin/browse')}>
@@ -148,21 +120,18 @@ export default function KmEdit({ }) {
               />
               <h1 className='text-2xl font-bold'>Create new KM</h1>
             </div>
-            <div className='flex items-center justify-center gap-2'>
-              <button
-                className='group relative box-border w-fit rounded-full border-2 border-lightWhite1 bg-darkBlue3/0 px-10 py-[10px] text-[18px] font-bold text-lightWhite1 hover:cursor-pointer'
-                onClick={() => saveKm(true)}
-              >
-                <span className='relative z-50 flex items-center'>Publish</span>
-                <span
-                  className={`absolute left-0 top-0 size-full rounded-full bg-buttonHover opacity-0 shadow-buttonHover transition-all duration-300 ease-in-out group-hover:opacity-100`}
-                ></span>
-              </button>
-              <MerMerButton
-                className='px-10 py-[10px] text-[18px] font-bold'
-                onClick={() => saveKm(false)}
-              >Save</MerMerButton>
-            </div>
+
+            <EditPageSavePublishDelete
+              kmId={kmId}
+              kmTitle={kmTitle}
+              selectedKmTopic={selectedKmTopic}
+              kmDescription={kmDescription}
+              kmTags={kmTags}
+              editorRef={editorRef}
+              selectedImage={selectedImage}
+              isNewImage={isNewImage}
+              isPublished={isPublished}
+            />
           </div>
           <KmMeta
             selectedImage={selectedImage}

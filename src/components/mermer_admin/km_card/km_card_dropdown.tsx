@@ -103,14 +103,28 @@ export default function KmCardDropdown({ kmId, kmTitle, isPublish, setIsPublish,
 
     if (!isConfirmed) return
 
-    const res = await fetch(`/api/km/${kmId}`, {
+    const res = await fetch(`/api/kms/${kmId}`, {
       method: 'DELETE',
     });
 
     if (!res.ok) {
-      window.alert('Delete faild');
+      emitAlert('error', 'Delete failed');
       return;
     }
+
+    emitAlert('success', 'Delete success');
+
+    setKmAllMeta({
+      drafts: {
+        publishStatus: 'Drafts',
+        kmMetas: kmAllMeta.drafts.kmMetas?.filter(km => km.id !== kmId)
+      },
+      published: {
+        publishStatus: 'Published',
+        kmMetas: kmAllMeta.published.kmMetas?.filter(km => km.id !== kmId)
+      }
+    });
+    return;
   }
   return (
     <div className={`${className} z-50`}>

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { MERURL } from '../../../constants/url';
 import { merMerAdminConfig } from '../../../constants/config';
-import { NextRouter, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import NavItem from './nav_item';
 import NavUserProfile from './nav_user_profile';
 import { getCookieByName, getUserDataLanguageName } from '../../../lib/common';

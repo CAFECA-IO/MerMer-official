@@ -79,7 +79,7 @@ export default function index() {
 
   useEffect(() => {
     const fetchAllKmMeta = async () => {
-      const response = await fetch('/api/kms');
+      const response = await fetch('/api/kms/kmMetas');
       if (!response.ok) return null;
       const json = await response.json();
       setKmAllMeta(json);

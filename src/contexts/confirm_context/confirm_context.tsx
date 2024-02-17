@@ -20,6 +20,8 @@ export const ConfirmContext = createContext<IConfirmContext>(
 );
 
 export const ConfirmContextProvider = ({ children }: IConfirmProvider) => {
+  //Info (20240130) Murky: state做為參數傳入reducer，但是eslint會報錯，所以先註解掉
+  //eslint-disable-next-line
   const [state, dispatch] = useReducer(reducer, initialState);
   return (
     <ConfirmContext.Provider value={{ confirmReducer: [state, dispatch] }}>
