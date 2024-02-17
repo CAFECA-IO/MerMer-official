@@ -13,30 +13,8 @@ import { useAlerts } from '../../../contexts/alert_context';
 import { IKm, IKmTag } from '../../../interfaces/km';
 import { Topic } from '@prisma/client';
 import KmDescription from '../../../components/mermer_admin/km_meta/km_description';
-import { GetStaticProps } from 'next';
 import EditPageSavePublishDelete from '../../../components/mermer_admin/edit_page_save_publish_delete/edit_page_save_publish_delete';
 
-import prisma from '../../../lib/db';
-
-export const getStaticProps: GetStaticProps = async () => {
-  return {
-    props: {
-    },
-  };
-}
-
-export const getStaticPaths = async () => {
-
-  const posts = await prisma.km.findMany({
-    select: { id: true } // 假设你只需要获取帖子的ID
-  });
-
-  const paths = posts.map(post => ({
-    params: { kmId: post.id },
-  }));
-
-  return { paths, fallback: false };
-};
 
 export default function KmEdit({ }) {
 
