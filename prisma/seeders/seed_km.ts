@@ -2,6 +2,7 @@ import { type PrismaClient } from '@prisma/client';
 import * as KmHelper from '../seeder-helpers/seed_km_helper';
 import { seederConfig } from '../seed_config';
 import { getOrCreateCategory, getOrCreateTopic } from '../seeder-helpers/get_or_create';
+import path from 'path';
 export async function seedKm(prisma: PrismaClient): Promise<void> {
 
   try {
@@ -43,6 +44,8 @@ export async function seedKm(prisma: PrismaClient): Promise<void> {
           return getOrCreateCategory(categoryName, prisma);
         })
       );
+
+      km.mdFile.replace(/\/km/g, '/api/public/km');
       await prisma.km.upsert({
         where: {id: km.id},
         update: {},
@@ -50,7 +53,7 @@ export async function seedKm(prisma: PrismaClient): Promise<void> {
           id: km.id,
           title: km.title,
           authorId: userIdMapping[km.authorId],
-          picture: km.picture,
+          picture: path.join('/api/public', km.picture),
           description: km.description,
           mdFile: km.mdFile,
           categories: {

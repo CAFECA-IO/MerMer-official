@@ -77,6 +77,12 @@ export default function EditPageSavePublishDelete({
     if (publishNow) {
       router.push('/admin/browse');
     }
+
+    // 存檔新圖片後broadcast事件/admin/browse
+    if (isNewImage) {
+      document.dispatchEvent(new CustomEvent('imageUploaded'));
+    }
+
     return null
   }
 

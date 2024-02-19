@@ -118,7 +118,7 @@ export default function TagsInputField({
     placeholder="Add tags"
     // styling
     unstyled
-    className='z-50 w-full'
+    className='z-10 w-full'
     classNames={
       {
         control: () => "h-12 w-full  border-b-[1px] border-lightWhite1 bg-lightGray1/0 px-4 py-3 text-lightWhite1 outline-none",

@@ -3,8 +3,13 @@ import prisma from '../../../../lib/db';
 import { IAllKmMeta } from '../../../../interfaces/km';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const { userEmail } = req.query;
+  if (!userEmail || typeof userEmail !== 'string') {
+    return res.status(400).json({ error: 'Bad Request' });
+  }
   if (req.method === 'GET') {
     try {
+
       const allKms = await prisma.km.findMany({
         select: {
           id: true,
@@ -17,6 +22,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           topic : true,
           createdAt: true,
           updatedAt: true
+        },
+        where: {
+          author: {
+            email: userEmail,
+          },
         },
         orderBy: {
           createdAt: 'desc',

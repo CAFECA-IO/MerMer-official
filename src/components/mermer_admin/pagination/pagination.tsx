@@ -70,7 +70,8 @@ const Pagination = ({ activePage, setActivePage, totalPages }: IPagination) => {
       className="flex items-center text-base text-lightWhite1 hover:text-lightBlue1 disabled:text-lightGray1"
     >
       <RiArrowLeftSLine className="text-2xl" />
-      <p className="px-2">{t('KM_PAGE.PAGINATION_PREVIOUS')}</p>
+      {/* <p className="px-2">{t('KM_PAGE.PAGINATION_PREVIOUS')}</p> */}
+      <p className="px-2">{'上一頁'}</p>
     </button>
   );
 
@@ -81,7 +82,8 @@ const Pagination = ({ activePage, setActivePage, totalPages }: IPagination) => {
       disabled={totalPages === 0 || activePage === totalPages ? true : false}
       className="flex items-center text-base text-lightWhite1 hover:text-lightBlue1 disabled:text-lightGray1"
     >
-      <p className="px-2">{t('KM_PAGE.PAGINATION_NEXT')}</p>
+      {/* <p className="px-2">{t('KM_PAGE.PAGINATION_NEXT')}</p> */}
+      <p className="px-2">{'下一頁'}</p>
       <RiArrowRightSLine className="text-2xl" />
     </button>
   );

@@ -13,18 +13,18 @@ import { IAllKmMeta, IKmMeta } from '../../../interfaces/km';
 import useWindowDimensions from '../../../lib/hooks/use_window_dimensions';
 import { useAlerts } from '../../../contexts/alert_context';
 import { useRouter } from 'next/router';
-import { cookies } from 'next/headers'
+import Cookies from 'js-cookie';
 // type Props = {}
 
-const getStaticPropsFunction = async ({ locale }: ILocale) => ({
-  props: {
-    ...(await serverSideTranslations(locale, ['common', 'footer'])),
-  },
-});
+// const getStaticPropsFunction = async ({ locale }: ILocale) => ({
+//   props: {
+//     ...(await serverSideTranslations(locale, ['common', 'footer'])),
+//   },
+// });
 
 
 
-export const getStaticProps = getStaticPropsFunction;
+// export const getStaticProps = getStaticPropsFunction;
 
 // Till (20240316 - Murky) 這個function是用來計算每個頁面要顯示多少個卡片
 // 可以根據螢幕高度來決定要顯示多少個卡片，目前只會回傳3
@@ -83,20 +83,34 @@ export default function index() {
   // Info (20240316 - Murky) 下面這個useEffect是用來取得所有的KM的metadata
   useEffect(() => {
     //get cookies user email
-    const cookieStore = cookies();
-    const userEmail = cookieStore.get('userEmail');
+    let userEmail = Cookies.get('userEmail');
 
     if (!userEmail) {
       return;
     }
 
+    userEmail = decodeURIComponent(userEmail) // decode %40 to @
+
     const fetchAllKmMeta = async () => {
-      const response = await fetch('/api/kms/kmMetas');
+      const response = await fetch(`/api/kms/kmMetas/${userEmail}`);
       if (!response.ok) return null;
-      const json = await response.json();
+      const json = await response.json() as IAllKmMeta;
       setKmAllMeta(json);
     };
     fetchAllKmMeta();
+
+    // Info (20240316 - Murky) 下面這個event listener是用來當Edit page 圖片上傳成功時，重新render KM的metadata
+    // 在 /admin/edit/pkmId].tsx 有發送這個imageUploaded event
+    const handleImageUpload = () => {
+      fetchAllKmMeta();
+    };
+
+    document.addEventListener('imageUploaded', handleImageUpload);
+
+    // 清理函数
+    return () => {
+      document.removeEventListener('imageUploaded', handleImageUpload);
+    };
   }, []);
 
   // Info (20240316 - Murky) 下面這個useEffect是用來當activePublishStatus改變時，重新render KM的metadata, 可以在draft和publish之間切換

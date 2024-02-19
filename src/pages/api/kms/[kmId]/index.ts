@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../../lib/db";
-import { changeImgTagsToSelfClosing, changeSelfClosingImgTagsToNormal } from "../../../../lib/img_to_imgJSX";
+import { changeMdToMdx, changeMdxToMd } from "../../../../lib/md_mdx_format_transfer";
 import { isIKmForSave } from "../../../../interfaces/km";
 import { parseForm } from "../../../../lib/parse_form_data";
 import { promises as fs } from 'fs';
@@ -51,7 +51,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       // 先把所有的 <img> tag 改成 <img/>，儲存時再改回來
-      km.mdFile = changeImgTagsToSelfClosing(km.mdFile);
+      km.mdFile = changeMdToMdx(km.mdFile);
       res.status(200).json(km);
     } catch (error) {
       res.status(500).json({ error: 'An error occurred while fetching the km.' });
@@ -72,7 +72,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const { title, selectedKmTopicName, description, tags, isNewImage,  mdFile, isPublished } = kmForSave;
 
       // mdFile 裡的 <img/> 改回 <img>
-      const normalImgTagMdFile = changeSelfClosingImgTagsToNormal(mdFile);
+      const normalImgTagMdFile = changeMdxToMd(mdFile);
 
       // 如果有新傳的圖片就存好再回傳url
       let pictureUrl: string | undefined = undefined;
@@ -87,7 +87,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         await fs.writeFile(path.join(process.cwd(), saveFiledUrl), buffer);
 
-        pictureUrl = saveFiledUrl.replace(/^\/public/, "")
+        pictureUrl =  path.join('/api', saveFiledUrl)
       }
 
 
