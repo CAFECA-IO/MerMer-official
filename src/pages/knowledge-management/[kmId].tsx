@@ -4,34 +4,73 @@ import Footer from '../../components/footer/footer';
 import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 import Link from 'next/link';
 import KMArticle from '../../components/km_article/km_article';
-import {ImFacebook, ImTwitter, ImLinkedin2} from 'react-icons/im';
-import {FaRedditAlien} from 'react-icons/fa';
-import {RiArrowLeftSLine} from 'react-icons/ri';
-import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
-import {IKnowledgeManagement} from '../../interfaces/km_article';
-import {ICrumbItem} from '../../interfaces/crumb_item';
-import {useTranslation} from 'next-i18next';
-import {TranslateFunction} from '../../interfaces/locale';
-import {MERURL} from '../../constants/url';
-import {DOMAIN, KM_DESCRIPTION_LIMIT, KM_FOLDER} from '../../constants/config';
-import {getPost, getSlugs} from '../../lib/posts';
-import {GetStaticPaths, GetStaticProps} from 'next';
-import {truncateText} from '../../lib/common';
+import { ImFacebook, ImTwitter, ImLinkedin2 } from 'react-icons/im';
+import { FaRedditAlien } from 'react-icons/fa';
+import { RiArrowLeftSLine } from 'react-icons/ri';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { IKnowledgeManagement } from '../../interfaces/km_article';
+import { ICrumbItem } from '../../interfaces/crumb_item';
+import { useTranslation } from 'next-i18next';
+import { TranslateFunction } from '../../interfaces/locale';
+import { MERURL } from '../../constants/url';
+// import { DOMAIN, KM_DESCRIPTION_LIMIT, KM_FOLDER } from '../../constants/config';
+import { DOMAIN, KM_DESCRIPTION_LIMIT } from '../../constants/config';
+// import { getPost, getSlugs } from '../../lib/posts';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import { truncateText } from '../../lib/common';
 import useShareProcess from '../../lib/hooks/use_share_process';
-import {ISocialMedia, SocialMediaConstant, ShareSettings} from '../../constants/social_media';
+import { ISocialMedia, SocialMediaConstant, ShareSettings } from '../../constants/social_media';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
-interface IPageProps {
-  kmId: string;
-  kmData: IKnowledgeManagement;
-}
+// interface IPageProps {
+//   kmId: string;
+//   kmData: IKnowledgeManagement;
+// }
 
-const KMDetailPage = ({kmData}: IPageProps) => {
-  const {t}: {t: TranslateFunction} = useTranslation('common');
+const KMDetailPage = ({ }) => {
+  const { t }: { t: TranslateFunction } = useTranslation('common');
+  const router = useRouter();
+  const kmId = router.query.kmId;
+  const [kmData, setKmData] = useState<IKnowledgeManagement>({
+    id: '',
+    title: '',
+    date: new Date().getTime(),
+    content: '',
+    category: [],
+    picture: '',
+    description: '',
+    author: {
+      id: '',
+      name: '',
+      jobTitle: '',
+      intro: '',
+      avatar: '',
+    }
+  });
 
+  useEffect(() => {
+    const fetchKm = async () => {
+      const response = await fetch(`/api/kms/${kmId}?language=${router.locale}`);
+      if (!response.ok) {
+        return {
+          notFound: true,
+        };
+      }
+      const kmData = await response.json() as IKnowledgeManagement;
+      if (!kmData) {
+        return {
+          notFound: true,
+        };
+      }
+      setKmData(kmData);
+    }
+    fetchKm();
+  }, []);
   const shareUrl = `${DOMAIN}${MERURL.KM}/${kmData.id}`;
   const description = truncateText(kmData.description, KM_DESCRIPTION_LIMIT);
 
-  const {share} = useShareProcess({shareId: kmData.id});
+  const { share } = useShareProcess({ shareId: kmData.id });
 
   const crumbs: ICrumbItem[] = [
     {
@@ -67,7 +106,7 @@ const KMDetailPage = ({kmData}: IPageProps) => {
             key={key}
             className="text-2xl hover:text-lightBlue1"
             onClick={() => {
-              share({socialMedia: key as ISocialMedia, text: value.text});
+              share({ socialMedia: key as ISocialMedia, text: value.text });
             }}
           >
             {mediaIcon}
@@ -160,39 +199,40 @@ const KMDetailPage = ({kmData}: IPageProps) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<IPageProps> = async ({params, locale}) => {
-  if (!params || !params.kmId || typeof params.kmId !== 'string') {
-    return {
-      notFound: true,
-    };
-  }
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  // if (!params || !params.kmId || typeof params.kmId !== 'string') {
+  //   return {
+  //     notFound: true,
+  //   };
+  // }
 
-  const kmData = await getPost(KM_FOLDER, params.kmId);
+  // const kmData = await getPost(KM_FOLDER, params.kmId);
 
-  if (!kmData) {
-    return {
-      notFound: true,
-    };
-  }
+  // if (!kmData) {
+  //   return {
+  //     notFound: true,
+  //   };
+  // }
 
   return {
     props: {
-      kmId: params.kmId,
-      kmData,
+      // kmId: params.kmId,
+      // kmData,
       ...(await serverSideTranslations(locale as string, ['common'])),
     },
   };
 };
 
-export const getStaticPaths: GetStaticPaths = async ({locales}) => {
-  const slugs = (await getSlugs(KM_FOLDER)) ?? [];
+export const getStaticPaths: GetStaticPaths = async () => {
+  // const slugs = (await getSlugs(KM_FOLDER)) ?? [];
 
-  const paths = slugs
-    .flatMap(slug => {
-      return locales?.map(locale => ({params: {kmId: slug}, locale}));
-    })
-    .filter((path): path is {params: {kmId: string}; locale: string} => !!path);
+  // const paths = slugs
+  //   .flatMap(slug => {
+  //     return locales?.map(locale => ({ params: { kmId: slug }, locale }));
+  //   })
+  //   .filter((path): path is { params: { kmId: string }; locale: string } => !!path);
 
+  const paths: string[] = []
   return {
     paths,
     fallback: 'blocking',

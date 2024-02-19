@@ -41,7 +41,7 @@ export default function KmCardDropdown({ kmId, kmTitle, isPublish, setIsPublish,
     const goto = goPublish ? 'publish' : 'unpublish';
     const goPublishOrInpublish = async (event: React.MouseEvent) => {
       event.stopPropagation();
-      const res = await fetch(`/api/kms/${kmId}/${goto}`, {
+      const res = await fetch(`/api/kmEdit/${kmId}/${goto}`, {
         method: 'PUT',
       });
 
@@ -103,7 +103,7 @@ export default function KmCardDropdown({ kmId, kmTitle, isPublish, setIsPublish,
 
     if (!isConfirmed) return
 
-    const res = await fetch(`/api/kms/${kmId}`, {
+    const res = await fetch(`/api/kmEdit/${kmId}`, {
       method: 'DELETE',
     });
 

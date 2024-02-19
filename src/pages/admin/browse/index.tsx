@@ -81,7 +81,7 @@ export default function index() {
     userEmail = decodeURIComponent(userEmail) // decode %40 to @
 
     const fetchAllKmMeta = async () => {
-      const response = await fetch(`/api/kms/kmMetas/${userEmail}`);
+      const response = await fetch(`/api/kmEdit/kmMetas/${userEmail}`);
       if (!response.ok) return null;
       const json = await response.json() as IAllKmMeta;
       setKmAllMeta(json);
@@ -118,7 +118,7 @@ export default function index() {
 
   // 新增文章
   const addNewKm = async () => {
-    const response = await fetch('/api/kms', {
+    const response = await fetch('/api/kmEdit', {
       method: 'POST',
     });
 

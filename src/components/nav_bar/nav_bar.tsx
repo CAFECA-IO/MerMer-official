@@ -2,12 +2,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import I18n from '../i18n/i18n';
 import useOuterClick from '../../lib/hooks/use_outer_click';
-import {MERURL} from '../../constants/url';
-import {useTranslation} from 'next-i18next';
-import {TranslateFunction} from '../../interfaces/locale';
+import { MERURL } from '../../constants/url';
+import { useTranslation } from 'next-i18next';
+import { TranslateFunction } from '../../interfaces/locale';
 
 const NavBar = () => {
-  const {t}: {t: TranslateFunction} = useTranslation('common');
+  const { t }: { t: TranslateFunction } = useTranslation('common');
   const burgerStyle = 'block h-1 w-6 rounded-3xl bg-white transition-all duration-300 ease-in';
 
   const {
@@ -31,6 +31,11 @@ const NavBar = () => {
           {t('NAV_BAR.CONTACT_US')}
         </Link>
       </li>
+      <li className="px-2 py-3 hover:cursor-pointer hover:text-lightBlue1">
+        <Link href={MERURL.ADMIN} scroll={false}>
+          {'Admin'}
+        </Link>
+      </li>
       <li className="px-2 py-3 hover:cursor-pointer">
         <I18n />
       </li>
@@ -39,9 +44,8 @@ const NavBar = () => {
 
   const mobileMenu = (
     <ul
-      className={`absolute left-0 top-80px -z-10 flex w-screen flex-col items-center lg:hidden ${
-        navVisible ? 'visible h-260px opacity-100' : 'invisible h-0 opacity-0'
-      } bg-mermerTheme font-Barlow text-base font-medium shadow-drop transition-all duration-300 ease-in`}
+      className={`absolute left-0 top-80px -z-10 flex w-screen flex-col items-center lg:hidden ${navVisible ? 'visible h-260px opacity-100' : 'invisible h-0 opacity-0'
+        } bg-mermerTheme font-Barlow text-base font-medium shadow-drop transition-all duration-300 ease-in`}
     >
       <li className="m-2 px-2 py-3">
         <I18n />
@@ -71,21 +75,19 @@ const NavBar = () => {
                 alt="MerMer_logo"
                 width={0}
                 height={0}
-                style={{width: '150px', height: 'auto'}}
+                style={{ width: '150px', height: 'auto' }}
               />
             </Link>
 
             <button className="flex flex-col space-y-1 lg:hidden" onClick={showMenuHandler}>
               <span
-                className={`${burgerStyle} ${
-                  navVisible ? 'translate-y-8px rotate-45' : 'translate-y-0 rotate-0'
-                }`}
+                className={`${burgerStyle} ${navVisible ? 'translate-y-8px rotate-45' : 'translate-y-0 rotate-0'
+                  }`}
               ></span>
               <span className={`${burgerStyle} ${navVisible ? 'opacity-0' : 'opacity-100'}`}></span>
               <span
-                className={`${burgerStyle} ${
-                  navVisible ? '-translate-y-8px -rotate-45' : 'translate-y-0 rotate-0'
-                }`}
+                className={`${burgerStyle} ${navVisible ? '-translate-y-8px -rotate-45' : 'translate-y-0 rotate-0'
+                  }`}
               ></span>
             </button>
           </div>

@@ -56,7 +56,7 @@ export default function KmEdit({ }) {
   useEffect(() => {
     if (kmId) {
       const fetchKm = async () => {
-        const response = await fetch(`/api/kms/${kmId}`);
+        const response = await fetch(`/api/kmEdit/${kmId}`);
 
         if (!response.ok) {
           emitAlert('error', "Can't fetch km");

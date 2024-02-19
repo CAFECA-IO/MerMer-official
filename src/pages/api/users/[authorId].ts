@@ -1,3 +1,4 @@
+
 import type { IKnowledgeManagement } from '../../../interfaces/km_article'
 import { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '../../../lib/db';
@@ -11,6 +12,10 @@ function isLanguege(languege: string): languege is 'en'| 'cn'|'tw' {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const {method} = req;
+  const authorId = req.query.authorId;
+  if(!authorId || typeof authorId !== 'string'){
+    return res.status(400).json({message: 'Invalid authorId'});
+  }
 
   switch (method) {
     case 'GET':
@@ -20,6 +25,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       const kmsFromDb = await prisma.km.findMany({
+        where:{
+          author: {
+            id: authorId
+          },
+          isPublished: true
+        },
         include:{
           categories: true,
           topic: true,
@@ -42,9 +53,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               },
             }
           }
-        },
-        where:{
-          isPublished: true
         },
         orderBy: {
           createdAt: 'desc',
