@@ -14,7 +14,7 @@ import { IKm, IKmTag } from '../../../interfaces/km';
 import { Topic } from '@prisma/client';
 import KmDescription from '../../../components/mermer_admin/km_meta/km_description';
 import EditPageSavePublishDelete from '../../../components/mermer_admin/edit_page_save_publish_delete/edit_page_save_publish_delete';
-
+import Cookies from 'js-cookie';
 
 export default function KmEdit({ }) {
 
@@ -63,7 +63,16 @@ export default function KmEdit({ }) {
           return null
         }
 
+
+
         const json = await response.json();
+
+        // Info (20240216 - Murky) 如果沒有從cookie取到userEmail，或者cookie的userEmail跟km的author的email不一樣，就返回上一頁  
+        const userEmailFromCookies = Cookies.get('userEmail');
+        if (!userEmailFromCookies || userEmailFromCookies !== json?.author?.email) {
+          return router.back();
+        }
+
         setKm(json);
         setKmTitle(json.title);
         setKmDescription(json.description);

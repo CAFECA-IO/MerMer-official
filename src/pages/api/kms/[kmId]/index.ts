@@ -30,6 +30,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           id: kmId
         },
         include: {
+          author:{
+            select: {
+              email: true
+            }
+          },
           categories: {
             select: {
               id: true,

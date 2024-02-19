@@ -4,8 +4,6 @@ import Layout from '../../../components/mermer_admin/layout/admin_layout'
 import Head from 'next/head';
 import KmCardDisplay from '../../../components/mermer_admin/km_card/km_card_display';
 import Pagination from '../../../components/mermer_admin/pagination/pagination';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { ILocale } from '../../../interfaces/locale';
 import SearchBar from '../../../components/mermer_admin/search_bar/SearchBar';
 import DraftOrPublishTags from '../../../components/mermer_admin/draft_or_publish_tag/draft_or_publish_tags';
 import MerMerButton from '../../../components/mermer_button/mermer_button';
