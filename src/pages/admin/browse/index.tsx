@@ -14,15 +14,6 @@ import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 // type Props = {}
 
-// const getStaticPropsFunction = async ({ locale }: ILocale) => ({
-//   props: {
-//     ...(await serverSideTranslations(locale, ['common', 'footer'])),
-//   },
-// });
-
-
-
-// export const getStaticProps = getStaticPropsFunction;
 
 // Till (20240316 - Murky) 這個function是用來計算每個頁面要顯示多少個卡片
 // 可以根據螢幕高度來決定要顯示多少個卡片，目前只會回傳3
@@ -97,18 +88,6 @@ export default function index() {
     };
     fetchAllKmMeta();
 
-    // Info (20240316 - Murky) 下面這個event listener是用來當Edit page 圖片上傳成功時，重新render KM的metadata
-    // 在 /admin/edit/pkmId].tsx 有發送這個imageUploaded event
-    const handleImageUpload = () => {
-      fetchAllKmMeta();
-    };
-
-    document.addEventListener('imageUploaded', handleImageUpload);
-
-    // 清理函数
-    return () => {
-      document.removeEventListener('imageUploaded', handleImageUpload);
-    };
   }, []);
 
   // Info (20240316 - Murky) 下面這個useEffect是用來當activePublishStatus改變時，重新render KM的metadata, 可以在draft和publish之間切換
