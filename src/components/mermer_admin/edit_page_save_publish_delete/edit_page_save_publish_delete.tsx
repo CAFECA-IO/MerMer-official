@@ -77,6 +77,7 @@ export default function EditPageSavePublishDelete({
     if (publishNow) {
       router.push('/admin/browse');
     }
+
     return null
   }
 

@@ -2,6 +2,7 @@ import { PrismaClient, Role } from '@prisma/client';
 import type { UsersArray } from '../jsons/interface/user_data_interface';
 import userData from '../jsons/user_data.json'
 import { getOrCreateJobTitle } from '../seeder-helpers/get_or_create';
+import path from 'path';
 
 export async function seedUser(prisma: PrismaClient): Promise<void> {
   const usersArray: UsersArray = userData;
@@ -20,7 +21,7 @@ export async function seedUser(prisma: PrismaClient): Promise<void> {
         email: user.email,
         signer: user.signer,
         role: role,
-        avatar: user.avatar || null,
+        avatar:  user.avatar ? path.join('/api/public', user.avatar) : null,
         twUserData: {
           create: {
             name: user.twUserData.name,

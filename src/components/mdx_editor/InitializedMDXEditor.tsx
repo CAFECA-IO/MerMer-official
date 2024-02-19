@@ -57,7 +57,7 @@ export default function InitializedMDXEditor({
           imageUploadHandler: imageUploadHandler
         }),
         codeBlockPlugin({ defaultCodeBlockLanguage: 'js' }),
-        codeMirrorPlugin({ codeBlockLanguages: { js: 'JavaScript(js)', javascript: 'JavaScript', css: 'CSS', ts: 'TypeScript(ts)', typescript: 'TypeScript', bash: 'Bash', tsx: 'tsx', jsx: 'jsx', python: 'Python', json: 'JSON', solidity: 'Solidity' } }),
+        codeMirrorPlugin({ codeBlockLanguages: { text: 'Text', js: 'JavaScript(js)', javascript: 'JavaScript', css: 'CSS', ts: 'TypeScript(ts)', typescript: 'TypeScript', bash: 'Bash', tsx: 'tsx', jsx: 'jsx', python: 'Python', json: 'JSON', solidity: 'Solidity' } }),
         diffSourcePlugin({ diffMarkdown: restProp.markdown, viewMode: 'rich-text', codeMirrorExtensions: [coolGlow] }),
         toolbarPlugin({
           toolbarContents: () => (

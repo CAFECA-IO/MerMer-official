@@ -63,7 +63,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Use res.status().json() to send the response
       const isSavedUrlInPublic = /^\/?public/.test(imageSavesUrl[0])
 
-      const returnUrl = isSavedUrlInPublic ? saveFiledUrl.replace(/^\/public/, "") : saveFiledUrl
+      const returnUrl = isSavedUrlInPublic ? path.join('/api', saveFiledUrl) : saveFiledUrl
 
       return res.status(200).json({ url:returnUrl });
     } catch (error) {

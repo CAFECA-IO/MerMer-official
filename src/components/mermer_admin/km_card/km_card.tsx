@@ -36,10 +36,11 @@ export default function KmCard({ kmId, published, title, date, view, share, cove
       />
       <div className='relative h-[150px] w-[183px] overflow-hidden'>
         <Image
-          src={cover || '/elements/bluewaves_3.png'}
+          src={`${cover}` || '/elements/bluewaves_3.png'}
           alt="cover"
           fill={true}
         />
+        {/* <img src={`${cover}` || '/elements/bluewaves_3.png'} alt="cover" className='size-full object-cover' /> */}
       </div>
       <div className='flex w-[585px] flex-col items-start justify-center gap-[11px] font-Dosis text-lightWhite1'>
         <h2 className='text-2xl font-bold '>{title}</h2>

@@ -30,7 +30,6 @@ async function postLogin (deWT: string, hostName: string): Promise<{
   }
 
 
-
 export async function middleware(request: NextRequest) {
   const url = request.nextUrl;
   const hostname = url.origin;
@@ -43,7 +42,14 @@ export async function middleware(request: NextRequest) {
     if(deWT) {
       const userData = await postLogin(String(deWT.value), hostname);
       if(userData && userData?.user && userData?.deWTDecode) {
-        return NextResponse.redirect(new URL(merMerAdminConfig.redirectUrlIfLoginSuccess, request.url));
+
+        // Info (20240124) Murky:
+        const response = NextResponse.redirect(new URL(merMerAdminConfig.redirectUrlIfLoginSuccess, request.url));
+        response.cookies.set('userEmail', userData.user.email, {
+          sameSite: 'strict',
+          maxAge: 60 * 60 * 1
+        });
+        return response;
       }
     }
     return NextResponse.next();
@@ -65,9 +71,14 @@ export async function middleware(request: NextRequest) {
   //   role: userData.user.role,
   //   avatar: userData.user.avatar
   // }
+
   const response = NextResponse.next();
 
   // response.headers.set('x-user-data', JSON.stringify(userInHeader));
+  response.cookies.set('userEmail', userData.user.email, {
+    sameSite: 'strict',
+    maxAge: 60 * 60 * 1
+  });
   return response;
 }
  

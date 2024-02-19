@@ -4,8 +4,6 @@ import Layout from '../../../components/mermer_admin/layout/admin_layout'
 import Head from 'next/head';
 import KmCardDisplay from '../../../components/mermer_admin/km_card/km_card_display';
 import Pagination from '../../../components/mermer_admin/pagination/pagination';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { ILocale } from '../../../interfaces/locale';
 import SearchBar from '../../../components/mermer_admin/search_bar/SearchBar';
 import DraftOrPublishTags from '../../../components/mermer_admin/draft_or_publish_tag/draft_or_publish_tags';
 import MerMerButton from '../../../components/mermer_button/mermer_button';
@@ -13,15 +11,9 @@ import { IAllKmMeta, IKmMeta } from '../../../interfaces/km';
 import useWindowDimensions from '../../../lib/hooks/use_window_dimensions';
 import { useAlerts } from '../../../contexts/alert_context';
 import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 // type Props = {}
 
-const getStaticPropsFunction = async ({ locale }: ILocale) => ({
-  props: {
-    ...(await serverSideTranslations(locale, ['common', 'footer'])),
-  },
-});
-
-export const getStaticProps = getStaticPropsFunction;
 
 // Till (20240316 - Murky) 這個function是用來計算每個頁面要顯示多少個卡片
 // 可以根據螢幕高度來決定要顯示多少個卡片，目前只會回傳3
@@ -77,16 +69,28 @@ export default function index() {
     }
   );
 
+  // Info (20240316 - Murky) 下面這個useEffect是用來取得所有的KM的metadata
   useEffect(() => {
+    //get cookies user email
+    let userEmail = Cookies.get('userEmail');
+
+    if (!userEmail) {
+      return;
+    }
+
+    userEmail = decodeURIComponent(userEmail) // decode %40 to @
+
     const fetchAllKmMeta = async () => {
-      const response = await fetch('/api/kms/kmMetas');
+      const response = await fetch(`/api/kms/kmMetas/${userEmail}`);
       if (!response.ok) return null;
-      const json = await response.json();
+      const json = await response.json() as IAllKmMeta;
       setKmAllMeta(json);
     };
     fetchAllKmMeta();
+
   }, []);
 
+  // Info (20240316 - Murky) 下面這個useEffect是用來當activePublishStatus改變時，重新render KM的metadata, 可以在draft和publish之間切換
   useEffect(() => {
     // 把draft或publish的狀態存在localstorage
     // localStorage.setItem('activePublishStatus', activePublishStatus);
@@ -95,6 +99,7 @@ export default function index() {
   }, [activePublishStatus]);
 
 
+  // Info (20240316 - Murky) 下面這個useEffect是用來當search改變時，重新render KM的metadata, 可以在draft和publish之間切換
   useEffect(() => {
     if (!search) {
       setRenderedKmMeta(kmAllMeta[activePublishStatus].kmMetas || []);
