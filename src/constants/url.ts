@@ -6,4 +6,5 @@ export const MERURL = {
   AUTHOR: '/knowledge-management/author',
   COMING_SOON: '/coming-soon',
   CONTACT_US: '/#contact-us',
+  ADMIN: '/admin/login',
 };

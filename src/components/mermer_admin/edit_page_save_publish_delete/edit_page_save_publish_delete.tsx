@@ -63,7 +63,7 @@ export default function EditPageSavePublishDelete({
     if (isNewImage && selectedImage) {
       formData.append('image', selectedImage);
     }
-    const response = await fetch(`/api/kms/${kmId}`, {
+    const response = await fetch(`/api/kmEdit/${kmId}`, {
       method: 'PUT',
       body: formData,
     });
@@ -87,7 +87,7 @@ export default function EditPageSavePublishDelete({
 
     if (!isConfirmed) return
 
-    const res = await fetch(`/api/kms/${kmId}`, {
+    const res = await fetch(`/api/kmEdit/${kmId}`, {
       method: 'DELETE',
     });
 
