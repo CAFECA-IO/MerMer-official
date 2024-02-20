@@ -111,8 +111,8 @@
   },
   {
     "id": "yang",
-    "email": "yang@fakeemail.com",
-    "signer": "yangFakeWallet",
+    "email": "allanustw@gmail.com",
+    "signer": "0x2390B5b1DA7a78266111143D503D50c4636F5680",
     "role": "USER",
     "avatar": "/profiles/profile_yang.jpg",
     "twUserData": {
@@ -196,8 +196,8 @@
   },
   {
     "id": "straw",
-    "email": "straw@fakeemail.com",
-    "signer": "fakeStrawWallet",
+    "email": "tom709112@gmail.com",
+    "signer": "0xD26B3236C4F4E6Df16b41EEcF18A1c573aBdB75e",
     "role": "USER",
     "twUserData": {
       "name": "Straw Ho",
@@ -217,8 +217,8 @@
   },
   {
     "id": "teresa",
-    "email": "terasa@fakeemail.com",
-    "signer": "fakeTeresaWallet",
+    "email": "teresa.yang@isuncloud.com",
+    "signer": "0x1876b4502C86c0E69f92de5A6788eD586D475d9C",
     "role": "USER",
     "twUserData": {
       "name": "Teresa Yang",
