@@ -14,7 +14,7 @@ import { useTranslation } from 'next-i18next';
 import { TranslateFunction } from '../../interfaces/locale';
 import { MERURL } from '../../constants/url';
 // import { DOMAIN, KM_DESCRIPTION_LIMIT, KM_FOLDER } from '../../constants/config';
-import { DOMAIN, KM_DESCRIPTION_LIMIT } from '../../constants/config';
+import { DOMAIN, KM_DESCRIPTION_LIMIT, merMerKMViewerConfig } from '../../constants/config';
 // import { getPost, getSlugs } from '../../lib/posts';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { truncateText } from '../../lib/common';
@@ -22,6 +22,7 @@ import useShareProcess from '../../lib/hooks/use_share_process';
 import { ISocialMedia, SocialMediaConstant, ShareSettings } from '../../constants/social_media';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { increaseViewAfterDelay } from '../../lib/increase_view_after_delay';
 
 // interface IPageProps {
 //   kmId: string;
@@ -32,6 +33,10 @@ const KMDetailPage = ({ }) => {
   const { t }: { t: TranslateFunction } = useTranslation('common');
   const router = useRouter();
   const kmId = router.query.kmId;
+
+  if (!kmId || typeof kmId !== 'string') {
+    return router.back();
+  }
   const [kmData, setKmData] = useState<IKnowledgeManagement>({
     id: '',
     title: '',
@@ -46,7 +51,9 @@ const KMDetailPage = ({ }) => {
       jobTitle: '',
       intro: '',
       avatar: '',
-    }
+    },
+    views: 0,
+    shares: 0,
   });
 
   useEffect(() => {
@@ -66,6 +73,9 @@ const KMDetailPage = ({ }) => {
       setKmData(kmData);
     }
     fetchKm();
+
+    // Info: (20240220 - Murky) 閱讀一定秒數後，才增加view
+    increaseViewAfterDelay(kmId, merMerKMViewerConfig.timeBeforeIncreaseView);
   }, []);
   const shareUrl = `${DOMAIN}${MERURL.KM}/${kmData.id}`;
   const description = truncateText(kmData.description, KM_DESCRIPTION_LIMIT);

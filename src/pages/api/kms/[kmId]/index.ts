@@ -76,7 +76,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           category: categories,
           picture: km.picture || '/api/public/km/03.png',
           author: author,
+          views: km.views,
+          shares: km.shares,
         }
+
+        // Info (20240220 - Murky) 每次call api views + 1
+        // await prisma.km.update({
+        //   where: {
+        //     id: kmId,
+        //   },
+        //   data: {
+        //     views: {
+        //       increment: 1,
+        //     },
+        //   },
+        // });
 
       return res.status(200).json(kmForReturn);
     default:

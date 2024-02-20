@@ -58,6 +58,7 @@ const useShareProcess = ({shareId}: IUseShareProcess) => {
         });
         break;
     }
+    increaseShareCount();
   };
 
   const shareOn = ({url, text, type, size}: IShareToSocialMedia) => {
@@ -71,6 +72,15 @@ const useShareProcess = ({shareId}: IUseShareProcess) => {
     );
   };
 
+  const increaseShareCount = async () => {
+    const response = await fetch(`/api/kms/${shareId}/increaseShareCount`, {
+      method: 'GET',
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to increase share count');
+    }
+  };
   return {share};
 };
 

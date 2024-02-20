@@ -75,6 +75,8 @@ model Km {
   categories  Category[]
   topic       Topic      @relation(fields: [topicId], references: [id])
   topicId     Int
+  views       Int        @default(0)
+  shares      Int        @default(0)
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 }
