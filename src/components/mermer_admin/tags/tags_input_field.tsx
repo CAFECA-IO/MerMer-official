@@ -54,8 +54,6 @@ export default function TagsInputField({
         setTags((prev) => [...prev, newTag]);
         setInputValue('');
 
-        // eslint-disable-next-line no-console
-        console.log('handleKeyDown', tags)
         event.preventDefault();
     }
   };
@@ -72,9 +70,6 @@ export default function TagsInputField({
       }
     }));
     setTags(newTags)
-
-    // eslint-disable-next-line no-console
-    console.log('OnChange', newTags)
   };
 
   const filterTags = async (inputValue: string): Promise<IKmTag[]> => {

@@ -36,6 +36,8 @@ export default function KmEdit({ }) {
   const [kmDescription, setKmDescription] = useState<string>('');
   const [kmTags, setKmTags] = useState<IKmTag[]>([])
   const [isPublished, setIsPublished] = useState<boolean>(false);
+  const [isSaved, setIsSaved] = useState<boolean>(true);
+
 
   // Info (20240216 - Murky) Alert
   const { addAlert, clearAlerts } = useAlerts();
@@ -104,7 +106,36 @@ export default function KmEdit({ }) {
       setKmTopics(json);
     };
     fetchTopics();
+
+
   }, []);
+
+  // Info (20240220 - Murky) Prevent Unsave leave
+  useEffect(() => {
+    const warningText =
+      'You have unsaved changes - are you sure you wish to leave this page?';
+
+    const handleWindowClose = (e: BeforeUnloadEvent) => {
+      if (isSaved) return;
+      e.preventDefault();
+      return (e.returnValue = warningText);
+    };
+    const handleBrowseAway = () => {
+      if (isSaved) return;
+
+      if (window.confirm(warningText)) return
+      router.events.emit('routeChangeError');
+      throw 'routeChange aborted.';
+    };
+
+
+    window.addEventListener('beforeunload', handleWindowClose);
+    router.events.on('routeChangeStart', handleBrowseAway);
+    return () => {
+      window.removeEventListener('beforeunload', handleWindowClose);
+      router.events.off('routeChangeStart', handleBrowseAway);
+    };
+  }, [isSaved]);
 
   // Info (20240216 - Murky) 如果有圖片路徑卻沒有 圖片load進來，reuturn null
   if (km && km.picture && !selectedImage) return null;
@@ -120,16 +151,22 @@ export default function KmEdit({ }) {
         {/* <ConfirmWraper /> */}
         <div className="flex size-full flex-col items-start justify-center gap-6 px-10 py-6">
           <div className="flex w-full items-center justify-between">
-            <div className='flex cursor-pointer gap-2' onClick={() => router.push('/admin/browse')}>
-              <Image
-                src='/elements/left-arrow.svg'
-                height={24}
-                width={24}
-                alt='arrow'
-              />
-              <h1 className='text-2xl font-bold'>Create new KM</h1>
+            <div className='flex flex-row items-center justify-center gap-2'>
+              <div className='flex cursor-pointer gap-2' onClick={() => router.push('/admin/browse')}>
+                <Image
+                  src='/elements/left-arrow.svg'
+                  height={24}
+                  width={24}
+                  alt='arrow'
+                />
+                <h1 className='text-2xl font-bold'>Create new KM</h1>
+              </div>
+              <div>
+                <span className='text-xs text-lightGray1'>
+                  {isSaved ? 'Saved' : 'Not Saved'}
+                </span>
+              </div>
             </div>
-
             <EditPageSavePublishDelete
               kmId={kmId}
               kmTitle={kmTitle}
@@ -140,6 +177,7 @@ export default function KmEdit({ }) {
               selectedImage={selectedImage}
               isNewImage={isNewImage}
               isPublished={isPublished}
+              setIsSaved={setIsSaved}
             />
           </div>
           <KmMeta
@@ -154,7 +192,11 @@ export default function KmEdit({ }) {
           />
           <KmDescription kmDescription={kmDescription} setKmDescription={setKmDescription} />
           <Tags tags={kmTags} setTags={setKmTags} />
-          <ForwardRefEditor className='' markdown={km.mdFile} ref={editorRef} />
+          <ForwardRefEditor className='' markdown={km.mdFile} ref={editorRef} onChange={
+            () => {
+              setIsSaved(false);
+            }
+          } />
         </div>
       </Layout>
     </>
