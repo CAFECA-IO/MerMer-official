@@ -40,7 +40,7 @@ const KMDetailPage = ({ }) => {
   const [kmData, setKmData] = useState<IKnowledgeManagement>({
     id: '',
     title: '',
-    date: new Date().getTime(),
+    date: new Date().getTime() / 1000,
     content: '',
     category: [],
     picture: '',

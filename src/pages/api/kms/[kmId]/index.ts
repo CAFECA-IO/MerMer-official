@@ -69,7 +69,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const kmForReturn: IKnowledgeManagement = {
 
           id: km.id,
-          date: km.createdAt.getTime(),
+          date: km.createdAt.getTime() / 1000,
           title: km.title,
           description: km.description || "",
           content: content,
