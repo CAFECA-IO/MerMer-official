@@ -15,7 +15,6 @@ import { Topic } from '@prisma/client';
 import KmDescription from '../../../components/mermer_admin/km_meta/km_description';
 import EditPageSavePublishDelete from '../../../components/mermer_admin/edit_page_save_publish_delete/edit_page_save_publish_delete';
 import Cookies from 'js-cookie';
-import useConfirm from '../../../contexts/confirm_context/use_confirm';
 
 export default function KmEdit({ }) {
 
@@ -39,8 +38,7 @@ export default function KmEdit({ }) {
   const [isPublished, setIsPublished] = useState<boolean>(false);
   const [isSaved, setIsSaved] = useState<boolean>(true);
 
-  // Info (20240216 - Murky) Global Confirm
-  const { confirm } = useConfirm();
+
   // Info (20240216 - Murky) Alert
   const { addAlert, clearAlerts } = useAlerts();
   function emitAlert(severity: 'error' | 'success', message: string) {
@@ -122,16 +120,12 @@ export default function KmEdit({ }) {
       e.preventDefault();
       return (e.returnValue = warningText);
     };
-    const handleBrowseAway = async () => {
+    const handleBrowseAway = () => {
       if (isSaved) return;
 
-      const isConfirmed = await confirm(warningText);
-      if (!isConfirmed) {
-        router.events.emit('routeChangeError');
-        throw 'routeChange aborted.';
-      } else {
-        return;
-      }
+      if (window.confirm(warningText)) return
+      router.events.emit('routeChangeError');
+      throw 'routeChange aborted.';
     };
 
 
@@ -157,19 +151,21 @@ export default function KmEdit({ }) {
         {/* <ConfirmWraper /> */}
         <div className="flex size-full flex-col items-start justify-center gap-6 px-10 py-6">
           <div className="flex w-full items-center justify-between">
-            <div className='flex cursor-pointer gap-2' onClick={() => router.push('/admin/browse')}>
-              <Image
-                src='/elements/left-arrow.svg'
-                height={24}
-                width={24}
-                alt='arrow'
-              />
-              <h1 className='text-2xl font-bold'>Create new KM</h1>
-            </div>
-            <div>
-              <span>
-                {isSaved ? 'Saved' : 'Not Saved'}
-              </span>
+            <div className='flex flex-row items-center justify-center gap-2'>
+              <div className='flex cursor-pointer gap-2' onClick={() => router.push('/admin/browse')}>
+                <Image
+                  src='/elements/left-arrow.svg'
+                  height={24}
+                  width={24}
+                  alt='arrow'
+                />
+                <h1 className='text-2xl font-bold'>Create new KM</h1>
+              </div>
+              <div>
+                <span className='text-xs text-lightGray1'>
+                  {isSaved ? 'Saved' : 'Not Saved'}
+                </span>
+              </div>
             </div>
             <EditPageSavePublishDelete
               kmId={kmId}

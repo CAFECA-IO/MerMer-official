@@ -30,6 +30,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         res.status(200).send(data);
       }
     });
+
+    return res.status(200);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch file' });
   }

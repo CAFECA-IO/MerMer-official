@@ -1,4 +1,4 @@
-import React, { Dispatch } from 'react'
+import React, { Dispatch, use, useEffect } from 'react'
 import MerMerButton from '../../mermer_button/mermer_button'
 import Image from 'next/image'
 import useConfirm from '../../../contexts/confirm_context/use_confirm';
@@ -47,6 +47,11 @@ export default function EditPageSavePublishDelete({
       }
     });
   }
+
+  useEffect(() => {
+    setIsSaved(false);
+  }, [kmTitle, selectedKmTopic, kmDescription, kmTags, isNewImage])
+
   // Info (20240216 - Murky) Save or publish km
   async function saveKm(publishNow: boolean) {
     const formData = new FormData();
@@ -55,7 +60,9 @@ export default function EditPageSavePublishDelete({
       title: kmTitle,
       selectedKmTopicName: selectedKmTopic,
       description: kmDescription,
-      tags: kmTags,
+      tags: kmTags.map(tag => {
+        return { id: tag.id, label: tag.label, value: tag.value }
+      }),
       isNewImage,
       mdFile: editorRef.current?.getMarkdown() || '',
       isPublished: publishNow || isPublished,
