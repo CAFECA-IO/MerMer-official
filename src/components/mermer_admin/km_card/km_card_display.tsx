@@ -25,8 +25,8 @@ export default function KmCardDisplay({ kmCards, cardsRenderPerPage, activePage,
       kmId={card.id}
       title={card.title}
       date={card.createdAt as unknown as string}
-      view={0}
-      share={0}
+      view={card.views}
+      share={card.shares}
       cover={card.picture}
       published={card.isPublished}
       kmAllMeta={kmAllMeta}

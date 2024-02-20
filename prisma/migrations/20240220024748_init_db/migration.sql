@@ -66,6 +66,8 @@ CREATE TABLE "Km" (
     "description" TEXT,
     "mdFile" TEXT NOT NULL,
     "topicId" INTEGER NOT NULL,
+    "views" INTEGER NOT NULL DEFAULT 0,
+    "shares" INTEGER NOT NULL DEFAULT 0,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

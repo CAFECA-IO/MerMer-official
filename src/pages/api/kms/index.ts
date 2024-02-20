@@ -75,6 +75,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           category: categories,
           picture: km.picture || '/api/public/km/03.png',
           author: author,
+          views: km.views,
+          shares: km.shares,
         }
       })
 

@@ -8,6 +8,8 @@ export interface IKnowledgeManagement {
   content: string;
   category: string[];
   picture: string;
+  views: number;
+  shares: number;
   author: IAuthor;
 }
 

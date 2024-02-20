@@ -125,3 +125,7 @@ export const merMerAdminConfig = {
   formidableUploadUrl: '/public/temp',
   kmImageStoreInPublicUrl: '/public/km'
 }
+
+export const merMerKMViewerConfig = {
+  timeBeforeIncreaseView: 60 * 1000,
+}

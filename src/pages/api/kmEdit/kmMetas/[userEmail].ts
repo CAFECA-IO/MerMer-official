@@ -21,7 +21,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           categories: true,
           topic : true,
           createdAt: true,
-          updatedAt: true
+          updatedAt: true,
+          views: true,
+          shares: true,
         },
         where: {
           author: {
