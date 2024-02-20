@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch } from 'react'
 import MerMerButton from '../../mermer_button/mermer_button'
 import Image from 'next/image'
 import useConfirm from '../../../contexts/confirm_context/use_confirm';
@@ -17,6 +17,7 @@ type Props = {
   isPublished: boolean,
   isNewImage: boolean,
   selectedImage: File | null,
+  setIsSaved: Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function EditPageSavePublishDelete({
@@ -28,7 +29,8 @@ export default function EditPageSavePublishDelete({
   editorRef,
   isPublished,
   isNewImage,
-  selectedImage
+  selectedImage,
+  setIsSaved
 }: Props) {
 
   const router = useRouter();
@@ -78,6 +80,7 @@ export default function EditPageSavePublishDelete({
       router.push('/admin/browse');
     }
 
+    setIsSaved(true);
     return null
   }
 

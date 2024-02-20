@@ -15,6 +15,7 @@ import { Topic } from '@prisma/client';
 import KmDescription from '../../../components/mermer_admin/km_meta/km_description';
 import EditPageSavePublishDelete from '../../../components/mermer_admin/edit_page_save_publish_delete/edit_page_save_publish_delete';
 import Cookies from 'js-cookie';
+import useConfirm from '../../../contexts/confirm_context/use_confirm';
 
 export default function KmEdit({ }) {
 
@@ -36,7 +37,10 @@ export default function KmEdit({ }) {
   const [kmDescription, setKmDescription] = useState<string>('');
   const [kmTags, setKmTags] = useState<IKmTag[]>([])
   const [isPublished, setIsPublished] = useState<boolean>(false);
+  const [isSaved, setIsSaved] = useState<boolean>(true);
 
+  // Info (20240216 - Murky) Global Confirm
+  const { confirm } = useConfirm();
   // Info (20240216 - Murky) Alert
   const { addAlert, clearAlerts } = useAlerts();
   function emitAlert(severity: 'error' | 'success', message: string) {
@@ -104,7 +108,40 @@ export default function KmEdit({ }) {
       setKmTopics(json);
     };
     fetchTopics();
+
+
   }, []);
+
+  // Info (20240220 - Murky) Prevent Unsave leave
+  useEffect(() => {
+    const warningText =
+      'You have unsaved changes - are you sure you wish to leave this page?';
+
+    const handleWindowClose = (e: BeforeUnloadEvent) => {
+      if (isSaved) return;
+      e.preventDefault();
+      return (e.returnValue = warningText);
+    };
+    const handleBrowseAway = async () => {
+      if (isSaved) return;
+
+      const isConfirmed = await confirm(warningText);
+      if (!isConfirmed) {
+        router.events.emit('routeChangeError');
+        throw 'routeChange aborted.';
+      } else {
+        return;
+      }
+    };
+
+
+    window.addEventListener('beforeunload', handleWindowClose);
+    router.events.on('routeChangeStart', handleBrowseAway);
+    return () => {
+      window.removeEventListener('beforeunload', handleWindowClose);
+      router.events.off('routeChangeStart', handleBrowseAway);
+    };
+  }, [isSaved]);
 
   // Info (20240216 - Murky) 如果有圖片路徑卻沒有 圖片load進來，reuturn null
   if (km && km.picture && !selectedImage) return null;
@@ -129,7 +166,11 @@ export default function KmEdit({ }) {
               />
               <h1 className='text-2xl font-bold'>Create new KM</h1>
             </div>
-
+            <div>
+              <span>
+                {isSaved ? 'Saved' : 'Not Saved'}
+              </span>
+            </div>
             <EditPageSavePublishDelete
               kmId={kmId}
               kmTitle={kmTitle}
@@ -140,6 +181,7 @@ export default function KmEdit({ }) {
               selectedImage={selectedImage}
               isNewImage={isNewImage}
               isPublished={isPublished}
+              setIsSaved={setIsSaved}
             />
           </div>
           <KmMeta
@@ -154,7 +196,11 @@ export default function KmEdit({ }) {
           />
           <KmDescription kmDescription={kmDescription} setKmDescription={setKmDescription} />
           <Tags tags={kmTags} setTags={setKmTags} />
-          <ForwardRefEditor className='' markdown={km.mdFile} ref={editorRef} />
+          <ForwardRefEditor className='' markdown={km.mdFile} ref={editorRef} onChange={
+            () => {
+              setIsSaved(false);
+            }
+          } />
         </div>
       </Layout>
     </>
