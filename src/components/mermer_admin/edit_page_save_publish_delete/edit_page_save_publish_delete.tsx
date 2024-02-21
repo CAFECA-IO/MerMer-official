@@ -6,6 +6,7 @@ import { IKmForSave, IKmTag } from '../../../interfaces/km';
 import { useAlerts } from '../../../contexts/alert_context';
 import type { MDXEditorMethods } from '@mdxeditor/editor';
 import { useRouter } from 'next/router';
+import { merMerKMViewerConfig } from '../../../constants/config';
 
 type Props = {
   kmId: string,
@@ -17,6 +18,7 @@ type Props = {
   isPublished: boolean,
   isNewImage: boolean,
   selectedImage: File | null,
+  isSaved: boolean,
   setIsSaved: Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -30,6 +32,7 @@ export default function EditPageSavePublishDelete({
   isPublished,
   isNewImage,
   selectedImage,
+  isSaved,
   setIsSaved
 }: Props) {
 
@@ -51,6 +54,17 @@ export default function EditPageSavePublishDelete({
   useEffect(() => {
     setIsSaved(false);
   }, [kmTitle, selectedKmTopic, kmDescription, kmTags, isNewImage])
+
+
+  // Info (20240221 - Murky) Auto save
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (isSaved) return;
+      saveKm(false);
+    }, merMerKMViewerConfig.timeForAutoSave);
+
+    return () => clearInterval(interval);
+  }, [isSaved]);
 
   // Info (20240216 - Murky) Save or publish km
   async function saveKm(publishNow: boolean) {
