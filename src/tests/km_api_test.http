@@ -1,0 +1,9 @@
+//REST Client - Visual Studio Marketplace
+//Extension for Visual Studio Code - REST Client for Visual Studio Code
+//https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+// Get all km meta for cards
+GET http://localhost:3000/api/kmEdit
+
+// Get single km with categories and topic
+GET http://localhost:3000/api/kmEdit/20231206001

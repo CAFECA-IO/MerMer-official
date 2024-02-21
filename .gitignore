@@ -83,6 +83,9 @@ web_modules/
 .cache
 .parcel-cache
 
+# package-lock
+package-lock.json
+
 # Next.js build output
 .next
 out
@@ -128,3 +131,11 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+*.Identifier
+
+# Apple DS_Store
+.DS_Store
+
+# Public temp
+public/temp/*
