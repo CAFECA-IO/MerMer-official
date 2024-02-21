@@ -177,6 +177,7 @@ export default function KmEdit({ }) {
               selectedImage={selectedImage}
               isNewImage={isNewImage}
               isPublished={isPublished}
+              isSaved={isSaved}
               setIsSaved={setIsSaved}
             />
           </div>

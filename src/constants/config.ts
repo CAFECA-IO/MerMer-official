@@ -128,4 +128,5 @@ export const merMerAdminConfig = {
 
 export const merMerKMViewerConfig = {
   timeBeforeIncreaseView: 60 * 1000,
+  timeForAutoSave: 60 * 1000,
 }
