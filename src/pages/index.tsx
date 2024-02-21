@@ -6,8 +6,8 @@ import WhatWeOffer from '../components/what_we_offer/what_we_offer';
 import WhyMermer from '../components/why_mermer/why_mermer';
 import ContactUsForm from '../components/contact_us_form/contact_us_form';
 import Footer from '../components/footer/footer';
-import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
-import {ILocale} from '../interfaces/locale';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { ILocale } from '../interfaces/locale';
 
 const Home = () => {
   return (
@@ -52,7 +52,7 @@ const Home = () => {
   );
 };
 
-const getStaticPropsFunction = async ({locale}: ILocale) => ({
+const getStaticPropsFunction = async ({ locale }: ILocale) => ({
   props: {
     ...(await serverSideTranslations(locale, ['common'])),
   },

@@ -3,7 +3,13 @@ export const KM_DESCRIPTION_LIMIT = 100;
 
 export const KM_FOLDER = 'src/km';
 
+export const SERVICE_TERM_TITLE = 'ServiceTerm';
 export const DOMAIN = 'https://mermer.com.tw';
+export const API_URL = 'https://mermer.com.tw'; //'http://localhost:80';
+export const API_VERSION = 'v1';
+export const TERM_OF_SERVICE = DOMAIN + '{hash}';
+export const PRIVATE_POLICY = DOMAIN + '{hash}';
+export const DeWT_VALIDITY_PERIOD = 60 * 60; // seconds
 
 export const web3Content = [
   {
@@ -106,3 +112,21 @@ export const mermerEmail = process.env.REACT_APP_MERMER_EMAIL;
 export const mermerCopyright = process.env.REACT_APP_MERMER_COPYRIGHT;
 
 export const githubLink = process.env.REACT_APP_GITHUB_LINK;
+
+// Login KM Editor(MerMer Admin) related
+export const merMerAdminConfig = {
+  redirectUrlIfLoginSuccess: '/admin/browse',
+  redirectUrlIfLoginFail: '/admin/login',
+  postloginVerifyUrl: '/api/auth/login',
+  dashboardPageUrl: '/admin/dashboard',
+  browsePageUrl: '/admin/browse',
+  editPageUrl: '/admin/edit',
+  defaultUserAvatarUrl: '/profiles/default_profile.png',
+  formidableUploadUrl: '/public/temp',
+  kmImageStoreInPublicUrl: '/public/km'
+}
+
+export const merMerKMViewerConfig = {
+  timeBeforeIncreaseView: 60 * 1000,
+  timeForAutoSave: 60 * 1000,
+}

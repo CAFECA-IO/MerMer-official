@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: ['./src/**/**/*.{js,ts,jsx,tsx}', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
@@ -35,6 +36,7 @@ module.exports = {
 
         lightGray1: '#8B8F92',
         lightGray2: '#F2F4F8',
+        errorRed: '#FC8181',
       },
       fontFamily: {
         Dosis: 'Dosis, sans-serif',
@@ -287,6 +289,8 @@ module.exports = {
         drop: '0px 4px 24px 0px #0B0B2F',
         buttonHover:
           '0px 1px 0px 0px rgba(255, 255, 255, 0.40) inset, 0px -4px 0px 0px rgba(0, 0, 0, 0.20) inset, 0px 0px 0px 4px rgba(255, 255, 255, 0.07), 0px 0px 180px 0px #62DDE4',
+        adminNavbar:
+          '4px 0px 100px 0px rgba(0, 0, 0, 0.80), 0px 4px 12px 0px rgba(255, 255, 255, 0.25) inset',
       },
       dropShadow: {
         heightLight: [
@@ -326,7 +330,21 @@ module.exports = {
       transitionProperty: {
         grid: 'grid-template-rows',
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            'code::before': {
+              content: '""'
+            },
+            'code::after': {
+              content: '""'
+            }
+          }
+        }
+      }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 };

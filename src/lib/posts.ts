@@ -28,6 +28,8 @@ export async function getPost(src: string, slug: string): Promise<IKnowledgeMana
       category,
       picture,
       author,
+      views: 0,
+      shares: 0,
     };
   } catch (error) {
     return null;

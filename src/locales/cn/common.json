@@ -242,5 +242,33 @@
     "MURKY_NAME": "Murky",
     "MURKY_JOBTITLE": "软件工程师",
     "MURKY_INTRO": "想要杀死恶魔，就应该把死掉的法师偷放进恶魔的口袋里。"
+  },
+  "WALLET_PANEL": {
+    "TITLE": "连接钱包",
+    "SEARCHING": "寻找钱包...",
+    "CONNECTING": "连接中...",
+    "WALLET_EXTENSION_NOT_FOUND1": "找不到钱包",
+    "WALLET_EXTENSION_NOT_FOUND2": "建议您尝试其他浏览器",
+    "WALLET_EXTENSION_NOT_FOUND3": "或",
+    "WALLET_EXTENSION_NOT_FOUND4": "扫描 QR Code 以登入",
+    "WALLET_EXTENSION_NOT_FOUND5": "我没有钱包?",
+    "QR_CODE_DESCRIPTION_PART1": "请开启您的",
+    "QR_CODE_DESCRIPTION_HIGHLIGHT": "钱包",
+    "QR_CODE_DESCRIPTION_PART2": "并扫描 QR 码",
+    "SIGNATURE_DESCRIPTION_LINE1": "您将收到两项签名请求",
+    "SIGNATURE_DESCRIPTION_LINE2_PART1": "签名是",
+    "SIGNATURE_DESCRIPTION_LINE2_HIGHLIGHT": "免费",
+    "SIGNATURE_DESCRIPTION_LINE2_PART2": "的，并不会发送任何交易",
+    "SIGNATURE_STEP1_TITLE": "验证所有权",
+    "SIGNATURE_STEP1_DESCRIPTION": "确认您为这个钱包的所有人",
+    "SIGNATURE_STEP2_TITLE": "同意政策",
+    "SIGNATURE_STEP2_DESCRIPTION1": "请阅读并同意",
+    "SIGNATURE_STEP2_DESCRIPTION2": "政策",
+    "DISABLE_SERVICE_TERM_ERROR_MESSAGE": "您已拒绝签名",
+    "ERROR_MESSAGE": "发生错误，请再试一次",
+    "SEND_REQUESTS_BUTTON": "发送请求",
+    "HELLO_DESCRIPTION": "欢迎来到MerMer Admin",
+    "HELLO_CONNECT_LINK": "连接 TideBit",
+    "DONE_BUTTON": "完成"
   }
 }

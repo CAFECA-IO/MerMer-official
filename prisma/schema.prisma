@@ -1,0 +1,100 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  userId     Int         @id @default(autoincrement())
+  id         String      @unique
+  email      String      @unique
+  signer     String      @unique
+  role       Role        @default(USER)
+  avatar     String?
+  kms        Km[]
+  twUserData TwUserData?
+  enUserData EnUserData?
+  cnUserData CnUserData?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model TwUserData {
+  id         Int       @id @default(autoincrement())
+  name       String
+  user       User      @relation(fields: [userId], references: [userId])
+  userId     Int       @unique
+  intro      String?
+  jobTitle   JobTitle? @relation(fields: [jobTitleId], references: [id])
+  jobTitleId Int
+}
+
+model EnUserData {
+  id         Int       @id @default(autoincrement())
+  name       String
+  user       User      @relation(fields: [userId], references: [userId])
+  userId     Int       @unique
+  intro      String?
+  jobTitle   JobTitle? @relation(fields: [jobTitleId], references: [id])
+  jobTitleId Int
+}
+
+model CnUserData {
+  id         Int       @id @default(autoincrement())
+  name       String
+  user       User      @relation(fields: [userId], references: [userId])
+  userId     Int       @unique
+  intro      String?
+  jobTitle   JobTitle? @relation(fields: [jobTitleId], references: [id])
+  jobTitleId Int
+}
+
+model JobTitle {
+  id          Int          @id @default(autoincrement())
+  jobTitle    String
+  twUserDatas TwUserData[]
+  enUserDatas EnUserData[]
+  cnUserDatas CnUserData[]
+}
+
+model Km {
+  id          String     @id
+  title       String
+  isPublished Boolean    @default(false)
+  author      User       @relation(fields: [authorId], references: [userId])
+  authorId    Int
+  picture     String?
+  description String?    @db.Text
+  mdFile      String     @db.Text
+  categories  Category[]
+  topic       Topic      @relation(fields: [topicId], references: [id])
+  topicId     Int
+  views       Int        @default(0)
+  shares      Int        @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  label String @unique
+  value String
+  kms   Km[]
+}
+
+model Topic {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  kms  Km[]
+}
+
+enum Role {
+  USER
+  ADMIN
+}

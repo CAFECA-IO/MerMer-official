@@ -2,30 +2,31 @@ import KMItem from '../km_item/km_item';
 import Pagination from '../pagination/pagination';
 import useOuterClick from '../../lib/hooks/use_outer_click';
 import useStateRef from 'react-usestateref';
-import {useState, useEffect} from 'react';
-import {useRouter} from 'next/router';
-import {KM_PER_PAGE} from '../../constants/config';
-import {IKnowledgeManagement} from '../../interfaces/km_article';
-import {MdOutlineKeyboardArrowDown} from 'react-icons/md';
-import {RiSearchLine} from 'react-icons/ri';
-import {TbSortDescending} from 'react-icons/tb';
-import {useTranslation} from 'next-i18next';
-import {TranslateFunction} from '../../interfaces/locale';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { KM_PER_PAGE } from '../../constants/config';
+import { IKnowledgeManagement } from '../../interfaces/km_article';
+import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
+import { RiSearchLine } from 'react-icons/ri';
+import { TbSortDescending } from 'react-icons/tb';
+import { useTranslation } from 'next-i18next';
+import { TranslateFunction } from '../../interfaces/locale';
 
 interface IPageProps {
   posts: IKnowledgeManagement[];
   categories: string[];
 }
 
-const KMPageBody = ({posts, categories}: IPageProps) => {
-  const {t}: {t: TranslateFunction} = useTranslation('common');
+const KMPageBody = ({ posts, categories }: IPageProps) => {
+  const { t }: { t: TranslateFunction } = useTranslation('common');
 
   const router = useRouter();
-  const {category: categoryQuery} = router.query;
+  const { category: categoryQuery } = router.query;
 
   const [kmList, setKmList] = useState<IKnowledgeManagement[]>(posts);
   const [activePage, setActivePage] = useState(1);
   const [totalPages, setTotalPages] = useState(Math.ceil(posts.length / KM_PER_PAGE));
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [search, setSearch, searchRef] = useStateRef('');
   const [sorting, setSorting] = useState('');
   const [category, setCategory] = useState((categoryQuery as string) ?? '');
@@ -60,13 +61,13 @@ const KMPageBody = ({posts, categories}: IPageProps) => {
           searchRef.current === '' || !searchRef.current
             ? true
             : item.title.toLowerCase().includes(searchRef.current.toLowerCase()) ||
-              item.description.toLowerCase().includes(searchRef.current.toLowerCase()) ||
-              // Info: (20230721 - Julian) 用 some() 比對 category 陣列中是否有符合條件的字串
-              item.category.some(category =>
-                category.toLowerCase().includes(searchRef.current.toLowerCase())
-              ) ||
-              item.content.toLowerCase().includes(searchRef.current.toLowerCase()) ||
-              item.author.name.toLowerCase().includes(searchRef.current.toLowerCase());
+            item.description.toLowerCase().includes(searchRef.current.toLowerCase()) ||
+            // Info: (20230721 - Julian) 用 some() 比對 category 陣列中是否有符合條件的字串
+            item.category.some(category =>
+              category.toLowerCase().includes(searchRef.current.toLowerCase())
+            ) ||
+            item.content.toLowerCase().includes(searchRef.current.toLowerCase()) ||
+            item.author.name.toLowerCase().includes(searchRef.current.toLowerCase());
         return result;
       })
       .sort((a, b) => (sorting === 'Oldest' ? a.date - b.date : b.date - a.date));
@@ -85,8 +86,8 @@ const KMPageBody = ({posts, categories}: IPageProps) => {
     sorting === 'Newest'
       ? t('KM_PAGE.SORT_BY_NEWEST')
       : sorting === 'Oldest'
-      ? t('KM_PAGE.SORT_BY_OLDEST')
-      : t('KM_PAGE.SORT_BY_TITLE');
+        ? t('KM_PAGE.SORT_BY_OLDEST')
+        : t('KM_PAGE.SORT_BY_TITLE');
 
   const searchChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = event.target.value;
@@ -116,9 +117,8 @@ const KMPageBody = ({posts, categories}: IPageProps) => {
 
       <ul
         ref={sortRef}
-        className={`absolute top-8 z-20 flex max-h-350px flex-col overflow-y-scroll bg-mermerTheme px-2 ${
-          sortVisible ? 'visible opacity-100' : 'invisible opacity-0'
-        } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in`}
+        className={`absolute top-8 z-20 flex max-h-350px flex-col overflow-y-scroll bg-mermerTheme px-2 ${sortVisible ? 'visible opacity-100' : 'invisible opacity-0'
+          } divide-y divide-lightWhite1 shadow-drop transition-all duration-150 ease-in`}
       >
         <li className="min-w-80px p-2 hover:bg-dropDownHover" onClick={newestSortHandler}>
           {t('KM_PAGE.SORT_BY_NEWEST')}
@@ -143,9 +143,8 @@ const KMPageBody = ({posts, categories}: IPageProps) => {
 
       <ul
         ref={catagoryRef}
-        className={`absolute left-0 top-8 z-20 flex max-h-350px flex-col whitespace-nowrap bg-mermerTheme px-2 ${
-          catagoryVisible ? 'visible opacity-100' : 'invisible opacity-0'
-        } divide-y divide-lightWhite1 overflow-y-scroll shadow-drop transition-all duration-150 ease-in`}
+        className={`absolute left-0 top-8 z-20 flex max-h-350px flex-col whitespace-nowrap bg-mermerTheme px-2 ${catagoryVisible ? 'visible opacity-100' : 'invisible opacity-0'
+          } divide-y divide-lightWhite1 overflow-y-scroll shadow-drop transition-all duration-150 ease-in`}
       >
         <li
           className="min-w-80px p-2 hover:bg-dropDownHover"

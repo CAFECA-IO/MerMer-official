@@ -16,6 +16,7 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'plugin:import/recommended',
         'plugin:tailwindcss/recommended',
+        // 'plugin:prettier/recommended',
       ],
       parser: '@typescript-eslint/parser',
       plugins: ['@typescript-eslint'],
@@ -32,6 +33,7 @@ module.exports = {
     'tailwindcss/migration-from-tailwind-2': 'error',
     'tailwindcss/no-arbitrary-value': 'error',
     'tailwindcss/no-custom-classname': 'error',
+    // 'prettier/prettier': ['error', {semi: true, singleQuote: true}],
   },
   // 整合 prettier 和解決 prettier 衝突問題
   plugins: ['prettier'],

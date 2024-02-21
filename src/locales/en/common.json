@@ -245,5 +245,33 @@
     "MURKY_NAME": "Murky",
     "MURKY_JOBTITLE": "Software Engineer",
     "MURKY_INTRO": "To kill the Demon, you need to put a dead witcher into his pocket secretly."
+  },
+  "WALLET_PANEL": {
+    "TITLE": "Wallet Connect",
+    "SEARCHING": "Searching for your wallet…",
+    "CONNECTING": "Connecting...",
+    "WALLET_EXTENSION_NOT_FOUND1": "No wallet is found.",
+    "WALLET_EXTENSION_NOT_FOUND2": "We suggest you to try other browser.",
+    "WALLET_EXTENSION_NOT_FOUND3": "Or",
+    "WALLET_EXTENSION_NOT_FOUND4": "Scan QR code to login",
+    "WALLET_EXTENSION_NOT_FOUND5": "I don't have a wallet ?",
+    "QR_CODE_DESCRIPTION_PART1": "Please open your",
+    "QR_CODE_DESCRIPTION_HIGHLIGHT": "wallet",
+    "QR_CODE_DESCRIPTION_PART2": "to scan the QR code.",
+    "SIGNATURE_DESCRIPTION_LINE1": "You will receive two signature requests.",
+    "SIGNATURE_DESCRIPTION_LINE2_PART1": "Signing is",
+    "SIGNATURE_DESCRIPTION_LINE2_HIGHLIGHT": "free",
+    "SIGNATURE_DESCRIPTION_LINE2_PART2": "and will not send a transaction.",
+    "SIGNATURE_STEP1_TITLE": "Verify ownership",
+    "SIGNATURE_STEP1_DESCRIPTION": "Confirm you are the owner of this wallet",
+    "SIGNATURE_STEP2_TITLE": "Agree with policy term",
+    "SIGNATURE_STEP2_DESCRIPTION1": "Please read and accept our",
+    "SIGNATURE_STEP2_DESCRIPTION2": "policy term",
+    "DISABLE_SERVICE_TERM_ERROR_MESSAGE": "Please agree to the terms and conditions.",
+    "ERROR_MESSAGE": "Something went wrong, please try again",
+    "SEND_REQUESTS_BUTTON": "Send Requests",
+    "HELLO_DESCRIPTION": "Welcome to MerMer Admin",
+    "HELLO_CONNECT_LINK": "Connect my TideBit",
+    "DONE_BUTTON": "Done"
   }
 }
