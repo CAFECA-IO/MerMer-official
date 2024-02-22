@@ -136,6 +136,7 @@
     "email": "mingreal75@gmail.com",
     "signer": "0x231D365E06aef7F4c4361E41dc9CA117e2E1B272",
     "role": "USER",
+    "avatar": "/profiles/profile_liz.png",
     "twUserData": {
       "name": "Liz",
       "intro": "喜歡冷笑話和蒐集迷因。有點社交焦慮。在 MBTI 中連續多年的測試結果為 ISTP。最愛的活動是坐在沙發上和好朋友玩電動一整天。",
@@ -220,6 +221,7 @@
     "id": "teresa",
     "email": "teresa.yang@isuncloud.com",
     "signer": "0x1876b4502C86c0E69f92de5A6788eD586D475d9C",
+    "avatar": "/profiles/profile_teresa.jpg",
     "role": "USER",
     "twUserData": {
       "name": "Teresa Yang",
