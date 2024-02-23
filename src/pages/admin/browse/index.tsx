@@ -120,6 +120,12 @@ export default function index() {
   const addNewKm = async () => {
     const response = await fetch('/api/kmEdit', {
       method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        userEmail: Cookies.get('userEmail')
+      }),
     });
 
     if (!response.ok) {
