@@ -34,7 +34,7 @@
     "@radix-ui/colors": "^3.0.0",
     "@types/js-cookie": "^3.0.6",
     "@types/marked": "^5.0.1",
-    "@uploadthing/react": "^6.1.0",
+    "@uploadthing/react": "^6.2.4",
     "dotenv-cli": "^7.3.0",
     "formidable": "^3.5.1",
     "gray-matter": "^4.0.3",
@@ -54,8 +54,9 @@
     "react-select": "^5.8.0",
     "react-usestateref": "^1.0.8",
     "rlp": "^3.0.0",
+    "sharp": "^0.33.2",
     "thememirror": "^2.0.1",
-    "uploadthing": "^6.1.1",
+    "uploadthing": "^6.4.1",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

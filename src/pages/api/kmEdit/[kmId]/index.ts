@@ -5,10 +5,8 @@ import { isIKmForSave } from "../../../../interfaces/km";
 import { parseForm } from "../../../../lib/parse_form_data";
 import { promises as fs } from 'fs';
 import { v4 as uuidv4 } from 'uuid';
-import path from "path";
-import { File } from "formidable";
-import mime from "mime-types";
-import { merMerAdminConfig } from "../../../../constants/config";
+import formidable from "formidable";
+import { utapi } from "../../../../lib/uploadthings_server";
 // 要使用formidable要先關掉bodyParsor
 export const config = {
   api: {
@@ -85,14 +83,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (!files?.image || !files.image.length) {
           return res.status(400).json({ error: 'Invalid request, can not get image' });
         }
-        const image:File = files.image[0];
-        const buffer = await fs.readFile(image.filepath);
-        const uuidFileName = uuidv4() + `${image?.mimetype ? '.' + mime.extension(image.mimetype) : ""}`;
-        const saveFiledUrl = path.join(merMerAdminConfig.kmImageStoreInPublicUrl, uuidFileName)
+        const imageTemp:formidable.File = files.image[0];
+        const buffer = await fs.readFile(imageTemp.filepath);
 
-        await fs.writeFile(path.join(process.cwd(), saveFiledUrl), buffer);
-
-        pictureUrl =  path.join('/api', saveFiledUrl)
+        const imageForUpload = new File([buffer], `${imageTemp.newFilename}-${uuidv4()}`, { type: imageTemp.mimetype || "" });
+        const response = await utapi.uploadFiles(imageForUpload);
+        if (response.error) {
+          return res.status(500).json({ error: response.error.message, url: null });
+        }
+          pictureUrl =  response.data.url
       }
 
 
@@ -118,8 +117,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
 
       return res.status(200).json(km);
-    } catch (error) {
-      return res.status(500).json({ error: 'An error occurred while updating the km.' });
+    // Info: (20240220 - Murky) 這裡需要用any 才可以抓到error.message
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      return res.status(500).json({ error: error.message });
     }
   } else if (req.method === 'DELETE') {
     try {

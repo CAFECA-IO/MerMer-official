@@ -139,3 +139,4 @@ dist
 
 # Public temp
 public/temp/*
+# tmp/*
