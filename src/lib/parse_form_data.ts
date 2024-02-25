@@ -9,7 +9,7 @@ import { merMerAdminConfig } from "../constants/config";
 export const parseForm = (req: NextApiRequest): Promise<{ fields: Fields, files: Files<string>}> => {
   const options: Partial<Options> = {
     encoding: 'utf-8',
-    uploadDir: path.join(process.cwd(), merMerAdminConfig.formidableUploadUrl),
+    uploadDir: process.env.VERCEL === '1' ? "/tmp" : path.join(process.cwd(), merMerAdminConfig.formidableUploadUrl),
     keepExtensions: true,
     maxFieldsSize: 200 * 1024 * 1024, // (200mb),
     maxFields: 1000,

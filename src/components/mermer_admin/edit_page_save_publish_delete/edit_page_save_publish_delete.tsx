@@ -1,4 +1,4 @@
-import React, { Dispatch, use, useEffect } from 'react'
+import React, { Dispatch, useEffect } from 'react'
 import MerMerButton from '../../mermer_button/mermer_button'
 import Image from 'next/image'
 import useConfirm from '../../../contexts/confirm_context/use_confirm';
@@ -92,7 +92,9 @@ export default function EditPageSavePublishDelete({
     });
 
     if (!response.ok) {
-      emitAlert('error', `Can't ${alertWording} KM`);
+      // emitAlert('error', `Can't ${alertWording} KM`);
+      const error = await response.json();
+      emitAlert('error', `${error.error}`);
       return null
     }
 

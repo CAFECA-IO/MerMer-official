@@ -53,13 +53,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const kmIdxNumber = kmToday ? parseInt(kmToday.id.slice(kmToday.id.length - 3, kmToday.id.length)) + 1 : 1;
       const kmId = `${new Date().toISOString().slice(0, 10).replace(/-/g, '')}${kmIdxNumber.toString().padStart(3, '0')}`;
 
+      const userEmail = req.body.userEmail;
+
+      if (!userEmail) {
+        return res.status(400).json({ error: 'Bad Request, email is need' });
+      }
       const newKm = await prisma.km.create({
         data: {
           id: kmId,
           title: `New KM-${kmId}`,
           author: {
             connect: {
-              email: 'murky0830@gmail.com',
+              email: userEmail,
             },
           },
           isPublished: false,
