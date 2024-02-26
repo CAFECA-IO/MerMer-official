@@ -86,7 +86,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const imageTemp:formidable.File = files.image[0];
         const buffer = await fs.readFile(imageTemp.filepath);
 
-        const imageForUpload = new File([buffer], `${imageTemp.newFilename}-${uuidv4()}`, { type: imageTemp.mimetype || "" });
+        const imageForUpload = new File([buffer],`${uuidv4()}.${imageTemp.newFilename.split('.')[1]}`, { type: imageTemp.mimetype || "" });
         const response = await utapi.uploadFiles(imageForUpload);
         if (response.error) {
           return res.status(500).json({ error: response.error.message, url: null });

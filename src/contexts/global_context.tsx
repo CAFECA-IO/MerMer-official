@@ -1,4 +1,4 @@
-import React, {createContext, useState, useContext, useCallback} from 'react';
+import React, { createContext, useState, useContext, useCallback } from 'react';
 import HelloModal from '../components/hello_modal/hello_modal';
 import SignatureProcessModal from '../components/signature_process_modal/signature_process_modal';
 import { NextRouter, useRouter } from 'next/router';
@@ -29,7 +29,7 @@ export const GlobalContext = createContext<IGlobalContext>({
   helloModelSuccessLoginRedirectHandler: () => null,
 });
 
-export const GlobalProvider = ({children}: IGlobalProvider) => {
+export const GlobalProvider = ({ children }: IGlobalProvider) => {
   const router = useRouter(); // for redirecrt
 
   const [visibleHelloModal, setVisibleHelloModal] = useState(false);
@@ -86,10 +86,10 @@ export const useGlobal = () => {
     typeof globalThis === 'object'
       ? globalThis
       : typeof window === 'object'
-      ? window
-      : typeof global === 'object'
-      ? global
-      : null; // Info: Causes an error on the next line
+        ? window
+        : typeof global === 'object'
+          ? global
+          : null; // Info: Causes an error on the next line
 
   g.globalContext = context;
 

@@ -13,67 +13,48 @@ import { ICrumbItem } from '../../interfaces/crumb_item';
 import { useTranslation } from 'next-i18next';
 import { TranslateFunction } from '../../interfaces/locale';
 import { MERURL } from '../../constants/url';
-// import { DOMAIN, KM_DESCRIPTION_LIMIT, KM_FOLDER } from '../../constants/config';
 import { DOMAIN, KM_DESCRIPTION_LIMIT, merMerKMViewerConfig } from '../../constants/config';
-// import { getPost, getSlugs } from '../../lib/posts';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import { truncateText } from '../../lib/common';
 import useShareProcess from '../../lib/hooks/use_share_process';
 import { ISocialMedia, SocialMediaConstant, ShareSettings } from '../../constants/social_media';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { increaseViewAfterDelay } from '../../lib/increase_view_after_delay';
 
-// interface IPageProps {
-//   kmId: string;
-//   kmData: IKnowledgeManagement;
-// }
+interface IPageProps {
+  kmId: string;
+  kmData: IKnowledgeManagement;
+}
 
-const KMDetailPage = ({ }) => {
+const KMDetailPage = ({ kmId, kmData }: IPageProps) => {
   const { t }: { t: TranslateFunction } = useTranslation('common');
   const router = useRouter();
-  const kmId = router.query.kmId;
+  // const kmId = router.query.kmId;
 
   if (!kmId || typeof kmId !== 'string') {
     return router.back();
   }
-  const [kmData, setKmData] = useState<IKnowledgeManagement>({
-    id: '',
-    title: '',
-    date: new Date().getTime() / 1000,
-    content: '',
-    category: [],
-    picture: '',
-    description: '',
-    author: {
-      id: '',
-      name: '',
-      jobTitle: '',
-      intro: '',
-      avatar: '',
-    },
-    views: 0,
-    shares: 0,
-  });
+  // const [kmData, setKmData] = useState<IKnowledgeManagement>({
+  //   id: '',
+  //   title: '',
+  //   date: new Date().getTime() / 1000,
+  //   content: '',
+  //   category: [],
+  //   picture: '',
+  //   description: '',
+  //   author: {
+  //     id: '',
+  //     name: '',
+  //     jobTitle: '',
+  //     intro: '',
+  //     avatar: '',
+  //   },
+  //   views: 0,
+  //   shares: 0,
+  // });
 
   useEffect(() => {
-    const fetchKm = async () => {
-      const response = await fetch(`/api/kms/${kmId}?language=${router.locale}`);
-      if (!response.ok) {
-        return {
-          notFound: true,
-        };
-      }
-      const kmData = await response.json() as IKnowledgeManagement;
-      if (!kmData) {
-        return {
-          notFound: true,
-        };
-      }
-      setKmData(kmData);
-    }
-    fetchKm();
-
     // Info: (20240220 - Murky) 閱讀一定秒數後，才增加view
     increaseViewAfterDelay(kmId, merMerKMViewerConfig.timeBeforeIncreaseView);
   }, []);
@@ -209,44 +190,37 @@ const KMDetailPage = ({ }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  // if (!params || !params.kmId || typeof params.kmId !== 'string') {
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
+export const getServerSideProps: GetServerSideProps = (async (context) => {
+  const host = context.req.headers.host
+  const protocol = context.req.headers['x-forwarded-proto'] || 'https'
+  if (!host) {
+    return {
+      notFound: true,
+    };
+  }
 
-  // const kmData = await getPost(KM_FOLDER, params.kmId);
-
-  // if (!kmData) {
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
-
+  const { locale, query } = context;
+  const kmId = query.kmId as string;
+  // Fetch data from external API
+  const response = await fetch(`${protocol}://${host}/api/kms/${kmId}?language=${locale}`);
+  if (!response.ok) {
+    return {
+      notFound: true,
+    };
+  }
+  const kmData = await response.json() as IKnowledgeManagement;
+  if (!kmData) {
+    return {
+      notFound: true,
+    };
+  }
+  // Pass data to the page via props
   return {
     props: {
-      // kmId: params.kmId,
-      // kmData,
+      kmId,
+      kmData,
       ...(await serverSideTranslations(locale as string, ['common'])),
     },
   };
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  // const slugs = (await getSlugs(KM_FOLDER)) ?? [];
-
-  // const paths = slugs
-  //   .flatMap(slug => {
-  //     return locales?.map(locale => ({ params: { kmId: slug }, locale }));
-  //   })
-  //   .filter((path): path is { params: { kmId: string }; locale: string } => !!path);
-
-  const paths: string[] = []
-  return {
-    paths,
-    fallback: 'blocking',
-  };
-};
-
+})
 export default KMDetailPage;

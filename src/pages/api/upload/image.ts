@@ -59,7 +59,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       const buffer = await fs.readFile(imageTemp.filepath);
 
-      const imageForUpload = new File([buffer],`${imageTempName}-${uuidv4()}`, { type: imageTemp.mimetype || "" });
+      const imageForUpload = new File([buffer],`${uuidv4()}.${imageTempName.split('.')[1]}`, { type: imageTemp.mimetype || "" });
 
       const response = await utapi.uploadFiles(imageForUpload);
       if (response.error) {
