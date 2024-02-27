@@ -26,8 +26,6 @@ export default async function googleDriveUpload(file: File) {
 
   const folderID = process.env.GOOGLE_DRIVE_FOLDER_ID || null;
   const res = await drive.files.create({
-    ignoreDefaultVisibility:true,
-    includePermissionsForView: 'published',
     requestBody: {
       name: `${uuidv4()}.${file.newFilename.split('.')[1]}`,
       mimeType: file.mimetype,
@@ -38,10 +36,23 @@ export default async function googleDriveUpload(file: File) {
       body: fs.createReadStream(file.filepath)
     }
   });
+// 设置文件为公开
+const fileId = res.data.id;
+if (!fileId) {
+  throw new Error('fileId is null');
+}
+await drive.permissions.create({
+  fileId: fileId,
+  requestBody: {
+    type: 'anyone',
+    role: 'reader',
+  },
+});
   //`return `https://drive.google.com/file/d/${res.data.id}/view`
-  return `https://lh3.google.com/u/0/d/${res.data.id}`
+  // return `https://lh3.google.com/u/0/d/${res.data.id}`
   // return `https://drive.google.com/file/d/${res.data.id}/preview`
-  // return `https://drive.google.com/uc?id=${res.data.id}`
+  return `https://drive.google.com/uc?id=${res.data.id}`
+  // return `https://drive.usercontent.google.com/download?id=${res.data.id}&export=view&authuser=1`
   }catch(e){
     console.log('error',e)
     throw e;
