@@ -38,6 +38,7 @@
     "cookies": "^0.9.1",
     "dotenv-cli": "^7.3.0",
     "formidable": "^3.5.1",
+    "googleapis": "^133.0.0",
     "gray-matter": "^4.0.3",
     "i18next": "^23.2.3",
     "js-cookie": "^3.0.5",

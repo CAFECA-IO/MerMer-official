@@ -5,6 +5,7 @@ import { promises as fs } from 'fs';
 import { parseForm } from '../../../lib/parse_form_data';
 import { utapi } from '../../../lib/uploadthings_server';
 import formidable from 'formidable';
+import googleDriveUpload from '../../../lib/google_drive_upload';
 
 // Info (20240202) Murky API 範例如下：
 //要用 formData 來 Post 圖片
@@ -57,17 +58,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const imageTemp:formidable.File = files.image[0];
       const imageTempName = imageName[0];
 
-      const buffer = await fs.readFile(imageTemp.filepath);
+      const url = await googleDriveUpload(imageTemp);
+      // const buffer = await fs.readFile(imageTemp.filepath);
 
-      const imageForUpload = new File([buffer],`${uuidv4()}.${imageTempName.split('.')[1]}`, { type: imageTemp.mimetype || "" });
+      // const imageForUpload = new File([buffer],`${uuidv4()}.${imageTempName.split('.')[1]}`, { type: imageTemp.mimetype || "" });
 
-      const response = await utapi.uploadFiles(imageForUpload);
-      if (response.error) {
-        return res.status(500).json({ error: response.error.message, url: null });
-      }
-      // const returnUrl = isSavedUrlInPublic ? path.join('/api', saveFiledUrl) : saveFiledUrl
+      // const response = await utapi.uploadFiles(imageForUpload);
+      // if (response.error) {
+      //   return res.status(500).json({ error: response.error.message, url: null });
+      // }
 
-      return res.status(200).json({ url:response.data.url });
+      console.log('url', url);
+      return res.status(200).json({ url });
     } catch (error) {
       // Handle errors, including any errors thrown by fs.readFile or fs.writeFile
       return res.status(500).json({ error: 'error', url: null });
