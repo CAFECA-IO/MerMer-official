@@ -48,13 +48,8 @@ await drive.permissions.create({
     role: 'reader',
   },
 });
-  //`return `https://drive.google.com/file/d/${res.data.id}/view`
-  // return `https://lh3.google.com/u/0/d/${res.data.id}`
-  // return `https://drive.google.com/file/d/${res.data.id}/preview`
-  return `https://drive.google.com/uc?id=${res.data.id}`
-  // return `https://drive.usercontent.google.com/download?id=${res.data.id}&export=view&authuser=1`
+  return `https://drive.google.com/thumbnail?sz=w1920&id=${res.data.id}`
   }catch(e){
-    console.log('error',e)
     throw e;
   }
 }
