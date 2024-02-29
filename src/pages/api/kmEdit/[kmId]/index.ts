@@ -3,10 +3,8 @@ import prisma from "../../../../lib/db";
 import { changeMdToMdx, changeMdxToMd } from "../../../../lib/md_mdx_format_transfer";
 import { isIKmForSave } from "../../../../interfaces/km";
 import { parseForm } from "../../../../lib/parse_form_data";
-import { promises as fs } from 'fs';
-import { v4 as uuidv4 } from 'uuid';
 import formidable from "formidable";
-import { utapi } from "../../../../lib/uploadthings_server";
+import googleDriveUpload from "../../../../lib/google_drive_upload";
 // 要使用formidable要先關掉bodyParsor
 export const config = {
   api: {
@@ -84,14 +82,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           return res.status(400).json({ error: 'Invalid request, can not get image' });
         }
         const imageTemp:formidable.File = files.image[0];
-        const buffer = await fs.readFile(imageTemp.filepath);
+        // const buffer = await fs.readFile(imageTemp.filepath);
 
-        const imageForUpload = new File([buffer],`${uuidv4()}.${imageTemp.newFilename.split('.')[1]}`, { type: imageTemp.mimetype || "" });
-        const response = await utapi.uploadFiles(imageForUpload);
-        if (response.error) {
-          return res.status(500).json({ error: response.error.message, url: null });
-        }
-          pictureUrl =  response.data.url
+        // const imageForUpload = new File([buffer],`${uuidv4()}.${imageTemp.newFilename.split('.')[1]}`, { type: imageTemp.mimetype || "" });
+        // const response = await utapi.uploadFiles(imageForUpload);
+        // if (response.error) {
+        //   return res.status(500).json({ error: response.error.message, url: null });
+        // }
+        // pictureUrl =  response.data.url
+
+        pictureUrl = await googleDriveUpload(imageTemp);
+
       }
 
 

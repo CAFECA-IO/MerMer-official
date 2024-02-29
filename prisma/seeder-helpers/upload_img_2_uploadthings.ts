@@ -33,7 +33,7 @@ async function replaceImagePaths(mdFile:string):Promise<string>{
     const fullPath = path.join(process.cwd(), '/public', localPath);
     let cloudUrl: string | undefined
     try{
-      cloudUrl = await uploadFile(fullPath)
+      cloudUrl = await uploadFileByUploadthings(fullPath)
     } catch (e){
       // Info: (20240221 - Murky) console log skip path
       // eslint-disable-next-line no-console
@@ -52,7 +52,7 @@ async function replaceImagePaths(mdFile:string):Promise<string>{
   return mdFile
 }
 
-export async function uploadFile(filePath: string): Promise<string|undefined>{
+export async function uploadFileByUploadthings(filePath: string): Promise<string|undefined>{
   // 一次上傳一筆
   // 這是uploadthings的apu
 

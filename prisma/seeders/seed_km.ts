@@ -3,7 +3,7 @@ import * as KmHelper from '../seeder-helpers/seed_km_helper';
 import { seederConfig } from '../seed_config';
 import { getOrCreateCategory, getOrCreateTopic } from '../seeder-helpers/get_or_create';
 import path from 'path';
-import processMd, { uploadFile } from '../seeder-helpers/uploadImg';
+import processMdByGoogleCloud, { uploadFileByGoogle } from '../seeder-helpers/upload_img_2_google_cloud';
 export async function seedKm(prisma: PrismaClient): Promise<void> {
 
   try {
@@ -47,10 +47,10 @@ export async function seedKm(prisma: PrismaClient): Promise<void> {
       );
 
       // km.mdFile.replace(/\/km/g, '/api/public/km');
-      km.mdFile = await processMd(km.mdFile);
+      km.mdFile = await processMdByGoogleCloud(km.mdFile);
       const pictureUrl = path.join(process.cwd(), '/public', km.picture);
 
-      const pictureUploadedUrl = await uploadFile(pictureUrl);
+      const pictureUploadedUrl = await uploadFileByGoogle(pictureUrl);
       if (!pictureUploadedUrl) {
         throw new Error('Upload picture failed');
       }

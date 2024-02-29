@@ -13,6 +13,8 @@
     "validate": "npm run test && npm run check-format && npm run lint",
     "production": "next start -p 80",
     "migrate:dev": "npx dotenv -e .env.local -- prisma migrate dev",
+    "migrate:dev:preview": "npx dotenv -e .env.local -- prisma migrate dev --preview-feature",
+    "migrate:dev:fileOnly": "npx dotenv -e .env.local -- prisma migrate dev --create-only",
     "db:push": "npx dotenv -e .env.local -- prisma db push",
     "migrate:reset": "npx dotenv -e .env.local -- prisma migrate reset",
     "db:seed": "npx dotenv -e .env.local -- prisma db seed",

@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import MerMerButton from '../mermer_button/mermer_button';
-import {MERURL} from '../../constants/url';
-import {useTranslation} from 'next-i18next';
-import {TranslateFunction} from '../../interfaces/locale';
+import { MERURL } from '../../constants/url';
+import { useTranslation } from 'next-i18next';
+import { TranslateFunction } from '../../interfaces/locale';
 
 const BlueWaves = () => {
-  const {t}: {t: TranslateFunction} = useTranslation('common');
+  const { t }: { t: TranslateFunction } = useTranslation('common');
 
   const mobileDisplay = (
     /* Info: (20230707 - Julian) Blue Waves background 在這一層 */
@@ -40,7 +40,7 @@ const BlueWaves = () => {
   const desktopDisplay = (
     <div className="relative hidden w-full flex-col bg-mermerTheme2 md:flex">
       {/* Info: (20230707 - Julian) Blue Waves background */}
-      <div className="absolute h-full w-full bg-desktopWaves bg-right bg-no-repeat"></div>
+      <div className="absolute size-full bg-desktopWaves bg-right bg-no-repeat"></div>
 
       {/* Info: (20230707 - Julian) Main text */}
       <div className="z-20 flex h-auto w-full">
