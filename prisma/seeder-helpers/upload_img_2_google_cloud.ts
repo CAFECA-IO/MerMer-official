@@ -1,23 +1,7 @@
 import fs from 'fs'
 import path from "path"
-import mime from 'mime-types'
-import { google } from 'googleapis';
+import { uploadGoogleFile } from '../../src/lib/google_setting';
 
-// google drive
-const oauth2Client = new google.auth.OAuth2(
-  process.env.GOOGLE_DRIVE_CLIENT_ID,
-  process.env.GOOGLE_DRIVE_CLIENT_SECRET,
-  process.env.GOOGLE_DRIVE_REDIRECT_URI
-);
-oauth2Client.setCredentials({
-  refresh_token: process.env.GOOGLE_DRIVE_REFRESH_TOKEN
-});
-
-const drive = google.drive({
-  version: "v3",
-  // auth: auth,
-  auth: oauth2Client
-});
 
 export default async function processMdByGoogleCloud(mdFile:string):Promise<string> {
   // 讀mdx擋在的path
@@ -69,32 +53,12 @@ export async function uploadFileByGoogle(filePath: string): Promise<string|undef
       throw new Error('File not found');
     }
     const name = path.basename(filePath)
-    const type = mime.contentType(name) || 'application/octet-stream' // 'application/octet-stream' 是未知值
+    const storePath = `km/${name}`
 
-    const folderID = process.env.GOOGLE_DRIVE_FOLDER_ID || null;
-    const res = await drive.files.create({
-      requestBody: {
-        name: name,
-        mimeType: type,
-        parents: folderID ? [folderID] : null,
-      },
-      media: {
-        body: fs.createReadStream(filePath)
-      }
-    });
+    const uploadToGoogle = uploadGoogleFile(filePath, storePath, 0)
+    const url = await uploadToGoogle();
 
-    const fileId = res.data.id;
-    if (!fileId) {
-      throw new Error('fileId is null');
-    }
-    await drive.permissions.create({
-      fileId: fileId,
-      requestBody: {
-        type: 'anyone',
-        role: 'reader',
-      },
-    });
-    return `https://drive.google.com/thumbnail?sz=w1920&id=${res.data.id}`
+    return url;
 
   }catch(e){
     throw e; 
