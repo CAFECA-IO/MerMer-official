@@ -3,65 +3,47 @@
 // https://github.com/googleapis/google-api-nodejs-client#readme
 
 import { File } from 'formidable';
-import { google } from 'googleapis';
+import { googleAuth, googleStorage } from './google_setting';
 import fs from 'fs';
 import {v4 as uuidv4} from 'uuid';
+import mime from 'mime-types';
 
 export default async function googleDriveUpload(file: File) {
+
   try {
-
-    // const googleServiceKey = JSON.parse(process.env.GOOGLE_SERVICE_KEY || '');
-    // const scope = 'https://www.googleapis.com/auth/drive';
-
-    // if (!googleServiceKey) {
-    //   throw new Error('googleServiceKey is null');
-    // }
-    // const auth = new google.auth.GoogleAuth({
-    //   credentials: googleServiceKey,
-    //   scopes: scope,
-    // });
-    
-    const oauth2Client = new google.auth.OAuth2(
-      process.env.GOOGLE_DRIVE_CLIENT_ID,
-      process.env.GOOGLE_DRIVE_CLIENT_SECRET,
-      process.env.GOOGLE_DRIVE_REDIRECT_URI
-    );
-    oauth2Client.setCredentials({
-      refresh_token: process.env.GOOGLE_DRIVE_REFRESH_TOKEN
-    });
-
-    const drive = google.drive({
-      version: "v3",
-      // auth: auth,
-      auth: oauth2Client
-    });
-
-    const folderID = process.env.GOOGLE_DRIVE_FOLDER_ID || null;
-    const res = await drive.files.create({
-      requestBody: {
-        name: `${uuidv4()}.${file.newFilename.split('.')[1]}`,
-        mimeType: file.mimetype,
-        parents: folderID ? [folderID] : null,
-      },
+    const bucketName = process.env.GOOGLE_STORAGE_BUCKET_NAME;
+    const fileName = `${uuidv4()}.${mime.extension(file.mimetype || 'application/octet-stream')}`;
+    const storePath = `${fileName}`;
+    const url = `https://storage.googleapis.com/${bucketName}/${storePath}`;
+    const res = await googleStorage.objects.insert({
+      bucket: bucketName,
       media: {
-        // mimeType: file.mimetype,
-        body: fs.createReadStream(file.filepath)
-      }
-    });
-
-    const fileId = res.data.id;
-    if (!fileId) {
-      throw new Error('fileId is null');
-    }
-    await drive.permissions.create({
-      fileId: fileId,
+        body: fs.createReadStream(file.filepath), // 從本地文件系統讀取文件
+      },
+      auth: googleAuth,
       requestBody: {
-        type: 'anyone',
-        role: 'reader',
+        name: storePath, // 存儲在Bucket中的文件名
       },
     });
-    return `https://drive.google.com/thumbnail?sz=w1920&id=${res.data.id}`
+
+    if(res.status !== 200){
+      throw new Error('Google Drive Upload Error');
+    }
+    const resForSetPublic = await googleStorage.objectAccessControls.insert({
+      bucket: bucketName,
+      object: storePath,
+      requestBody: {
+        entity: 'allUsers',
+        role: 'READER',
+      },
+    });
+
+    if(resForSetPublic.status !== 200){
+      throw new Error('Google Drive Set Public Error');
+    }
+    return url;
   }catch(e){
+    console.log(e);
     throw e;
   }
 }
