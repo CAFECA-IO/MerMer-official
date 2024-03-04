@@ -59,7 +59,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
       });
 
-      if(!kmsFromDb){
+      if(!kmsFromDb || !kmsFromDb.length){
         return res.status(404).json({message: 'Not Found'});
       }
 

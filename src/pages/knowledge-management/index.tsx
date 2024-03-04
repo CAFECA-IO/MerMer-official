@@ -8,18 +8,16 @@ import { TranslateFunction } from '../../interfaces/locale';
 import { IKnowledgeManagement } from '../../interfaces/km_article';
 import { ICrumbItem } from '../../interfaces/crumb_item';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 // import { getPosts, getCategories } from '../../lib/posts';
 import { MERURL } from '../../constants/url';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 
-// interface IPageProps {
-// posts: IKnowledgeManagement[];
-// categories: string[];
-// }
+interface IPageProps {
+  posts: IKnowledgeManagement[];
+  categories: string[];
+}
 
-const KnowledgeManagementPage = ({ }) => {
+const KnowledgeManagementPage = ({ posts, categories }: IPageProps) => {
   const { t }: { t: TranslateFunction } = useTranslation('common');
 
   const crumbs: ICrumbItem[] = [
@@ -30,33 +28,6 @@ const KnowledgeManagementPage = ({ }) => {
     },
   ];
 
-  const [posts, setPosts] = useState<IKnowledgeManagement[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
-  const router = useRouter();
-  useEffect(() => {
-    const fetchPosts = async () => {
-
-      const response = await fetch(`/api/kms?language=${router.locale}`);
-      if (!response.ok) {
-        return {
-          notFound: true,
-        };
-      }
-
-      const posts = await response.json() as IKnowledgeManagement[];
-      if (!posts) {
-        return {
-          notFound: true,
-        };
-      }
-
-      const categories = posts.flatMap((post) => post.category);
-
-      setPosts(posts);
-      setCategories(categories);
-    }
-    fetchPosts();
-  }, []);
   return (
     <>
       <Head>
@@ -94,17 +65,39 @@ const KnowledgeManagementPage = ({ }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  //   const posts = await getPosts();
-  //   const categories = await getCategories();
+export const getServerSideProps: GetServerSideProps = (async (context) => {
+  const host = context.req.headers.host
+  const protocol = context.req.headers['x-forwarded-proto'] || 'https'
+  if (!host) {
+    return {
+      notFound: true,
+    };
+  }
+  const { locale } = context;
+  // Fetch data from external API
+  const response = await fetch(`${protocol}://${host}/api/kms?language=${locale}`);
+  if (!response.ok) {
+    return {
+      notFound: true,
+    };
+  }
 
+  const posts = await response.json() as IKnowledgeManagement[];
+  if (!posts) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const categories = posts.flatMap((post) => post.category);
+
+  // Pass data to the page via props
   return {
     props: {
-      //       posts,
-      //       categories,
+      posts,
+      categories,
       ...(await serverSideTranslations(locale as string, ['common'])),
     },
   };
-};
-
+})
 export default KnowledgeManagementPage;

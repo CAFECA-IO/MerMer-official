@@ -1,17 +1,9 @@
-import { UTApi } from "uploadthing/server"
 import fs from 'fs'
-import { Blob, File } from "buffer"
 import path from "path"
-import mime from 'mime-types'
+import { uploadGoogleFile } from '../../src/lib/google_setting';
 
 
-// Edge / Node < 20 friendly File interface
-interface FileEsque extends Blob { // 這個是官網給的type, 其實就是file type
-  name: string
-}
-
-const utapi = new UTApi()
-export default async function processMd(mdFile:string):Promise<string> {
+export default async function processMdByGoogleCloud(mdFile:string):Promise<string> {
   // 讀mdx擋在的path
   const updatedContent = await replaceImagePaths(mdFile)
   
@@ -26,6 +18,8 @@ export default async function processMd(mdFile:string):Promise<string> {
 const imageRegex = /(\/km\/[^'"\s)]+)/g
 // 圖片相對路徑替換成絕對路徑，然後上傳updatethings之後
 async function replaceImagePaths(mdFile:string):Promise<string>{
+
+
   const matches = mdFile.matchAll(imageRegex)
   
   for (const match of matches) {
@@ -33,7 +27,7 @@ async function replaceImagePaths(mdFile:string):Promise<string>{
     const fullPath = path.join(process.cwd(), '/public', localPath);
     let cloudUrl: string | undefined
     try{
-      cloudUrl = await uploadFile(fullPath)
+      cloudUrl = await uploadFileByGoogle(fullPath)
     } catch (e){
       // Info: (20240221 - Murky) console log skip path
       // eslint-disable-next-line no-console
@@ -52,32 +46,21 @@ async function replaceImagePaths(mdFile:string):Promise<string>{
   return mdFile
 }
 
-export async function uploadFile(filePath: string): Promise<string|undefined>{
-  // 一次上傳一筆
-  // 這是uploadthings的apu
+export async function uploadFileByGoogle(filePath: string): Promise<string|undefined>{
+  try {
 
-  // file是File type 要 array [blob] + 名稱
-  const files = getFileData(filePath)
+    if (!fs.existsSync(filePath)) {
+      throw new Error('File not found');
+    }
+    const name = path.basename(filePath)
+    const storePath = `km/${name}`
 
-  // Info: (20240221 - Murky) console log  file been upload
-  // eslint-disable-next-line no-console
-  console.log(filePath)
-  const response = await utapi.uploadFiles(files)
+    const uploadToGoogle = uploadGoogleFile(filePath, storePath, 0)
+    const url = await uploadToGoogle();
 
-  return response.data?.url
-}
+    return url;
 
-
-
-
-function getFileData(filePath: string): FileEsque{
-  const buffer = fs.readFileSync(filePath)
-  const name = path.basename(filePath)
-  const type = mime.contentType(name) || 'application/octet-stream' // 'application/octet-stream' 是未知值
-  // blob => [buffer] + type
-  const blob = new Blob([buffer], { type: type })
-  // File [blob] + name
-  const file = new File([blob], name)
-
-  return file
+  }catch(e){
+    throw e; 
+  }
 }

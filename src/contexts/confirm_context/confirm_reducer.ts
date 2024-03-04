@@ -19,6 +19,8 @@ export const initialState: State = {
   text: ""
 }
 
+// Info: (20240116 - Murky) reducer is a function that takes the state and action as arguments, and returns the new state
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const reducer = (state: State = initialState, action: Action): State => {
   switch (action.type) {
     case SHOW_CONFIRM:

@@ -1,15 +1,15 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import useInputNumber from '../../lib/hooks/use_input_number';
 import Image from 'next/image';
 import MerMerButton from '../mermer_button/mermer_button';
-import {useTranslation} from 'next-i18next';
-import {TranslateFunction} from '../../interfaces/locale';
+import { useTranslation } from 'next-i18next';
+import { TranslateFunction } from '../../interfaces/locale';
 
 const ContactUsForm = () => {
-  const {t}: {t: TranslateFunction} = useTranslation('common');
+  const { t }: { t: TranslateFunction } = useTranslation('common');
 
   // Info: (20230629 - Julian) 信件送出的時間
-  const now = new Date().toLocaleString('zh-TW', {timeZone: 'Asia/Taipei'});
+  const now = new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' });
 
   // Info: (20230629 - Julian) 是否顯示動畫 & 顯示哪個動畫
   const [showAnim, setShowAnim] = useState(false);
@@ -116,20 +116,20 @@ const ContactUsForm = () => {
         {animation === 'success'
           ? t('HOME_PAGE.CONTACT_US_SUCCESS')
           : animation === 'failed'
-          ? t('HOME_PAGE.CONTACT_US_ERROR')
-          : ''}
+            ? t('HOME_PAGE.CONTACT_US_ERROR')
+            : ''}
       </p>
     );
 
   const animPart = showAnim ? (
-    <div className="absolute flex h-full w-full flex-col items-center justify-center space-y-4">
+    <div className="absolute flex size-full flex-col items-center justify-center space-y-4">
       {animation === 'sending' ? (
         /* Info: (20230629 - Julian) sending animation */
         <Image
           src="/animations/rocket.gif"
           alt="feedback_is_sending"
           fill
-          style={{objectFit: 'cover'}}
+          style={{ objectFit: 'cover' }}
         />
       ) : animation === 'success' ? (
         /* Info: (20230629 - Julian) success animation */
@@ -144,9 +144,8 @@ const ContactUsForm = () => {
 
   const formPart = (
     <div
-      className={`flex w-full flex-col items-center space-y-4 ${
-        showAnim ? 'opacity-0' : 'opacity-100'
-      } px-5 py-12 transition-opacity duration-300 ease-in-out lg:px-12 lg:py-8`}
+      className={`flex w-full flex-col items-center space-y-4 ${showAnim ? 'opacity-0' : 'opacity-100'
+        } px-5 py-12 transition-opacity duration-300 ease-in-out lg:px-12 lg:py-8`}
     >
       <div className="flex flex-col items-center space-y-2">
         <h1 className="text-2xl font-bold sm:text-42px">{t('HOME_PAGE.CONTACT_US_TITLE')}</h1>
@@ -243,7 +242,7 @@ const ContactUsForm = () => {
           src="/elements/jodie_Friendly_female_AI_1.png"
           alt=""
           fill
-          style={{objectFit: 'contain'}}
+          style={{ objectFit: 'contain' }}
         />
       </div>
 
@@ -253,7 +252,7 @@ const ContactUsForm = () => {
           src="/elements/jodie_Friendly_female_AI_2.png"
           alt=""
           fill
-          style={{objectFit: 'cover'}}
+          style={{ objectFit: 'cover' }}
         />
       </div>
 

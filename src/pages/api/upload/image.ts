@@ -1,10 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { v4 as uuidv4 } from 'uuid';
-import { promises as fs } from 'fs';
 // import { v4 as uuidv4 } from 'uuid';
 import { parseForm } from '../../../lib/parse_form_data';
-import { utapi } from '../../../lib/uploadthings_server';
 import formidable from 'formidable';
+import googleDriveUpload from '../../../lib/google_drive_upload';
 
 // Info (20240202) Murky API 範例如下：
 //要用 formData 來 Post 圖片
@@ -48,29 +46,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(400).json({ error: "Image name is missing, image name should have key 'imageName'", url: null });
       }
 
-      // const imageSavesUrl = fields.imageSavedUrl;
-      // if (!imageSavesUrl || !imageSavesUrl.length) {
-      //   return res.status(400).json({ error: "imageSavesUrl is missing, imageSavesUrl should have key 'imageSavesUrl'", url: null });
-      // }
-
-
       const imageTemp:formidable.File = files.image[0];
-      const imageTempName = imageName[0];
 
-      const buffer = await fs.readFile(imageTemp.filepath);
+      const url = await googleDriveUpload(imageTemp);
 
-      const imageForUpload = new File([buffer],`${imageTempName}-${uuidv4()}`, { type: imageTemp.mimetype || "" });
-
-      const response = await utapi.uploadFiles(imageForUpload);
-      if (response.error) {
-        return res.status(500).json({ error: response.error.message, url: null });
-      }
-      // const returnUrl = isSavedUrlInPublic ? path.join('/api', saveFiledUrl) : saveFiledUrl
-
-      return res.status(200).json({ url:response.data.url });
+      return res.status(200).json({ url });
     } catch (error) {
       // Handle errors, including any errors thrown by fs.readFile or fs.writeFile
-      return res.status(500).json({ error: 'error', url: null });
+      return res.status(500).json({ error: error, url: null });
     }
   } else {
     // Handle non-POST requests

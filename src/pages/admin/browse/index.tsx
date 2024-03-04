@@ -12,7 +12,10 @@ import useWindowDimensions from '../../../lib/hooks/use_window_dimensions';
 import { useAlerts } from '../../../contexts/alert_context';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
-// type Props = {}
+import { GetServerSideProps } from 'next';
+type Props = {
+  allKmFromServer?: IAllKmMeta
+}
 
 
 // Till (20240316 - Murky) 這個function是用來計算每個頁面要顯示多少個卡片
@@ -23,7 +26,7 @@ const getCardsDisplayPerPage = (screenHeight: number | undefined | null): number
   return 3
 }
 
-export default function index() {
+export default function index({ allKmFromServer }: Props) {
   const defaultKmAllMeta: IAllKmMeta = {
     drafts: {
       publishStatus: 'Drafts',
@@ -56,7 +59,7 @@ export default function index() {
   const { width: screenWidth } = useWindowDimensions();
   const cardsRenderPerPage = getCardsDisplayPerPage(screenWidth);
 
-  const [kmAllMeta, setKmAllMeta] = useState<IAllKmMeta>(defaultKmAllMeta)
+  const [kmAllMeta, setKmAllMeta] = useState<IAllKmMeta>(allKmFromServer || defaultKmAllMeta)
   const [renderedKmMeta, setRenderedKmMeta] = useState<IKmMeta[]>([])
   const [activePublishStatus, setActivePublishStatus] = useState<'drafts' | 'published'>(
     () => {
@@ -69,25 +72,28 @@ export default function index() {
     }
   );
 
+
   // Info (20240316 - Murky) 下面這個useEffect是用來取得所有的KM的metadata
   useEffect(() => {
     //get cookies user email
-    let userEmail = Cookies.get('userEmail');
+    if (!allKmFromServer) {
 
-    if (!userEmail) {
-      return;
+      let userEmail = Cookies.get('userEmail');
+
+      if (!userEmail) {
+        return;
+      }
+
+      userEmail = decodeURIComponent(userEmail) // decode %40 to @
+
+      const fetchAllKmMeta = async () => {
+        const response = await fetch(`/api/kmEdit/kmMetas/${userEmail}`);
+        if (!response.ok) return null;
+        const json = await response.json() as IAllKmMeta;
+        setKmAllMeta(json);
+      };
+      fetchAllKmMeta();
     }
-
-    userEmail = decodeURIComponent(userEmail) // decode %40 to @
-
-    const fetchAllKmMeta = async () => {
-      const response = await fetch(`/api/kmEdit/kmMetas/${userEmail}`);
-      if (!response.ok) return null;
-      const json = await response.json() as IAllKmMeta;
-      setKmAllMeta(json);
-    };
-    fetchAllKmMeta();
-
   }, []);
 
   // Info (20240316 - Murky) 下面這個useEffect是用來當activePublishStatus改變時，重新render KM的metadata, 可以在draft和publish之間切換
@@ -173,3 +179,46 @@ export default function index() {
     </>
   )
 }
+
+export const getServerSideProps: GetServerSideProps = (async (context) => {
+  const host = context.req.headers.host
+  const protocol = context.req.headers['x-forwarded-proto'] || 'https'
+  if (!host) {
+    return {
+      notFound: true,
+    };
+  }
+  // Fetch data from external API
+  let userEmail = context.req.cookies.userEmail;
+  if (!userEmail) {
+    return {
+      props: {
+        allKmFromServer: undefined,
+      },
+    };
+  }
+
+  userEmail = decodeURIComponent(userEmail) // decode %40 to @
+
+  const response = await fetch(`${protocol}://${host}/api/kmEdit/kmMetas/${userEmail}`);
+  if (!response.ok) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const allKmFromServer = await response.json() as IAllKmMeta;
+  if (!allKmFromServer) {
+    return {
+      notFound: true,
+    };
+  }
+
+  // Pass data to the page via props
+  return {
+    props: {
+      allKmFromServer,
+    },
+  };
+})
+
