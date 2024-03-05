@@ -22,13 +22,13 @@ const KMArticle = ({ title, date, content, category, picture, author }: IKMArtic
 
   const parsedBody = content
     /* Info: (20230728 - Julian) h1 字體放大加粗 & 以 margin y 實現段落間距 */
-    .replace(/<h1>([^<]+)<\/h1>/g, `<h1 class="font-bold text-4xl my-4">$1</h1>`)
+    .replace(/<h1(.*?)>([^<]+)<\/h1>/g, `<h1$1  class="font-bold text-4xl my-4">$2</h1>`)
     /* Info: (20230728 - Julian) h2 字體放大加粗 & 以 margin y 實現段落間距 */
-    .replace(/<h2>([^<]+)<\/h2>/g, `<h2 class="font-bold text-3xl my-4">$1</h2>`)
+    .replace(/<h2(.*?)>([^<]+)<\/h2>/g, `<h2$1  class="font-bold text-3xl my-4">$2</h2>`)
     /* Info: (20230719 - Julian) h3 字體放大加粗 & 以 margin y 實現段落間距 */
-    .replace(/<h3>([^<]+)<\/h3>/g, `<h3 class="font-bold text-2xl my-4">$1</h3>`)
+    .replace(/<h3(.*?)>([^<]+)<\/h3>/g, `<h3$1  class="font-bold text-2xl my-4">$2</h3>`)
     /* Info: (20230719 - Julian) h4 字體放大加粗 & 以 margin y 實現段落間距 */
-    .replace(/<h4>([^<]+)<\/h4>/g, `<h4 class="font-bold text-xl my-4">$1</h4>`)
+    .replace(/<h4(.*?)>([^<]+)<\/h4>/g, `<h4$1  class="font-bold text-xl my-4">$2</h4>`)
     /* Info: (20230719 - Julian) ul, ol, li 縮排及列表樣式 */
     .replace(/<ul/g, `<ul class="my-4 lg:ml-4 list-disc"`)
     .replace(/<ol/g, `<ol class="my-4 lg:ml-4 list-roman"`)
