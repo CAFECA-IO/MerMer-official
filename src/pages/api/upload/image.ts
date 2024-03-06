@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import path from 'path';
-import { promises as fs } from 'fs';
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 import { parseForm } from '../../../lib/parse_form_data';
+import formidable from 'formidable';
+import googleDriveUpload from '../../../lib/google_drive_upload';
 
 // Info (20240202) Murky API 範例如下：
 //要用 formData 來 Post 圖片
@@ -37,8 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Await the parseForm promise to get fields and files
       const { fields, files } = await parseForm(req);
 
-      const image = files.image;
-      if (!image || !image.length) {
+      if (!files.image || !files.image.length) {
         return res.status(400).json({ error: "No image Uploaded, data should have key 'image'", url: null });
       }
 
@@ -47,28 +46,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(400).json({ error: "Image name is missing, image name should have key 'imageName'", url: null });
       }
 
-      const imageSavesUrl = fields.imageSavedUrl;
-      if (!imageSavesUrl || !imageSavesUrl.length) {
-        return res.status(400).json({ error: "imageSavesUrl is missing, imageSavesUrl should have key 'imageSavesUrl'", url: null });
-      }
+      const imageTemp:formidable.File = files.image[0];
 
+      const url = await googleDriveUpload(imageTemp);
 
-
-      const buffer = await fs.readFile(image[0].filepath);
-      const uuidFileName = uuidv4() + `${path.extname(imageName[0])}`;
-      const saveFiledUrl = path.join(imageSavesUrl[0], uuidFileName)
-
-      await fs.writeFile(path.join(process.cwd(), saveFiledUrl), buffer);
-
-      // Use res.status().json() to send the response
-      const isSavedUrlInPublic = /^\/?public/.test(imageSavesUrl[0])
-
-      const returnUrl = isSavedUrlInPublic ? path.join('/api', saveFiledUrl) : saveFiledUrl
-
-      return res.status(200).json({ url:returnUrl });
+      return res.status(200).json({ url });
     } catch (error) {
       // Handle errors, including any errors thrown by fs.readFile or fs.writeFile
-      return res.status(500).json({ error: 'error', url: null });
+      return res.status(500).json({ error: error, url: null });
     }
   } else {
     // Handle non-POST requests

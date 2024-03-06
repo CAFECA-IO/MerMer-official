@@ -34,6 +34,7 @@ export interface IKmForSave {
   isPublished: boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isIKmTag(arg: any): arg is IKmTag {
   return (
       typeof arg?.id === 'number' &&
@@ -42,7 +43,10 @@ export function isIKmTag(arg: any): arg is IKmTag {
     );
 }
 
+// Info (20240316 - Murky) 這個function是用來檢查IKmForSave的型別,輸入可以是any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isIKmForSave(arg: any): arg is IKmForSave {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const allTagValid = arg?.tags?.every((tag: any) => isIKmTag(tag));
   return (
       typeof arg?.title === 'string' &&

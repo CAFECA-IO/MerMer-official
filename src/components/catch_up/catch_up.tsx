@@ -1,12 +1,12 @@
 import Image from 'next/image';
-import {useTranslation} from 'next-i18next';
-import {TranslateFunction} from '../../interfaces/locale';
-import {web3Content} from '../../constants/config';
+import { useTranslation } from 'next-i18next';
+import { TranslateFunction } from '../../interfaces/locale';
+import { web3Content } from '../../constants/config';
 
 const CatchUp = () => {
-  const {t}: {t: TranslateFunction} = useTranslation('common');
+  const { t }: { t: TranslateFunction } = useTranslation('common');
 
-  const displayWeb3Content = web3Content.map(({title, description}) => {
+  const displayWeb3Content = web3Content.map(({ title, description }) => {
     return (
       <div
         key={title}
@@ -30,7 +30,7 @@ const CatchUp = () => {
 
       <div className="relative flex flex-col items-center lg:flex-row">
         {/* Info: (20230628 - Julian) Picture for desktop */}
-        <div className="absolute -left-52 hidden h-full w-full pr-10 lg:block">
+        <div className="absolute -left-52 hidden size-full pr-10 lg:block">
           <Image src="/elements/web3.0_laptop_desktop.png" alt="web3.0" height={500} width={800} />
         </div>
 
@@ -40,7 +40,7 @@ const CatchUp = () => {
             src="/elements/web3.0_laptop_mobile.png"
             alt="web3.0"
             fill
-            style={{objectFit: 'contain'}}
+            style={{ objectFit: 'contain' }}
           />
         </div>
 

@@ -201,6 +201,7 @@
     "email": "tom709112@gmail.com",
     "signer": "0xD26B3236C4F4E6Df16b41EEcF18A1c573aBdB75e",
     "role": "USER",
+    "avatar": "/profiles/profile_straw.JPG",
     "twUserData": {
       "name": "Straw Ho",
       "intro": "Hello, I am Straw!",
@@ -224,17 +225,17 @@
     "avatar": "/profiles/profile_teresa.jpg",
     "role": "USER",
     "twUserData": {
-      "name": "Teresa Yang",
+      "name": "唬唬",
       "intro": "Hello, I am Teresa!",
       "jobTitle": "產品經理"
     },
     "cnUserData": {
-      "name": "Teresa Yang",
+      "name": "唬唬",
       "intro": "Hello, I am Teresa!",
       "jobTitle": "产品经理"
     },
     "enUserData": {
-      "name": "Teresa Yang",
+      "name": "HuHu",
       "intro": "Hello, I am Teresa!",
       "jobTitle": "Project Manager"
     }
@@ -279,6 +280,28 @@
     "enUserData": {
       "name": "Murky",
       "intro": "To kill the Demon, you need to put a dead witcher into his pocket secretly",
+      "jobTitle": "Software Engineer"
+    }
+  },
+  {
+    "id": "Jacky",
+    "email": "jacky.fang@mermer.cc",
+    "signer": "0xF1cbCfee8e05549B8E6c6192216193D389fe49aE",
+    "avatar": "/profiles/profile_jacky.png",
+    "role": "USER",
+    "twUserData": {
+      "name": "Jacky Fang",
+      "intro": "Hello, I am Jacky!",
+      "jobTitle": "軟體工程師"
+    },
+    "cnUserData": {
+      "name": "Jacky Fang",
+      "intro": "Hello, I am Jacky!",
+      "jobTitle": "软件工程师"
+    },
+    "enUserData": {
+      "name": "Jacky Fang",
+      "intro": "Hello, I am Jacky!",
       "jobTitle": "Software Engineer"
     }
   }

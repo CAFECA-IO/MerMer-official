@@ -6,61 +6,27 @@ import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import KMPageBody from '../../../components/km_page_body/km_page_body';
 // import { getAuthor, getPostsByAuthor, getCategories, getAuthors } from '../../../lib/posts';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { GetStaticProps, GetStaticPaths } from 'next';
+import { GetServerSideProps } from 'next';
 import { IKnowledgeManagement } from '../../../interfaces/km_article';
 import { ICrumbItem } from '../../../interfaces/crumb_item';
 import { MERURL } from '../../../constants/url';
 import { IAuthor } from '../../../interfaces/author_data';
 import { useTranslation } from 'next-i18next';
 import { TranslateFunction } from '../../../interfaces/locale';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 
-// interface IPageProps {
-//   author: IAuthor;
-//   posts: IKnowledgeManagement[];
-//   categories: string[];
-// }
 
-const AuthorPage = ({ }) => {
+type Props = {
+  author: IAuthor;
+  posts: IKnowledgeManagement[];
+  categories: string[];
+}
+const AuthorPage = ({
+  author,
+  posts,
+  categories,
+}: Props) => {
   const { t }: { t: TranslateFunction } = useTranslation('common');
-  const router = useRouter();
-  const authorId = router.query.authorId;
-  const [author, setAuthor] = useState<IAuthor>({
-    id: '',
-    name: '',
-    avatar: '',
-    jobTitle: '',
-    intro: '',
-  });
-  const [posts, setPosts] = useState<IKnowledgeManagement[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
-  useEffect(() => {
-    const fetchPosts = async () => {
 
-      const response = await fetch(`/api/users/${authorId}?language=${router.locale}`);
-      if (!response.ok) {
-        return {
-          notFound: true,
-        };
-      }
-
-      const posts = await response.json() as IKnowledgeManagement[];
-      if (!posts) {
-        return {
-          notFound: true,
-        };
-      }
-
-      const author = posts[0].author;
-      const categories = posts.flatMap((post) => post.category);
-
-      setPosts(posts);
-      setAuthor(author);
-      setCategories(categories);
-    }
-    fetchPosts();
-  }, []);
   const crumbs: ICrumbItem[] = [
     { label: t('NAV_BAR.HOME'), path: MERURL.HOME },
     { label: t('NAV_BAR.KNOWLEDGE_MANAGEMENT'), path: MERURL.KM },
@@ -117,41 +83,44 @@ const AuthorPage = ({ }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  // if (!params || !params.authorId || typeof params.authorId !== 'string') {
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
 
-  // const author = await getAuthor(params?.authorId);
-  // const posts = await getPostsByAuthor(params?.authorId);
-  // const categories = await getCategories(posts);
+export const getServerSideProps: GetServerSideProps = (async (context) => {
+  const host = context.req.headers.host
+  const protocol = context.req.headers['x-forwarded-proto'] || 'https'
+  if (!host) {
+    return {
+      notFound: true,
+    };
+  }
+  const { locale, query } = context;
+  const authorId = query.authorId as string;
+  // Fetch data from external API
+  const response = await fetch(`${protocol}://${host}/api/users/${authorId}?language=${locale}`);
+  if (!response.ok) {
+    return {
+      notFound: true,
+    };
+  }
 
+  const posts = await response.json() as IKnowledgeManagement[];
+  if (!posts) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const author = posts[0].author;
+  const categories = posts.flatMap((post) => post.category);
+  // Pass data to the page via props
   return {
     props: {
-      // author,
-      // posts,
-      // categories,
+      posts,
+      author,
+      categories,
       ...(await serverSideTranslations(locale as string, ['common'])),
     },
   };
-};
+})
 
-export const getStaticPaths: GetStaticPaths = async ({ }) => {
-  // const authors = (await getAuthors()) ?? [];
-
-  // const paths = authors
-  //   .flatMap(author => {
-  //     return locales?.map(locale => ({params: {authorId: author}, locale}));
-  //   })
-  //   .filter((path): path is {params: {authorId: string}; locale: string} => !!path);
-
-  const paths: string[] = []
-  return {
-    paths,
-    fallback: 'blocking',
-  };
-};
 
 export default AuthorPage;

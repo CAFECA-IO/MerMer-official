@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext } from 'react'
+import React, { createContext, useCallback } from 'react'
 import useState from 'react-usestateref';
 import { IUserContext } from '../interfaces/user_context';
 import { IResult, defaultResultFailed } from '../interfaces/result';

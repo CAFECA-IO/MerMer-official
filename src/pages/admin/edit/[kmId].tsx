@@ -9,14 +9,45 @@ import Image from 'next/image'
 import type { MDXEditorMethods } from '@mdxeditor/editor';
 import KmMeta from '../../../components/mermer_admin/km_meta/km_meta';
 import Tags from '../../../components/mermer_admin/tags/tags';
-import { useAlerts } from '../../../contexts/alert_context';
 import { IKm, IKmTag } from '../../../interfaces/km';
-import { Topic } from '@prisma/client';
 import KmDescription from '../../../components/mermer_admin/km_meta/km_description';
 import EditPageSavePublishDelete from '../../../components/mermer_admin/edit_page_save_publish_delete/edit_page_save_publish_delete';
 import Cookies from 'js-cookie';
+import { GetServerSideProps } from 'next';
+import { Topic } from '@prisma/client';
 
-export default function KmEdit({ }) {
+interface IKmAndAssociatedData extends IKm {
+  topic: {
+    id: number;
+    name: string;
+  };
+  author: {
+    email: string;
+  };
+  categories: {
+    id: number;
+    label: string;
+    value: string;
+  }[];
+}
+type Props = {
+  km: IKmAndAssociatedData,
+  kmTitleFromServer: string,
+  kmDescriptionFromServer: string,
+  selectedKmTopicFromServer: string,
+  kmTagsFromServer: IKmTag[],
+  isPublished: boolean,
+  kmTopics: Topic[]
+}
+export default function KmEdit({
+  km,
+  kmTitleFromServer,
+  kmDescriptionFromServer,
+  selectedKmTopicFromServer,
+  kmTagsFromServer,
+  isPublished,
+  kmTopics
+}: Props) {
 
 
   const router = useRouter();
@@ -31,84 +62,34 @@ export default function KmEdit({ }) {
   // For KmMeta
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [isNewImage, setIsNewImage] = useState<boolean>(false);
-  const [kmTitle, setKmTitle] = useState<string>('');
-  const [selectedKmTopic, setSeletedKmTopic] = useState<string>('');
-  const [kmDescription, setKmDescription] = useState<string>('');
-  const [kmTags, setKmTags] = useState<IKmTag[]>([])
-  const [isPublished, setIsPublished] = useState<boolean>(false);
+  const [kmTitle, setKmTitle] = useState<string>(kmTitleFromServer);
+  const [selectedKmTopic, setSeletedKmTopic] = useState<string>(selectedKmTopicFromServer);
+  const [kmDescription, setKmDescription] = useState<string>(kmDescriptionFromServer);
+  const [kmTags, setKmTags] = useState<IKmTag[]>(kmTagsFromServer);
   const [isSaved, setIsSaved] = useState<boolean>(true);
-
-
-  // Info (20240216 - Murky) Alert
-  const { addAlert, clearAlerts } = useAlerts();
-  function emitAlert(severity: 'error' | 'success', message: string) {
-    addAlert({
-      severity, message, timeout: 3000, handleDismiss: () => {
-        setTimeout(() => {
-          clearAlerts();
-        }, 2000);
-      }
-    });
-  }
-
-
-
   // Info (20240216 - Murky) Fetch km
-  const [km, setKm] = useState<IKm>();
   useEffect(() => {
-    if (kmId) {
-      const fetchKm = async () => {
-        const response = await fetch(`/api/kmEdit/${kmId}`);
-
-        if (!response.ok) {
-          emitAlert('error', "Can't fetch km");
-          return null
-        }
-
+    // Info (20240216 - Murky) 如果沒有從cookie取到userEmail，或者cookie的userEmail跟km的author的email不一樣，就返回上一頁  
+    const userEmailFromCookies = Cookies.get('userEmail');
+    if (!userEmailFromCookies || userEmailFromCookies !== km?.author?.email) {
+      // return router.back();
+    }
+    // Info (20240216 - Murky) read preview image
+    const fetchImage = async () => {
 
 
-        const json = await response.json();
+      if (km.picture) {
 
-        // Info (20240216 - Murky) 如果沒有從cookie取到userEmail，或者cookie的userEmail跟km的author的email不一樣，就返回上一頁  
-        const userEmailFromCookies = Cookies.get('userEmail');
-        if (!userEmailFromCookies || userEmailFromCookies !== json?.author?.email) {
-          return router.back();
-        }
-
-        setKm(json);
-        setKmTitle(json.title);
-        setKmDescription(json.description);
-        setSeletedKmTopic(json.topic.name);
-        setKmTags(json.categories);
-        setIsPublished(json.isPublished);
-        // Info (20240216 - Murky) read preview image
-        const imgResponse = await fetch(json.picture);
+        const imgResponse = await fetch(km.picture);
         const imgBlob = await imgResponse.blob();
         const imgFile = new File([imgBlob], imgBlob.name, { type: imgBlob.type });
         setSelectedImage(imgFile);
-      };
-      fetchKm();
+      }
     }
-  }, [kmId]);
+    fetchImage();
+  }, []);
 
   // Info (20240216 - Murky) Fetch all topic
-  const [kmTopics, setKmTopics] = useState<Topic[]>([]);
-  useEffect(() => {
-    const fetchTopics = async () => {
-      const response = await fetch('/api/topics');
-      if (!response.ok) {
-        emitAlert('error', "Can't fetch kmTopics");
-        return null
-      }
-
-
-      const json = await response.json();
-      setKmTopics(json);
-    };
-    fetchTopics();
-
-
-  }, []);
 
   // Info (20240220 - Murky) Prevent Unsave leave
   useEffect(() => {
@@ -203,3 +184,43 @@ export default function KmEdit({ }) {
     </>
   );
 }
+export const getServerSideProps: GetServerSideProps = (async (context) => {
+  const host = context.req.headers.host
+  const protocol = context.req.headers['x-forwarded-proto'] || 'https'
+  if (!host) {
+    return {
+      notFound: true,
+    };
+  }
+  // Fetch data from external API
+  const kmId = context.query.kmId as string;
+  const response = await fetch(`${protocol}://${host}/api/kmEdit/${kmId}`);
+
+  if (!response.ok) {
+    return {
+      notFound: true,
+    };
+  }
+
+
+  const json = await response.json() as IKmAndAssociatedData;
+  const responseTopic = await fetch(`${protocol}://${host}/api/topics`);
+  if (!responseTopic.ok) {
+    return {
+      notFound: true,
+    };
+  }
+  const jsonTopic = await responseTopic.json() as Topic[];
+  // Pass data to the page via props
+  return {
+    props: {
+      km: json,
+      kmTitleFromServer: json.title,
+      kmDescriptionFromServer: json.description,
+      selectedKmTopicFromServer: json.topic.name,
+      kmTagsFromServer: json.categories,
+      isPublished: json.isPublished,
+      kmTopics: jsonTopic,
+    },
+  };
+})

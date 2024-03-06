@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import MerMerButton from '../../components/mermer_button/mermer_button';
-import {ImArrowRight2} from 'react-icons/im';
-import {IAuthor} from '../../interfaces/author_data';
-import {timestampToString} from '../../lib/common';
-import {useTranslation} from 'next-i18next';
-import {TranslateFunction} from '../../interfaces/locale';
-import {MERURL} from '../../constants/url';
+import { ImArrowRight2 } from 'react-icons/im';
+import { IAuthor } from '../../interfaces/author_data';
+import { timestampToString } from '../../lib/common';
+import { useTranslation } from 'next-i18next';
+import { TranslateFunction } from '../../interfaces/locale';
+import { MERURL } from '../../constants/url';
 
 interface IKMArticleProps {
   title: string;
@@ -17,18 +17,18 @@ interface IKMArticleProps {
   author: IAuthor;
 }
 
-const KMArticle = ({title, date, content, category, picture, author}: IKMArticleProps) => {
-  const {t}: {t: TranslateFunction} = useTranslation('common');
+const KMArticle = ({ title, date, content, category, picture, author }: IKMArticleProps) => {
+  const { t }: { t: TranslateFunction } = useTranslation('common');
 
   const parsedBody = content
     /* Info: (20230728 - Julian) h1 字體放大加粗 & 以 margin y 實現段落間距 */
-    .replace(/<h1>([^<]+)<\/h1>/g, `<h1 class="font-bold text-4xl my-4">$1</h1>`)
+    .replace(/<h1(.*?)>([^<]+)<\/h1>/g, `<h1$1  class="font-bold text-4xl my-4">$2</h1>`)
     /* Info: (20230728 - Julian) h2 字體放大加粗 & 以 margin y 實現段落間距 */
-    .replace(/<h2>([^<]+)<\/h2>/g, `<h2 class="font-bold text-3xl my-4">$1</h2>`)
+    .replace(/<h2(.*?)>([^<]+)<\/h2>/g, `<h2$1  class="font-bold text-3xl my-4">$2</h2>`)
     /* Info: (20230719 - Julian) h3 字體放大加粗 & 以 margin y 實現段落間距 */
-    .replace(/<h3>([^<]+)<\/h3>/g, `<h3 class="font-bold text-2xl my-4">$1</h3>`)
+    .replace(/<h3(.*?)>([^<]+)<\/h3>/g, `<h3$1  class="font-bold text-2xl my-4">$2</h3>`)
     /* Info: (20230719 - Julian) h4 字體放大加粗 & 以 margin y 實現段落間距 */
-    .replace(/<h4>([^<]+)<\/h4>/g, `<h4 class="font-bold text-xl my-4">$1</h4>`)
+    .replace(/<h4(.*?)>([^<]+)<\/h4>/g, `<h4$1  class="font-bold text-xl my-4">$2</h4>`)
     /* Info: (20230719 - Julian) ul, ol, li 縮排及列表樣式 */
     .replace(/<ul/g, `<ul class="my-4 lg:ml-4 list-disc"`)
     .replace(/<ol/g, `<ol class="my-4 lg:ml-4 list-roman"`)
@@ -66,7 +66,7 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
       <div className="flex flex-col space-y-12 p-10 lg:px-64 lg:py-20">
         {/* Info: (20230718 - Julian) picture */}
         <div className="relative h-300px w-full lg:h-580px">
-          <Image src={picture} fill style={{objectFit: 'cover'}} alt="picture" />
+          <Image src={picture} fill style={{ objectFit: 'cover' }} alt="picture" />
         </div>
         {/* Info: (20230718 - Julian) category tags */}
         <div className="flex flex-wrap items-center gap-2 lg:space-y-0">{displayedCategory}</div>
@@ -79,7 +79,7 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
           </div>
           {/* Info: (20230718 - Julian) content */}
           <div className="text-base leading-loose lg:text-lg">
-            <article dangerouslySetInnerHTML={{__html: parsedBody}} />
+            <article dangerouslySetInnerHTML={{ __html: parsedBody }} />
           </div>
         </div>
       </div>
@@ -88,11 +88,11 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
         {/* Info: (20230718 - Julian) author information */}
         <div className="flex flex-1 flex-col items-center space-y-4 rounded-3xl bg-glass p-12">
           {/* Info: (20230718 - Julian) author avatar */}
-          <div className="relative flex h-96px w-96px items-center justify-center overflow-hidden rounded-full bg-lightGray2">
+          <div className="relative flex size-[96px] items-center justify-center overflow-hidden rounded-full bg-lightGray2">
             <Image
               src={author.avatar}
               fill
-              style={{objectFit: 'cover'}}
+              style={{ objectFit: 'cover' }}
               alt={`${author.id}_avatar`}
             />
           </div>
