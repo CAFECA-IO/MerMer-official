@@ -1,9 +1,10 @@
 import {GetServerSideProps} from 'next';
 import {MERURL} from '../constants/url';
-import {DOMAIN, KM_FOLDER} from '../constants/config';
+import {DOMAIN} from '../constants/config';
 import {jobList} from '../constants/jobs';
-import {getSlugs} from '../lib/posts';
 import fs from 'fs';
+import {timestampToString} from '../lib/common';
+import {IKnowledgeManagement} from '../interfaces/km_article';
 
 // (20231205 - Julian) 預設匯出
 export default function Sitemap() {
@@ -71,15 +72,14 @@ async function getPages() {
   const hiringUpdated = getLastModifiedDate(`./src/pages${MERURL.HIRING}.tsx`);
   const kmUpdated = getLastModifiedDate(`./src/pages${MERURL.KM}/[kmId].tsx`);
 
-  // Info: (20231205 - Julian) 取得全部 KM 的 URL
-  const slugs = (await getSlugs(KM_FOLDER)) ?? [];
+  // Info: (20240318 - Julian) 取得全部 KM 的 URL
+  const kmData: IKnowledgeManagement[] = await fetch(`${DOMAIN}/api/kms`).then(res => res.json());
 
-  const kmPosts = slugs.map(slug => {
-    // Info: (20231205 - Julian) 取得 KM 最後更新日期
-    const kmDate = getLastModifiedDate(`./src/km/${slug}.md`);
+  const kmPosts = kmData.map(km => {
+    // Info: (20240318 - Julian) 取得 KM 最後更新日期
     return {
-      url: `${MERURL.KM}/${slug}`,
-      updated: kmDate,
+      url: `${MERURL.KM}/${km.id}`,
+      updated: timestampToString(km.date).date,
     };
   });
 
