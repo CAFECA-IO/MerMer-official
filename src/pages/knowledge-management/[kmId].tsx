@@ -4,55 +4,36 @@ import Footer from '../../components/footer/footer';
 import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 import Link from 'next/link';
 import KMArticle from '../../components/km_article/km_article';
-import { ImFacebook, ImTwitter, ImLinkedin2 } from 'react-icons/im';
-import { FaRedditAlien } from 'react-icons/fa';
-import { RiArrowLeftSLine } from 'react-icons/ri';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { IKnowledgeManagement } from '../../interfaces/km_article';
-import { ICrumbItem } from '../../interfaces/crumb_item';
-import { useTranslation } from 'next-i18next';
-import { TranslateFunction } from '../../interfaces/locale';
-import { MERURL } from '../../constants/url';
-import { DOMAIN, KM_DESCRIPTION_LIMIT, merMerKMViewerConfig } from '../../constants/config';
-import { GetServerSideProps } from 'next';
-import { truncateText } from '../../lib/common';
+import {ImFacebook, ImTwitter, ImLinkedin2} from 'react-icons/im';
+import {FaRedditAlien} from 'react-icons/fa';
+import {RiArrowLeftSLine} from 'react-icons/ri';
+import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
+import {IKnowledgeManagement} from '../../interfaces/km_article';
+import {ICrumbItem} from '../../interfaces/crumb_item';
+import {useTranslation} from 'next-i18next';
+import {TranslateFunction} from '../../interfaces/locale';
+import {MERURL} from '../../constants/url';
+import {DOMAIN, KM_DESCRIPTION_LIMIT, merMerKMViewerConfig} from '../../constants/config';
+import {GetServerSideProps} from 'next';
+import {truncateText} from '../../lib/common';
 import useShareProcess from '../../lib/hooks/use_share_process';
-import { ISocialMedia, SocialMediaConstant, ShareSettings } from '../../constants/social_media';
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { increaseViewAfterDelay } from '../../lib/increase_view_after_delay';
+import {ISocialMedia, SocialMediaConstant, ShareSettings} from '../../constants/social_media';
+import {useEffect} from 'react';
+import {useRouter} from 'next/router';
+import {increaseViewAfterDelay} from '../../lib/increase_view_after_delay';
 
 interface IPageProps {
   kmId: string;
   kmData: IKnowledgeManagement;
 }
 
-const KMDetailPage = ({ kmId, kmData }: IPageProps) => {
-  const { t }: { t: TranslateFunction } = useTranslation('common');
+const KMDetailPage = ({kmId, kmData}: IPageProps) => {
+  const {t}: {t: TranslateFunction} = useTranslation('common');
   const router = useRouter();
-  // const kmId = router.query.kmId;
 
   if (!kmId || typeof kmId !== 'string') {
     return router.back();
   }
-  // const [kmData, setKmData] = useState<IKnowledgeManagement>({
-  //   id: '',
-  //   title: '',
-  //   date: new Date().getTime() / 1000,
-  //   content: '',
-  //   category: [],
-  //   picture: '',
-  //   description: '',
-  //   author: {
-  //     id: '',
-  //     name: '',
-  //     jobTitle: '',
-  //     intro: '',
-  //     avatar: '',
-  //   },
-  //   views: 0,
-  //   shares: 0,
-  // });
 
   useEffect(() => {
     // Info: (20240220 - Murky) 閱讀一定秒數後，才增加view
@@ -61,7 +42,7 @@ const KMDetailPage = ({ kmId, kmData }: IPageProps) => {
   const shareUrl = `${DOMAIN}${MERURL.KM}/${kmData.id}`;
   const description = truncateText(kmData.description, KM_DESCRIPTION_LIMIT);
 
-  const { share } = useShareProcess({ shareId: kmData.id });
+  const {share} = useShareProcess({shareId: kmData.id});
 
   const crumbs: ICrumbItem[] = [
     {
@@ -97,7 +78,7 @@ const KMDetailPage = ({ kmId, kmData }: IPageProps) => {
             key={key}
             className="text-2xl hover:text-lightBlue1"
             onClick={() => {
-              share({ socialMedia: key as ISocialMedia, text: value.text });
+              share({socialMedia: key as ISocialMedia, text: value.text});
             }}
           >
             {mediaIcon}
@@ -107,13 +88,15 @@ const KMDetailPage = ({ kmId, kmData }: IPageProps) => {
     </div>
   );
 
+  const keywords = kmData.category.join(', ');
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
       <Head>
         <title>{kmData.title}</title>
         <link rel="icon" href="/favicon/favicon.ico" />
 
-        <meta name="keywords" content={kmData.title} />
+        <meta name="keywords" content={keywords} />
         <meta name="description" content={description} />
         <meta name="author" content="MerMer" />
 
@@ -151,6 +134,38 @@ const KMDetailPage = ({ kmId, kmData }: IPageProps) => {
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={kmData.picture} />
         <meta name="twitter:image:alt" content={kmData.title} />
+
+        {/* Info: (20240318 - Julian) Structured Data */}
+        <html>
+          <body>
+            <ol itemScope itemType="https://schema.org/BreadcrumbList">
+              <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+                <a itemProp="item" href={MERURL.HOME}>
+                  <span itemProp="name">{t('NAV_BAR.HOME')}</span>
+                </a>
+                <meta itemProp="position" content="1" />
+              </li>
+              ›
+              <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+                <a
+                  itemScope
+                  itemType="https://schema.org/WebPage"
+                  itemProp="item"
+                  itemID={MERURL.KM}
+                  href={MERURL.KM}
+                >
+                  <span itemProp="name">{t('NAV_BAR.KNOWLEDGE_MANAGEMENT')}</span>
+                </a>
+                <meta itemProp="position" content="2" />
+              </li>
+              ›
+              <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+                <span itemProp="name">{kmData.title}</span>
+                <meta itemProp="position" content="3" />
+              </li>
+            </ol>
+          </body>
+        </html>
       </Head>
 
       <NavBar />
@@ -190,16 +205,16 @@ const KMDetailPage = ({ kmId, kmData }: IPageProps) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = (async (context) => {
-  const host = context.req.headers.host
-  const protocol = context.req.headers['x-forwarded-proto'] || 'https'
+export const getServerSideProps: GetServerSideProps = async context => {
+  const host = context.req.headers.host;
+  const protocol = context.req.headers['x-forwarded-proto'] || 'https';
   if (!host) {
     return {
       notFound: true,
     };
   }
 
-  const { locale, query } = context;
+  const {locale, query} = context;
   const kmId = query.kmId as string;
   // Fetch data from external API
   const response = await fetch(`${protocol}://${host}/api/kms/${kmId}?language=${locale}`);
@@ -208,7 +223,7 @@ export const getServerSideProps: GetServerSideProps = (async (context) => {
       notFound: true,
     };
   }
-  const kmData = await response.json() as IKnowledgeManagement;
+  const kmData = (await response.json()) as IKnowledgeManagement;
   if (!kmData) {
     return {
       notFound: true,
@@ -222,5 +237,5 @@ export const getServerSideProps: GetServerSideProps = (async (context) => {
       ...(await serverSideTranslations(locale as string, ['common'])),
     },
   };
-})
+};
 export default KMDetailPage;
