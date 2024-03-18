@@ -30,29 +30,10 @@ interface IPageProps {
 const KMDetailPage = ({kmId, kmData}: IPageProps) => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
   const router = useRouter();
-  // const kmId = router.query.kmId;
 
   if (!kmId || typeof kmId !== 'string') {
     return router.back();
   }
-  // const [kmData, setKmData] = useState<IKnowledgeManagement>({
-  //   id: '',
-  //   title: '',
-  //   date: new Date().getTime() / 1000,
-  //   content: '',
-  //   category: [],
-  //   picture: '',
-  //   description: '',
-  //   author: {
-  //     id: '',
-  //     name: '',
-  //     jobTitle: '',
-  //     intro: '',
-  //     avatar: '',
-  //   },
-  //   views: 0,
-  //   shares: 0,
-  // });
 
   useEffect(() => {
     // Info: (20240220 - Murky) 閱讀一定秒數後，才增加view
@@ -107,13 +88,15 @@ const KMDetailPage = ({kmId, kmData}: IPageProps) => {
     </div>
   );
 
+  const keywords = kmData.category.join(', ');
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
       <Head>
         <title>{kmData.title}</title>
         <link rel="icon" href="/favicon/favicon.ico" />
 
-        <meta name="keywords" content={kmData.title} />
+        <meta name="keywords" content={keywords} />
         <meta name="description" content={description} />
         <meta name="author" content="MerMer" />
 
