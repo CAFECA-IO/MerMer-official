@@ -28,30 +28,26 @@ const KnowledgeManagementPage = ({posts, categories}: IPageProps) => {
   ];
 
   // Info: (20240318 - Julian) 將 posts 包裝成 structured data
-  const structuredData = posts.map(post => {
+  const structuredData = posts.map((post, i) => {
     const publishedDate = new Date(post.date).toISOString();
     return (
-      <html>
-        <body>
-          <div itemScope itemType="https://schema.org/NewsArticle">
-            <div itemProp="headline">{post.title}</div>
-            <img itemProp="image" src={post.picture} />
-            <div>
-              <span itemProp="datePublished" content={publishedDate}>
-                {publishedDate}
-              </span>
-            </div>
-            <div>
-              by
-              <span itemProp="author" itemScope itemType="https://schema.org/Person">
-                <a itemProp="url" href={`${MERURL.AUTHOR}/${post.author.id}`}>
-                  <span itemProp="name">{post.author.name}</span>
-                </a>
-              </span>
-            </div>
-          </div>
-        </body>
-      </html>
+      <div key={i} className="hidden" itemScope itemType="https://schema.org/NewsArticle">
+        <div itemProp="headline">{post.title}</div>
+        <img itemProp="image" src={post.picture} />
+        <div>
+          <span itemProp="datePublished" content={publishedDate}>
+            {publishedDate}
+          </span>
+        </div>
+        <div>
+          by
+          <span itemProp="author" itemScope itemType="https://schema.org/Person">
+            <a itemProp="url" href={`${MERURL.AUTHOR}/${post.author.id}`}>
+              <span itemProp="name">{post.author.name}</span>
+            </a>
+          </span>
+        </div>
+      </div>
     );
   });
 
@@ -60,13 +56,13 @@ const KnowledgeManagementPage = ({posts, categories}: IPageProps) => {
       <Head>
         <title>MerMer - {t('KM_PAGE.TITLE')}</title>
         <link rel="icon" href="/favicon/favicon.ico" />
-
-        {structuredData}
       </Head>
 
       <NavBar />
 
       <main className="flex w-screen flex-1 flex-col py-20 font-Dosis">
+        {structuredData}
+
         {/* Info: (20230717 - Julian) KM Title */}
         <div className="flex h-200px w-full flex-col items-start justify-center bg-kmBanner bg-cover bg-top bg-no-repeat lg:h-450px">
           <h1 className="px-20 text-2xl font-bold drop-shadow-heightLight lg:text-54px">

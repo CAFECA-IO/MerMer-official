@@ -91,7 +91,7 @@ const KMDetailPage = ({kmId, kmData}: IPageProps) => {
   const keywords = kmData.category.join(', ');
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
+    <>
       <Head>
         <title>{kmData.title}</title>
         <link rel="icon" href="/favicon/favicon.ico" />
@@ -134,43 +134,39 @@ const KMDetailPage = ({kmId, kmData}: IPageProps) => {
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={kmData.picture} />
         <meta name="twitter:image:alt" content={kmData.title} />
-
-        {/* Info: (20240318 - Julian) Structured Data */}
-        <html>
-          <body>
-            <ol itemScope itemType="https://schema.org/BreadcrumbList">
-              <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-                <a itemProp="item" href={MERURL.HOME}>
-                  <span itemProp="name">{t('NAV_BAR.HOME')}</span>
-                </a>
-                <meta itemProp="position" content="1" />
-              </li>
-              ›
-              <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-                <a
-                  itemScope
-                  itemType="https://schema.org/WebPage"
-                  itemProp="item"
-                  itemID={MERURL.KM}
-                  href={MERURL.KM}
-                >
-                  <span itemProp="name">{t('NAV_BAR.KNOWLEDGE_MANAGEMENT')}</span>
-                </a>
-                <meta itemProp="position" content="2" />
-              </li>
-              ›
-              <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-                <span itemProp="name">{kmData.title}</span>
-                <meta itemProp="position" content="3" />
-              </li>
-            </ol>
-          </body>
-        </html>
       </Head>
 
       <NavBar />
 
       <main className="flex w-screen flex-1 flex-col overflow-x-hidden bg-darkBlue3 pt-20">
+        {/* Info: (20240318 - Julian) Structured Data */}
+        <ol className="hidden" itemScope itemType="https://schema.org/BreadcrumbList">
+          <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+            <a itemProp="item" href={MERURL.HOME}>
+              <span itemProp="name">{t('NAV_BAR.HOME')}</span>
+            </a>
+            <meta itemProp="position" content="1" />
+          </li>
+          ›
+          <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+            <a
+              itemScope
+              itemType="https://schema.org/WebPage"
+              itemProp="item"
+              itemID={MERURL.KM}
+              href={MERURL.KM}
+            >
+              <span itemProp="name">{t('NAV_BAR.KNOWLEDGE_MANAGEMENT')}</span>
+            </a>
+            <meta itemProp="position" content="2" />
+          </li>
+          ›
+          <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+            <span itemProp="name">{kmData.title}</span>
+            <meta itemProp="position" content="3" />
+          </li>
+        </ol>
+
         {/* Info: (20230718 - Julian) Breadcrumb */}
         <div className="px-5 py-10 lg:px-20">
           <Breadcrumb crumbs={crumbs} />
@@ -201,7 +197,7 @@ const KMDetailPage = ({kmId, kmData}: IPageProps) => {
       </main>
 
       <Footer />
-    </div>
+    </>
   );
 };
 
