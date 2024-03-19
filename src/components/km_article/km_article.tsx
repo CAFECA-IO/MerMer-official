@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import MerMerButton from '../../components/mermer_button/mermer_button';
-import { ImArrowRight2 } from 'react-icons/im';
-import { IAuthor } from '../../interfaces/author_data';
-import { timestampToString } from '../../lib/common';
-import { useTranslation } from 'next-i18next';
-import { TranslateFunction } from '../../interfaces/locale';
-import { MERURL } from '../../constants/url';
+import {ImArrowRight2} from 'react-icons/im';
+import {IAuthor} from '../../interfaces/author_data';
+import {timestampToString} from '../../lib/common';
+import {useTranslation} from 'next-i18next';
+import {TranslateFunction} from '../../interfaces/locale';
+import {MERURL} from '../../constants/url';
 
 interface IKMArticleProps {
   title: string;
@@ -17,8 +17,8 @@ interface IKMArticleProps {
   author: IAuthor;
 }
 
-const KMArticle = ({ title, date, content, category, picture, author }: IKMArticleProps) => {
-  const { t }: { t: TranslateFunction } = useTranslation('common');
+const KMArticle = ({title, date, content, category, picture, author}: IKMArticleProps) => {
+  const {t}: {t: TranslateFunction} = useTranslation('common');
 
   const parsedBody = content
     /* Info: (20230728 - Julian) h1 字體放大加粗 & 以 margin y 實現段落間距 */
@@ -54,10 +54,8 @@ const KMArticle = ({ title, date, content, category, picture, author }: IKMArtic
     .replace(/<blockquote/g, `<blockquote class="text-sm my-4 opacity-70"`);
 
   const displayedCategory = category.map((item, i) => (
-    <MerMerButton className="px-4 py-px">
-      <Link key={i} href={MERURL.KM + `?category=` + item}>
-        {t(item)}
-      </Link>
+    <MerMerButton key={i} className="px-4 py-px">
+      <Link href={MERURL.KM + `?category=` + item}>{t(item)}</Link>
     </MerMerButton>
   ));
 
@@ -66,7 +64,7 @@ const KMArticle = ({ title, date, content, category, picture, author }: IKMArtic
       <div className="flex flex-col space-y-12 p-10 lg:px-64 lg:py-20">
         {/* Info: (20230718 - Julian) picture */}
         <div className="relative h-300px w-full lg:h-580px">
-          <Image src={picture} fill style={{ objectFit: 'cover' }} alt="picture" />
+          <Image src={picture} fill style={{objectFit: 'cover'}} alt="picture" />
         </div>
         {/* Info: (20230718 - Julian) category tags */}
         <div className="flex flex-wrap items-center gap-2 lg:space-y-0">{displayedCategory}</div>
@@ -79,7 +77,7 @@ const KMArticle = ({ title, date, content, category, picture, author }: IKMArtic
           </div>
           {/* Info: (20230718 - Julian) content */}
           <div className="text-base leading-loose lg:text-lg">
-            <article dangerouslySetInnerHTML={{ __html: parsedBody }} />
+            <article dangerouslySetInnerHTML={{__html: parsedBody}} />
           </div>
         </div>
       </div>
@@ -92,7 +90,7 @@ const KMArticle = ({ title, date, content, category, picture, author }: IKMArtic
             <Image
               src={author.avatar}
               fill
-              style={{ objectFit: 'cover' }}
+              style={{objectFit: 'cover'}}
               alt={`${author.id}_avatar`}
             />
           </div>
