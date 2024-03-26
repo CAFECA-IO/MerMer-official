@@ -3,24 +3,24 @@ import NavBar from '../../components/nav_bar/nav_bar';
 import Footer from '../../components/footer/footer';
 import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 import KMPageBody from '../../components/km_page_body/km_page_body';
-import {useTranslation} from 'next-i18next';
-import {TranslateFunction} from '../../interfaces/locale';
-import {IKnowledgeManagement} from '../../interfaces/km_article';
-import {ICrumbItem} from '../../interfaces/crumb_item';
-import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
-import {GetServerSideProps} from 'next';
-import {MERURL} from '../../constants/url';
+import { useTranslation } from 'next-i18next';
+import { TranslateFunction } from '../../interfaces/locale';
+import { IKnowledgeManagement } from '../../interfaces/km_article';
+import { ICrumbItem } from '../../interfaces/crumb_item';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { GetServerSideProps } from 'next';
+import { MERURL } from '../../constants/url';
 
 interface IPageProps {
   posts: IKnowledgeManagement[];
   categories: string[];
 }
 
-const KnowledgeManagementPage = ({posts, categories}: IPageProps) => {
-  const {t}: {t: TranslateFunction} = useTranslation('common');
+const KnowledgeManagementPage = ({ posts, categories }: IPageProps) => {
+  const { t }: { t: TranslateFunction } = useTranslation('common');
 
   const crumbs: ICrumbItem[] = [
-    {label: t('NAV_BAR.HOME'), path: MERURL.HOME},
+    { label: t('NAV_BAR.HOME'), path: MERURL.HOME },
     {
       label: t('NAV_BAR.KNOWLEDGE_MANAGEMENT'),
       path: MERURL.KM,
@@ -91,7 +91,9 @@ const KnowledgeManagementPage = ({posts, categories}: IPageProps) => {
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const host = context.req.headers.host;
-  const tmpProtocol = context.req.headers['x-forwarded-proto'] || 'https';
+  const tmpProtocol = context.req.headers["x-forwarded-proto"]
+    ? "https"
+    : "http";
   // Info (20240318 - Luphia) somtimes the protocol would be 'https,http' or 'http,https' so we need to split it
   const protocol = tmpProtocol.toString().split(',')[0];
   if (!host) {
@@ -99,7 +101,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
       notFound: true,
     };
   }
-  const {locale} = context;
+  const { locale } = context;
   // Fetch data from external API
   const response = await fetch(`${protocol}://${host}/api/kms?language=${locale}`);
   if (!response.ok) {

@@ -86,7 +86,9 @@ const AuthorPage = ({
 
 export const getServerSideProps: GetServerSideProps = (async (context) => {
   const host = context.req.headers.host
-  const tmpProtocol = context.req.headers['x-forwarded-proto'] || 'https';
+  const tmpProtocol = context.req.headers["x-forwarded-proto"]
+    ? "https"
+    : "http";
   // Info (20240318 - Luphia) somtimes the protocol would be 'https,http' or 'http,https' so we need to split it
   const protocol = tmpProtocol.toString().split(',')[0];
   if (!host) {

@@ -182,7 +182,10 @@ export default function index({ allKmFromServer }: Props) {
 
 export const getServerSideProps: GetServerSideProps = (async (context) => {
   const host = context.req.headers.host
-  const protocol = context.req.headers['x-forwarded-proto'] || 'https'
+  const protocol = context.req.headers["x-forwarded-proto"]
+    ? "https"
+    : "http";
+
   if (!host) {
     return {
       notFound: true,
