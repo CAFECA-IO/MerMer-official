@@ -91,12 +91,6 @@ export const partnersContent = [
     link: 'https://isuncloud.com',
   },
   {
-    name: 'BOLT',
-    image: '/logos/bolt_g.svg',
-    hover: '/logos/bolt.svg',
-    link: 'https://bolt.cafeca.io',
-  },
-  {
     name: 'CAFECA',
     image: '/logos/cafeca_g.svg',
     hover: '/logos/cafeca.svg',
@@ -123,10 +117,10 @@ export const merMerAdminConfig = {
   editPageUrl: '/admin/edit',
   defaultUserAvatarUrl: '/profiles/default_profile.png',
   formidableUploadUrl: '/tmp',
-  kmImageStoreInPublicUrl: '/public/km'
-}
+  kmImageStoreInPublicUrl: '/public/km',
+};
 
 export const merMerKMViewerConfig = {
   timeBeforeIncreaseView: 60 * 1000,
   timeForAutoSave: 60 * 1000,
-}
+};
