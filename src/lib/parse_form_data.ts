@@ -5,6 +5,7 @@ import { NextApiRequest } from "next";
 import { IncomingForm, Files, Fields, Options } from 'formidable';
 import path from "path";
 import { merMerAdminConfig } from "../constants/config";
+import fs from 'fs';
 // Helper function to wrap formidable's parse method in a promise
 export const parseForm = (req: NextApiRequest): Promise<{ fields: Fields, files: Files<string>}> => {
   const options: Partial<Options> = {
@@ -23,6 +24,10 @@ export const parseForm = (req: NextApiRequest): Promise<{ fields: Fields, files:
     }
   }
 
+  //Info (20240327) - Murky, Check if /tmp folder exists, if not create it
+  if (!fs.existsSync(options.uploadDir || "/tmp")) {
+    fs.mkdirSync(options.uploadDir || "/tmp");
+  }
 
   return new Promise((resolve, reject) => {
     const form = new IncomingForm(options);
