@@ -6,8 +6,9 @@ import { UserProvider } from '../contexts/user_context';
 import { WorkerProvider } from '../contexts/worker_context';
 import { GlobalProvider } from '../contexts/global_context';
 import { ConfirmContextProvider } from '../contexts/confirm_context/confirm_context';
+// Info: (20240327 - Murky) ssr 定成false, 才能讓自定義的確認彈出視窗正常顯示
 const ConfirmAlert = dynamic(() => import('../components/mermer_admin/alert/confirm_alert'), {
-  ssr: false, // 禁用服务器端渲染
+  ssr: false,
 });
 import AlertsProvider from '../contexts/alert_context';
 import dynamic from 'next/dynamic';

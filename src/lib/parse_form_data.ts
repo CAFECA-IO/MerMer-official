@@ -5,11 +5,13 @@ import { NextApiRequest } from "next";
 import { IncomingForm, Files, Fields, Options } from 'formidable';
 import path from "path";
 import { merMerAdminConfig } from "../constants/config";
+import { promises as fs } from 'fs';
 // Helper function to wrap formidable's parse method in a promise
 export const parseForm = (req: NextApiRequest): Promise<{ fields: Fields, files: Files<string>}> => {
+  const formidableUploadUrl = process.env.VERCEL === '1' ? merMerAdminConfig.formidableUploadUrl : path.join(process.cwd(), merMerAdminConfig.formidableUploadUrl);
   const options: Partial<Options> = {
     encoding: 'utf-8',
-    uploadDir: process.env.VERCEL === '1' ? "/tmp" : path.join(process.cwd(), merMerAdminConfig.formidableUploadUrl),
+    uploadDir: formidableUploadUrl,
     keepExtensions: true,
     maxFieldsSize: 200 * 1024 * 1024, // (200mb),
     maxFields: 1000,
@@ -23,14 +25,20 @@ export const parseForm = (req: NextApiRequest): Promise<{ fields: Fields, files:
     }
   }
 
-
-  return new Promise((resolve, reject) => {
-    const form = new IncomingForm(options);
-    form.parse(req, (err, fields, files) => {
-      if (err) {
-        return reject(err);
+  //Info (20240327) - Murky, Check if /tmp folder exists, if not create it
+    return new Promise(async (resolve, reject) => {
+      try{
+        await fs.mkdir(formidableUploadUrl, { recursive: false });
+      } catch (error) {
+        // Info: (20240329) Murky: Do nothing if /tmp already exist
       }
-      return resolve({ fields, files });
+      const form = new IncomingForm(options);
+      form.parse(req, (err, fields, files) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve({ fields, files });
+      });
     });
-  });
+
 };

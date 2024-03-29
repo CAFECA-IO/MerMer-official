@@ -72,10 +72,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       const { title, selectedKmTopicName, description, tags, isNewImage,  mdFile, isPublished } = kmForSave;
 
-      // mdFile 裡的 <img/> 改回 <img>
+      //Info (20240327) - Murky,  mdFile 裡的 <img/> 改回 <img>
       const normalImgTagMdFile = changeMdxToMd(mdFile);
 
-      // 如果有新傳的圖片就存好再回傳url
+      //Info (20240327) - Murky,  如果有新傳的圖片就存好再回傳url
       let pictureUrl: string | undefined = undefined;
       if (isNewImage) {
         if (!files?.image || !files.image.length) {

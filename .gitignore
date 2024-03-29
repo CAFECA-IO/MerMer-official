@@ -140,3 +140,6 @@ dist
 # Public temp
 public/temp/*
 tmp/*
+
+# VSCode workspace settings
+.vscode
