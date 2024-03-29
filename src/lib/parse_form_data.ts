@@ -27,7 +27,11 @@ export const parseForm = (req: NextApiRequest): Promise<{ fields: Fields, files:
 
   //Info (20240327) - Murky, Check if /tmp folder exists, if not create it
     return new Promise(async (resolve, reject) => {
-      await fs.mkdir(formidableUploadUrl, { recursive: false }).catch();
+      try{
+        await fs.mkdir(formidableUploadUrl, { recursive: false });
+      } catch (error) {
+        // Do nothing if /tmp already exist
+      }
       const form = new IncomingForm(options);
       form.parse(req, (err, fields, files) => {
         if (err) {
