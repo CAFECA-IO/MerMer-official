@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import MerMerButton from '../../components/mermer_button/mermer_button';
 import smallConnectingAnimation from '../../../public/animations/lf30_editor_cnkxmhy3.json';
-import activeIconPulse from '../../../public/animations/lf30_editor_cyvxlluo.json'; 
+import activeIconPulse from '../../../public/animations/lf30_editor_cyvxlluo.json';
 import Lottie from 'lottie-react';
 import {UserContext} from '../../contexts/user_context';
 import React, {useContext} from 'react';
@@ -167,7 +167,7 @@ const SignatureProcessModal = ({
       <MerMerButton
         id="SendRequestButton"
         onClick={requestSendingHandler}
-        className="mx-10 my-[10px] flex gap-2 rounded text-lg transition-all hover:opacity-90"
+        className="mx-10 my-10px flex gap-2 rounded text-lg transition-all hover:opacity-90"
       >
         <Image
           className="relative"
@@ -211,7 +211,7 @@ const SignatureProcessModal = ({
         <div className="text-lg font-bold">{t('WALLET_PANEL.SIGNATURE_STEP2_TITLE')}</div>
         <div className="text-sm">
           {t('WALLET_PANEL.SIGNATURE_STEP2_DESCRIPTION1')}
-          <Link href='#' className='text-lightBlue1'>
+          <Link href="#" className="text-lightBlue1">
             {t('WALLET_PANEL.SIGNATURE_STEP2_DESCRIPTION2')}
           </Link>
         </div>
@@ -225,7 +225,7 @@ const SignatureProcessModal = ({
         <div className="text-lg font-bold">{t('WALLET_PANEL.SIGNATURE_STEP2_TITLE')}</div>
         <div className="text-sm">
           {t('WALLET_PANEL.SIGNATURE_STEP2_DESCRIPTION1')}
-          <Link href='#' className='text-lightBlue1'>
+          <Link href="#" className="text-lightBlue1">
             {t('WALLET_PANEL.SIGNATURE_STEP2_DESCRIPTION2')}
           </Link>
         </div>
@@ -240,7 +240,7 @@ const SignatureProcessModal = ({
         <div className="text-lg font-bold">{t('WALLET_PANEL.SIGNATURE_STEP2_TITLE')}</div>
         <div className="text-sm">
           {t('WALLET_PANEL.SIGNATURE_STEP2_DESCRIPTION1')}
-          <Link href='#' className='text-lightBlue1'>
+          <Link href="#" className="text-lightBlue1">
             {t('WALLET_PANEL.SIGNATURE_STEP2_DESCRIPTION2')}
           </Link>
         </div>
@@ -255,7 +255,7 @@ const SignatureProcessModal = ({
         <div className="mb-4 text-lg font-bold">{t('WALLET_PANEL.SIGNATURE_STEP2_TITLE')}</div>
         <div className="text-sm">
           {t('WALLET_PANEL.SIGNATURE_STEP2_DESCRIPTION1')}
-          <Link href='#' className='text-lightBlue1'>
+          <Link href="#" className="text-lightBlue1">
             {t('WALLET_PANEL.SIGNATURE_STEP2_DESCRIPTION2')}
           </Link>
         </div>
@@ -273,7 +273,7 @@ const SignatureProcessModal = ({
         <div className="mb-4 text-lg font-bold">{t('WALLET_PANEL.SIGNATURE_STEP2_TITLE')}</div>
         <div className="text-sm">
           {t('WALLET_PANEL.SIGNATURE_STEP2_DESCRIPTION1')}
-          <Link href='#' className='text-lightBlue1'>
+          <Link href="#" className="text-lightBlue1">
             {t('WALLET_PANEL.SIGNATURE_STEP2_DESCRIPTION2')}
           </Link>
         </div>
@@ -321,13 +321,11 @@ const SignatureProcessModal = ({
       <div
         id="SignatureProcessModal"
         ref={processModalRef}
-        className="relative mx-6 flex h-[500px] w-[430px] flex-col items-center justify-between rounded-xl bg-darkBlue3 p-6 pb-10 font-Dosis shadow-lg shadow-black/80"
+        className="relative mx-6 flex h-500px w-430px flex-col items-center justify-between rounded-xl bg-darkBlue3 p-6 pb-10 font-Dosis shadow-lg shadow-black/80"
       >
         {/* Info: (20231129 - Julian) Header */}
         <div className="flex items-center justify-between">
-          <h3 className="text-[20px] font-bold text-lightWhite1">
-            {t('WALLET_PANEL.TITLE')}
-          </h3>
+          <h3 className="text-xl font-bold text-lightWhite1">{t('WALLET_PANEL.TITLE')}</h3>
           {/* Info: (20231004 - Julian) Close Button */}
           <button
             id="SignatureCloseButton"
@@ -358,7 +356,6 @@ const SignatureProcessModal = ({
           </div>
 
           {displayedSection}
-
         </div>
         <div className="">{requestButtonHandler}</div>
       </div>

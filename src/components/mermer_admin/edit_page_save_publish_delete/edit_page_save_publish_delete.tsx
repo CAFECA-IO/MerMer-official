@@ -1,26 +1,26 @@
-import React, { Dispatch, useEffect } from 'react'
-import MerMerButton from '../../mermer_button/mermer_button'
-import Image from 'next/image'
+import React, {Dispatch, useEffect} from 'react';
+import MerMerButton from '../../mermer_button/mermer_button';
+import Image from 'next/image';
 import useConfirm from '../../../contexts/confirm_context/use_confirm';
-import { IKmForSave, IKmTag } from '../../../interfaces/km';
-import { useAlerts } from '../../../contexts/alert_context';
-import type { MDXEditorMethods } from '@mdxeditor/editor';
-import { useRouter } from 'next/router';
-import { merMerKMViewerConfig } from '../../../constants/config';
+import {IKmForSave, IKmTag} from '../../../interfaces/km';
+import {useAlerts} from '../../../contexts/alert_context';
+import type {MDXEditorMethods} from '@mdxeditor/editor';
+import {useRouter} from 'next/router';
+import {merMerKMViewerConfig} from '../../../constants/config';
 
 type Props = {
-  kmId: string,
-  kmTitle: string,
-  selectedKmTopic: string,
-  kmDescription: string,
-  kmTags: IKmTag[],
-  editorRef: React.MutableRefObject<MDXEditorMethods | null>,
-  isPublished: boolean,
-  isNewImage: boolean,
-  selectedImage: File | null,
-  isSaved: boolean,
-  setIsSaved: Dispatch<React.SetStateAction<boolean>>
-}
+  kmId: string;
+  kmTitle: string;
+  selectedKmTopic: string;
+  kmDescription: string;
+  kmTags: IKmTag[];
+  editorRef: React.MutableRefObject<MDXEditorMethods | null>;
+  isPublished: boolean;
+  isNewImage: boolean;
+  selectedImage: File | null;
+  isSaved: boolean;
+  setIsSaved: Dispatch<React.SetStateAction<boolean>>;
+};
 
 export default function EditPageSavePublishDelete({
   kmId,
@@ -33,28 +33,29 @@ export default function EditPageSavePublishDelete({
   isNewImage,
   selectedImage,
   isSaved,
-  setIsSaved
+  setIsSaved,
 }: Props) {
-
   const router = useRouter();
   // Info (20240216 - Murky) Global Confirm
-  const { confirm } = useConfirm();
+  const {confirm} = useConfirm();
   // Info (20240216 - Murky) Alert
-  const { addAlert, clearAlerts } = useAlerts();
+  const {addAlert, clearAlerts} = useAlerts();
   function emitAlert(severity: 'error' | 'success', message: string) {
     addAlert({
-      severity, message, timeout: 3000, handleDismiss: () => {
+      severity,
+      message,
+      timeout: 3000,
+      handleDismiss: () => {
         setTimeout(() => {
           clearAlerts();
         }, 2000);
-      }
+      },
     });
   }
 
   useEffect(() => {
     setIsSaved(false);
-  }, [kmTitle, selectedKmTopic, kmDescription, kmTags, isNewImage])
-
+  }, [kmTitle, selectedKmTopic, kmDescription, kmTags, isNewImage]);
 
   // Info (20240221 - Murky) Auto save
   useEffect(() => {
@@ -75,7 +76,7 @@ export default function EditPageSavePublishDelete({
       selectedKmTopicName: selectedKmTopic,
       description: kmDescription,
       tags: kmTags.map(tag => {
-        return { id: tag.id, label: tag.label, value: tag.value }
+        return {id: tag.id, label: tag.label, value: tag.value};
       }),
       isNewImage,
       mdFile: editorRef.current?.getMarkdown() || '',
@@ -95,7 +96,7 @@ export default function EditPageSavePublishDelete({
       // emitAlert('error', `Can't ${alertWording} KM`);
       const error = await response.json();
       emitAlert('error', `${error.error}`);
-      return null
+      return null;
     }
 
     emitAlert('success', `${alertWording} Put KM Complete`);
@@ -104,14 +105,14 @@ export default function EditPageSavePublishDelete({
     }
 
     setIsSaved(true);
-    return null
+    return null;
   }
 
   // Info (20240217 - Murky) Delete km
   const handleDeleteOnclick = async () => {
     const isConfirmed = await confirm(`Are you sure you want to delete "${kmTitle}" this article?`);
 
-    if (!isConfirmed) return
+    if (!isConfirmed) return;
 
     const res = await fetch(`/api/kmEdit/${kmId}`, {
       method: 'DELETE',
@@ -126,33 +127,28 @@ export default function EditPageSavePublishDelete({
 
     router.push('/admin/browse');
     return;
-  }
+  };
   return (
-    <div className='flex items-center justify-center gap-2' >
+    <div className="flex items-center justify-center gap-2">
       <button
-        className='group relative box-border w-fit rounded-full border-2 border-lightWhite1 bg-darkBlue3/0 px-10 py-[10px] text-[18px] font-bold text-lightWhite1 hover:cursor-pointer'
+        className="group relative box-border w-fit rounded-full border-2 border-lightWhite1 bg-darkBlue3/0 px-10 py-10px text-lg font-bold text-lightWhite1 hover:cursor-pointer"
         onClick={() => saveKm(true)}
       >
-        <span className='relative z-10 flex items-center'>Publish</span>
+        <span className="relative z-10 flex items-center">Publish</span>
         <span
           className={`absolute left-0 top-0 size-full rounded-full bg-buttonHover opacity-0 shadow-buttonHover transition-all duration-300 ease-in-out group-hover:opacity-100`}
         ></span>
       </button>
-      <MerMerButton
-        className='px-10 py-[10px] text-[18px] font-bold'
-        onClick={() => saveKm(false)}
-      >Save</MerMerButton>
+      <MerMerButton className="px-10 py-10px text-lg font-bold" onClick={() => saveKm(false)}>
+        Save
+      </MerMerButton>
 
       <MerMerButton
-        className='flex size-[44px] items-center justify-center rounded-full'
-        onClick={handleDeleteOnclick} >
-        <Image
-          src='/elements/delete.svg'
-          height={20}
-          width={20}
-          alt='trash icon'
-        />
+        className="flex size-44px items-center justify-center rounded-full"
+        onClick={handleDeleteOnclick}
+      >
+        <Image src="/elements/delete.svg" height={20} width={20} alt="trash icon" />
       </MerMerButton>
-    </div >
-  )
+    </div>
+  );
 }

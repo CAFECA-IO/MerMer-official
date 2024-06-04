@@ -86,7 +86,7 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
         {/* Info: (20230718 - Julian) author information */}
         <div className="flex flex-1 flex-col items-center space-y-4 rounded-3xl bg-glass p-12">
           {/* Info: (20230718 - Julian) author avatar */}
-          <div className="relative flex size-[96px] items-center justify-center overflow-hidden rounded-full bg-lightGray2">
+          <div className="relative flex size-96px items-center justify-center overflow-hidden rounded-full bg-lightGray2">
             <Image
               src={author.avatar}
               fill
