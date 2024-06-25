@@ -4,31 +4,31 @@ import Footer from '../../components/footer/footer';
 import Breadcrumb from '../../components/breadcrumb/breadcrumb';
 import Link from 'next/link';
 import KMArticle from '../../components/km_article/km_article';
-import { ImFacebook, ImTwitter, ImLinkedin2 } from 'react-icons/im';
-import { FaRedditAlien } from 'react-icons/fa';
-import { RiArrowLeftSLine } from 'react-icons/ri';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { IKnowledgeManagement } from '../../interfaces/km_article';
-import { ICrumbItem } from '../../interfaces/crumb_item';
-import { useTranslation } from 'next-i18next';
-import { TranslateFunction } from '../../interfaces/locale';
-import { MERURL } from '../../constants/url';
-import { DOMAIN, KM_DESCRIPTION_LIMIT, merMerKMViewerConfig } from '../../constants/config';
-import { GetServerSideProps } from 'next';
-import { truncateText } from '../../lib/common';
+import {ImFacebook, ImTwitter, ImLinkedin2} from 'react-icons/im';
+import {FaRedditAlien} from 'react-icons/fa';
+import {RiArrowLeftSLine} from 'react-icons/ri';
+import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
+import {IKnowledgeManagement} from '../../interfaces/km_article';
+import {ICrumbItem} from '../../interfaces/crumb_item';
+import {useTranslation} from 'next-i18next';
+import {TranslateFunction} from '../../interfaces/locale';
+import {MERURL} from '../../constants/url';
+import {DOMAIN, KM_DESCRIPTION_LIMIT, merMerKMViewerConfig} from '../../constants/config';
+import {GetServerSideProps} from 'next';
+import {truncateText} from '../../lib/common';
 import useShareProcess from '../../lib/hooks/use_share_process';
-import { ISocialMedia, SocialMediaConstant, ShareSettings } from '../../constants/social_media';
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { increaseViewAfterDelay } from '../../lib/increase_view_after_delay';
+import {ISocialMedia, SocialMediaConstant, ShareSettings} from '../../constants/social_media';
+import {useEffect} from 'react';
+import {useRouter} from 'next/router';
+import {increaseViewAfterDelay} from '../../lib/increase_view_after_delay';
 
 interface IPageProps {
   kmId: string;
   kmData: IKnowledgeManagement;
 }
 
-const KMDetailPage = ({ kmId, kmData }: IPageProps) => {
-  const { t }: { t: TranslateFunction } = useTranslation('common');
+const KMDetailPage = ({kmId, kmData}: IPageProps) => {
+  const {t}: {t: TranslateFunction} = useTranslation('common');
   const router = useRouter();
 
   if (!kmId || typeof kmId !== 'string') {
@@ -42,7 +42,7 @@ const KMDetailPage = ({ kmId, kmData }: IPageProps) => {
   const shareUrl = `${DOMAIN}${MERURL.KM}/${kmData.id}`;
   const description = truncateText(kmData.description, KM_DESCRIPTION_LIMIT);
 
-  const { share } = useShareProcess({ shareId: kmData.id });
+  const {share} = useShareProcess({shareId: kmData.id});
 
   const crumbs: ICrumbItem[] = [
     {
@@ -78,7 +78,7 @@ const KMDetailPage = ({ kmId, kmData }: IPageProps) => {
             key={key}
             className="text-2xl hover:text-lightBlue1"
             onClick={() => {
-              share({ socialMedia: key as ISocialMedia, text: value.text });
+              share({socialMedia: key as ISocialMedia, text: value.text});
             }}
           >
             {mediaIcon}
@@ -203,9 +203,7 @@ const KMDetailPage = ({ kmId, kmData }: IPageProps) => {
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const host = context.req.headers.host;
-  const tmpProtocol = context.req.headers["x-forwarded-proto"]
-    ? "https"
-    : "http";
+  const tmpProtocol = context.req.headers['x-forwarded-proto'] ? 'https' : 'http';
   // Info (20240318 - Luphia) somtimes the protocol would be 'https,http' or 'http,https' so we need to split it
   const protocol = tmpProtocol.toString().split(',')[0];
   if (!host) {
@@ -214,7 +212,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     };
   }
 
-  const { locale, query } = context;
+  const {locale, query} = context;
   const kmId = query.kmId as string;
   // Fetch data from external API
   const response = await fetch(`${protocol}://${host}/api/kms/${kmId}?language=${locale}`);

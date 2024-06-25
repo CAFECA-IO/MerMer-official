@@ -1,7 +1,7 @@
-import { Dispatch, SetStateAction } from 'react';
-import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri';
-import { useTranslation } from 'next-i18next';
-import { TranslateFunction } from '../../interfaces/locale';
+import {Dispatch, SetStateAction} from 'react';
+import {RiArrowLeftSLine, RiArrowRightSLine} from 'react-icons/ri';
+import {useTranslation} from 'next-i18next';
+import {TranslateFunction} from '../../interfaces/locale';
 
 interface IPagination {
   activePage: number;
@@ -9,20 +9,21 @@ interface IPagination {
   totalPages: number;
 }
 
-const Pagination = ({ activePage, setActivePage, totalPages }: IPagination) => {
-  const { t }: { t: TranslateFunction } = useTranslation('common');
+const Pagination = ({activePage, setActivePage, totalPages}: IPagination) => {
+  const {t}: {t: TranslateFunction} = useTranslation('common');
 
-  const pagesArr = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const pagesArr = Array.from({length: totalPages}, (_, i) => i + 1);
 
   const pages = pagesArr.map(page => {
     return (
       <li key={page} className="flex items-center">
         <button
           onClick={() => setActivePage(page)}
-          className={`flex size-[40px] items-center justify-center rounded-full p-4 ${activePage === page
+          className={`flex size-40px items-center justify-center rounded-full p-4 ${
+            activePage === page
               ? 'bg-lightBlue1 text-darkBlue4'
               : 'text-lightWhite1 hover:bg-lightBlue1'
-            }`}
+          }`}
         >
           {page}
         </button>
