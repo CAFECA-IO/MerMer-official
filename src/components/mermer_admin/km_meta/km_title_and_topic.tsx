@@ -1,12 +1,12 @@
-import { Topic } from '@prisma/client';
-import React, { Dispatch, SetStateAction } from 'react';
+import {Topic} from '@prisma/client';
+import React, {Dispatch, SetStateAction} from 'react';
 
 type Props = {
-  kmTitle: string,
-  setKmTitle: Dispatch<SetStateAction<string>>,
-  selectedKmTopic: string,
-  setSeletedKmTopic: Dispatch<SetStateAction<string>>,
-  kmTopics: Topic[]
+  kmTitle: string;
+  setKmTitle: Dispatch<SetStateAction<string>>;
+  selectedKmTopic: string;
+  setSeletedKmTopic: Dispatch<SetStateAction<string>>;
+  kmTopics: Topic[];
 };
 
 export default function KmTitleAndTopic({
@@ -14,9 +14,8 @@ export default function KmTitleAndTopic({
   setKmTitle,
   selectedKmTopic,
   setSeletedKmTopic,
-  kmTopics
+  kmTopics,
 }: Props) {
-
   // 判斷選中的選項是否為初始提示選項
   const isPlaceholderOptionSelected = selectedKmTopic === '';
 
@@ -29,18 +28,14 @@ export default function KmTitleAndTopic({
   };
 
   return (
-    <div className='flex w-full shrink flex-col gap-6 font-Dosis'>
-
+    <div className="flex w-full shrink flex-col gap-6 font-Dosis">
       {/* Title */}
-      <div className='flex flex-col gap-1'>
-        <label
-          className="px-0 text-base"
-          htmlFor="title"
-        >
+      <div className="flex flex-col gap-1">
+        <label className="px-0 text-base" htmlFor="title">
           Title
         </label>
         <input
-          className="h-12 w-full  border-b-[1px] border-lightWhite1 bg-lightGray1/0 px-4 py-3 text-lightWhite1 outline-none placeholder:text-lightGray1"
+          className="h-12 w-full border-b border-lightWhite1 bg-lightGray1/0 px-4 py-3 text-lightWhite1 outline-none placeholder:text-lightGray1"
           type="text"
           id="title"
           placeholder="Article Title"
@@ -50,21 +45,22 @@ export default function KmTitleAndTopic({
       </div>
 
       {/* Topic */}
-      <div className='flex flex-col gap-1'>
-        <label
-          className="px-0 text-base"
-          htmlFor="topic"
-        >
+      <div className="flex flex-col gap-1">
+        <label className="px-0 text-base" htmlFor="topic">
           Topic
         </label>
         <select
-          className={`h-12 w-full border-b-[1px] border-lightWhite1 bg-lightGray1/0 px-4 py-3  outline-none ${isPlaceholderOptionSelected ? 'text-lightGray1' : 'text-lightWhite1'}`}
+          className={`h-12 w-full border-b border-lightWhite1 bg-lightGray1/0 px-4 py-3 outline-none ${
+            isPlaceholderOptionSelected ? 'text-lightGray1' : 'text-lightWhite1'
+          }`}
           id="topic"
           value={selectedKmTopic}
           onChange={handleTopicSelectChange}
         >
-          <option value="" disabled className='text-lightGray1'>Main Topic</option>
-          {kmTopics.map((topic) => (
+          <option value="" disabled className="text-lightGray1">
+            Main Topic
+          </option>
+          {kmTopics.map(topic => (
             <option key={topic.id} value={topic.name}>
               {topic.name}
             </option>

@@ -79,6 +79,8 @@ module.exports = {
         '2px': '2px',
         '3px': '3px',
         '5px': '5px',
+        '6px': '6px',
+        '7px': '7px',
         '10px': '10px',
         '12px': '12px',
         '14px': '14px',
@@ -118,6 +120,7 @@ module.exports = {
         '54px': '54px',
         '55px': '55px',
         '56px': '56px',
+        '58px': '58px',
         '60px': '60px',
         '61px': '61px',
         '62px': '62px',
@@ -144,12 +147,16 @@ module.exports = {
         '122px': '122px',
         '125px': '125px',
         '130px': '130px',
+        '131px': '131px',
         '134px': '134px',
         '140px': '140px',
         '150px': '150px',
         '152px': '152px',
         '160px': '160px',
+        '166px': '166px',
         '180px': '180px',
+        '183px': '183px',
+        '189px': '189px',
         '190px': '190px',
         '200px': '200px',
         '220px': '220px',
@@ -158,6 +165,7 @@ module.exports = {
         '250px': '250px',
         '255px': '255px',
         '260px': '260px',
+        '269px': '269px',
         '270px': '270px',
         '280px': '280px',
         '285px': '285px',
@@ -196,6 +204,7 @@ module.exports = {
         '565px': '565px',
         '570px': '570px',
         '580px': '580px',
+        '585px': '585px',
         '590px': '590px',
         '600px': '600px',
         '620px': '620px',
@@ -334,17 +343,15 @@ module.exports = {
         DEFAULT: {
           css: {
             'code::before': {
-              content: '""'
+              content: '""',
             },
             'code::after': {
-              content: '""'
-            }
-          }
-        }
-      }
+              content: '""',
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require('@tailwindcss/typography')],
 };
