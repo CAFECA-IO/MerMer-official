@@ -1,6 +1,6 @@
 {
   "name": "mermer-official",
-  "version": "0.8.8",
+  "version": "0.8.9",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -22,7 +22,8 @@
     "prisma:studio": "npx dotenv -e .env.local -- prisma studio",
     "production:build": "npx prisma generate && npx prisma migrate deploy && next build",
     "build:withSeed": "npx dotenv -e .env.local -- prisma db seed && next build",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "swarm": "next start -p 10001"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"

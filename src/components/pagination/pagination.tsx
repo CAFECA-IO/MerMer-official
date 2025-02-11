@@ -56,7 +56,7 @@ const Pagination = ({activePage, setActivePage, totalPages}: IPagination) => {
   );
 
   return (
-    <ul className="mt-10 flex items-center justify-center gap-1 text-sm font-medium">
+    <ul className="mt-10 flex flex-wrap items-center justify-center gap-1 text-sm font-medium">
       <li>{previousBtn}</li>
       {pages}
       <li>{nextBtn}</li>

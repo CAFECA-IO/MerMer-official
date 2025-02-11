@@ -138,7 +138,7 @@ const KMDetailPage = ({kmId, kmData}: IPageProps) => {
 
       <NavBar />
 
-      <main className="flex w-screen flex-1 flex-col overflow-x-hidden bg-darkBlue3 pt-20">
+      <main className="flex w-full flex-1 flex-col overflow-x-hidden bg-darkBlue3 pt-20">
         {/* Info: (20240318 - Julian) Structured Data */}
         <ol className="hidden" itemScope itemType="https://schema.org/BreadcrumbList">
           <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
