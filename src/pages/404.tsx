@@ -18,7 +18,7 @@ const NotFoundPage = () => {
 
       <NavBar />
 
-      <main className="flex w-screen flex-1 flex-col bg-darkBlue3 font-Dosis">
+      <main className="flex w-full flex-1 flex-col bg-darkBlue3 font-Dosis">
         <div className="flex min-h-screen w-full flex-col items-center justify-center space-y-20 bg-stars bg-cover bg-no-repeat">
           <Image src="/elements/404.png" alt="404" height={253} width={759} />
           <div className="flex flex-col items-center space-y-2 text-center font-bold text-lightBlue1">

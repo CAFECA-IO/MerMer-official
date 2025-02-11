@@ -64,7 +64,7 @@ const I18n = () => {
 
   const mobileMenu = (
     <ul
-      className={`absolute left-0 top-0 z-10 flex h-260px w-screen flex-col items-center lg:hidden ${
+      className={`absolute left-0 top-0 z-10 flex h-260px w-full flex-col items-center lg:hidden ${
         languageVisible ? 'visible opacity-100' : 'invisible opacity-0'
       } space-y-2 bg-mermerTheme py-3 font-Barlow text-base font-medium shadow-drop transition-all duration-300 ease-in`}
     >
