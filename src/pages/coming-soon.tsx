@@ -17,7 +17,7 @@ const ComingSoonPage = () => {
 
       <NavBar />
 
-      <main className="flex w-screen flex-1 flex-col bg-darkBlue2 font-Dosis">
+      <main className="flex w-full flex-1 flex-col bg-darkBlue2 font-Dosis">
         <div className="flex min-h-screen w-full flex-col justify-center bg-comingSoon bg-cover bg-right-93 bg-no-repeat md:bg-bottom md:px-32">
           <div className="-mt-40 flex flex-col items-center space-y-2 font-bold text-lightWhite1 md:mt-0 md:items-start">
             <h1 className="text-3xl md:text-54px">{t('COMING_SOON_PAGE.TITLE')}</h1>

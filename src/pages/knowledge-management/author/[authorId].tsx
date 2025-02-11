@@ -5,32 +5,27 @@ import Footer from '../../../components/footer/footer';
 import Breadcrumb from '../../../components/breadcrumb/breadcrumb';
 import KMPageBody from '../../../components/km_page_body/km_page_body';
 // import { getAuthor, getPostsByAuthor, getCategories, getAuthors } from '../../../lib/posts';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { GetServerSideProps } from 'next';
-import { IKnowledgeManagement } from '../../../interfaces/km_article';
-import { ICrumbItem } from '../../../interfaces/crumb_item';
-import { MERURL } from '../../../constants/url';
-import { IAuthor } from '../../../interfaces/author_data';
-import { useTranslation } from 'next-i18next';
-import { TranslateFunction } from '../../../interfaces/locale';
-
+import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
+import {GetServerSideProps} from 'next';
+import {IKnowledgeManagement} from '../../../interfaces/km_article';
+import {ICrumbItem} from '../../../interfaces/crumb_item';
+import {MERURL} from '../../../constants/url';
+import {IAuthor} from '../../../interfaces/author_data';
+import {useTranslation} from 'next-i18next';
+import {TranslateFunction} from '../../../interfaces/locale';
 
 type Props = {
   author: IAuthor;
   posts: IKnowledgeManagement[];
   categories: string[];
-}
-const AuthorPage = ({
-  author,
-  posts,
-  categories,
-}: Props) => {
-  const { t }: { t: TranslateFunction } = useTranslation('common');
+};
+const AuthorPage = ({author, posts, categories}: Props) => {
+  const {t}: {t: TranslateFunction} = useTranslation('common');
 
   const crumbs: ICrumbItem[] = [
-    { label: t('NAV_BAR.HOME'), path: MERURL.HOME },
-    { label: t('NAV_BAR.KNOWLEDGE_MANAGEMENT'), path: MERURL.KM },
-    { label: t(author.name), path: `${MERURL.AUTHOR}/${author.id}` },
+    {label: t('NAV_BAR.HOME'), path: MERURL.HOME},
+    {label: t('NAV_BAR.KNOWLEDGE_MANAGEMENT'), path: MERURL.KM},
+    {label: t(author.name), path: `${MERURL.AUTHOR}/${author.id}`},
   ];
 
   return (
@@ -42,7 +37,7 @@ const AuthorPage = ({
 
       <NavBar />
 
-      <main className="flex w-screen flex-1 flex-col py-20 font-Dosis">
+      <main className="flex w-full flex-1 flex-col py-20 font-Dosis">
         <div className="relative flex w-full items-center justify-center bg-authorIntro bg-150 bg-center bg-no-repeat px-5 py-10 lg:h-440px lg:px-20">
           {/* Info: (20230718 - Julian) author information */}
           <div className="flex flex-1 flex-col items-center space-y-4 rounded-3xl bg-glass p-12">
@@ -51,7 +46,7 @@ const AuthorPage = ({
               <Image
                 src={author.avatar}
                 fill
-                style={{ objectFit: 'cover' }}
+                style={{objectFit: 'cover'}}
                 alt={`${author.id}_avatar`}
               />
             </div>
@@ -73,7 +68,7 @@ const AuthorPage = ({
           {posts.length > 0 ? (
             <KMPageBody posts={posts} categories={categories} />
           ) : (
-            <div>Loading...</div>  // 如果沒有畫面就load
+            <div>Loading...</div> // 如果沒有畫面就load
           )}
         </div>
       </main>
@@ -83,12 +78,9 @@ const AuthorPage = ({
   );
 };
 
-
-export const getServerSideProps: GetServerSideProps = (async (context) => {
-  const host = context.req.headers.host
-  const tmpProtocol = context.req.headers["x-forwarded-proto"]
-    ? "https"
-    : "http";
+export const getServerSideProps: GetServerSideProps = async context => {
+  const host = context.req.headers.host;
+  const tmpProtocol = context.req.headers['x-forwarded-proto'] ? 'https' : 'http';
   // Info (20240318 - Luphia) somtimes the protocol would be 'https,http' or 'http,https' so we need to split it
   const protocol = tmpProtocol.toString().split(',')[0];
   if (!host) {
@@ -96,7 +88,7 @@ export const getServerSideProps: GetServerSideProps = (async (context) => {
       notFound: true,
     };
   }
-  const { locale, query } = context;
+  const {locale, query} = context;
   const authorId = query.authorId as string;
   // Fetch data from external API
   const response = await fetch(`${protocol}://${host}/api/users/${authorId}?language=${locale}`);
@@ -106,7 +98,7 @@ export const getServerSideProps: GetServerSideProps = (async (context) => {
     };
   }
 
-  const posts = await response.json() as IKnowledgeManagement[];
+  const posts = (await response.json()) as IKnowledgeManagement[];
   if (!posts) {
     return {
       notFound: true,
@@ -114,7 +106,7 @@ export const getServerSideProps: GetServerSideProps = (async (context) => {
   }
 
   const author = posts[0].author;
-  const categories = posts.flatMap((post) => post.category);
+  const categories = posts.flatMap(post => post.category);
   // Pass data to the page via props
   return {
     props: {
@@ -124,7 +116,6 @@ export const getServerSideProps: GetServerSideProps = (async (context) => {
       ...(await serverSideTranslations(locale as string, ['common'])),
     },
   };
-})
-
+};
 
 export default AuthorPage;

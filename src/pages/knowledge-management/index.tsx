@@ -60,7 +60,7 @@ const KnowledgeManagementPage = ({posts, categories}: IPageProps) => {
 
       <NavBar />
 
-      <main className="flex w-screen flex-1 flex-col py-20 font-Dosis">
+      <main className="flex w-full flex-1 flex-col py-20 font-Dosis">
         {structuredData}
 
         {/* Info: (20230717 - Julian) KM Title */}

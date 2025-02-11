@@ -82,7 +82,7 @@ export function Alert({
 
 export function AlertsWrapper({children}: {children: React.ReactNode}) {
   return (
-    <div className="pointer-events-none fixed left-0 top-0 z-50 mx-auto flex w-screen flex-col items-center justify-start gap-4">
+    <div className="pointer-events-none fixed left-0 top-0 z-50 mx-auto flex w-full flex-col items-center justify-start gap-4">
       {children}
     </div>
   );
