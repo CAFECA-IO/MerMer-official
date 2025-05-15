@@ -38,12 +38,10 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
     .replace(
       /<a /g,
       `<a class="text-lightBlue1 underline hover:text-indigo-300" target="_blank" rel="noopener noreferrer" `
-    ) /* Info: (20230719 - Julian) 程式碼區塊 & copy button */
+    ) /* Info: (20230719 - Julian) 程式碼區塊 */
     .replace(
       /<pre><code class="([^"]+)">([^<]+)<\/code><\/pre>/g,
-      /* ToDo: (20230721 - Julian) copy button
-       * <button class="absolute opacity-70 top-4 text-sm right-4 hover:opacity-100">Copy</button> */
-      `<pre class="$1"><code class="text-sm $1">$2</code></pre>`
+      `<pre class="$1 line-numbers relative"><code class="text-sm $1">$2</code></pre>`
     )
     .replace(/<code>/g, `<code class="px-1 bg-lightGray1">`)
     /* Info: (20230719 - Julian) 表格樣式 */
