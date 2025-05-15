@@ -7,6 +7,7 @@ import {timestampToString} from '../../lib/common';
 import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
 import {MERURL} from '../../constants/url';
+import PrismLoader from '../../components/prism_loader/prism_loader';
 
 interface IKMArticleProps {
   title: string;
@@ -37,12 +38,10 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
     .replace(
       /<a /g,
       `<a class="text-lightBlue1 underline hover:text-indigo-300" target="_blank" rel="noopener noreferrer" `
-    ) /* Info: (20230719 - Julian) 程式碼區塊 & copy button */
+    ) /* Info: (20230719 - Julian) 程式碼區塊 */
     .replace(
       /<pre><code class="([^"]+)">([^<]+)<\/code><\/pre>/g,
-      /* ToDo: (20230721 - Julian) copy button
-       * <button class="absolute opacity-70 top-4 text-sm right-4 hover:opacity-100">Copy</button> */
-      `<pre class="bg-mermerTheme my-4 p-4 overflow-x-scroll relative"><code class="text-sm $1">$2</code></pre>`
+      `<pre class="$1 line-numbers relative"><code class="text-sm $1">$2</code></pre>`
     )
     .replace(/<code>/g, `<code class="px-1 bg-lightGray1">`)
     /* Info: (20230719 - Julian) 表格樣式 */
@@ -78,6 +77,7 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
           {/* Info: (20230718 - Julian) content */}
           <div className="text-base leading-loose lg:text-lg">
             <article dangerouslySetInnerHTML={{__html: parsedBody}} />
+            <PrismLoader />
           </div>
         </div>
       </div>
