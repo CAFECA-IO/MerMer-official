@@ -23,6 +23,9 @@ module.exports = {
 
         buttonHover: 'radial-gradient(53.51% 53.51% at 50.00% 100.00%, #CCF9FF 0%, #00CEDA 100%)',
         dropDownHover: 'linear-gradient(180deg, #30528F 0%, #10164A 100%)',
+
+        divider:
+          'repeating-linear-gradient(135deg, #62DDE4 0px, #62DDE4 1px, transparent 1px, transparent 6px)',
       },
       colors: {
         darkBlue1: '#30528F',
