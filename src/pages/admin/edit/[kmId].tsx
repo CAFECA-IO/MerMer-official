@@ -52,10 +52,10 @@ export default function KmEdit({
   const kmId = router.query.kmId;
   if (typeof kmId !== 'string') return <div>loading...</div>;
 
-  // Info (20240217 - Murky) Editor ref，可以用來直接控制Ｍdx editor
+  // Info: (20240217 - Murky) Editor ref，可以用來直接控制Ｍdx editor
   const editorRef = useRef<MDXEditorMethods>(null);
 
-  // For KmMeta
+  // Info: (20240217 - Murky) For KmMeta
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [isNewImage, setIsNewImage] = useState<boolean>(false);
   const [kmTitle, setKmTitle] = useState<string>(kmTitleFromServer);
@@ -63,14 +63,14 @@ export default function KmEdit({
   const [kmDescription, setKmDescription] = useState<string>(kmDescriptionFromServer);
   const [kmTags, setKmTags] = useState<IKmTag[]>(kmTagsFromServer);
   const [isSaved, setIsSaved] = useState<boolean>(true);
-  // Info (20240216 - Murky) Fetch km
+  // Info: (20240216 - Murky) Fetch km
   useEffect(() => {
-    // Info (20240216 - Murky) 如果沒有從cookie取到userEmail，或者cookie的userEmail跟km的author的email不一樣，就返回上一頁
+    // Info: (20240216 - Murky) 如果沒有從cookie取到userEmail，或者cookie的userEmail跟km的author的email不一樣，就返回上一頁
     const userEmailFromCookies = Cookies.get('userEmail');
     if (!userEmailFromCookies || userEmailFromCookies !== km?.author?.email) {
       // return router.back();
     }
-    // Info (20240216 - Murky) read preview image
+    // Info: (20240216 - Murky) read preview image
     const fetchImage = async () => {
       if (km.picture) {
         const imgResponse = await fetch(km.picture);
@@ -82,9 +82,9 @@ export default function KmEdit({
     fetchImage();
   }, []);
 
-  // Info (20240216 - Murky) Fetch all topic
+  // Info: (20240216 - Murky) Fetch all topic
 
-  // Info (20240220 - Murky) Prevent Unsave leave
+  // Info: (20240220 - Murky) Prevent Unsave leave
   useEffect(() => {
     const warningText = 'You have unsaved changes - are you sure you wish to leave this page?';
 
@@ -109,10 +109,10 @@ export default function KmEdit({
     };
   }, [isSaved]);
 
-  // Info (20240216 - Murky) 如果有圖片路徑卻沒有 圖片load進來，reuturn null
+  // Info: (20240216 - Murky) 如果有圖片路徑卻沒有 圖片load進來，reuturn null
   if (km && km.picture && !selectedImage) return null;
 
-  // Info (20250519 - Julian) ctrl + s to save
+  // Info: (20250519 - Julian) ctrl + s to save
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     event.preventDefault();
 
@@ -192,14 +192,14 @@ export default function KmEdit({
 export const getServerSideProps: GetServerSideProps = async context => {
   const host = context.req.headers.host;
   const tmpProtocol = context.req.headers['x-forwarded-proto'] ? 'https' : 'http';
-  // Info (20240318 - Luphia) somtimes the protocol would be 'https,http' or 'http,https' so we need to split it
+  // Info: (20240318 - Luphia) somtimes the protocol would be 'https,http' or 'http,https' so we need to split it
   const protocol = tmpProtocol.toString().split(',')[0];
   if (!host) {
     return {
       notFound: true,
     };
   }
-  // Fetch data from external API
+  // Info: (20240318 - Luphia) Fetch data from external API
   const kmId = context.query.kmId as string;
   const response = await fetch(`${protocol}://${host}/api/kmEdit/${kmId}`);
 
@@ -217,7 +217,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     };
   }
   const jsonTopic = (await responseTopic.json()) as Topic[];
-  // Pass data to the page via props
+  // Info: (20240318 - Luphia) Pass data to the page via props
   return {
     props: {
       km: json,
