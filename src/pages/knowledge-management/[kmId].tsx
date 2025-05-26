@@ -122,14 +122,14 @@ const KMDetailPage = ({kmId, kmData}: IPageProps) => {
         <meta name="title" property="og:title" content={kmData.title} />
         <meta property="og:type" content="website" />
         <meta name="description" property="og:description" content={description} />
-        <meta name="image" property="og:image" content={`${DOMAIN}${kmData.picture}`} />
+        <meta name="image" property="og:image" content={kmData.picture} />
         <meta property="og:url" content={shareUrl} />
 
         {/* Info: (20230720 - Julian) Twitter */}
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@mermer" />
         <meta name="twitter:creator" content="@mermer" />
-        <meta name="twitter:url" content={DOMAIN} />
+        <meta name="twitter:url" content={shareUrl} />
         <meta name="twitter:title" content={kmData.title} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={kmData.picture} />
