@@ -1,6 +1,6 @@
 {
   "name": "mermer-official",
-  "version": "0.8.11+1",
+  "version": "0.8.12",
   "private": true,
   "scripts": {
     "dev": "next dev",
