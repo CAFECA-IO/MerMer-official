@@ -39,7 +39,7 @@ export const partnersContent = [
   {
     name: 'III',
     image: '/partners/iii.svg',
-    link: 'https://www.iii.org.tw/zh-TW',
+    link: 'https://www.iii.org.tw/',
   },
   {
     name: 'FundSwap',
@@ -54,7 +54,7 @@ export const partnersContent = [
   {
     name: 'FSC',
     image: '/partners/fsc.svg',
-    link: 'https://www.fsc.gov.tw/ch/index.jsp',
+    link: 'https://www.fsc.gov.tw/',
   },
   {
     name: 'AsusCloud',
@@ -79,7 +79,7 @@ export const partnersContent = [
   {
     name: 'AuthenTrend',
     image: '/partners/at.svg',
-    link: 'https://secpaas.org.tw/W_Menu_CompanyDetail?viewkey=KMS6KrYtaNxjakB+Dt7Wj/RwfjNWmY7xsQYj5STGVA0=',
+    link: 'https://authentrend.com/',
   },
 ];
 
