@@ -11,25 +11,6 @@ export const TERM_OF_SERVICE = DOMAIN + '{hash}';
 export const PRIVATE_POLICY = DOMAIN + '{hash}';
 export const DeWT_VALIDITY_PERIOD = 60 * 60; // seconds
 
-export const web3Content = [
-  {
-    title: 'HOME_PAGE.CATCH_UP_BLOCK_1_TITLE',
-    description: 'HOME_PAGE.CATCH_UP_BLOCK_1_DESCRIPTION',
-  },
-  {
-    title: 'HOME_PAGE.CATCH_UP_BLOCK_2_TITLE',
-    description: 'HOME_PAGE.CATCH_UP_BLOCK_2_DESCRIPTION',
-  },
-  {
-    title: 'HOME_PAGE.CATCH_UP_BLOCK_3_TITLE',
-    description: 'HOME_PAGE.CATCH_UP_BLOCK_3_DESCRIPTION',
-  },
-  {
-    title: 'HOME_PAGE.CATCH_UP_BLOCK_4_TITLE',
-    description: 'HOME_PAGE.CATCH_UP_BLOCK_4_DESCRIPTION',
-  },
-];
-
 export const offerContent = [
   {
     title: 'HOME_PAGE.WHAT_WE_OFFER_BLOCK_1_TITLE',
