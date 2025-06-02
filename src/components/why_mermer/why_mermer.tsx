@@ -1,72 +1,58 @@
 import Image from 'next/image';
-import Link from 'next/link';
-import {whyMermerContent, partnersContent} from '../../constants/config';
+import {
+  whyMermerIconSrcs,
+  whyMermerTitleContents,
+  whyMermerDescriptionContents,
+} from '../../constants/config';
 import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
 
 const WhyMermer = () => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
-  const displayWhyMermerContent = whyMermerContent.map(({title, description, image}, i) => {
+  const displayIcons = whyMermerIconSrcs.map(src => {
     return (
-      <div key={i} className="flex w-full flex-col items-center space-y-2 rounded-2xl bg-glass p-4">
-        <Image
-          src={image}
-          alt={title}
-          width={0}
-          height={0}
-          sizes="40"
-          style={{width: 'auto', height: '100%'}}
-        />
-        <div className="flex flex-col items-center">
-          <h1 className="text-2xl font-bold text-lightBlue1">{t(description)}</h1>
-          <p className="text-base font-normal">{t(title)}</p>
-        </div>
-      </div>
+      <Image
+        key={src}
+        src={`/elements/${src}.svg`}
+        alt={`Icon ${src}`}
+        width={0}
+        height={0}
+        style={{width: 'auto', height: '80px'}}
+        className="vertical-center mx-auto"
+      />
     );
   });
 
-  const displayPartners = partnersContent.map(({name, image, hover, link}, i) => {
+  const displayTitles = whyMermerTitleContents.map(title => {
     return (
-      <Link
-        href={link}
-        target="_blank"
-        key={i}
-        className="group relative mt-10 block size-200px p-10 lg:mt-0 lg:h-200px"
-      >
-        <div className="absolute left-6 top-0 flex w-150px items-center justify-center group-hover:opacity-100">
-          <Image
-            src={image}
-            width={0}
-            height={0}
-            style={{width: 'auto', height: '150px'}}
-            alt={name}
-          />
-        </div>
-        <div className="absolute left-6 top-0 flex w-150px items-center justify-center opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100">
-          <Image
-            src={hover}
-            width={0}
-            height={0}
-            style={{width: 'auto', height: '150px'}}
-            alt={name}
-          />
-        </div>
-      </Link>
+      <h1 key={title} className="mt-40px px-16px pt-24px text-center text-xl font-bold">
+        {t(title)}
+      </h1>
+    );
+  });
+
+  const displayDescriptions = whyMermerDescriptionContents.map(description => {
+    return (
+      <p key={description} className="mt-16px px-16px pb-24px text-base font-normal leading-loose">
+        {t(description)}
+      </p>
     );
   });
 
   return (
-    <div className="flex w-full flex-col items-center px-4 py-16 font-Dosis text-lightWhite1 lg:p-20">
-      <h1 className="text-2xl font-bold lg:text-42px">{t('HOME_PAGE.WHY_US_TITLE')}</h1>
-      <div className="mt-16 flex w-full flex-col items-center lg:mt-12">
-        <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {displayWhyMermerContent}
+    <div className="flex w-full flex-col items-center gap-80px bg-mermerTheme p-80px font-Dosis text-lightWhite1">
+      <div className="flex flex-col gap-24px">
+        <div className="flex flex-col gap-10px text-center text-2xl font-bold lg:text-42px">
+          <h2>{t('HOME_PAGE.WHY_CHOOSE_MERMER_TITLE_1')}</h2>
+          <p className="drop-shadow-heightLight">{t('HOME_PAGE.WHY_CHOOSE_MERMER_TITLE_2')}</p>
         </div>
-        {/* Info: (20230629 - Julian) our partners */}
-        <div className="mt-20 flex h-auto w-full flex-wrap items-center justify-center">
-          {displayPartners}
-        </div>
+        <p className="text-lg">{t('HOME_PAGE.WHY_CHOOSE_MERMER_SUBTITLE')}</p>
+      </div>
+      <div className="grid w-full grid-cols-4 gap-x-10px">
+        {displayIcons}
+        {displayTitles}
+        {displayDescriptions}
       </div>
     </div>
   );

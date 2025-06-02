@@ -33,7 +33,7 @@ const NavBar = () => {
       </li>
       <li className="px-2 py-3 hover:cursor-pointer hover:text-lightBlue1">
         <Link href={MERURL.ADMIN} scroll={false}>
-          {'Admin'}
+          {t('NAV_BAR.ADMIN')}
         </Link>
       </li>
       <li className="px-2 py-3 hover:cursor-pointer">

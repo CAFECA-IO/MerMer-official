@@ -11,95 +11,87 @@ export const TERM_OF_SERVICE = DOMAIN + '{hash}';
 export const PRIVATE_POLICY = DOMAIN + '{hash}';
 export const DeWT_VALIDITY_PERIOD = 60 * 60; // seconds
 
-export const web3Content = [
-  {
-    title: 'HOME_PAGE.CATCH_UP_BLOCK_1_TITLE',
-    description: 'HOME_PAGE.CATCH_UP_BLOCK_1_DESCRIPTION',
-  },
-  {
-    title: 'HOME_PAGE.CATCH_UP_BLOCK_2_TITLE',
-    description: 'HOME_PAGE.CATCH_UP_BLOCK_2_DESCRIPTION',
-  },
-  {
-    title: 'HOME_PAGE.CATCH_UP_BLOCK_3_TITLE',
-    description: 'HOME_PAGE.CATCH_UP_BLOCK_3_DESCRIPTION',
-  },
-  {
-    title: 'HOME_PAGE.CATCH_UP_BLOCK_4_TITLE',
-    description: 'HOME_PAGE.CATCH_UP_BLOCK_4_DESCRIPTION',
-  },
+export const whyMermerIconSrcs = ['medal', 'hands', 'bulb', 'object'];
+export const whyMermerTitleContents = [
+  'HOME_PAGE.WHY_CHOOSE_MERMER_1_TITLE',
+  'HOME_PAGE.WHY_CHOOSE_MERMER_2_TITLE',
+  'HOME_PAGE.WHY_CHOOSE_MERMER_3_TITLE',
+  'HOME_PAGE.WHY_CHOOSE_MERMER_4_TITLE',
 ];
-
-export const offerContent = [
-  {
-    title: 'HOME_PAGE.WHAT_WE_OFFER_BLOCK_1_TITLE',
-    description: 'HOME_PAGE.WHAT_WE_OFFER_BLOCK_1_DESCRIPTION',
-    image: '/elements/jodie_young_consultant.png',
-  },
-  {
-    title: 'HOME_PAGE.WHAT_WE_OFFER_BLOCK_2_TITLE',
-    description: 'HOME_PAGE.WHAT_WE_OFFER_BLOCK_2_DESCRIPTION',
-    image: '/elements/jodie_decentralized_identity.png',
-  },
-  {
-    title: 'HOME_PAGE.WHAT_WE_OFFER_BLOCK_3_TITLE',
-    description: 'HOME_PAGE.WHAT_WE_OFFER_BLOCK_3_DESCRIPTION',
-    image: '/elements/jodie_cute_robot.png',
-  },
-];
-
-export const whyMermerContent = [
-  {
-    title: 'HOME_PAGE.WHY_US_BLOCK_1_TITLE',
-    description: '250+',
-    image: '/icons/smiley.svg',
-  },
-  {
-    title: 'HOME_PAGE.WHY_US_BLOCK_2_TITLE',
-    description: '14+',
-    image: '/icons/files.svg',
-  },
-  {
-    title: 'HOME_PAGE.WHY_US_BLOCK_3_TITLE',
-    description: '6+',
-    image: '/icons/medal.svg',
-  },
-  {
-    title: 'HOME_PAGE.WHY_US_BLOCK_4_TITLE',
-    description: '7+',
-    image: '/icons/target.svg',
-  },
+export const whyMermerDescriptionContents = [
+  'HOME_PAGE.WHY_CHOOSE_MERMER_1_DESCRIPTION',
+  'HOME_PAGE.WHY_CHOOSE_MERMER_2_DESCRIPTION',
+  'HOME_PAGE.WHY_CHOOSE_MERMER_3_DESCRIPTION',
+  'HOME_PAGE.WHY_CHOOSE_MERMER_4_DESCRIPTION',
 ];
 
 export const partnersContent = [
   {
+    name: 'NCAF',
+    image: '/partners/ncaf.svg',
+    link: 'https://www.ncafroc.org.tw/',
+  },
+  {
+    name: 'NSTC',
+    image: '/partners/nstc.svg',
+    link: 'https://www.nstc.gov.tw/',
+  },
+  {
+    name: 'III',
+    image: '/partners/iii.svg',
+    link: 'https://www.iii.org.tw/zh-TW',
+  },
+  {
+    name: 'FundSwap',
+    image: '/partners/fundswap.svg',
+    link: 'https://www.fundswap.com.tw/',
+  },
+  {
+    name: 'iSunFA',
+    image: '/partners/isunfa.svg',
+    link: 'https://isunfa.tw/',
+  },
+  {
+    name: 'FSC',
+    image: '/partners/fsc.svg',
+    link: 'https://www.fsc.gov.tw/ch/index.jsp',
+  },
+  {
+    name: 'AsusCloud',
+    image: '/partners/asuscloud.svg',
+    link: 'https://www.asuscloud.com/',
+  },
+  {
+    name: 'Tiger',
+    image: '/partners/tiger.svg',
+    link: 'https://www.itigerup.com/',
+  },
+  {
     name: 'TideBit',
-    image: '/logos/tidebit_g.svg',
-    hover: '/logos/tidebit.svg',
-    link: 'https://tidebit-defi.com',
+    image: '/partners/tidebit.svg',
+    link: 'https://tidebit-defi.com/',
   },
   {
-    name: 'BAIFAAA',
-    image: '/logos/baifaaa_g.svg',
-    hover: '/logos/baifaaa.svg',
-    link: 'https://baifa.io',
+    name: 'BAIFA',
+    image: '/partners/baifa.svg',
+    link: 'https://baifa.io/',
   },
   {
-    name: 'iSunCloud',
-    image: '/logos/isuncloud_g.svg',
-    hover: '/logos/isuncloud.svg',
-    link: 'https://isuncloud.com',
-  },
-  {
-    name: 'CAFECA',
-    image: '/logos/cafeca_g.svg',
-    hover: '/logos/cafeca.svg',
-    link: 'https://cafeca.io',
+    name: 'AuthenTrend',
+    image: '/partners/at.svg',
+    link: 'https://secpaas.org.tw/W_Menu_CompanyDetail?viewkey=KMS6KrYtaNxjakB+Dt7Wj/RwfjNWmY7xsQYj5STGVA0=',
   },
 ];
 
+export const visitTimeOptions = [
+  '10:00 - 11:00',
+  '11:00 - 12:00',
+  '14:00 - 15:00',
+  '15:00 - 16:00',
+];
+
 export const mermerAddressInMap =
-  'https://www.google.com/maps/place/105%E5%8F%B0%E5%8C%97%E5%B8%82%E6%9D%BE%E5%B1%B1%E5%8D%80%E6%B0%91%E7%94%9F%E6%9D%B1%E8%B7%AF%E4%B8%89%E6%AE%B5156%E8%99%9F/@25.0573596,121.5455644,17z/data=!4m16!1m9!3m8!1s0x3442abe5fa651b97:0x102228e5b00fa9d3!2zMTA15Y-w5YyX5biC5p2-5bGx5Y2A5rCR55Sf5p2x6Lev5LiJ5q61MTU26Jmf!3b1!8m2!3d25.0573596!4d121.5477531!10e5!16s%2Fg%2F11j5999y35!3m5!1s0x3442abe5fa651b97:0x102228e5b00fa9d3!8m2!3d25.0573596!4d121.5477531!16s%2Fg%2F11j5999y35?entry=ttu';
+  'https://www.google.com/maps/place/110%E5%8F%B0%E5%8C%97%E5%B8%82%E4%BF%A1%E4%B9%89%E5%8C%BA%E4%BF%A1%E7%BE%A9%E8%B7%AF%E4%BA%94%E6%AE%B5150%E5%B7%B72%E8%99%9F13%E6%A8%93%E4%B9%8B6/data=!4m2!3m1!1s0x3442abb275eba6e1:0x28987dcc88afff9a?sa=X&ved=1t:242&ictx=111';
 
 export const mermerPhone = process.env.REACT_APP_MERMER_PHONE;
 export const mermerEmail = process.env.REACT_APP_MERMER_EMAIL;
