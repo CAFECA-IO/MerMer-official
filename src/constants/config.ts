@@ -11,45 +11,18 @@ export const TERM_OF_SERVICE = DOMAIN + '{hash}';
 export const PRIVATE_POLICY = DOMAIN + '{hash}';
 export const DeWT_VALIDITY_PERIOD = 60 * 60; // seconds
 
-export const offerContent = [
-  {
-    title: 'HOME_PAGE.WHAT_WE_OFFER_BLOCK_1_TITLE',
-    description: 'HOME_PAGE.WHAT_WE_OFFER_BLOCK_1_DESCRIPTION',
-    image: '/elements/jodie_young_consultant.png',
-  },
-  {
-    title: 'HOME_PAGE.WHAT_WE_OFFER_BLOCK_2_TITLE',
-    description: 'HOME_PAGE.WHAT_WE_OFFER_BLOCK_2_DESCRIPTION',
-    image: '/elements/jodie_decentralized_identity.png',
-  },
-  {
-    title: 'HOME_PAGE.WHAT_WE_OFFER_BLOCK_3_TITLE',
-    description: 'HOME_PAGE.WHAT_WE_OFFER_BLOCK_3_DESCRIPTION',
-    image: '/elements/jodie_cute_robot.png',
-  },
+export const whyMermerIconSrcs = ['medal', 'hands', 'bulb', 'object'];
+export const whyMermerTitleContents = [
+  'HOME_PAGE.WHY_CHOOSE_MERMER_1_TITLE',
+  'HOME_PAGE.WHY_CHOOSE_MERMER_2_TITLE',
+  'HOME_PAGE.WHY_CHOOSE_MERMER_3_TITLE',
+  'HOME_PAGE.WHY_CHOOSE_MERMER_4_TITLE',
 ];
-
-export const whyMermerContent = [
-  {
-    title: 'HOME_PAGE.WHY_US_BLOCK_1_TITLE',
-    description: '250+',
-    image: '/icons/smiley.svg',
-  },
-  {
-    title: 'HOME_PAGE.WHY_US_BLOCK_2_TITLE',
-    description: '14+',
-    image: '/icons/files.svg',
-  },
-  {
-    title: 'HOME_PAGE.WHY_US_BLOCK_3_TITLE',
-    description: '6+',
-    image: '/icons/medal.svg',
-  },
-  {
-    title: 'HOME_PAGE.WHY_US_BLOCK_4_TITLE',
-    description: '7+',
-    image: '/icons/target.svg',
-  },
+export const whyMermerDescriptionContents = [
+  'HOME_PAGE.WHY_CHOOSE_MERMER_1_DESCRIPTION',
+  'HOME_PAGE.WHY_CHOOSE_MERMER_2_DESCRIPTION',
+  'HOME_PAGE.WHY_CHOOSE_MERMER_3_DESCRIPTION',
+  'HOME_PAGE.WHY_CHOOSE_MERMER_4_DESCRIPTION',
 ];
 
 export const partnersContent = [

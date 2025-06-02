@@ -19,7 +19,8 @@ module.exports = {
         comingSoon: 'url("/elements/coming_soon_bg.png")',
 
         glass:
-          'linear-gradient(225deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.20) 47.40%, rgba(255, 255, 255, 0.00) 100%)',
+          'linear-gradient(90deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.20) 50%, rgba(255, 255, 255, 0.00) 100%)',
+        stroke: 'radial-gradient(#FFFFFF 5%, transparent 70%)',
 
         buttonHover: 'radial-gradient(53.51% 53.51% at 50.00% 100.00%, #CCF9FF 0%, #00CEDA 100%)',
         dropDownHover: 'linear-gradient(180deg, #30528F 0%, #10164A 100%)',

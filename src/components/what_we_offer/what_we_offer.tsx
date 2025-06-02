@@ -10,7 +10,7 @@ const WhatWeOffer = () => {
     return (
       <div
         key={v}
-        className="flex h-400px w-380px flex-col items-start gap-16px rounded-large bg-glass px-40px py-20px shadow-drop"
+        className="relative flex h-400px w-380px flex-col items-start gap-16px rounded-large bg-glass px-40px py-20px shadow-drop"
       >
         <h1 className="text-3xl font-bold">{t(`HOME_PAGE.WHAT_WE_OFFER_${v}_TITLE`)}</h1>
         <ul className="ml-20px list-outside list-disc text-base leading-loose">
@@ -19,6 +19,10 @@ const WhatWeOffer = () => {
           <li>{t(`HOME_PAGE.WHAT_WE_OFFER_${v}_3`)}</li>
           <li>{t(`HOME_PAGE.WHAT_WE_OFFER_${v}_4`)}</li>
         </ul>
+
+        {/* Info: (20250602 - Julian) Border lines */}
+        <div className="absolute left-0 top-0 h-full w-px bg-stroke"></div>
+        <div className="absolute right-0 top-0 h-full w-px bg-stroke"></div>
       </div>
     );
   });
@@ -49,7 +53,7 @@ const WhatWeOffer = () => {
         </div>
 
         <div className="z-10 ml-auto lg:w-2/3">
-          <div className="ml-auto grid w-max grid-cols-1 gap-y-6 px-80px py-60px lg:grid-cols-2 lg:gap-x-24px lg:gap-y-40px">
+          <div className="grid w-max grid-cols-1 gap-y-6 px-80px py-60px lg:grid-cols-2 lg:gap-x-24px lg:gap-y-40px">
             {displayOfferContent}
           </div>
         </div>
