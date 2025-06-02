@@ -27,28 +27,59 @@ export const whyMermerDescriptionContents = [
 
 export const partnersContent = [
   {
+    name: 'NCAF',
+    image: '/partners/ncaf.svg',
+    link: 'https://www.ncafroc.org.tw/',
+  },
+  {
+    name: 'NSTC',
+    image: '/partners/nstc.svg',
+    link: 'https://www.nstc.gov.tw/',
+  },
+  {
+    name: 'III',
+    image: '/partners/iii.svg',
+    link: 'https://www.iii.org.tw/zh-TW',
+  },
+  {
+    name: 'FundSwap',
+    image: '/partners/fundswap.svg',
+    link: 'https://www.fundswap.com.tw/',
+  },
+  {
+    name: 'iSunFA',
+    image: '/partners/isunfa.svg',
+    link: 'https://isunfa.tw/',
+  },
+  {
+    name: 'FSC',
+    image: '/partners/fsc.svg',
+    link: 'https://www.fsc.gov.tw/ch/index.jsp',
+  },
+  {
+    name: 'AsusCloud',
+    image: '/partners/asuscloud.svg',
+    link: 'https://www.asuscloud.com/',
+  },
+  {
+    name: 'Tiger',
+    image: '/partners/tiger.svg',
+    link: 'https://www.itigerup.com/',
+  },
+  {
     name: 'TideBit',
-    image: '/logos/tidebit_g.svg',
-    hover: '/logos/tidebit.svg',
-    link: 'https://tidebit-defi.com',
+    image: '/partners/tidebit.svg',
+    link: 'https://tidebit-defi.com/',
   },
   {
-    name: 'BAIFAAA',
-    image: '/logos/baifaaa_g.svg',
-    hover: '/logos/baifaaa.svg',
-    link: 'https://baifa.io',
+    name: 'BAIFA',
+    image: '/partners/baifa.svg',
+    link: 'https://baifa.io/',
   },
   {
-    name: 'iSunCloud',
-    image: '/logos/isuncloud_g.svg',
-    hover: '/logos/isuncloud.svg',
-    link: 'https://isuncloud.com',
-  },
-  {
-    name: 'CAFECA',
-    image: '/logos/cafeca_g.svg',
-    hover: '/logos/cafeca.svg',
-    link: 'https://cafeca.io',
+    name: 'AuthenTrend',
+    image: '/partners/at.svg',
+    link: 'https://secpaas.org.tw/W_Menu_CompanyDetail?viewkey=KMS6KrYtaNxjakB+Dt7Wj/RwfjNWmY7xsQYj5STGVA0=',
   },
 ];
 

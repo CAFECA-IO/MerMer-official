@@ -33,10 +33,6 @@ const ContactUsForm = () => {
   );
   const [customerAddress, setCustomerAddress] = useState<string>('');
 
-  // Info: (20230628 - Julian) 驗證信箱格式
-  const emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-  const emailIsValid = emailRule.test(inputEmail);
-
   // Info: (20230628 - Julian) input change handler
   const companyNameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputCompanyName(event.target.value);
@@ -91,11 +87,6 @@ const ContactUsForm = () => {
 
   // Info: (20230629 - Julian) 按下送出按鈕後做的事
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
-    // Info: (20230629 - Julian) 先驗證信箱格式，不符合就直接 return
-    if (!emailIsValid) {
-      return;
-    }
-
     // Info: (20230629 - Julian) 顯示送出中(火箭)動畫
     setAnimation('sending');
     setShowAnim(true);
@@ -163,6 +154,7 @@ const ContactUsForm = () => {
           checked={isSelected}
           onChange={changeHandler}
           className={checkboxStyle}
+          required={selectedVisitTime.length === 0}
         />
         <label htmlFor={option}>{option}</label>
       </div>
@@ -288,7 +280,6 @@ const ContactUsForm = () => {
             onChange={briefChangeHandler}
             value={inputBrief || ''}
             placeholder={t('CONTACT_US_FORM.WHAT_DOES_PLACEHOLDER')}
-            required
           />
         </div>
 
@@ -336,12 +327,7 @@ const ContactUsForm = () => {
         </div>
       </div>
 
-      <MerMerButton
-        className="gap-8px px-10 py-10px"
-        id="submit"
-        type="submit"
-        disabled={emailIsValid ? false : true}
-      >
+      <MerMerButton className="gap-8px px-10 py-10px" id="submit" type="submit">
         <Image src="/icons/sent.svg" alt="" width={24} height={24} />
         <p className="text-lg font-bold">{t('CONTACT_US_FORM.CONTACT_US_SUBMIT')}</p>
       </MerMerButton>
