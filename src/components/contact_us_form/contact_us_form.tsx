@@ -4,6 +4,13 @@ import Image from 'next/image';
 import MerMerButton from '../mermer_button/mermer_button';
 import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
+import {visitTimeOptions} from '../../constants/config';
+import {checkboxStyle, inputStyle, radioStyle} from '../../constants/display';
+
+enum MeetingLocation {
+  OUR_ADDRESS = 'our_address',
+  CUSTOMER_ADDRESS = 'customer_address',
+}
 
 const ContactUsForm = () => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
@@ -12,21 +19,24 @@ const ContactUsForm = () => {
   const now = new Date().toLocaleString('zh-TW', {timeZone: 'Asia/Taipei'});
 
   // Info: (20230629 - Julian) 是否顯示動畫 & 顯示哪個動畫
-  const [showAnim, setShowAnim] = useState(false);
+  const [showAnim, setShowAnim] = useState<boolean>(false);
   const [animation, setAnimation] = useState<string>('');
-  // Info: (20230705 - Julian) 是否顯示 Email 格式錯誤的提示
-  const [showEmailError, setShowEmailError] = useState(false);
 
-  const [inputName, setInputName] = useState('');
+  const [inputCompanyName, setInputCompanyName] = useState<string>('');
+  const [inputName, setInputName] = useState<string>('');
   const [inputPhone, setInputPhone] = useInputNumber('');
-  const [inputEmail, setInputEmail] = useState('');
-  const [inputMessage, setInputMessage] = useState('');
-
-  // Info: (20230628 - Julian) 驗證信箱格式
-  const emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-  const emailIsValid = emailRule.test(inputEmail);
+  const [inputEmail, setInputEmail] = useState<string>('');
+  const [inputBrief, setInputBrief] = useState<string>('');
+  const [selectedVisitTime, setSelectedVisitTime] = useState<string[]>([]);
+  const [selectedMeetingLocation, setSelectedMeetingLocation] = useState<MeetingLocation>(
+    MeetingLocation.OUR_ADDRESS
+  );
+  const [customerAddress, setCustomerAddress] = useState<string>('');
 
   // Info: (20230628 - Julian) input change handler
+  const companyNameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputCompanyName(event.target.value);
+  };
   const nameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputName(event.target.value);
   };
@@ -35,11 +45,15 @@ const ContactUsForm = () => {
   };
   const emailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputEmail(event.target.value);
-    if (emailIsValid) setShowEmailError(false);
-    else setShowEmailError(true);
   };
-  const messageChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInputMessage(event.target.value);
+  const briefChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputBrief(event.target.value);
+  };
+  const customerAddressChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCustomerAddress(event.target.value);
+    if (event.target.value !== '') {
+      setSelectedMeetingLocation(MeetingLocation.CUSTOMER_ADDRESS);
+    }
   };
 
   // Info: (20230629 - Julian) 信件送出失敗的處理
@@ -64,17 +78,15 @@ const ContactUsForm = () => {
     setInputName('');
     setInputPhone('');
     setInputEmail('');
-    setInputMessage('');
+    setInputBrief('');
+    setSelectedVisitTime([]);
+    setSelectedMeetingLocation(MeetingLocation.OUR_ADDRESS);
+    setCustomerAddress('');
     setShowAnim(false);
   };
 
   // Info: (20230629 - Julian) 按下送出按鈕後做的事
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
-    // Info: (20230629 - Julian) 先驗證信箱格式，不符合就直接 return
-    if (!emailIsValid) {
-      return;
-    }
-
     // Info: (20230629 - Julian) 顯示送出中(火箭)動畫
     setAnimation('sending');
     setShowAnim(true);
@@ -83,7 +95,18 @@ const ContactUsForm = () => {
       event.preventDefault();
 
       const emailData = {
-        comment: `<h3>姓名：${inputName}</h3><h3>手機：${inputPhone}</h3><h3>Email：${inputEmail}</h3><h3>意見：${inputMessage}</h3><p>${now}<p>`,
+        comment: `<h3>企業名稱：${inputCompanyName}</h3>
+        <h3>聯絡人：${inputName}</h3>
+        <h3>聯絡電話：${inputPhone}</h3>
+        <h3>電子郵件：${inputEmail}</h3>
+        <h3>產業概述：${inputBrief}</h3>
+        <h3>訪談時段：${selectedVisitTime.map(v => `${v}, `)}</h3>
+        <h3>訪談地點：${
+          selectedMeetingLocation === MeetingLocation.OUR_ADDRESS
+            ? t('FOOTER.ADDRESS')
+            : customerAddress
+        }</h3>
+        <p>${now}<p>`,
       };
 
       // Info: (20230629 - Julian) 3 秒顯示動畫
@@ -110,13 +133,41 @@ const ContactUsForm = () => {
     }
   };
 
+  // Info: (20250602 - Julian) 訪談時段(勾選)
+  const displayedVisitOptions = visitTimeOptions.map(option => {
+    const isSelected = selectedVisitTime.includes(option);
+    const changeHandler = () => {
+      if (isSelected) {
+        // Info: (20250602 - Julian) 如果已經選擇了，就從 selectedVisitTime 中移除
+        setSelectedVisitTime(selectedVisitTime.filter(time => time !== option));
+      } else {
+        // Info: (20250602 - Julian) 如果沒有選擇，就加入 selectedVisitTime
+        setSelectedVisitTime([...selectedVisitTime, option]);
+      }
+    };
+
+    return (
+      <div className="flex items-center gap-12px text-sm hover:cursor-pointer">
+        <input
+          id={option}
+          type="checkbox"
+          checked={isSelected}
+          onChange={changeHandler}
+          className={checkboxStyle}
+          required={selectedVisitTime.length === 0}
+        />
+        <label htmlFor={option}>{option}</label>
+      </div>
+    );
+  });
+
   const animText =
     animation === 'sending' ? null : (
       <p className="text-xl font-bold">
         {animation === 'success'
-          ? t('HOME_PAGE.CONTACT_US_SUCCESS')
+          ? t('CONTACT_US_FORM.CONTACT_US_SUCCESS')
           : animation === 'failed'
-          ? t('HOME_PAGE.CONTACT_US_ERROR')
+          ? t('CONTACT_US_FORM.CONTACT_US_ERROR')
           : ''}
       </p>
     );
@@ -143,93 +194,148 @@ const ContactUsForm = () => {
   ) : null;
 
   const formPart = (
-    <div
-      className={`flex w-full flex-col items-center space-y-4 ${
+    <form
+      onSubmit={submitHandler}
+      className={`flex w-full flex-col items-center gap-48px px-5 py-12 lg:px-12 lg:py-8 ${
         showAnim ? 'opacity-0' : 'opacity-100'
-      } px-5 py-12 transition-opacity duration-300 ease-in-out lg:px-12 lg:py-8`}
+      } transition-opacity duration-300 ease-in-out`}
     >
-      <div className="flex flex-col items-center space-y-2">
-        <h1 className="text-2xl font-bold sm:text-42px">{t('HOME_PAGE.CONTACT_US_TITLE')}</h1>
-        <p className="text-sm sm:text-lg">{t('HOME_PAGE.CONTACT_US_DESCRIPTION')}</p>
+      {/* Info: (20250602 - Julian) 標題 */}
+      <div className="flex flex-col items-stretch space-y-2">
+        <h1 className="text-2xl font-bold sm:text-42px">{t('CONTACT_US_FORM.TITLE')}</h1>
+        <p className="text-sm sm:text-lg">{t('CONTACT_US_FORM.SUBTITLE')}</p>
       </div>
 
-      <form onSubmit={submitHandler} className="flex w-full flex-col items-center space-y-2">
-        <div className="flex w-full flex-col items-start">
-          <label htmlFor="name" className="text-sm sm:text-base">
-            {t('HOME_PAGE.CONTACT_US_NAME')}
+      <div className="grid w-full grid-cols-2 gap-16px">
+        {/* Info: (20250602 - Julian) 企業名稱 */}
+        <div className="flex flex-col items-start">
+          <label htmlFor="company_name" className="text-sm sm:text-base">
+            {t('CONTACT_US_FORM.COMPANY_NAME')}
           </label>
           <input
-            className="mt-2 h-50px w-full bg-darkBlue3 px-4 py-2 text-sm text-lightGray1 sm:text-base"
+            className={`mt-2 ${inputStyle}`}
+            id="company_name"
+            type="text"
+            onChange={companyNameChangeHandler}
+            value={inputCompanyName || ''}
+            placeholder="ASDF Inc."
+          />
+        </div>
+
+        {/* Info: (20250602 - Julian) 聯絡人 */}
+        <div className="flex flex-col items-start">
+          <label htmlFor="name" className="text-sm sm:text-base">
+            {t('CONTACT_US_FORM.NAME')}
+          </label>
+          <input
+            className={`mt-2 ${inputStyle}`}
             id="name"
             type="text"
             onChange={nameChangeHandler}
             value={inputName || ''}
+            placeholder="John"
           />
         </div>
 
-        <div className="flex w-full flex-col items-start">
+        {/* Info: (20250602 - Julian) 聯絡電話 */}
+        <div className="flex flex-col items-start">
           <label htmlFor="phone" className="text-sm sm:text-base">
-            {t('HOME_PAGE.CONTACT_US_PHONE')}
+            {t('CONTACT_US_FORM.PHONE_NUMBER')}
           </label>
           <input
-            className="mt-2 h-50px w-full bg-darkBlue3 px-4 py-2 text-sm text-lightGray1 sm:text-base"
+            className={`mt-2 ${inputStyle}`}
             id="phone"
             type="text"
             onChange={phoneChangeHandler}
             value={inputPhone || ''}
+            placeholder="0912345678"
           />
         </div>
 
-        <div className="flex w-full flex-col items-start">
+        {/* Info: (20250602 - Julian) 電子郵件 */}
+        <div className="flex flex-col items-start">
           <label htmlFor="email" className="text-sm sm:text-base">
-            *{t('HOME_PAGE.CONTACT_US_EMAIL')}
+            {t('CONTACT_US_FORM.EMAIL')}
           </label>
           <input
-            className="mt-2 h-50px w-full bg-darkBlue3 px-4 py-2 text-sm text-lightGray1 sm:text-base"
+            className={`mt-2 ${inputStyle}`}
             id="email"
-            type="text"
+            type="email"
             onChange={emailChangeHandler}
             value={inputEmail || ''}
+            placeholder="john@abc.def"
             required
           />
         </div>
 
-        <div className="flex w-full flex-col items-start">
-          <label htmlFor="message" className="text-sm sm:text-base">
-            {t('HOME_PAGE.CONTACT_US_MESSAGE')}
+        {/* Info: (20250602 - Julian) 產業概述 */}
+        <div className="col-span-2 flex flex-col items-start">
+          <label htmlFor="brief" className="text-sm sm:text-base">
+            {t('CONTACT_US_FORM.WHAT_DOES')}
           </label>
-          <textarea
-            className="mt-2 w-full bg-darkBlue3 px-4 py-2 text-sm text-lightGray1 sm:text-base"
-            id="message"
-            rows={5}
-            wrap="soft"
-            placeholder={t('HOME_PAGE.CONTACT_US_MESSAGE_PLACEHOLDER')}
-            onChange={messageChangeHandler}
-            value={inputMessage || ''}
-            required
+          <input
+            className={`mt-2 ${inputStyle}`}
+            id="brief"
+            type="text"
+            onChange={briefChangeHandler}
+            value={inputBrief || ''}
+            placeholder={t('CONTACT_US_FORM.WHAT_DOES_PLACEHOLDER')}
           />
         </div>
 
-        <div className="flex flex-col items-center space-y-4 pt-5">
-          <p className={showEmailError ? 'opacity-50' : 'opacity-0'}>
-            {t('HOME_PAGE.CONTACT_US_EMAIL_VERIFY')}
-          </p>
-          <MerMerButton
-            className=" space-x-2 px-10 py-10px"
-            id="submit"
-            type="submit"
-            disabled={emailIsValid ? false : true}
-          >
-            <Image src="/icons/sent.svg" alt="" width={24} height={24} />
-            <p className="text-lg font-bold">{t('HOME_PAGE.CONTACT_US_SUBMIT')}</p>
-          </MerMerButton>
+        {/* Info: (20250602 - Julian) 訪談時段 */}
+        <div className="col-span-2 flex flex-col items-start gap-16px">
+          <p>{t('CONTACT_US_FORM.VISIT_TIME')}:</p>
+          <div className="flex items-center gap-24px">{displayedVisitOptions}</div>
         </div>
-      </form>
-    </div>
+
+        {/* Info: (20250602 - Julian) 訪談地點 */}
+        <div className="col-span-2 flex flex-col items-start gap-16px">
+          <p>{t('CONTACT_US_FORM.MEETING_LOCATION')}:</p>
+          {/* Info: (20250602 - Julian) 墨沫地址 */}
+          <div className="flex items-center gap-12px">
+            <input
+              id={MeetingLocation.OUR_ADDRESS}
+              type="radio"
+              name="meeting_location"
+              checked={selectedMeetingLocation === MeetingLocation.OUR_ADDRESS}
+              onChange={() => setSelectedMeetingLocation(MeetingLocation.OUR_ADDRESS)}
+              className={radioStyle}
+            />
+            <label htmlFor={MeetingLocation.OUR_ADDRESS}>{t('FOOTER.ADDRESS')}</label>
+          </div>
+          {/* Info: (20250602 - Julian) 客戶地址輸入框 */}
+          <div className="flex w-full items-center gap-12px">
+            <input
+              id={MeetingLocation.CUSTOMER_ADDRESS}
+              type="radio"
+              name="meeting_location"
+              checked={selectedMeetingLocation === MeetingLocation.CUSTOMER_ADDRESS}
+              onChange={() => setSelectedMeetingLocation(MeetingLocation.CUSTOMER_ADDRESS)}
+              className={radioStyle}
+            />
+            <input
+              id="custom_address"
+              type="text"
+              value={customerAddress}
+              onChange={customerAddressChangeHandler}
+              placeholder={t('CONTACT_US_FORM.OTHER_LOCATION')}
+              className={inputStyle}
+              required={selectedMeetingLocation === MeetingLocation.CUSTOMER_ADDRESS}
+            />
+          </div>
+        </div>
+      </div>
+
+      <MerMerButton className="gap-8px px-10 py-10px" id="submit" type="submit">
+        <Image src="/icons/sent.svg" alt="" width={24} height={24} />
+        <p className="text-lg font-bold">{t('CONTACT_US_FORM.CONTACT_US_SUBMIT')}</p>
+      </MerMerButton>
+    </form>
   );
 
   const displayContactUsForm = (
-    <div className="relative flex h-auto w-full flex-col items-center overflow-hidden rounded-3xl bg-mermerTheme text-center shadow-drop lg:w-540px">
+    <div className="relative flex h-auto w-max flex-col items-center overflow-hidden rounded-3xl bg-mermerTheme text-center shadow-drop">
       {formPart}
       {animPart}
     </div>
@@ -257,8 +363,7 @@ const ContactUsForm = () => {
         />
       </div>
 
-      {/* Info: (20230629 - Julian) 1024px < screen < 1536px 時，縮小 80% 讓表單可以整個呈現在畫面上 */}
-      <div className="z-20 mx-auto flex w-full px-4 py-24 lg:mx-0 lg:ml-auto lg:w-auto lg:scale-80 lg:px-160px lg:py-10 2xl:scale-100">
+      <div className="z-20 mx-auto flex w-full px-4 py-24 lg:mx-0 lg:ml-auto lg:w-auto lg:px-160px lg:py-10 2xl:scale-100">
         {displayContactUsForm}
       </div>
     </div>
