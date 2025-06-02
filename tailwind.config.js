@@ -337,6 +337,9 @@ module.exports = {
       listStyleType: {
         roman: 'lower-roman',
       },
+      content: {
+        checked: 'url("/icons/checkmark.svg")',
+      },
       gridTemplateRows: {
         0: 'repeat(1, minmax(0px, 0fr))',
       },

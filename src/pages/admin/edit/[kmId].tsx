@@ -112,16 +112,6 @@ export default function KmEdit({
   // Info: (20240216 - Murky) 如果有圖片路徑卻沒有 圖片load進來，reuturn null
   if (km && km.picture && !selectedImage) return null;
 
-  // Info: (20250519 - Julian) ctrl + s to save
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    event.preventDefault();
-
-    if (event.ctrlKey && event.key === 's') {
-      event.preventDefault();
-      setIsSaved(false);
-    }
-  };
-
   return (
     km && (
       <>
@@ -132,10 +122,7 @@ export default function KmEdit({
         </Head>
         <Layout>
           {/* <ConfirmWraper /> */}
-          <div
-            onKeyDown={handleKeyDown}
-            className="flex size-full flex-col items-start justify-center gap-6 px-10 py-6"
-          >
+          <div className="flex size-full flex-col items-start justify-center gap-6 px-10 py-6">
             <div className="flex w-full items-center justify-between">
               <div className="flex flex-row items-center justify-center gap-2">
                 <div
