@@ -10,7 +10,7 @@ const WhatWeOffer = () => {
     return (
       <div
         key={v}
-        className="relative flex h-250px w-full flex-col items-start gap-16px rounded-large bg-glass px-40px py-20px shadow-drop md:h-400px md:w-380px"
+        className="relative flex h-350px w-full flex-col items-start gap-16px rounded-large bg-glass px-40px py-20px shadow-drop md:h-400px md:w-380px"
       >
         <h1 className="text-2xl font-bold md:text-3xl">
           {t(`HOME_PAGE.WHAT_WE_OFFER_${v}_TITLE`)}
