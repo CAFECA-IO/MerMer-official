@@ -3,7 +3,7 @@ import {useRouter} from 'next/router';
 import Head from 'next/head';
 import Layout from '../../../components/mermer_admin/layout/admin_layout';
 import {ForwardRefEditor} from '../../../components/mdx_editor/ForwardRefEditor';
-import Image from 'next/image';
+import {FaArrowLeft} from 'react-icons/fa6';
 
 // Editor pacage
 import type {MDXEditorMethods} from '@mdxeditor/editor';
@@ -129,7 +129,7 @@ export default function KmEdit({
                   className="flex cursor-pointer gap-2"
                   onClick={() => router.push('/admin/browse')}
                 >
-                  <Image src="/elements/left-arrow.svg" height={24} width={24} alt="arrow" />
+                  <FaArrowLeft size={24} />
                   <h1 className="text-2xl font-bold">Create new KM</h1>
                 </div>
                 <div>

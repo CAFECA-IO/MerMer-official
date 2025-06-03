@@ -24,7 +24,7 @@ const WhyMermer = () => {
           width={0}
           height={0}
           style={{width: 'auto', height: '60px'}}
-          className="vertical-center mx-auto"
+          className="mx-auto align-middle"
         />
         <div className="flex flex-col items-center gap-16px px-16px py-24px">
           <h2 className="text-xl font-bold">{t(title)}</h2>
@@ -43,7 +43,7 @@ const WhyMermer = () => {
         width={0}
         height={0}
         style={{width: 'auto', height: '80px'}}
-        className="vertical-center mx-auto"
+        className="mx-auto align-middle"
       />
     );
   });

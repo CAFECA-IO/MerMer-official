@@ -33,7 +33,7 @@ const OurPartners = () => {
           alt={partner.name}
           width={0}
           height={0}
-          className="vertical-center mx-auto h-auto max-h-100px w-250px md:h-80px md:w-auto"
+          className="mx-auto h-auto max-h-100px w-250px align-middle md:h-80px md:w-auto"
         />
       </Link>
     );

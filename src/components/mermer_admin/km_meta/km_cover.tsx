@@ -1,5 +1,7 @@
 import React, {useState, Dispatch} from 'react';
 import Image from 'next/image';
+import {FiEdit3} from 'react-icons/fi';
+
 type Props = {
   selectedImage: File | null;
   setSelectedImage: Dispatch<React.SetStateAction<File | null>>;
@@ -36,7 +38,7 @@ export default function KmCover({selectedImage, setSelectedImage, setIsNewImage}
           <>
             <img src={previewImage} alt="Cover Preview" className="size-full object-cover" />
             <div className="absolute bottom-1 right-1 flex size-44px items-center justify-center rounded-full bg-mermerTheme shadow-drop">
-              <Image src="/elements/pen.svg" height={24} width={24} alt="pen" />
+              <FiEdit3 size={24} />
             </div>
           </>
         ) : (
