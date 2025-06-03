@@ -3,6 +3,8 @@ import KmCardDropdown from './km_card_dropdown';
 import Image from 'next/image';
 import {useRouter} from 'next/router';
 import {IAllKmMeta} from '../../../interfaces/km';
+import {PiShareFatFill} from 'react-icons/pi';
+
 type Props = {
   kmId: string;
   published: boolean;
@@ -51,7 +53,6 @@ export default function KmCard({
       />
       <div className="relative h-150px w-183px overflow-hidden">
         <Image src={`${cover}` || '/elements/bluewaves_3.png'} alt="cover" fill={true} />
-        {/* <img src={`${cover}` || '/elements/bluewaves_3.png'} alt="cover" className='size-full object-cover' /> */}
       </div>
       <div className="flex w-585px flex-col items-start justify-center gap-[11px] font-Dosis text-lightWhite1">
         <h2 className="text-2xl font-bold ">{title}</h2>
@@ -73,13 +74,7 @@ export default function KmCard({
               <span>{view}</span>
             </div>
             <div className={`flex items-center justify-center gap-2`}>
-              <Image
-                className="opacity-60"
-                src="/elements/share.svg"
-                height={24}
-                width={24}
-                alt="share"
-              />
+              <PiShareFatFill size={24} className="opacity-60" />
               <span>{share}</span>
             </div>
           </div>

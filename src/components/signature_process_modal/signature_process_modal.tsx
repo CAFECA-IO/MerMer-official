@@ -12,6 +12,7 @@ import {DELAYED_HIDDEN_SECONDS} from '../../constants/display';
 import {useTranslation} from 'next-i18next';
 import {Code, ICode} from '../../constants/code';
 import useStateRef from 'react-usestateref';
+import {RxCrossCircled} from 'react-icons/rx';
 
 type TranslateFunction = (s: string) => string;
 interface ISignatureProcessModal {
@@ -332,13 +333,7 @@ const SignatureProcessModal = ({
             onClick={processClickHandler}
             className="absolute right-6 top-6"
           >
-            <Image
-              className="relative"
-              src="/elements/x-circle.svg"
-              width={30}
-              height={30}
-              alt="x-circle icon"
-            />
+            <RxCrossCircled size={30} />
           </button>
         </div>
 

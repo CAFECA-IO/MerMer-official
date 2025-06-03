@@ -286,14 +286,14 @@ const ContactUsForm = () => {
         {/* Info: (20250602 - Julian) 訪談時段 */}
         <div className="col-span-2 flex flex-col items-start gap-16px">
           <p>{t('CONTACT_US_FORM.VISIT_TIME')}:</p>
-          <div className="flex items-center gap-24px">{displayedVisitOptions}</div>
+          <div className="flex flex-wrap items-center gap-24px">{displayedVisitOptions}</div>
         </div>
 
         {/* Info: (20250602 - Julian) 訪談地點 */}
         <div className="col-span-2 flex flex-col items-start gap-16px">
           <p>{t('CONTACT_US_FORM.MEETING_LOCATION')}:</p>
           {/* Info: (20250602 - Julian) 墨沫地址 */}
-          <div className="flex items-center gap-12px">
+          <div className="flex items-center gap-12px text-sm sm:text-base">
             <input
               id={MeetingLocation.OUR_ADDRESS}
               type="radio"
@@ -363,7 +363,7 @@ const ContactUsForm = () => {
         />
       </div>
 
-      <div className="z-20 mx-auto flex w-full px-4 py-24 lg:mx-0 lg:ml-auto lg:w-auto lg:px-160px lg:py-10 2xl:scale-100">
+      <div className="z-20 flex w-full justify-center px-4 py-24 lg:ml-auto lg:w-auto lg:px-160px lg:py-10">
         {displayContactUsForm}
       </div>
     </div>

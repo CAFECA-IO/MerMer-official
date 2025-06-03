@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import Image from 'next/image';
 import Layout from '../../../components/mermer_admin/layout/admin_layout';
 import Head from 'next/head';
 import KmCardDisplay from '../../../components/mermer_admin/km_card/km_card_display';
@@ -13,6 +12,8 @@ import {useAlerts} from '../../../contexts/alert_context';
 import {useRouter} from 'next/router';
 import Cookies from 'js-cookie';
 import {GetServerSideProps} from 'next';
+import {FaPlus} from 'react-icons/fa6';
+
 type Props = {
   allKmFromServer?: IAllKmMeta;
 };
@@ -166,7 +167,7 @@ export default function index({allKmFromServer}: Props) {
               className="flex size-44px items-center justify-center rounded-full"
               onClick={addNewKm}
             >
-              <Image src="/elements/plus.svg" width={16} height={16} alt="Plus sign" />
+              <FaPlus size={16} />
             </MerMerButton>
           </div>
           <KmCardDisplay

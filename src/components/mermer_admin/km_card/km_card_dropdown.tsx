@@ -4,6 +4,8 @@ import MerMerDropdownButton from '../../mermer_button/mermer_dropdown_button';
 import useConfirm from '../../../contexts/confirm_context/use_confirm';
 import {useAlerts} from '../../../contexts/alert_context';
 import {IAllKmMeta, IKmMeta} from '../../../interfaces/km';
+import {FiTrash2} from 'react-icons/fi';
+import {IoIosMore} from 'react-icons/io';
 
 type Props = {
   kmId: string;
@@ -144,7 +146,7 @@ export default function KmCardDropdown({
   return (
     <div className={`${className} z-50`}>
       <button onClick={toggleDropdown} className="size-44px bg-darkBlue1/0 p-7px">
-        <Image src="/elements/more-horizontal.svg" height={30} width={30} alt="More icon" />
+        <IoIosMore size={30} />
       </button>
       {isOpen && (
         <div className="absolute -left-96px flex flex-col items-center justify-center rounded-[5px] bg-mermerTheme shadow-drop">
@@ -173,7 +175,7 @@ export default function KmCardDropdown({
             className="flex h-44px w-131px rounded-b-[5px]"
           >
             <div className="flex items-center justify-center gap-2">
-              <Image src="/elements/delete.svg" height={20} width={20} alt="delete icon" />
+              <FiTrash2 size={20} />
               <span className="text-base">Delete</span>
             </div>
           </MerMerDropdownButton>

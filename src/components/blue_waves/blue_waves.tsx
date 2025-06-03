@@ -12,27 +12,26 @@ const BlueWaves = () => {
     /* Info: (20230707 - Julian) Blue Waves background 在這一層 */
     <div className="flex w-full flex-col bg-mobileWaves bg-contain bg-top-12 bg-no-repeat md:hidden">
       {/* Info: (20230707 - Julian) Main text */}
-      <div className="flex flex-col items-center space-y-12 px-4 py-60">
-        <h1 className="text-2xl font-bold">
-          {t('HOME_PAGE.MAIN_TITLE_1')}
-          <span className="text-lightBlue1">{t('HOME_PAGE.MAIN_TITLE_HIGHLIGHT')}</span>
-          {t('HOME_PAGE.MAIN_TITLE_2')}
-        </h1>
+      <div className="flex h-600px flex-col items-center justify-end space-y-64px px-16px py-48px">
+        <div className="text-2xl font-bold">
+          <p>
+            {t('HOME_PAGE.MAIN_TITLE_1_1')}
+            <span className="text-lightBlue1">{t('HOME_PAGE.MAIN_TITLE_1_2')}</span>
+            {t('HOME_PAGE.MAIN_TITLE_1_3')}
+          </p>
+          <p>
+            {t('HOME_PAGE.MAIN_TITLE_2_1')}
+            <span className="text-lightBlue1">{t('HOME_PAGE.MAIN_TITLE_2_2')}</span>
+            {t('HOME_PAGE.MAIN_TITLE_2_3')}
+          </p>
+        </div>
         <p className="text-sm">{t('HOME_PAGE.MAIN_DESCRIPTION')}</p>
         <Link href={MERURL.CONTACT_US} scroll={false}>
           <MerMerButton className="space-x-2 px-10 py-10px">
             <Image src="/icons/star.svg" alt="" width={24} height={24} />
-            <p>{t('NAV_BAR.CONTACT_US')}</p>
+            <p>{t('HOME_PAGE.CTA_BTN')}</p>
           </MerMerButton>
         </Link>
-      </div>
-
-      {/* Info: (20230627 - Julian) Important Notice */}
-      <div className="w-full px-4">
-        <div className="flex flex-col items-center space-y-12 rounded-large bg-glass p-10 backdrop-blur-xl">
-          <h1 className="text-xl text-lightBlue1">{t('HOME_PAGE.NOTICE_TITLE')}</h1>
-          <p className="text-lg">{t('HOME_PAGE.NOTICE_DESCRIPTION')}</p>
-        </div>
       </div>
     </div>
   );
@@ -44,7 +43,7 @@ const BlueWaves = () => {
 
       {/* Info: (20230707 - Julian) Main text */}
       <div className="z-20 flex h-800px w-full">
-        <div className="flex w-3/5 flex-col items-start justify-center gap-64px px-20 py-28">
+        <div className="flex w-3/5 min-w-500px flex-col items-start justify-center gap-64px px-20 py-28">
           <div className="flex flex-col gap-48px">
             <div className="text-54px font-bold leading-snug">
               <p>
