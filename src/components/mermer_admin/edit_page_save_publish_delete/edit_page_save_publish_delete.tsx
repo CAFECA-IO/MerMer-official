@@ -1,12 +1,12 @@
 import React, {Dispatch, useEffect} from 'react';
 import MerMerButton from '../../mermer_button/mermer_button';
-import Image from 'next/image';
 import useConfirm from '../../../contexts/confirm_context/use_confirm';
 import {IKmForSave, IKmTag} from '../../../interfaces/km';
 import {useAlerts} from '../../../contexts/alert_context';
 import type {MDXEditorMethods} from '@mdxeditor/editor';
 import {useRouter} from 'next/router';
 import {merMerKMViewerConfig} from '../../../constants/config';
+import {FiTrash2} from 'react-icons/fi';
 
 type Props = {
   kmId: string;
@@ -147,7 +147,7 @@ export default function EditPageSavePublishDelete({
         className="flex size-44px items-center justify-center rounded-full"
         onClick={handleDeleteOnclick}
       >
-        <Image src="/elements/delete.svg" height={20} width={20} alt="trash icon" />
+        <FiTrash2 size={20} />
       </MerMerButton>
     </div>
   );

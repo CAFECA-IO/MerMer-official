@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import {FormEvent} from 'react';
+import {FiSearch} from 'react-icons/fi';
 // import { useRouter } from "next/navigation"
 
 interface Props {
@@ -20,7 +20,7 @@ export default function SearchBar({search, setSearch}: Props) {
       onSubmit={handleSubmit}
     >
       {/* input要用動態setSearch變換值 */}
-      <Image src="/elements/search.svg" width={24} height={24} alt="Searc Icon" />
+      <FiSearch size={24} />
       <input
         type="text"
         value={search}
