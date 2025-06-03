@@ -5,7 +5,7 @@ import Layout from '../../../components/mermer_admin/layout/admin_layout';
 import {ForwardRefEditor} from '../../../components/mdx_editor/ForwardRefEditor';
 import {FaArrowLeft} from 'react-icons/fa6';
 
-// Editor pacage
+// Info: (20240217 - Murky) Editor pacage
 import type {MDXEditorMethods} from '@mdxeditor/editor';
 import KmMeta from '../../../components/mermer_admin/km_meta/km_meta';
 import Tags from '../../../components/mermer_admin/tags/tags';
