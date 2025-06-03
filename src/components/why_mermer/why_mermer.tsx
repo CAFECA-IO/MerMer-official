@@ -10,6 +10,30 @@ import {TranslateFunction} from '../../interfaces/locale';
 const WhyMermer = () => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
+  const displayBlocks = Array.from({length: 4}, (_, i) => i).map(index => {
+    const src = whyMermerIconSrcs[index];
+    const title = whyMermerTitleContents[index];
+    const description = whyMermerDescriptionContents[index];
+
+    return (
+      <div key={index} className="flex flex-col items-center">
+        <Image
+          key={src}
+          src={`/elements/${src}.svg`}
+          alt={`Icon ${src}`}
+          width={0}
+          height={0}
+          style={{width: 'auto', height: '60px'}}
+          className="vertical-center mx-auto"
+        />
+        <div className="flex flex-col items-center gap-16px px-16px py-24px">
+          <h2 className="text-xl font-bold">{t(title)}</h2>
+          <p className="text-sm font-normal leading-loose">{t(description)}</p>
+        </div>
+      </div>
+    );
+  });
+
   const displayIcons = whyMermerIconSrcs.map(src => {
     return (
       <Image
@@ -26,9 +50,9 @@ const WhyMermer = () => {
 
   const displayTitles = whyMermerTitleContents.map(title => {
     return (
-      <h1 key={title} className="mt-40px px-16px pt-24px text-center text-xl font-bold">
+      <h2 key={title} className="mt-40px px-16px pt-24px text-center text-xl font-bold">
         {t(title)}
-      </h1>
+      </h2>
     );
   });
 
@@ -41,19 +65,25 @@ const WhyMermer = () => {
   });
 
   return (
-    <div className="flex w-full flex-col items-center gap-80px bg-mermerTheme p-80px font-Dosis text-lightWhite1">
+    <div className="flex w-full flex-col items-center gap-40px bg-mermerTheme px-16px py-48px font-Dosis text-lightWhite1 md:gap-80px md:p-80px">
       <div className="flex flex-col gap-24px">
-        <div className="flex flex-col gap-10px text-center text-2xl font-bold lg:text-42px">
-          <h2>{t('HOME_PAGE.WHY_CHOOSE_MERMER_TITLE_1')}</h2>
-          <p className="drop-shadow-heightLight">{t('HOME_PAGE.WHY_CHOOSE_MERMER_TITLE_2')}</p>
+        <div className="flex flex-col gap-10px text-center text-2xl font-bold">
+          <h2 className="text-42px md:text-54px">{t('HOME_PAGE.WHY_CHOOSE_MERMER_TITLE_1')}</h2>
+          <p className="text-2xl drop-shadow-heightLight md:text-42px">
+            {t('HOME_PAGE.WHY_CHOOSE_MERMER_TITLE_2')}
+          </p>
         </div>
-        <p className="text-lg">{t('HOME_PAGE.WHY_CHOOSE_MERMER_SUBTITLE')}</p>
+        <p className="text-sm md:text-lg">{t('HOME_PAGE.WHY_CHOOSE_MERMER_SUBTITLE')}</p>
       </div>
-      <div className="grid w-full grid-cols-4 gap-x-10px">
+      {/* Info:(20250603 - Julian) Desktop view */}
+      <div className="hidden w-full grid-cols-4 gap-x-10px md:grid">
         {displayIcons}
         {displayTitles}
         {displayDescriptions}
       </div>
+
+      {/* Info:(20250603 - Julian) Mobile view */}
+      <div className="flex w-full flex-wrap gap-40px md:hidden">{displayBlocks}</div>
     </div>
   );
 };
