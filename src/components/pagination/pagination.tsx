@@ -9,15 +9,13 @@ interface IPagination {
   totalPages: number;
 }
 
-const PageBtn = ({
-  page,
-  clickHandler,
-  isActive,
-}: {
+interface IPageBtnProps {
   page: number;
   clickHandler: () => void;
   isActive: boolean;
-}) => {
+}
+
+const PageBtn = ({page, clickHandler, isActive}: IPageBtnProps) => {
   return (
     <button
       onClick={clickHandler}
@@ -36,14 +34,15 @@ const Pagination = ({activePage, setActivePage, totalPages}: IPagination) => {
   const pagesArr = Array.from({length: totalPages}, (_, i) => i + 1);
 
   const pages = pagesArr
-    .filter(
-      p =>
-        // Info: (20250605 - Julian) 保留當前頁數和前後各一頁
-        (p === activePage || p === activePage - 1 || p === activePage + 1) &&
+    .filter(p => {
+      return (
+        // Info: (20250605 - Julian) 保留當前頁數和前後各兩頁
+        (p === activePage || (p >= activePage - 2 && p <= activePage + 2)) &&
         // Info: (20250605 - Julian) 移除首尾
         p !== totalPages &&
         p !== 1
-    )
+      );
+    })
     .map(page => {
       return (
         <li key={page} className="flex items-center">
