@@ -9,28 +9,59 @@ interface IPagination {
   totalPages: number;
 }
 
+const PageBtn = ({
+  page,
+  clickHandler,
+  isActive,
+}: {
+  page: number;
+  clickHandler: () => void;
+  isActive: boolean;
+}) => {
+  return (
+    <button
+      onClick={clickHandler}
+      className={`flex size-40px items-center justify-center rounded-full p-4 ${
+        isActive ? 'bg-lightBlue1 text-darkBlue4' : 'text-lightWhite1 hover:bg-lightBlue1'
+      }`}
+    >
+      {page}
+    </button>
+  );
+};
+
 const Pagination = ({activePage, setActivePage, totalPages}: IPagination) => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
   const pagesArr = Array.from({length: totalPages}, (_, i) => i + 1);
 
-  const pages = pagesArr.map(page => {
-    return (
-      <li key={page} className="flex items-center">
-        <button
-          onClick={() => setActivePage(page)}
-          className={`flex size-40px items-center justify-center rounded-full p-4 ${
-            activePage === page
-              ? 'bg-lightBlue1 text-darkBlue4'
-              : 'text-lightWhite1 hover:bg-lightBlue1'
-          }`}
-        >
-          {page}
-        </button>
-      </li>
-    );
-  });
+  const pages = pagesArr
+    .filter(
+      p =>
+        // Info: (20250605 - Julian) 保留當前頁數和前後各一頁
+        (p === activePage || p === activePage - 1 || p === activePage + 1) &&
+        // Info: (20250605 - Julian) 移除首尾
+        p !== totalPages &&
+        p !== 1
+    )
+    .map(page => {
+      return (
+        <li key={page} className="flex items-center">
+          <button
+            onClick={() => setActivePage(page)}
+            className={`flex size-40px items-center justify-center rounded-full p-4 ${
+              activePage === page
+                ? 'bg-lightBlue1 text-darkBlue4'
+                : 'text-lightWhite1 hover:bg-lightBlue1'
+            }`}
+          >
+            {page}
+          </button>
+        </li>
+      );
+    });
 
+  // Info: (20250605 - Julian) 上一頁按鈕
   const previousBtn = (
     <button
       onClick={() => setActivePage(activePage - 1)}
@@ -43,6 +74,7 @@ const Pagination = ({activePage, setActivePage, totalPages}: IPagination) => {
     </button>
   );
 
+  // Info: (20250605 - Julian) 下一頁按鈕
   const nextBtn = (
     <button
       onClick={() => setActivePage(activePage + 1)}
@@ -55,10 +87,41 @@ const Pagination = ({activePage, setActivePage, totalPages}: IPagination) => {
     </button>
   );
 
+  // Info: (20250605 - Julian) 第一頁按鈕
+  const firstPageBtn = (
+    <PageBtn page={1} clickHandler={() => setActivePage(1)} isActive={activePage === 1} />
+  );
+
+  // Info: (20250605 - Julian) 最後一頁按鈕
+  const lastPageBtn = totalPages !== 1 && (
+    <PageBtn
+      page={totalPages}
+      clickHandler={() => setActivePage(totalPages)}
+      isActive={activePage === totalPages}
+    />
+  );
+
   return (
     <ul className="mt-10 flex flex-wrap items-center justify-center gap-1 text-sm font-medium">
+      {/* Info: (20250605 - Julian) 上一頁 */}
       <li>{previousBtn}</li>
+
+      {/* Info: (20250605 - Julian) 第一頁 */}
+      <li>{firstPageBtn}</li>
+
+      {/* Info: (20250605 - Julian) 省略號 */}
+      {activePage > 3 && <li className="text-lightWhite1">...</li>}
+
+      {/* Info: (20250605 - Julian) 當前頁數 */}
       {pages}
+
+      {/* Info: (20250605 - Julian) 省略號 */}
+      {activePage < totalPages - 2 && <li className="text-lightWhite1">...</li>}
+
+      {/* Info: (20250605 - Julian) 最後一頁 */}
+      <li>{lastPageBtn}</li>
+
+      {/* Info: (20250605 - Julian) 下一頁 */}
       <li>{nextBtn}</li>
     </ul>
   );
