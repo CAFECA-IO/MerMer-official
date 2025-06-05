@@ -21,6 +21,13 @@ interface IKMArticleProps {
 const KMArticle = ({title, date, content, category, picture, author}: IKMArticleProps) => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
+  // Info: (20250605 - Julian) 從 content 中提取出 h1 標題作為目錄
+  const titleRaw = content.match(/id="([^"]+)/g) || [];
+  const tableOfContents = titleRaw.map(item => {
+    const titleText = item.replace(/(id=")/, '');
+    return titleText;
+  });
+
   const parsedBody = content
     /* Info: (20250516 - Julian) 斜體 */
     .replaceAll(/\u003E\*([^<]+)\*/g, `><em class="italic">$1</em>`)
@@ -66,26 +73,47 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
     </MerMerButton>
   ));
 
+  const displayContent = tableOfContents.map(item => (
+    <a key={item} href={`#${item}`} className="text-sm hover:text-lightBlue1">
+      {item}
+    </a>
+  ));
+
   return (
     <div className="min-h-screen w-full font-Dosis">
-      <div className="flex flex-col space-y-12 p-10 lg:px-64 lg:py-20">
+      <div className="flex flex-col space-y-12 p-10 lg:py-20">
         {/* Info: (20230718 - Julian) picture */}
-        <div className="relative h-300px w-full lg:h-580px">
+        <div className="relative h-300px w-full lg:h-580px lg:px-64">
           <Image src={picture} fill style={{objectFit: 'cover'}} alt="picture" />
         </div>
         {/* Info: (20230718 - Julian) category tags */}
-        <div className="flex flex-wrap items-center gap-2 lg:space-y-0">{displayedCategory}</div>
-        {/* Info: (20230718 - Julian) article */}
-        <div className="flex flex-col space-y-5 lg:space-y-12">
-          {/* Info: (20230718 - Julian) title & date */}
-          <div className="flex flex-col items-center">
-            <h2 className="text-xl font-bold text-lightBlue1">{timestampToString(date).date}</h2>
-            <h1 className="text-4xl font-bold lg:text-42px">{title}</h1>
+        <div className="flex flex-wrap items-center gap-2 lg:space-y-0 lg:px-64">
+          {displayedCategory}
+        </div>
+
+        <div className="flex gap-20px">
+          <div className="flex max-w-[900px] flex-1 items-center">
+            {/* Info: (20230718 - Julian) article */}
+            <div className="flex flex-col space-y-5 lg:space-y-12 lg:px-64">
+              {/* Info: (20230718 - Julian) title & date */}
+              <div className="flex flex-col items-center">
+                <h2 className="text-xl font-bold text-lightBlue1">
+                  {timestampToString(date).date}
+                </h2>
+                <h1 className="text-4xl font-bold lg:text-42px">{title}</h1>
+              </div>
+
+              {/* Info: (20230718 - Julian) content */}
+              <div className="text-base leading-loose lg:max-w-600px lg:text-lg">
+                <article dangerouslySetInnerHTML={{__html: parsedBody}} />
+                <PrismLoader />
+              </div>
+            </div>
           </div>
-          {/* Info: (20230718 - Julian) content */}
-          <div className="text-base leading-loose lg:text-lg">
-            <article dangerouslySetInnerHTML={{__html: parsedBody}} />
-            <PrismLoader />
+
+          {/* Info: (20250605 - Julian) 懸浮目錄 */}
+          <div className="sticky top-100px hidden h-fit max-w-200px shrink-0 flex-col items-center gap-1 rounded bg-cyan-700 p-10px lg:flex">
+            {displayContent}
           </div>
         </div>
       </div>
