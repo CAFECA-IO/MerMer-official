@@ -109,13 +109,13 @@ const Pagination = ({activePage, setActivePage, totalPages}: IPagination) => {
       <li>{firstPageBtn}</li>
 
       {/* Info: (20250605 - Julian) 省略號 */}
-      {activePage > 3 && <li className="text-lightWhite1">...</li>}
+      {activePage > 4 && <li className="text-lightWhite1">...</li>}
 
       {/* Info: (20250605 - Julian) 當前頁數 */}
       {pages}
 
       {/* Info: (20250605 - Julian) 省略號 */}
-      {activePage < totalPages - 2 && <li className="text-lightWhite1">...</li>}
+      {activePage < totalPages - 3 && <li className="text-lightWhite1">...</li>}
 
       {/* Info: (20250605 - Julian) 最後一頁 */}
       <li>{lastPageBtn}</li>
