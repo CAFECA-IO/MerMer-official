@@ -34,9 +34,9 @@ const KMArticle = ({
 
   const parsedBody = content
     /* Info: (20250606 - Julian) 粗體 */
-    .replaceAll(/\u003E\*\*([^<|^\*]+)\*\*/g, `><strong class="font-bold">$1</strong>`)
+    .replaceAll(/\*\*([^\*]+)\*\*/g, `<strong class="font-bold">$1</strong>`)
     /* Info: (20250516 - Julian) 斜體 */
-    .replaceAll(/\u003E\*{([^<|^\*]+)\*/g, `><em class="italic">$1</em>`)
+    .replaceAll(/\*([^\*]+)\*/g, `<em class="italic">$1</em>`)
     /* Info: (20250606 - Julian) scroll-margin => 用於錨點偏移 */
     /* Info: (20230728 - Julian) h1 字體放大加粗 & 以 margin y 實現段落間距 */
     .replaceAll(/<h1(.*?)>/g, `<h1$1 class="scroll-mt-24 font-bold text-4xl my-4">`)
@@ -57,7 +57,7 @@ const KMArticle = ({
     ) /* Info: (20230719 - Julian) 程式碼區塊 */
     .replaceAll(
       /<pre><code class="([^"]+)">([^<]+)<\/code><\/pre>/g,
-      `<pre class="$1 line-numbers relative"><code class="text-sm $1">$2</code></pre>`
+      `<pre class="$1 line-numbers relative max-w-300px lg:max-w-900px"><code class="text-sm $1">$2</code></pre>`
     )
     /* Info: (20250519 - Julian) 高光樣式 */
     .replaceAll(/<code>/g, `<code class="px-1 py-px rounded-sm mx-1 bg-darkBlue1">`)
@@ -93,7 +93,7 @@ const KMArticle = ({
         </div>
 
         <div className="flex gap-20px">
-          <div className="flex flex-1 items-center">
+          <div className="flex items-center">
             {/* Info: (20230718 - Julian) article */}
             <div className="flex flex-col space-y-5 lg:space-y-12 lg:px-20">
               {/* Info: (20230718 - Julian) title & date */}

@@ -5,17 +5,30 @@ interface ITableOfContentsProps {
 }
 
 const TableOfContents = ({contents}: ITableOfContentsProps) => {
-  const displayContent = contents.map(item => (
-    <li key={item.id}>
-      <a href={`#${item.id}`} className="text-sm hover:text-lightBlue1">
+  const displayContent = contents.map(item => {
+    const marginLeft =
+      item.level === 'h1'
+        ? 'ml-0'
+        : item.level === 'h2'
+        ? 'ml-4'
+        : item.level === 'h3'
+        ? 'ml-8'
+        : 'ml-12';
+
+    return (
+      <a
+        key={item.id}
+        href={`#${item.id}`}
+        className={`text-sm hover:text-lightBlue1 ${marginLeft}`}
+      >
         {item.title}
       </a>
-    </li>
-  ));
+    );
+  });
 
   return (
-    <div className="sticky top-100px hidden h-fit max-w-200px shrink-0 flex-col items-center gap-1 rounded bg-cyan-700 px-12px py-6px lg:flex">
-      <ul className="list-none">{displayContent}</ul>
+    <div className="sticky top-100px hidden h-fit max-h-500px max-w-200px shrink-0 flex-col gap-1 overflow-y-auto rounded border px-16px py-8px backdrop-blur-sm lg:flex">
+      {displayContent}
     </div>
   );
 };
