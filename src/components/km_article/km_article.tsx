@@ -31,14 +31,15 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
   const parsedBody = content
     /* Info: (20250516 - Julian) 斜體 */
     .replaceAll(/\u003E\*([^<]+)\*/g, `><em class="italic">$1</em>`)
+    /* Info: (20250606 - Julian) scroll-margin => 用於錨點偏移 */
     /* Info: (20230728 - Julian) h1 字體放大加粗 & 以 margin y 實現段落間距 */
-    .replaceAll(/<h1(.*?)>([^<]+)<\/h1>/g, `<h1$1  class="font-bold text-4xl my-4">$2</h1>`)
+    .replaceAll(/<h1(.*?)>([^<]+)/g, `<h1$1 class="scroll-mt-24 font-bold text-4xl my-4">$2`)
     /* Info: (20230728 - Julian) h2 字體放大加粗 & 以 margin y 實現段落間距 */
-    .replaceAll(/<h2(.*?)>([^<]+)<\/h2>/g, `<h2$1  class="font-bold text-3xl my-4">$2</h2>`)
+    .replaceAll(/<h2(.*?)>([^<]+)/g, `<h2$1 class="scroll-mt-24 font-bold text-3xl my-4">$2`)
     /* Info: (20230719 - Julian) h3 字體放大加粗 & 以 margin y 實現段落間距 */
-    .replaceAll(/<h3(.*?)>([^<]+)<\/h3>/g, `<h3$1  class="font-bold text-2xl my-4">$2</h3>`)
+    .replaceAll(/<h3(.*?)>([^<]+)/g, `<h3$1 class="scroll-mt-24 font-bold text-2xl my-4">$2`)
     /* Info: (20230719 - Julian) h4 字體放大加粗 & 以 margin y 實現段落間距 */
-    .replaceAll(/<h4(.*?)>([^<]+)<\/h4>/g, `<h4$1  class="font-bold text-xl my-4">$2</h4>`)
+    .replaceAll(/<h4(.*?)>([^<]+)/g, `<h4$1 class="font-bold text-xl my-4">$2`)
     /* Info: (20230719 - Julian) ul, ol, li 縮排及列表樣式 */
     .replaceAll(/<ul/g, `<ul class="my-4 lg:ml-4 list-disc"`)
     .replaceAll(/<ol/g, `<ol class="my-4 lg:ml-4 list-roman"`)
@@ -74,27 +75,29 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
   ));
 
   const displayContent = tableOfContents.map(item => (
-    <a key={item} href={`#${item}`} className="text-sm hover:text-lightBlue1">
-      {item}
-    </a>
+    <li key={item}>
+      <a href={`#${item}`} className="text-sm hover:text-lightBlue1">
+        {item}
+      </a>
+    </li>
   ));
 
   return (
     <div className="min-h-screen w-full font-Dosis">
       <div className="flex flex-col space-y-12 p-10 lg:py-20">
         {/* Info: (20230718 - Julian) picture */}
-        <div className="relative h-300px w-full lg:h-580px lg:px-64">
+        <div className="relative h-300px w-full lg:h-580px lg:px-20">
           <Image src={picture} fill style={{objectFit: 'cover'}} alt="picture" />
         </div>
         {/* Info: (20230718 - Julian) category tags */}
-        <div className="flex flex-wrap items-center gap-2 lg:space-y-0 lg:px-64">
+        <div className="flex flex-wrap items-center gap-2 lg:space-y-0 lg:px-20">
           {displayedCategory}
         </div>
 
         <div className="flex gap-20px">
-          <div className="flex max-w-[900px] flex-1 items-center">
+          <div className="flex flex-1 items-center">
             {/* Info: (20230718 - Julian) article */}
-            <div className="flex flex-col space-y-5 lg:space-y-12 lg:px-64">
+            <div className="flex flex-col space-y-5 lg:space-y-12 lg:px-20">
               {/* Info: (20230718 - Julian) title & date */}
               <div className="flex flex-col items-center">
                 <h2 className="text-xl font-bold text-lightBlue1">
@@ -104,7 +107,7 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
               </div>
 
               {/* Info: (20230718 - Julian) content */}
-              <div className="text-base leading-loose lg:max-w-600px lg:text-lg">
+              <div className="text-base leading-loose lg:text-lg">
                 <article dangerouslySetInnerHTML={{__html: parsedBody}} />
                 <PrismLoader />
               </div>
@@ -112,8 +115,8 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
           </div>
 
           {/* Info: (20250605 - Julian) 懸浮目錄 */}
-          <div className="sticky top-100px hidden h-fit max-w-200px shrink-0 flex-col items-center gap-1 rounded bg-cyan-700 p-10px lg:flex">
-            {displayContent}
+          <div className="sticky top-100px hidden h-fit max-w-200px shrink-0 flex-col items-center gap-1 rounded bg-cyan-700 px-12px py-6px lg:flex">
+            <ul className="list-none">{displayContent}</ul>
           </div>
         </div>
       </div>
