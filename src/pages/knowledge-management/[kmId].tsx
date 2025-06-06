@@ -21,13 +21,15 @@ import {ISocialMedia, SocialMediaConstant, ShareSettings} from '../../constants/
 import {useEffect} from 'react';
 import {useRouter} from 'next/router';
 import {increaseViewAfterDelay} from '../../lib/increase_view_after_delay';
+import {ITableOfContentsItem} from '../../interfaces/table_of_contents';
 
 interface IPageProps {
   kmId: string;
   kmData: IKnowledgeManagement;
+  kmContents: ITableOfContentsItem[];
 }
 
-const KMDetailPage = ({kmId, kmData}: IPageProps) => {
+const KMDetailPage = ({kmId, kmData, kmContents}: IPageProps) => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
   const router = useRouter();
 
@@ -138,7 +140,7 @@ const KMDetailPage = ({kmId, kmData}: IPageProps) => {
 
       <NavBar />
 
-      <main className="flex w-full flex-1 flex-col overflow-x-hidden bg-darkBlue3 pt-20">
+      <main className="flex flex-1 flex-col bg-darkBlue3 pt-20">
         {/* Info: (20240318 - Julian) Structured Data */}
         <ol className="hidden" itemScope itemType="https://schema.org/BreadcrumbList">
           <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
@@ -180,6 +182,7 @@ const KMDetailPage = ({kmId, kmData}: IPageProps) => {
           category={kmData.category}
           picture={kmData.picture}
           author={kmData.author}
+          tableOfContents={kmContents ?? []}
         />
 
         <div className="flex flex-col items-center space-y-10 px-5 py-10 lg:flex-row lg:space-y-0 lg:p-20">
@@ -221,17 +224,30 @@ export const getServerSideProps: GetServerSideProps = async context => {
       notFound: true,
     };
   }
+
+  const responseContents = await fetch(`${protocol}://${host}/api/kms/${kmId}/contents`);
+
+  if (!responseContents.ok) {
+    return {
+      notFound: true,
+    };
+  }
+
   const kmData = (await response.json()) as IKnowledgeManagement;
+  const kmContents = (await responseContents.json()) as ITableOfContentsItem[];
+
   if (!kmData) {
     return {
       notFound: true,
     };
   }
+
   // Pass data to the page via props
   return {
     props: {
       kmId,
       kmData,
+      kmContents,
       ...(await serverSideTranslations(locale as string, ['common'])),
     },
   };

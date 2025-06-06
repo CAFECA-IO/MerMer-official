@@ -8,6 +8,8 @@ import {useTranslation} from 'next-i18next';
 import {TranslateFunction} from '../../interfaces/locale';
 import {MERURL} from '../../constants/url';
 import PrismLoader from '../../components/prism_loader/prism_loader';
+import TableOfContents from '../../components/km_article/table_of_contents';
+import {ITableOfContentsItem} from '../../interfaces/table_of_contents';
 
 interface IKMArticleProps {
   title: string;
@@ -16,30 +18,34 @@ interface IKMArticleProps {
   category: string[];
   picture: string;
   author: IAuthor;
+  tableOfContents: ITableOfContentsItem[];
 }
 
-const KMArticle = ({title, date, content, category, picture, author}: IKMArticleProps) => {
+const KMArticle = ({
+  title,
+  date,
+  content,
+  category,
+  picture,
+  author,
+  tableOfContents,
+}: IKMArticleProps) => {
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
-  // Info: (20250605 - Julian) 從 content 中提取出 h1 標題作為目錄
-  const titleRaw = content.match(/id="([^"]+)/g) || [];
-  const tableOfContents = titleRaw.map(item => {
-    const titleText = item.replace(/(id=")/, '');
-    return titleText;
-  });
-
   const parsedBody = content
+    /* Info: (20250606 - Julian) 粗體 */
+    .replaceAll(/\u003E\*\*([^<|^\*]+)\*\*/g, `><strong class="font-bold">$1</strong>`)
     /* Info: (20250516 - Julian) 斜體 */
-    .replaceAll(/\u003E\*([^<]+)\*/g, `><em class="italic">$1</em>`)
+    .replaceAll(/\u003E\*{([^<|^\*]+)\*/g, `><em class="italic">$1</em>`)
     /* Info: (20250606 - Julian) scroll-margin => 用於錨點偏移 */
     /* Info: (20230728 - Julian) h1 字體放大加粗 & 以 margin y 實現段落間距 */
-    .replaceAll(/<h1(.*?)>([^<]+)/g, `<h1$1 class="scroll-mt-24 font-bold text-4xl my-4">$2`)
+    .replaceAll(/<h1(.*?)>/g, `<h1$1 class="scroll-mt-24 font-bold text-4xl my-4">`)
     /* Info: (20230728 - Julian) h2 字體放大加粗 & 以 margin y 實現段落間距 */
-    .replaceAll(/<h2(.*?)>([^<]+)/g, `<h2$1 class="scroll-mt-24 font-bold text-3xl my-4">$2`)
+    .replaceAll(/<h2(.*?)>/g, `<h2$1 class="scroll-mt-24 font-bold text-3xl my-4">`)
     /* Info: (20230719 - Julian) h3 字體放大加粗 & 以 margin y 實現段落間距 */
-    .replaceAll(/<h3(.*?)>([^<]+)/g, `<h3$1 class="scroll-mt-24 font-bold text-2xl my-4">$2`)
+    .replaceAll(/<h3(.*?)>/g, `<h3$1 class="scroll-mt-24 font-bold text-2xl my-4">`)
     /* Info: (20230719 - Julian) h4 字體放大加粗 & 以 margin y 實現段落間距 */
-    .replaceAll(/<h4(.*?)>([^<]+)/g, `<h4$1 class="font-bold text-xl my-4">$2`)
+    .replaceAll(/<h4(.*?)>/g, `<h4$1 class="font-bold text-xl my-4">`)
     /* Info: (20230719 - Julian) ul, ol, li 縮排及列表樣式 */
     .replaceAll(/<ul/g, `<ul class="my-4 lg:ml-4 list-disc"`)
     .replaceAll(/<ol/g, `<ol class="my-4 lg:ml-4 list-roman"`)
@@ -72,14 +78,6 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
     <MerMerButton key={i} className="px-4 py-px">
       <Link href={MERURL.KM + `?category=` + item}>{t(item)}</Link>
     </MerMerButton>
-  ));
-
-  const displayContent = tableOfContents.map(item => (
-    <li key={item}>
-      <a href={`#${item}`} className="text-sm hover:text-lightBlue1">
-        {item}
-      </a>
-    </li>
   ));
 
   return (
@@ -115,9 +113,7 @@ const KMArticle = ({title, date, content, category, picture, author}: IKMArticle
           </div>
 
           {/* Info: (20250605 - Julian) 懸浮目錄 */}
-          <div className="sticky top-100px hidden h-fit max-w-200px shrink-0 flex-col items-center gap-1 rounded bg-cyan-700 px-12px py-6px lg:flex">
-            <ul className="list-none">{displayContent}</ul>
-          </div>
+          <TableOfContents contents={tableOfContents} />
         </div>
       </div>
       {/* Info: (20230718 - Julian) author */}
