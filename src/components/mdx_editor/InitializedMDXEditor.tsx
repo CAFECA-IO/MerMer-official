@@ -73,6 +73,10 @@ export default function InitializedMDXEditor({
             json: 'JSON',
             solidity: 'Solidity',
             xml: 'XML',
+            java: 'Java',
+            csharp: 'C#',
+            go: 'Go',
+            ruby: 'Ruby',
           },
         }),
         diffSourcePlugin({
