@@ -12,6 +12,10 @@ import 'prismjs/components/prism-python'; // Python
 import 'prismjs/components/prism-json'; // JSON
 import 'prismjs/components/prism-solidity'; // Solidity
 import 'prismjs/components/prism-xml-doc'; // XML
+import 'prismjs/components/prism-java'; // Java
+import 'prismjs/components/prism-csharp'; // C#
+import 'prismjs/components/prism-go'; // Go
+import 'prismjs/components/prism-ruby'; // Ruby
 // Info: (20250515 - Julian) 行數編號
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.js';
