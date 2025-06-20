@@ -33,7 +33,7 @@
     "@cafeca/lunar": "^0.5.15",
     "@google-cloud/storage": "^7.7.0",
     "@headlessui/react": "^1.7.18",
-    "@mdxeditor/editor": "^2.5.1",
+    "@mdxeditor/editor": "^3.37.0",
     "@prisma/client": "^5.8.1",
     "@radix-ui/colors": "^3.0.0",
     "@types/js-cookie": "^3.0.6",
