@@ -72,7 +72,9 @@ const KMArticle = ({
     /* Info: (20230719 - Julian) 引用區塊樣式 */
     .replaceAll(/<blockquote/g, `<blockquote class="text-sm my-4 opacity-70"`)
     /* Info: (20250519 - Julian) 分隔線樣式 */
-    .replaceAll(/<hr/g, '<hr class="my-4 border-0 p-3px bg-divider"');
+    .replaceAll(/<hr/g, '<hr class="my-4 border-0 p-3px bg-divider"')
+    /* Info: (20230620 - Julian) 圖片位置 */
+    .replaceAll(/<img /g, `<img class="mx-auto" `);
 
   const displayedCategory = category.map((item, i) => (
     <MerMerButton key={i} className="px-4 py-px">
@@ -81,7 +83,7 @@ const KMArticle = ({
   ));
 
   return (
-    <div className="min-h-screen w-full font-Dosis">
+    <div className="min-h-screen font-Dosis">
       <div className="flex flex-col space-y-12 p-10 lg:py-20">
         {/* Info: (20230718 - Julian) picture */}
         <div className="relative h-300px w-full lg:h-580px lg:px-20">
@@ -92,28 +94,26 @@ const KMArticle = ({
           {displayedCategory}
         </div>
 
-        <div className="flex gap-20px">
-          <div className="flex items-center">
-            {/* Info: (20230718 - Julian) article */}
-            <div className="flex flex-col space-y-5 lg:space-y-12 lg:px-20">
-              {/* Info: (20230718 - Julian) title & date */}
-              <div className="flex flex-col items-center">
-                <h2 className="text-xl font-bold text-lightBlue1">
-                  {timestampToString(date).date}
-                </h2>
-                <h1 className="text-4xl font-bold lg:text-42px">{title}</h1>
-              </div>
+        <div className="relative flex justify-center gap-20px">
+          {/* Info: (20230718 - Julian) article */}
+          <div className="flex max-w-[90vw] flex-col space-y-5 lg:space-y-12 lg:px-20">
+            {/* Info: (20230718 - Julian) title & date */}
+            <div className="flex flex-col items-center">
+              <h2 className="text-xl font-bold text-lightBlue1">{timestampToString(date).date}</h2>
+              <h1 className="text-4xl font-bold lg:text-42px">{title}</h1>
+            </div>
 
-              {/* Info: (20230718 - Julian) content */}
-              <div className="text-base leading-loose lg:text-lg">
-                <article dangerouslySetInnerHTML={{__html: parsedBody}} />
-                <PrismLoader />
-              </div>
+            {/* Info: (20230718 - Julian) content */}
+            <div className="text-base leading-loose lg:text-lg">
+              <article dangerouslySetInnerHTML={{__html: parsedBody}} />
+              <PrismLoader />
             </div>
           </div>
 
-          {/* Info: (20250605 - Julian) 懸浮目錄 */}
-          <TableOfContents contents={tableOfContents} />
+          <div className="absolute right-0 flex h-full justify-end">
+            {/* Info: (20250605 - Julian) 懸浮目錄 */}
+            <TableOfContents contents={tableOfContents} />
+          </div>
         </div>
       </div>
       {/* Info: (20230718 - Julian) author */}
