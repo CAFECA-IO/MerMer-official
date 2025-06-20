@@ -2,14 +2,20 @@ import React, {useState, useEffect} from 'react';
 import {ITableOfContentsItem} from '../../interfaces/table_of_contents';
 import {IoIosList} from 'react-icons/io';
 import MerMerButton from '../mermer_button/mermer_button';
+import useOuterClick from '../../lib/hooks/use_outer_click';
 
 interface ITableOfContentsProps {
   contents: ITableOfContentsItem[];
 }
 
 const TableOfContents = ({contents}: ITableOfContentsProps) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number>(0);
+
+  const {
+    targetRef,
+    componentVisible: isOpen,
+    setComponentVisible: setIsOpen,
+  } = useOuterClick<HTMLDivElement>(false);
 
   const toggleMenu = () => setIsOpen(prev => !prev);
 
@@ -70,7 +76,7 @@ const TableOfContents = ({contents}: ITableOfContentsProps) => {
         key={item.id}
         href={`#${item.id}`}
         onClick={clickHandler}
-        className={`relative flex truncate border-l-2 border-transparent px-10px text-xs hover:border-lightBlue1 hover:text-lightBlue1 ${isActive}`}
+        className={`relative flex break-all border-l-2 border-transparent px-10px text-xs hover:border-lightBlue1 hover:text-lightBlue1 ${isActive}`}
       >
         <span className={`${levelStyle} block opacity-0`}>/</span>
         {item.title}
@@ -79,14 +85,14 @@ const TableOfContents = ({contents}: ITableOfContentsProps) => {
   });
 
   return (
-    <div className="sticky top-100px hidden h-fit lg:flex">
+    <div ref={targetRef} className="sticky top-100px z-10 hidden h-fit lg:flex">
       {/* Info: (20250611 - Julian) 下拉選單 */}
       <div
-        className={`absolute right-80px h-fit max-w-200px shrink-0
+        className={`absolute right-80px h-fit w-200px shrink-0
       ${isOpen ? 'visible translate-x-0 opacity-100' : 'invisible translate-x-1/2 opacity-0'}
       rounded-[15px] bg-mermerTheme px-20px py-36px shadow-lg transition-all duration-300 ease-in-out`}
       >
-        <div className="max-h-250px overflow-y-auto">
+        <div className="max-h-500px overflow-y-auto">
           <div className="flex flex-col gap-8px">{displayContent}</div>
         </div>
       </div>
