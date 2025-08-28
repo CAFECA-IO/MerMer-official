@@ -38,9 +38,9 @@ const KMArticle = ({
       return m.replace(/\*/g, '&#42;'); // Info: (20250828 - Julian) 把 * 轉成 HTML entity
     })
     /* Info: (20250828 - Julian) 粗體 */
-    .replaceAll(/\*\*([^\*&#096;&#096;&#096;]+)\*\*/g, `<strong class="font-bold">$1</strong>`)
+    .replaceAll(/\*\*([^\*]+)\*\*/g, `<strong class="font-bold">$1</strong>`)
     /* Info: (20250828 - Julian) 斜體 */
-    .replaceAll(/\*([^\*&#096;&#096;&#096;]+)\*/g, `<em class="italic">$1</em>`)
+    .replaceAll(/\*([^\*]+)\*/g, `<em class="italic">$1</em>`)
     /* Info: (20250606 - Julian) scroll-margin => 用於錨點偏移 */
     /* Info: (20230728 - Julian) h1 字體放大加粗 & 以 margin y 實現段落間距 */
     .replaceAll(/<h1(.*?)>/g, `<h1$1 class="scroll-mt-24 font-bold text-4xl my-4">`)
