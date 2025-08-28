@@ -33,9 +33,13 @@ const KMArticle = ({
   const {t}: {t: TranslateFunction} = useTranslation('common');
 
   const parsedBody = content
-    /* Info: (20250606 - Julian) 粗體 */
+    /* Info: (20250828 - Julian) 保護程式碼區塊中的 * 字元 */
+    .replaceAll(/```([\s\S]*?)```/g, m => {
+      return m.replace(/\*/g, '&#42;'); // Info: (20250828 - Julian) 把 * 轉成 HTML entity
+    })
+    /* Info: (20250828 - Julian) 粗體 */
     .replaceAll(/\*\*([^\*]+)\*\*/g, `<strong class="font-bold">$1</strong>`)
-    /* Info: (20250516 - Julian) 斜體 */
+    /* Info: (20250828 - Julian) 斜體 */
     .replaceAll(/\*([^\*]+)\*/g, `<em class="italic">$1</em>`)
     /* Info: (20250606 - Julian) scroll-margin => 用於錨點偏移 */
     /* Info: (20230728 - Julian) h1 字體放大加粗 & 以 margin y 實現段落間距 */
@@ -74,7 +78,9 @@ const KMArticle = ({
     /* Info: (20250519 - Julian) 分隔線樣式 */
     .replaceAll(/<hr/g, '<hr class="my-4 border-0 p-3px bg-divider"')
     /* Info: (20230620 - Julian) 圖片位置 */
-    .replaceAll(/<img /g, `<img class="mx-auto" `);
+    .replaceAll(/<img /g, `<img class="mx-auto" `)
+    // Info: (20250828 - Julian) 還原程式碼區塊
+    .replaceAll(/```([\s\S]*?)```/g, `<pre><code>$1</code></pre>`);
 
   const displayedCategory = category.map((item, i) => (
     <MerMerButton key={i} className="px-4 py-px">
