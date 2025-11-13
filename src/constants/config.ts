@@ -91,7 +91,7 @@ export const visitTimeOptions = [
 ];
 
 export const mermerAddressInMap =
-  'https://www.google.com/maps/place/110%E5%8F%B0%E5%8C%97%E5%B8%82%E4%BF%A1%E4%B9%89%E5%8C%BA%E4%BF%A1%E7%BE%A9%E8%B7%AF%E4%BA%94%E6%AE%B5150%E5%B7%B72%E8%99%9F13%E6%A8%93%E4%B9%8B6/data=!4m2!3m1!1s0x3442abb275eba6e1:0x28987dcc88afff9a?sa=X&ved=1t:242&ictx=111';
+  'https://www.google.com/maps/place/110%E8%87%BA%E5%8C%97%E5%B8%82%E4%BF%A1%E7%BE%A9%E5%8D%80%E5%9F%BA%E9%9A%86%E8%B7%AF%E4%B8%80%E6%AE%B5206%E8%99%9F18+%E6%A8%93';
 
 export const mermerPhone = process.env.REACT_APP_MERMER_PHONE;
 export const mermerEmail = process.env.REACT_APP_MERMER_EMAIL;
